@@ -30,30 +30,32 @@ const defaultTheme = createTheme();
 
 const customShadows: Shadows = [...defaultTheme.shadows];
 
+// MITRA FRANCE Brand Colors - French Blue #002395
 export const brand = {
-  50: 'hsl(210, 100%, 95%)',
-  100: 'hsl(210, 100%, 92%)',
-  200: 'hsl(210, 100%, 80%)',
-  300: 'hsl(210, 100%, 65%)',
-  400: 'hsl(210, 98%, 48%)',
-  500: 'hsl(210, 98%, 42%)',
-  600: 'hsl(210, 98%, 55%)',
-  700: 'hsl(210, 100%, 35%)',
-  800: 'hsl(210, 100%, 16%)',
-  900: 'hsl(210, 100%, 21%)',
+  50: '#e6edf9',
+  100: '#b3c5ee',
+  200: '#809de3',
+  300: '#4d75d8',
+  400: '#1a4dcd',
+  500: '#002395', // Primary French Blue
+  600: '#001a70',
+  700: '#00134d',
+  800: '#000c2a',
+  900: '#000507',
 };
 
+// MITRA FRANCE Brand Colors - Neutral Grays
 export const gray = {
-  50: 'hsl(220, 35%, 97%)',
-  100: 'hsl(220, 30%, 94%)',
-  200: 'hsl(220, 20%, 88%)',
-  300: 'hsl(220, 20%, 80%)',
-  400: 'hsl(220, 20%, 65%)',
-  500: 'hsl(220, 20%, 42%)',
-  600: 'hsl(220, 20%, 35%)',
-  700: 'hsl(220, 20%, 25%)',
-  800: 'hsl(220, 30%, 6%)',
-  900: 'hsl(220, 35%, 3%)',
+  50: '#f8f9fa', // Light Gray - Page Background
+  100: '#e9ecef', // Border Gray
+  200: '#dee2e6',
+  300: '#ced4da',
+  400: '#adb5bd',
+  500: '#6c757d', // Gray - Secondary Text
+  600: '#495057',
+  700: '#343a40',
+  800: '#2c3e50', // Text Dark
+  900: '#212529',
 };
 
 export const green = {
@@ -82,17 +84,18 @@ export const orange = {
   900: 'hsl(45, 93%, 12%)',
 };
 
+// MITRA FRANCE Brand Colors - French Red #ED2939
 export const red = {
-  50: 'hsl(0, 100%, 97%)',
-  100: 'hsl(0, 92%, 90%)',
-  200: 'hsl(0, 94%, 80%)',
-  300: 'hsl(0, 90%, 65%)',
-  400: 'hsl(0, 90%, 40%)',
-  500: 'hsl(0, 90%, 30%)',
-  600: 'hsl(0, 91%, 25%)',
-  700: 'hsl(0, 94%, 18%)',
-  800: 'hsl(0, 95%, 12%)',
-  900: 'hsl(0, 93%, 6%)',
+  50: '#fce8ea',
+  100: '#f6b5bc',
+  200: '#f0828e',
+  300: '#ea4f60',
+  400: '#ed2939', // Primary French Red - Accent & CTA
+  500: '#c91f2f', // Dark Red - Active States
+  600: '#a51a26',
+  700: '#81141d',
+  800: '#5d0f14',
+  900: '#39090b',
 };
 
 export const getDesignTokens = (mode: PaletteMode) => {
@@ -105,15 +108,15 @@ export const getDesignTokens = (mode: PaletteMode) => {
     palette: {
       mode,
       primary: {
-        light: brand[200],
-        main: brand[400],
-        dark: brand[700],
-        contrastText: brand[50],
+        light: '#0038d6', // Light Blue for hover states
+        main: '#002395', // French Blue - Primary Brand
+        dark: '#001a70',
+        contrastText: '#ffffff',
         ...(mode === 'dark' && {
-          contrastText: brand[50],
-          light: brand[300],
-          main: brand[400],
-          dark: brand[700],
+          contrastText: '#ffffff',
+          light: '#0038d6',
+          main: '#002395',
+          dark: '#00134d',
         }),
       },
       info: {
@@ -139,13 +142,13 @@ export const getDesignTokens = (mode: PaletteMode) => {
         }),
       },
       error: {
-        light: red[300],
-        main: red[400],
-        dark: red[800],
+        light: '#ff4757',
+        main: '#ED2939', // French Red - Secondary/Accent
+        dark: '#c91f2f', // Dark Red - Active States
         ...(mode === 'dark' && {
-          light: red[400],
-          main: red[500],
-          dark: red[700],
+          light: '#ff4757',
+          main: '#ED2939',
+          dark: '#c91f2f',
         }),
       },
       success: {
@@ -163,15 +166,15 @@ export const getDesignTokens = (mode: PaletteMode) => {
       },
       divider: mode === 'dark' ? alpha(gray[700], 0.6) : alpha(gray[300], 0.4),
       background: {
-        default: 'hsl(0, 0%, 99%)',
-        paper: 'hsl(220, 35%, 97%)',
-        ...(mode === 'dark' && { default: gray[900], paper: 'hsl(220, 30%, 7%)' }),
+        default: '#f8f9fa', // Light Gray - Page Background
+        paper: '#ffffff', // Pure White - Cards
+        ...(mode === 'dark' && { default: gray[900], paper: '#1a1a1a' }),
       },
       text: {
-        primary: gray[800],
-        secondary: gray[600],
+        primary: '#2c3e50', // Text Dark
+        secondary: '#6c757d', // Gray - Secondary Text
         warning: orange[400],
-        ...(mode === 'dark' && { primary: 'hsl(0, 0%, 100%)', secondary: gray[400] }),
+        ...(mode === 'dark' && { primary: '#ffffff', secondary: gray[400] }),
       },
       action: {
         hover: alpha(gray[200], 0.2),
@@ -183,21 +186,25 @@ export const getDesignTokens = (mode: PaletteMode) => {
       },
     },
     typography: {
-      fontFamily: 'Inter, sans-serif',
+      fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
       h1: {
-        fontSize: defaultTheme.typography.pxToRem(48),
-        fontWeight: 600,
+        fontSize: defaultTheme.typography.pxToRem(48), // 3em / 48px
+        fontWeight: 700, // Bold
         lineHeight: 1.2,
-        letterSpacing: -0.5,
+        letterSpacing: '-0.02em',
+        color: '#002395', // French Blue
       },
       h2: {
-        fontSize: defaultTheme.typography.pxToRem(36),
-        fontWeight: 600,
+        fontSize: defaultTheme.typography.pxToRem(35), // 2.2em / 35px
+        fontWeight: 600, // Semibold
         lineHeight: 1.2,
+        color: '#002395', // French Blue
       },
       h3: {
-        fontSize: defaultTheme.typography.pxToRem(30),
-        lineHeight: 1.2,
+        fontSize: defaultTheme.typography.pxToRem(26), // 1.6em / 26px
+        fontWeight: 600, // Semibold
+        lineHeight: 1.5,
+        color: '#002395', // French Blue
       },
       h4: {
         fontSize: defaultTheme.typography.pxToRem(24),
@@ -213,18 +220,23 @@ export const getDesignTokens = (mode: PaletteMode) => {
         fontWeight: 600,
       },
       subtitle1: {
-        fontSize: defaultTheme.typography.pxToRem(18),
+        fontSize: defaultTheme.typography.pxToRem(18), // 1.1em
+        lineHeight: 1.8,
       },
       subtitle2: {
-        fontSize: defaultTheme.typography.pxToRem(14),
+        fontSize: defaultTheme.typography.pxToRem(14), // 0.85em
         fontWeight: 500,
       },
       body1: {
-        fontSize: defaultTheme.typography.pxToRem(14),
+        fontSize: defaultTheme.typography.pxToRem(18), // 1.1em / 18px - Main content
+        lineHeight: 1.8,
+        color: '#2c3e50', // Text Dark
       },
       body2: {
-        fontSize: defaultTheme.typography.pxToRem(14),
+        fontSize: defaultTheme.typography.pxToRem(14), // 0.85em / 14px
         fontWeight: 400,
+        lineHeight: 1.6,
+        color: '#6c757d', // Gray - Secondary Text
       },
       caption: {
         fontSize: defaultTheme.typography.pxToRem(12),
@@ -232,7 +244,7 @@ export const getDesignTokens = (mode: PaletteMode) => {
       },
     },
     shape: {
-      borderRadius: 8,
+      borderRadius: 12, // Brand system uses 8-12px rounded corners
     },
     shadows: customShadows,
   };
@@ -242,10 +254,10 @@ export const colorSchemes = {
   light: {
     palette: {
       primary: {
-        light: brand[200],
-        main: brand[400],
-        dark: brand[700],
-        contrastText: brand[50],
+        light: '#0038d6', // Light Blue for hover
+        main: '#002395', // French Blue - Primary Brand
+        dark: '#001a70',
+        contrastText: '#ffffff',
       },
       info: {
         light: brand[100],
@@ -259,9 +271,9 @@ export const colorSchemes = {
         dark: orange[800],
       },
       error: {
-        light: red[300],
-        main: red[400],
-        dark: red[800],
+        light: '#ff4757',
+        main: '#ED2939', // French Red - Secondary/Accent
+        dark: '#c91f2f', // Dark Red - Active States
       },
       success: {
         light: green[300],
@@ -273,12 +285,12 @@ export const colorSchemes = {
       },
       divider: alpha(gray[300], 0.4),
       background: {
-        default: 'hsl(0, 0%, 99%)',
-        paper: 'hsl(220, 35%, 97%)',
+        default: '#f8f9fa', // Light Gray - Page Background
+        paper: '#ffffff', // Pure White - Cards
       },
       text: {
-        primary: gray[800],
-        secondary: gray[600],
+        primary: '#2c3e50', // Text Dark
+        secondary: '#6c757d', // Gray - Secondary Text
         warning: orange[400],
       },
       action: {
@@ -341,21 +353,22 @@ export const colorSchemes = {
 };
 
 export const typography = {
-  fontFamily: 'Inter, sans-serif',
+  fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
   h1: {
-    fontSize: defaultTheme.typography.pxToRem(48),
-    fontWeight: 600,
+    fontSize: defaultTheme.typography.pxToRem(48), // 3em / 48px
+    fontWeight: 700, // Bold
     lineHeight: 1.2,
-    letterSpacing: -0.5,
+    letterSpacing: '-0.02em',
   },
   h2: {
-    fontSize: defaultTheme.typography.pxToRem(36),
-    fontWeight: 600,
+    fontSize: defaultTheme.typography.pxToRem(35), // 2.2em / 35px
+    fontWeight: 600, // Semibold
     lineHeight: 1.2,
   },
   h3: {
-    fontSize: defaultTheme.typography.pxToRem(30),
-    lineHeight: 1.2,
+    fontSize: defaultTheme.typography.pxToRem(26), // 1.6em / 26px
+    fontWeight: 600, // Semibold
+    lineHeight: 1.5,
   },
   h4: {
     fontSize: defaultTheme.typography.pxToRem(24),
@@ -371,18 +384,21 @@ export const typography = {
     fontWeight: 600,
   },
   subtitle1: {
-    fontSize: defaultTheme.typography.pxToRem(18),
+    fontSize: defaultTheme.typography.pxToRem(18), // 1.1em
+    lineHeight: 1.8,
   },
   subtitle2: {
-    fontSize: defaultTheme.typography.pxToRem(14),
+    fontSize: defaultTheme.typography.pxToRem(14), // 0.85em
     fontWeight: 500,
   },
   body1: {
-    fontSize: defaultTheme.typography.pxToRem(14),
+    fontSize: defaultTheme.typography.pxToRem(18), // 1.1em / 18px
+    lineHeight: 1.8,
   },
   body2: {
-    fontSize: defaultTheme.typography.pxToRem(14),
+    fontSize: defaultTheme.typography.pxToRem(14), // 0.85em / 14px
     fontWeight: 400,
+    lineHeight: 1.6,
   },
   caption: {
     fontSize: defaultTheme.typography.pxToRem(12),
@@ -391,7 +407,7 @@ export const typography = {
 };
 
 export const shape = {
-  borderRadius: 8,
+  borderRadius: 12, // Brand system uses 8-12px rounded corners
 };
 
 // @ts-ignore

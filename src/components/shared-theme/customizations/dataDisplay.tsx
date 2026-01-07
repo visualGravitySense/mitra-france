@@ -230,4 +230,13 @@ export const dataDisplayCustomizations: Components<Theme> = {
       },
     },
   },
+  MuiTypography: {
+    styleOverrides: {
+      h2: {
+        borderBottom: '3px solid #ED2939', // French Red underline (brand system)
+        paddingBottom: '10px',
+        marginBottom: '30px',
+      },
+    },
+  },
 };

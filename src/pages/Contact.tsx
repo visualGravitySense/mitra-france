@@ -53,7 +53,7 @@ export default function Contact() {
       </Typography>
 
       <Grid container spacing={4}>
-        <Grid item xs={12} md={8}>
+        <Grid size={{ xs: 12, md: 8 }}>
           <Card>
             <CardContent sx={{ p: 4 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
@@ -110,7 +110,7 @@ export default function Contact() {
           </Card>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid size={{ xs: 12, md: 4 }}>
           <Stack spacing={3}>
             <Card>
               <CardContent>

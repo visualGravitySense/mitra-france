@@ -72,11 +72,9 @@ export default function Navigation() {
               <Box
                 sx={{
                   fontSize: '1.5rem',
-                  fontWeight: 700,
-                  background: (theme) =>
-                    theme.palette.mode === 'light'
-                      ? 'linear-gradient(30deg, #1976d2, #42a5f5)'
-                      : 'linear-gradient(30deg, #90caf9, #42a5f5)',
+                  fontWeight: 800,
+                  letterSpacing: '-0.02em',
+                  background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
@@ -138,11 +136,9 @@ export default function Navigation() {
                   <Box
                     sx={{
                       fontSize: '1.25rem',
-                      fontWeight: 700,
-                      background: (theme) =>
-                        theme.palette.mode === 'light'
-                          ? 'linear-gradient(30deg, #1976d2, #42a5f5)'
-                          : 'linear-gradient(30deg, #90caf9, #42a5f5)',
+                      fontWeight: 800,
+                      letterSpacing: '-0.02em',
+                      background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
                       backgroundClip: 'text',
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
