@@ -59,15 +59,19 @@ export const surfacesCustomizations: Components<Theme> = {
     styleOverrides: {
       root: ({ theme }) => {
         return {
-          padding: 16,
-          gap: 16,
-          transition: 'all 100ms ease',
-          backgroundColor: gray[50],
-          borderRadius: (theme.vars || theme).shape.borderRadius,
-          border: `1px solid ${(theme.vars || theme).palette.divider}`,
-          boxShadow: 'none',
+          padding: 20,
+          gap: 20,
+          transition: 'all 0.3s ease',
+          backgroundColor: '#ffffff', // Pure White - Cards (brand system)
+          borderRadius: 12, // Brand system uses 12px
+          border: `1px solid ${alpha('#e9ecef', 0.5)}`, // Border Gray
+          boxShadow: '0 2px 10px rgba(0, 0, 0, 0.08)', // Subtle shadow
+          '&:hover': {
+            boxShadow: '0 8px 25px rgba(0, 0, 0, 0.15)',
+          },
           ...theme.applyStyles('dark', {
-            backgroundColor: gray[800],
+            backgroundColor: '#1a1a1a',
+            border: `1px solid ${alpha('#e9ecef', 0.2)}`,
           }),
           variants: [
             {
@@ -75,11 +79,12 @@ export const surfacesCustomizations: Components<Theme> = {
                 variant: 'outlined',
               },
               style: {
-                border: `1px solid ${(theme.vars || theme).palette.divider}`,
+                border: `1px solid #e9ecef`, // Border Gray
                 boxShadow: 'none',
-                background: 'hsl(0, 0%, 100%)',
+                background: '#ffffff',
                 ...theme.applyStyles('dark', {
-                  background: alpha(gray[900], 0.4),
+                  background: alpha('#1a1a1a', 0.8),
+                  border: `1px solid ${alpha('#e9ecef', 0.3)}`,
                 }),
               },
             },

@@ -58,31 +58,30 @@ export const inputsCustomizations: Components<Theme> = {
             },
             style: {
               color: 'white',
-              backgroundColor: gray[900],
-              backgroundImage: `linear-gradient(to bottom, ${gray[700]}, ${gray[800]})`,
-              boxShadow: `inset 0 1px 0 ${gray[600]}, inset 0 -1px 0 1px hsl(220, 0%, 0%)`,
-              border: `1px solid ${gray[700]}`,
+              backgroundColor: '#002395', // French Blue - Primary Brand
+              fontWeight: 600,
+              padding: '14px 32px',
+              minHeight: '44px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 10px rgba(0, 35, 149, 0.2)',
+              border: 'none',
               '&:hover': {
-                backgroundImage: 'none',
-                backgroundColor: gray[700],
-                boxShadow: 'none',
+                backgroundColor: '#0038d6', // Light Blue - Hover
+                boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                transform: 'translateY(-2px)',
               },
               '&:active': {
-                backgroundColor: gray[800],
+                backgroundColor: '#001a70',
+                transform: 'translateY(0)',
               },
+              transition: 'all 0.3s ease',
               ...theme.applyStyles('dark', {
-                color: 'black',
-                backgroundColor: gray[50],
-                backgroundImage: `linear-gradient(to bottom, ${gray[100]}, ${gray[50]})`,
-                boxShadow: 'inset 0 -1px 0  hsl(220, 30%, 80%)',
-                border: `1px solid ${gray[50]}`,
+                backgroundColor: '#002395',
                 '&:hover': {
-                  backgroundImage: 'none',
-                  backgroundColor: gray[300],
-                  boxShadow: 'none',
+                  backgroundColor: '#0038d6',
                 },
                 '&:active': {
-                  backgroundColor: gray[400],
+                  backgroundColor: '#00134d',
                 },
               }),
             },
@@ -94,10 +93,23 @@ export const inputsCustomizations: Components<Theme> = {
             },
             style: {
               color: 'white',
-              backgroundColor: brand[300],
-              backgroundImage: `linear-gradient(to bottom, ${alpha(brand[400], 0.8)}, ${brand[500]})`,
-              boxShadow: `inset 0 2px 0 ${alpha(brand[200], 0.2)}, inset 0 -2px 0 ${alpha(brand[700], 0.4)}`,
-              border: `1px solid ${brand[500]}`,
+              backgroundColor: '#ED2939', // French Red - Accent/CTA
+              fontWeight: 600,
+              padding: '14px 32px',
+              minHeight: '44px',
+              borderRadius: '8px',
+              boxShadow: '0 2px 10px rgba(237, 41, 57, 0.2)',
+              border: 'none',
+              '&:hover': {
+                backgroundColor: '#c91f2f', // Dark Red - Active/Hover
+                boxShadow: '0 4px 12px rgba(237, 41, 57, 0.3)',
+                transform: 'translateY(-2px)',
+              },
+              '&:active': {
+                backgroundColor: '#a51a26',
+                transform: 'translateY(0)',
+              },
+              transition: 'all 0.3s ease',
               '&:hover': {
                 backgroundColor: brand[700],
                 boxShadow: 'none',
