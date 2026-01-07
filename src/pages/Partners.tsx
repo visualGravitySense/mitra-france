@@ -47,7 +47,7 @@ export default function Partners() {
         </Typography>
         <Grid container spacing={3}>
           {localPartners.map((partner) => (
-            <Grid item xs={12} sm={6} md={4} key={partner.name}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={partner.name}>
               <Card sx={{ height: '100%' }}>
                 <CardContent>
                   <Box sx={{ color: 'primary.main', mb: 2, fontSize: 40 }}>
@@ -72,7 +72,7 @@ export default function Partners() {
         </Typography>
         <Grid container spacing={3}>
           {educationalInstitutions.map((institution) => (
-            <Grid item xs={12} sm={6} md={4} key={institution.name}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={institution.name}>
               <Card sx={{ height: '100%' }}>
                 <CardContent>
                   <Box sx={{ color: 'primary.main', mb: 2, fontSize: 40 }}>

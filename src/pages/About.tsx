@@ -112,7 +112,7 @@ export default function About() {
         {/* MOTIVATION: Compelling story with visual impact */}
         <Box sx={{ mb: 8 }}>
           <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
               <Chip
                 icon={<LocationOnIcon />}
                 label="Based in Nice, France"
@@ -147,7 +147,7 @@ export default function About() {
                 Explore Our Projects
               </Button>
             </Grid>
-            <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
               <Card
                 sx={{
                   background: 'linear-gradient(135deg, #002395 0%, #0038d6 100%)',
@@ -209,7 +209,7 @@ export default function About() {
         </Box>
         
         <Grid container spacing={4} sx={{ mb: 4 }}>
-          <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
             <Card
               sx={{
                 height: '100%',
@@ -237,7 +237,7 @@ export default function About() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
             <Card
               sx={{
                 height: '100%',
@@ -461,7 +461,7 @@ export default function About() {
               gradient: 'linear-gradient(135deg, rgba(0, 56, 214, 0.1) 0%, rgba(0, 35, 149, 0.1) 100%)',
             },
           ].map((achievement) => (
-            <Grid item xs={12} md={4} key={achievement.title}>
+            <Grid size={{ xs: 12, md: 4 }} key={achievement.title}>
               <Card
                 sx={{
                   height: '100%',
@@ -525,7 +525,7 @@ export default function About() {
         </Box>
         
         <Grid container spacing={4} alignItems="center">
-          <Grid item xs={12} md={7}>
+            <Grid size={{ xs: 12, md: 7 }}>
             <Card sx={{ height: '100%' }}>
               <CardContent sx={{ p: 4 }}>
                 <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 2 }}>
@@ -547,7 +547,7 @@ export default function About() {
               </CardContent>
             </Card>
           </Grid>
-          <Grid item xs={12} md={5}>
+            <Grid size={{ xs: 12, md: 5 }}>
             <Card
               sx={{
                 background: 'linear-gradient(135deg, #ED2939 0%, #c91f2f 100%)',

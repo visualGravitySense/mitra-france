@@ -287,7 +287,7 @@ export default function Home() {
                 description: 'Track record of successful programs and positive outcomes.',
               },
             ].map((benefit) => (
-              <Grid item xs={12} sm={6} md={3} key={benefit.title}>
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={benefit.title}>
                 <Card
                   sx={{
                     height: '100%',
@@ -343,7 +343,7 @@ export default function Home() {
         </Typography>
         <Grid container spacing={4}>
           {focusAreas.map((area, index) => (
-            <Grid item xs={12} sm={6} md={4} key={area.title}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={area.title}>
               <Card
                 component={RouterLink}
                 to={area.path}
@@ -416,7 +416,7 @@ export default function Home() {
       >
         <Container>
           <Grid container spacing={4} alignItems="center">
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Chip
                 icon={<EmojiEventsIcon />}
                 label="Trusted Partner"
@@ -447,7 +447,7 @@ export default function Home() {
                 />
               </Stack>
             </Grid>
-            <Grid item xs={12} md={6}>
+            <Grid size={{ xs: 12, md: 6 }}>
               <Grid container spacing={3}>
                 {[
                   { icon: <SchoolIcon />, text: 'Educational Excellence', count: '50+ Programs' },
@@ -455,7 +455,7 @@ export default function Home() {
                   { icon: <PublicIcon />, text: 'European Network', count: '15+ Countries' },
                   { icon: <EmojiEventsIcon />, text: 'Awards & Recognition', count: 'Multiple Projects' },
                 ].map((item, index) => (
-                  <Grid item xs={6} key={index}>
+                  <Grid size={{ xs: 6 }} key={index}>
                     <Card
                       sx={{
                         p: 2.5,

@@ -70,7 +70,7 @@ export default function Gallery() {
       <TabPanel value={value} index={0}>
         <Grid container spacing={3}>
           {photoPlaceholders.map((item) => (
-            <Grid item xs={12} sm={6} md={4} key={item}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item}>
               <Card>
                 <Box
                   sx={{
@@ -100,7 +100,7 @@ export default function Gallery() {
       <TabPanel value={value} index={1}>
         <Grid container spacing={3}>
           {videoPlaceholders.map((item) => (
-            <Grid item xs={12} sm={6} key={item}>
+            <Grid size={{ xs: 12, sm: 6 }} key={item}>
               <Card>
                 <Box
                   sx={{
@@ -176,7 +176,7 @@ export default function Gallery() {
               We regularly organize and participate in exhibitions showcasing:
             </Typography>
             <Grid container spacing={3} sx={{ mt: 1 }}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h6" gutterBottom>

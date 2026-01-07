@@ -95,7 +95,7 @@ export default function Events() {
       <TabPanel value={value} index={0}>
         <Grid container spacing={4}>
           {workshops.map((workshop) => (
-            <Grid item xs={12} sm={6} md={4} key={workshop.title}>
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={workshop.title}>
               <Card sx={{ height: '100%' }}>
                 <CardContent>
                   <Box sx={{ color: 'primary.main', mb: 2, fontSize: 40 }}>
@@ -163,7 +163,7 @@ export default function Events() {
               and promote intercultural understanding:
             </Typography>
             <Grid container spacing={3} sx={{ mt: 1 }}>
-              <Grid item xs={12} sm={6}>
+              <Grid size={{ xs: 12, sm: 6 }}>
                 <Card variant="outlined">
                   <CardContent>
                     <Typography variant="h6" gutterBottom>
