@@ -356,7 +356,7 @@ export default function Projects() {
                       {/* PROMPT: Project-specific CTA */}
                       <Button
                         component={RouterLink}
-                        to="/contact"
+                        to="/project-detail"
                         variant="outlined"
                         size="small"
                         endIcon={<ArrowForwardIcon />}
@@ -460,7 +460,7 @@ export default function Projects() {
                       {/* PROMPT: Project-specific CTA */}
                       <Button
                         component={RouterLink}
-                        to="/contact"
+                        to="/project-detail"
                         variant="outlined"
                         size="small"
                         endIcon={<ArrowForwardIcon />}
@@ -685,9 +685,26 @@ export default function Projects() {
                       <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 1 }}>
                         {story.title}
                       </Typography>
-                      <Typography variant="body1" color="text.secondary">
+                      <Typography variant="body1" color="text.secondary" sx={{ mb: 2 }}>
                         {story.description}
                       </Typography>
+                      <Button
+                        component={RouterLink}
+                        to="/project-detail"
+                        variant="outlined"
+                        size="small"
+                        endIcon={<ArrowForwardIcon />}
+                        sx={{
+                          borderColor: story.color,
+                          color: story.color,
+                          '&:hover': {
+                            borderColor: story.color,
+                            backgroundColor: `${story.color}10`,
+                          },
+                        }}
+                      >
+                        View Project Details
+                      </Button>
                     </Box>
                   </Box>
                 </Card>
