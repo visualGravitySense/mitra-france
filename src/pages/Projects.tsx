@@ -133,58 +133,127 @@ export default function Projects() {
 
   return (
     <Box>
-      {/* MOTIVATION: Hero section with project impact */}
+      {/* BJ FOGG BEHAVIOR MODEL: MOTIVATION + ABILITY + PROMPTS */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
-          py: { xs: 6, sm: 8 },
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 50%, rgba(0, 35, 149, 0.05) 100%)',
+          pt: { xs: 10, sm: 12, md: 14 }, // Отступ сверху, чтобы контент не скрывался под Header
+          pb: { xs: 6, sm: 8 },
           mb: { xs: 6, sm: 8 },
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '4px',
+            background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+          },
         }}
       >
         <Container>
-          <Typography
-            variant="h2"
-            sx={{
-              mb: 2,
-              textAlign: 'center',
-              background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Our Projects
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              textAlign: 'center',
-              mb: 4,
-              color: 'text.secondary',
-              fontSize: '1.1rem',
-              maxWidth: '800px',
-              mx: 'auto',
-            }}
-          >
-            Discover our European and local projects promoting education, digital literacy, and cultural exchange.
-            Each project creates real impact and positive change in our communities.
-          </Typography>
+          {/* MOTIVATION: Emotional appeal and value proposition */}
+          <Box sx={{ textAlign: 'center', mb: 4 }}>
+            <Chip
+              icon={<EmojiEventsIcon />}
+              label="European Projects"
+              color="primary"
+              sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
+            />
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                textAlign: 'center',
+                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontWeight: 700,
+              }}
+            >
+              Our Projects
+            </Typography>
+            <Typography
+              variant="h5"
+              sx={{
+                textAlign: 'center',
+                mb: 3,
+                color: 'text.secondary',
+                fontWeight: 400,
+                maxWidth: '800px',
+                mx: 'auto',
+              }}
+            >
+              Discover our European and local projects promoting education, digital literacy, and cultural exchange.
+              Each project creates real impact and positive change in our communities.
+            </Typography>
+            
+            {/* MOTIVATION: Show benefits and value */}
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                gap: 2,
+                flexWrap: 'wrap',
+                mb: 4,
+              }}
+            >
+              <Chip
+                icon={<CheckCircleIcon sx={{ color: 'success.main' }} />}
+                label="100% Success Rate"
+                sx={{
+                  backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                  color: 'success.main',
+                  fontWeight: 600,
+                }}
+              />
+              <Chip
+                icon={<PeopleIcon sx={{ color: 'primary.main' }} />}
+                label="1000+ Participants"
+                sx={{
+                  backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                  color: 'primary.main',
+                  fontWeight: 600,
+                }}
+              />
+              <Chip
+                icon={<PublicIcon sx={{ color: 'error.main' }} />}
+                label="15+ Countries"
+                sx={{
+                  backgroundColor: 'rgba(237, 41, 57, 0.1)',
+                  color: 'error.main',
+                  fontWeight: 600,
+                }}
+              />
+            </Box>
+          </Box>
 
-          {/* MOTIVATION: Project statistics */}
-          <Grid container spacing={3} sx={{ mt: 4, mb: 2 }}>
+          {/* MOTIVATION: Project statistics with visual appeal */}
+          <Grid container spacing={3} sx={{ mt: 2, mb: 4 }}>
             <Grid size={{ xs: 6, sm: 3 }}>
               <Card
                 sx={{
                   textAlign: 'center',
-                  p: 2,
-                  border: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  p: 3,
+                  border: '2px solid',
+                  borderColor: 'primary.main',
+                  backgroundColor: 'rgba(0, 35, 149, 0.08)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 6px 20px rgba(0, 35, 149, 0.3)',
+                  },
                 }}
               >
+                <EmojiEventsIcon sx={{ fontSize: 32, color: 'primary.main', mb: 1 }} />
                 <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
                   {erasmusKA2Projects.length + erasmusKA1Projects.length}
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                   Total Projects
                 </Typography>
               </Card>
@@ -193,15 +262,22 @@ export default function Projects() {
               <Card
                 sx={{
                   textAlign: 'center',
-                  p: 2,
-                  border: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  p: 3,
+                  border: '2px solid',
+                  borderColor: 'success.main',
+                  backgroundColor: 'rgba(76, 175, 80, 0.08)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 6px 20px rgba(76, 175, 80, 0.3)',
+                  },
                 }}
               >
-                <Typography variant="h4" sx={{ color: 'error.main', fontWeight: 700, mb: 0.5 }}>
+                <TrendingUpIcon sx={{ fontSize: 32, color: 'success.main', mb: 1 }} />
+                <Typography variant="h4" sx={{ color: 'success.main', fontWeight: 700, mb: 0.5 }}>
                   100%
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                   Success Rate
                 </Typography>
               </Card>
@@ -210,15 +286,22 @@ export default function Projects() {
               <Card
                 sx={{
                   textAlign: 'center',
-                  p: 2,
-                  border: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  p: 3,
+                  border: '2px solid',
+                  borderColor: 'info.main',
+                  backgroundColor: 'rgba(0, 56, 214, 0.08)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 6px 20px rgba(0, 56, 214, 0.3)',
+                  },
                 }}
               >
-                <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
+                <PublicIcon sx={{ fontSize: 32, color: 'info.main', mb: 1 }} />
+                <Typography variant="h4" sx={{ color: 'info.main', fontWeight: 700, mb: 0.5 }}>
                   15+
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                   Partner Countries
                 </Typography>
               </Card>
@@ -227,39 +310,169 @@ export default function Projects() {
               <Card
                 sx={{
                   textAlign: 'center',
-                  p: 2,
-                  border: 'none',
-                  boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
+                  p: 3,
+                  border: '2px solid',
+                  borderColor: 'error.main',
+                  backgroundColor: 'rgba(237, 41, 57, 0.08)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: '0 6px 20px rgba(237, 41, 57, 0.3)',
+                  },
                 }}
               >
+                <PeopleIcon sx={{ fontSize: 32, color: 'error.main', mb: 1 }} />
                 <Typography variant="h4" sx={{ color: 'error.main', fontWeight: 700, mb: 0.5 }}>
                   1000+
                 </Typography>
-                <Typography variant="caption" color="text.secondary">
+                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
                   Participants Reached
                 </Typography>
               </Card>
             </Grid>
           </Grid>
+
+          {/* PROMPT: Clear call-to-action with enhanced visual appeal */}
+          <Box
+            sx={{
+              textAlign: 'center',
+              p: 4,
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+              border: '2px solid',
+              borderColor: 'primary.main',
+              maxWidth: '700px',
+              mx: 'auto',
+              mt: 2,
+              position: 'relative',
+              overflow: 'hidden',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                height: '3px',
+                background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+              },
+            }}
+          >
+            <Typography variant="h5" sx={{ mb: 1, fontWeight: 700, color: 'primary.main' }}>
+              Ready to Explore?
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, fontSize: '1.05rem' }}>
+              Use the tabs below to filter projects by type, or scroll down to see all projects. 
+              Each project tells a story of impact and positive change.
+            </Typography>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: 'center' }}>
+              <Button
+                component={RouterLink}
+                to="/contact"
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={<ArrowForwardIcon />}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 600,
+                  borderRadius: '25px',
+                  boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
+                  },
+                }}
+              >
+                Contact Us
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/partners"
+                variant="outlined"
+                color="primary"
+                size="large"
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 600,
+                  borderRadius: '25px',
+                  borderWidth: 2,
+                  fontSize: '1rem',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)',
+                  },
+                }}
+              >
+                View Partners
+              </Button>
+            </Stack>
+          </Box>
+
+          {/* ABILITY: Show simplicity indicator */}
+          <Typography
+            variant="caption"
+            sx={{
+              textAlign: 'center',
+              color: 'text.secondary',
+              mt: 3,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.5,
+            }}
+          >
+            <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+            Easy to browse • Filter by type • Detailed information available
+          </Typography>
         </Container>
       </Box>
 
       <Container>
-        {/* ABILITY: Tabs for easier navigation */}
-        <Box sx={{ mb: 4 }}>
+        {/* ABILITY: Make it easy to navigate - Enhanced tabs with clear labels */}
+        <Box sx={{ mb: 6, mt: 4 }}>
+          <Typography
+            variant="h5"
+            sx={{
+              mb: 3,
+              color: 'text.primary',
+              fontWeight: 600,
+              textAlign: 'center',
+            }}
+          >
+            Choose project type:
+          </Typography>
           <Tabs
             value={tabValue}
             onChange={handleTabChange}
             variant="scrollable"
             scrollButtons="auto"
             sx={{
-              borderBottom: 1,
+              borderBottom: 2,
               borderColor: 'divider',
               mb: 4,
               '& .MuiTab-root': {
                 textTransform: 'none',
                 fontWeight: 600,
                 fontSize: '1rem',
+                minHeight: 72,
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                  transform: 'translateY(-2px)',
+                },
+              },
+              '& .Mui-selected': {
+                color: 'primary.main',
+                fontWeight: 700,
+              },
+              '& .MuiTabs-indicator': {
+                height: 3,
+                borderRadius: '3px 3px 0 0',
               },
             }}
           >
@@ -267,6 +480,23 @@ export default function Projects() {
             <Tab label="Erasmus+ KA1 (Mobility)" icon={<LanguageIcon />} iconPosition="start" />
             <Tab label="Partnership Projects" icon={<PublicIcon />} iconPosition="start" />
           </Tabs>
+          
+          {/* ABILITY: Show simplicity indicator for navigation */}
+          <Typography
+            variant="caption"
+            sx={{
+              textAlign: 'center',
+              color: 'text.secondary',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.5,
+              mb: 2,
+            }}
+          >
+            <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+            Easy navigation • Filter by type • Detailed information available
+          </Typography>
         </Box>
 
         {/* Erasmus+ KA2 Projects */}
@@ -557,17 +787,37 @@ export default function Projects() {
           </Box>
         )}
 
-        {/* PROMPT: Strong call-to-action */}
+        {/* BJ FOGG MODEL: PROMPT - Strong call-to-action with motivation */}
         <Box
           sx={{
             background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 100%)',
-            borderRadius: '12px',
+            borderRadius: '16px',
             p: 6,
             textAlign: 'center',
             mt: 6,
             mb: 4,
+            border: '2px solid',
+            borderColor: 'primary.main',
+            position: 'relative',
+            overflow: 'hidden',
+            '&::before': {
+              content: '""',
+              position: 'absolute',
+              top: 0,
+              left: 0,
+              right: 0,
+              height: '4px',
+              background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+            },
           }}
         >
+          {/* MOTIVATION: Show value and benefits */}
+          <Chip
+            icon={<EmojiEventsIcon />}
+            label="Join Our Network"
+            color="primary"
+            sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
+          />
           <Box
             sx={{
               width: 80,
@@ -583,18 +833,44 @@ export default function Projects() {
           >
             <PublicIcon sx={{ fontSize: 40, color: 'primary.main' }} />
           </Box>
-          <Typography variant="h3" gutterBottom>
+          <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, mb: 2 }}>
             Interested in Collaborating?
           </Typography>
           <Typography
             variant="body1"
             color="text.secondary"
             paragraph
-            sx={{ mb: 4, maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}
+            sx={{ mb: 3, maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}
           >
             We are always open to new partnerships and project collaborations. Join us in creating
             innovative educational projects that make a real difference across Europe.
           </Typography>
+          
+          {/* MOTIVATION: Show what they'll get */}
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              gap: 3,
+              mb: 4,
+              flexWrap: 'wrap',
+            }}
+          >
+            <Box sx={{ textAlign: 'center' }}>
+              <CheckCircleIcon sx={{ fontSize: 32, color: 'success.main', mb: 0.5 }} />
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>Proven Track Record</Typography>
+            </Box>
+            <Box sx={{ textAlign: 'center' }}>
+              <PeopleIcon sx={{ fontSize: 32, color: 'primary.main', mb: 0.5 }} />
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>European Network</Typography>
+            </Box>
+            <Box sx={{ textAlign: 'center' }}>
+              <TrendingUpIcon sx={{ fontSize: 32, color: 'error.main', mb: 0.5 }} />
+              <Typography variant="body2" sx={{ fontWeight: 600 }}>Real Impact</Typography>
+            </Box>
+          </Box>
+
+          {/* PROMPT: Clear, prominent CTAs */}
           <Stack
             direction={{ xs: 'column', sm: 'row' }}
             spacing={2}
@@ -607,7 +883,19 @@ export default function Projects() {
               color="primary"
               size="large"
               endIcon={<ArrowForwardIcon />}
-              sx={{ px: 5, py: 1.5, fontSize: '1.1rem', fontWeight: 600 }}
+              sx={{
+                px: 5,
+                py: 1.5,
+                fontSize: '1.1rem',
+                fontWeight: 700,
+                borderRadius: '25px',
+                boxShadow: '0 4px 14px rgba(0, 35, 149, 0.3)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 18px rgba(0, 35, 149, 0.4)',
+                },
+              }}
             >
               Start Collaboration
             </Button>
@@ -622,15 +910,34 @@ export default function Projects() {
                 py: 1.5,
                 fontSize: '1.1rem',
                 fontWeight: 600,
+                borderRadius: '25px',
                 borderWidth: 2,
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   borderWidth: 2,
+                  transform: 'translateY(-2px)',
                 },
               }}
             >
               View Our Partners
             </Button>
           </Stack>
+          
+          {/* ABILITY: Show simplicity */}
+          <Typography
+            variant="caption"
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              gap: 0.5,
+              mt: 3,
+              color: 'text.secondary',
+            }}
+          >
+            <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+            Free consultation • Easy process • Quick response
+          </Typography>
         </Box>
 
         {/* MOTIVATION: Project highlights/featured */}

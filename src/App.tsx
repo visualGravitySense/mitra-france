@@ -3,6 +3,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from './components/shared-theme/AppTheme.tsx';
 import Navigation from './components/Navigation.tsx';
 import Footer from './components/Footer.tsx';
+import ScrollToTop from './components/ScrollToTop.tsx';
 import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
 import FocusAreas from './pages/FocusAreas.tsx';
@@ -25,6 +26,7 @@ function App() {
     <AppTheme>
       <CssBaseline enableColorScheme />
       <BrowserRouter>
+        <ScrollToTop />
         <Navigation />
         <Routes>
           <Route path="/" element={<Home />} />

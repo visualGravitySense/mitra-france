@@ -20,6 +20,11 @@ import GroupsIcon from '@mui/icons-material/Groups';
 import FeedbackIcon from '@mui/icons-material/Feedback';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import SchoolIcon from '@mui/icons-material/School';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import StarIcon from '@mui/icons-material/Star';
+import PeopleIcon from '@mui/icons-material/People';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
 
 export default function ProgramsWorkshops() {
   const [actionFeedback, setActionFeedback] = useState<{ open: boolean; message: string; type: 'success' | 'info' | 'warning' }>({
@@ -53,37 +58,390 @@ export default function ProgramsWorkshops() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
-          py: { xs: 6, sm: 8 },
-          mb: { xs: 6, sm: 8 },
+          pt: { xs: 10, sm: 12, md: 14 },
+          pb: { xs: 6, sm: 8 },
+          mb: 0,
         }}
       >
         <Container>
-          <Typography
-            variant="h2"
-            sx={{
-              mb: 2,
-              textAlign: 'center',
-              background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            Programs & Workshops
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              textAlign: 'center',
-              mb: 4,
-              color: 'text.secondary',
-              fontSize: '1.1rem',
-              maxWidth: '800px',
-              mx: 'auto',
-            }}
-          >
-            Comprehensive educational programs and interactive workshops for personal and professional development
-          </Typography>
+          <Box sx={{ textAlign: 'center' }}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                textAlign: 'center',
+                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                fontWeight: 700,
+              }}
+            >
+              Programs & Workshops
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: 'center',
+                mb: 4,
+                color: 'text.secondary',
+                fontSize: '1.1rem',
+                maxWidth: '800px',
+                mx: 'auto',
+              }}
+            >
+              Comprehensive educational programs and interactive workshops for personal and professional development
+            </Typography>
+            
+            {/* FOGG MODEL: Motivation + Ability + Prompts - Quick Action Buttons */}
+            <Stack 
+              direction={{ xs: 'column', sm: 'row' }} 
+              spacing={2} 
+              justifyContent="center" 
+              sx={{ mb: 4 }}
+            >
+              <Button
+                component={RouterLink}
+                to="/courses"
+                variant="contained"
+                size="large"
+                startIcon={<SchoolIcon />}
+                endIcon={<ArrowForwardIcon />}
+                onClick={() => {
+                  setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+                }}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, #ED2939 0%, #002395 100%)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 8px 16px rgba(0, 35, 149, 0.3)',
+                  },
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none',
+                }}
+              >
+                Browse Programs
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/events"
+                variant="outlined"
+                size="large"
+                startIcon={<PlayArrowIcon />}
+                onClick={() => {
+                  setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+                }}
+                sx={{
+                  px: 4,
+                  py: 1.5,
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  borderWidth: 2,
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)',
+                  },
+                  transition: 'all 0.3s ease',
+                  textDecoration: 'none',
+                }}
+              >
+                View Workshops
+              </Button>
+            </Stack>
+
+            {/* FOGG MODEL: Social Proof - Motivation Element */}
+            <Box sx={{ display: 'flex', justifyContent: 'center', gap: 4, flexWrap: 'wrap', mt: 4 }}>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, color: 'primary.main', mb: 0.5 }}>
+                  {socialInfluence.peersActive.toLocaleString()}+
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Active Participants
+                </Typography>
+              </Box>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, color: 'success.main', mb: 0.5 }}>
+                  50+
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Programs Available
+                </Typography>
+              </Box>
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h4" sx={{ fontWeight: 700, color: 'warning.main', mb: 0.5 }}>
+                  Free
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  All Programs
+                </Typography>
+              </Box>
+            </Box>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* FOGG MODEL: Motivation Section - Benefits & Value Proposition */}
+      <Box
+        sx={{
+          py: { xs: 6, sm: 8 },
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.03) 0%, rgba(237, 41, 57, 0.03) 100%)',
+          mt: 0,
+        }}
+      >
+        <Container>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h3" sx={{ mb: 2, fontWeight: 700 }}>
+              Why Join Our Programs & Workshops?
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}>
+              Discover the immediate benefits and long-term value of participating in our educational programs and workshops.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4}>
+            {[
+              {
+                icon: <SchoolIcon />,
+                title: 'Expert-Led Learning',
+                description: 'Learn from industry professionals and experienced educators. 89% of participants rate our instructors as excellent.',
+                color: 'primary',
+              },
+              {
+                icon: <PeopleIcon />,
+                title: 'Community Building',
+                description: 'Connect with like-minded learners, build your network, and grow together in a supportive environment.',
+                color: 'success',
+              },
+              {
+                icon: <AccessTimeIcon />,
+                title: 'Flexible Schedule',
+                description: 'Choose from various time slots and formats. Learn at your own pace with both live and self-paced options.',
+                color: 'info',
+              },
+              {
+                icon: <StarIcon />,
+                title: 'Practical Skills',
+                description: 'Gain hands-on experience and real-world skills that you can apply immediately in your career or personal projects.',
+                color: 'warning',
+              },
+            ].map((benefit, index) => (
+              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+                <Card
+                  sx={{
+                    p: 3,
+                    height: '100%',
+                    textAlign: 'center',
+                    border: '2px solid',
+                    borderColor: `${benefit.color}.main`,
+                    borderRadius: 3,
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 100%)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: `0 12px 24px rgba(0, 0, 0, 0.15)`,
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 64,
+                      height: 64,
+                      borderRadius: 2,
+                      background: `linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mx: 'auto',
+                      mb: 2,
+                    }}
+                  >
+                    <Box sx={{ color: `${benefit.color}.main`, fontSize: 32 }}>
+                      {benefit.icon}
+                    </Box>
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5 }}>
+                    {benefit.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                    {benefit.description}
+                  </Typography>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* FOGG MODEL: Prompt - Clear CTA after benefits */}
+          <Box sx={{ textAlign: 'center', mt: 6 }}>
+            <Button
+              component={RouterLink}
+              to="/courses"
+              variant="contained"
+              size="large"
+              startIcon={<CheckCircleIcon />}
+              endIcon={<ArrowForwardIcon />}
+              onClick={() => {
+                setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+              }}
+              sx={{
+                px: 6,
+                py: 2,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #ED2939 0%, #002395 100%)',
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 12px 24px rgba(0, 35, 149, 0.4)',
+                },
+                transition: 'all 0.3s ease',
+                textDecoration: 'none',
+              }}
+            >
+              Get Started Today - It's Free!
+            </Button>
+          </Box>
+        </Container>
+      </Box>
+
+      {/* FOGG MODEL: Ability Section - Make it Easy to Act */}
+      <Box
+        sx={{
+          py: { xs: 6, sm: 8 },
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
+        }}
+      >
+        <Container>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography variant="h3" sx={{ mb: 2, fontWeight: 700 }}>
+              Get Started in 3 Simple Steps
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}>
+              We've made it incredibly easy to begin your learning journey. No complicated forms, no long wait times.
+            </Typography>
+          </Box>
+
+          <Grid container spacing={4} sx={{ mb: 6 }}>
+            {[
+              {
+                step: '1',
+                title: 'Choose Your Program',
+                description: 'Browse our programs and workshops. Pick one that matches your interests. Takes less than 2 minutes.',
+                icon: <SchoolIcon />,
+                color: 'primary',
+              },
+              {
+                step: '2',
+                title: 'Quick Registration',
+                description: 'Simple sign-up process. Just your name and email - that\'s it! No credit card required.',
+                icon: <CheckCircleIcon />,
+                color: 'success',
+              },
+              {
+                step: '3',
+                title: 'Start Learning',
+                description: 'Access your program immediately. Learn at your own pace, whenever you want.',
+                icon: <PlayArrowIcon />,
+                color: 'info',
+              },
+            ].map((item, index) => (
+              <Grid size={{ xs: 12, md: 4 }} key={index}>
+                <Card
+                  sx={{
+                    p: 4,
+                    height: '100%',
+                    textAlign: 'center',
+                    border: '2px solid',
+                    borderColor: `${item.color}.main`,
+                    borderRadius: 3,
+                    background: 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 100%)',
+                    transition: 'all 0.3s ease',
+                    position: 'relative',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: `0 12px 24px rgba(0, 0, 0, 0.15)`,
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      width: 56,
+                      height: 56,
+                      borderRadius: '50%',
+                      background: `linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mx: 'auto',
+                      mb: 2,
+                      fontSize: 24,
+                      fontWeight: 700,
+                      color: `${item.color}.main`,
+                    }}
+                  >
+                    {item.step}
+                  </Box>
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: 2,
+                      background: `linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      mx: 'auto',
+                      mb: 2,
+                    }}
+                  >
+                    <Box sx={{ color: `${item.color}.main`, fontSize: 28 }}>
+                      {item.icon}
+                    </Box>
+                  </Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1.5 }}>
+                    {item.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                    {item.description}
+                  </Typography>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+
+          {/* FOGG MODEL: Prompt - Clear call to action after showing ease */}
+          <Box sx={{ textAlign: 'center' }}>
+            <Button
+              component={RouterLink}
+              to="/courses"
+              variant="contained"
+              size="large"
+              startIcon={<ArrowForwardIcon />}
+              onClick={() => {
+                setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+              }}
+              sx={{
+                px: 6,
+                py: 2,
+                fontSize: '1.1rem',
+                fontWeight: 600,
+                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                '&:hover': {
+                  background: 'linear-gradient(135deg, #ED2939 0%, #002395 100%)',
+                  transform: 'translateY(-3px)',
+                  boxShadow: '0 12px 24px rgba(0, 35, 149, 0.4)',
+                },
+                transition: 'all 0.3s ease',
+                textDecoration: 'none',
+              }}
+            >
+              Browse All Programs
+            </Button>
+          </Box>
         </Container>
       </Box>
 
@@ -95,6 +453,7 @@ export default function ProgramsWorkshops() {
             backgroundColor: 'rgba(0, 35, 149, 0.02)',
             position: 'relative',
             mb: 8,
+            mt: 0,
           }}
         >
           <Box sx={{ textAlign: 'center', mb: 6 }}>
@@ -543,13 +902,26 @@ export default function ProgramsWorkshops() {
                     </Typography>
                   </Box>
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     color="primary"
                     fullWidth
                     startIcon={<GroupsIcon />}
+                    endIcon={<ArrowForwardIcon />}
                     component={RouterLink}
                     to="/contact"
-                    onClick={() => showFeedback('Connecting you with the community...', 'info')}
+                    onClick={() => {
+                      showFeedback('Connecting you with the community...', 'info');
+                      setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+                    }}
+                    sx={{
+                      fontWeight: 600,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                      },
+                      transition: 'all 0.3s ease',
+                      textDecoration: 'none',
+                    }}
                   >
                     Join Community
                   </Button>
@@ -600,9 +972,18 @@ export default function ProgramsWorkshops() {
                     color="info"
                     fullWidth
                     startIcon={<FeedbackIcon />}
+                    endIcon={<ArrowForwardIcon />}
                     onClick={() => {
                       showFeedback('Thank you for your feedback! We use it to improve.', 'success');
                       setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+                    }}
+                    sx={{
+                      fontWeight: 600,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                      },
+                      transition: 'all 0.3s ease',
                     }}
                   >
                     Share Feedback
@@ -614,6 +995,14 @@ export default function ProgramsWorkshops() {
                     startIcon={<TrendingUpIcon />}
                     onClick={() => {
                       showFeedback('We continuously improve based on user behavior and feedback.', 'info');
+                      setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
+                    }}
+                    sx={{
+                      fontWeight: 600,
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                      },
+                      transition: 'all 0.3s ease',
                     }}
                   >
                     How We Improve

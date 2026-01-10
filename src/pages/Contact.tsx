@@ -37,6 +37,12 @@ import TouchAppIcon from '@mui/icons-material/TouchApp';
 import RateReviewIcon from '@mui/icons-material/RateReview';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
+import TrendingUpIcon from '@mui/icons-material/TrendingUp';
+import PublicIcon from '@mui/icons-material/Public';
+import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import { Link as RouterLink } from 'react-router-dom';
 
 export default function Contact() {
   const [formData, setFormData] = React.useState({
@@ -87,24 +93,311 @@ export default function Contact() {
   };
 
   return (
-    <Container sx={{ py: { xs: 8, sm: 10 } }}>
-      <Typography variant="h2" sx={{ mb: 2, textAlign: 'center' }}>
-        Contact Us
-      </Typography>
-      <Typography
-        variant="body1"
-        sx={{ textAlign: 'center', mb: 6, color: 'text.secondary', fontSize: '1.1rem' }}
+    <Box>
+      {/* BJ FOGG BEHAVIOR MODEL: MOTIVATION + ABILITY + PROMPTS */}
+      <Box
+        sx={{
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 50%, rgba(0, 35, 149, 0.05) 100%)',
+          pt: { xs: 10, sm: 12, md: 14 }, // Отступ сверху, чтобы контент не скрывался под Header
+          pb: { xs: 6, sm: 8 },
+          mb: { xs: 6, sm: 8 },
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '4px',
+            background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+          },
+        }}
       >
-        Get in touch with us - we'd love to hear from you
-      </Typography>
+        <Container>
+          <Grid container spacing={4} alignItems="center">
+            {/* Left side: Text content */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Stack spacing={3} sx={{ alignItems: { xs: 'center', md: 'flex-start' } }}>
+                {/* MOTIVATION: Emotional appeal and value proposition */}
+                <Box sx={{ width: '100%' }}>
+                  <Chip
+                    icon={<ContactMailIcon />}
+                    label="Get in Touch"
+                    color="primary"
+                    sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
+                  />
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      mb: 2,
+                      textAlign: { xs: 'center', md: 'left' },
+                      background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      fontWeight: 700,
+                    }}
+                  >
+                    Contact Us
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      textAlign: { xs: 'center', md: 'left' },
+                      mb: 3,
+                      color: 'text.secondary',
+                      fontWeight: 400,
+                    }}
+                  >
+                    Get in touch with us - we'd love to hear from you. Whether you have questions, 
+                    want to collaborate, or just want to say hello, we're here to help.
+                  </Typography>
 
-      <Grid container spacing={4}>
+                  {/* MOTIVATION: Show benefits and value */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: { xs: 'center', md: 'flex-start' },
+                      alignItems: 'center',
+                      gap: 2,
+                      flexWrap: 'wrap',
+                      mb: 3,
+                    }}
+                  >
+                    <Chip
+                      icon={<CheckCircleIcon sx={{ color: 'success.main' }} />}
+                      label="Quick Response"
+                      sx={{
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        color: 'success.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                    <Chip
+                      icon={<AccessTimeIcon sx={{ color: 'primary.main' }} />}
+                      label="24h Response Time"
+                      sx={{
+                        backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                        color: 'primary.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                    <Chip
+                      icon={<PublicIcon sx={{ color: 'error.main' }} />}
+                      label="Multiple Ways to Reach"
+                      sx={{
+                        backgroundColor: 'rgba(237, 41, 57, 0.1)',
+                        color: 'error.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* PROMPT: Clear call-to-action */}
+                <Box
+                  sx={{
+                    textAlign: { xs: 'center', md: 'left' },
+                    p: 3,
+                    borderRadius: 3,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    width: '100%',
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 1, fontWeight: 700, color: 'primary.main' }}>
+                    Ready to Connect?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Fill out the form below, send us an email, or give us a call. 
+                    We're here to help and answer any questions you may have.
+                  </Typography>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                    <Button
+                      variant="contained"
+                      color="primary"
+                      size="medium"
+                      startIcon={<ContactMailIcon />}
+                      onClick={() => {
+                        const formElement = document.getElementById('contact-form');
+                        formElement?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      sx={{
+                        px: 3,
+                        py: 1.5,
+                        fontWeight: 600,
+                        borderRadius: '25px',
+                        boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
+                        },
+                      }}
+                    >
+                      Fill Out Form
+                    </Button>
+                    <Button
+                      component="a"
+                      href="mailto:mitra.france@gmail.com"
+                      variant="outlined"
+                      color="primary"
+                      size="medium"
+                      startIcon={<EmailIcon />}
+                      sx={{
+                        px: 3,
+                        py: 1.5,
+                        fontWeight: 600,
+                        borderRadius: '25px',
+                        borderWidth: 2,
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          borderWidth: 2,
+                          transform: 'translateY(-2px)',
+                        },
+                      }}
+                    >
+                      Send Email
+                    </Button>
+                  </Stack>
+                </Box>
+
+                {/* ABILITY: Show simplicity indicator */}
+                <Typography
+                  variant="caption"
+                  sx={{
+                    textAlign: { xs: 'center', md: 'left' },
+                    color: 'text.secondary',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: { xs: 'center', md: 'flex-start' },
+                    gap: 0.5,
+                  }}
+                >
+                  <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+                  Easy to contact • Quick response • Multiple ways to reach us
+                </Typography>
+              </Stack>
+            </Grid>
+
+            {/* Right side: Hero image */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: { xs: '400px', md: '600px' },
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/illustrations/contact.jpg"
+                  alt="MITRA FRANCE Contact"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    display: 'block',
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
+
+          {/* MOTIVATION: Contact statistics with visual appeal - moved below split layout */}
+          <Grid container spacing={3} sx={{ mt: 4, mb: 4 }}>
+            {[
+              { icon: <EmailIcon />, label: 'Email Responses', value: '24h', color: 'primary.main' },
+              { icon: <PhoneIcon />, label: 'Phone Support', value: 'Available', color: 'error.main' },
+              { icon: <LocationOnIcon />, label: 'Location', value: 'Nice, France', color: 'success.main' },
+              { icon: <EmojiEventsIcon />, label: 'Satisfaction Rate', value: '98%', color: 'info.main' },
+            ].map((stat) => (
+              <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
+                <Card
+                  sx={{
+                    textAlign: 'center',
+                    p: 3,
+                    border: '2px solid',
+                    borderColor: `${stat.color}30`,
+                    backgroundColor: `${stat.color}08`,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: `0 6px 20px ${stat.color}30`,
+                      borderColor: stat.color,
+                    },
+                  }}
+                >
+                  <Box sx={{ color: stat.color, mb: 1.5 }}>{stat.icon}</Box>
+                  <Typography variant="h6" sx={{ color: stat.color, fontWeight: 700, mb: 0.5 }}>
+                    {stat.value}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
+                    {stat.label}
+                  </Typography>
+                </Card>
+              </Grid>
+            ))}
+          </Grid>
+        </Container>
+      </Box>
+
+      <Container>
+
+      <Grid container spacing={4} id="contact-form" sx={{ scrollMarginTop: '100px' }}>
         <Grid size={{ xs: 12, md: 8 }}>
-          <Card>
+          <Card
+            sx={{
+              borderLeft: '4px solid',
+              borderLeftColor: 'primary.main',
+              transition: 'transform 0.3s ease',
+              '&:hover': {
+                transform: 'translateY(-4px)',
+                boxShadow: '0 8px 25px rgba(0, 35, 149, 0.15)',
+              },
+            }}
+          >
             <CardContent sx={{ p: 4 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
-                <ContactMailIcon sx={{ fontSize: 40, color: 'primary.main', mr: 2 }} />
-                <Typography variant="h5">Send us a Message</Typography>
+              <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, gap: 2 }}>
+                <Box
+                  sx={{
+                    width: 56,
+                    height: 56,
+                    borderRadius: '12px',
+                    backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    color: 'primary.main',
+                  }}
+                >
+                  <ContactMailIcon sx={{ fontSize: 32 }} />
+                </Box>
+                <Box>
+                  <Typography variant="h4" sx={{ fontWeight: 600 }}>
+                    Send us a Message
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Fill out the form below and we'll get back to you as soon as possible
+                  </Typography>
+                </Box>
               </Box>
               <form onSubmit={handleSubmit}>
                 <Stack spacing={3}>
@@ -147,7 +440,26 @@ export default function Contact() {
                     onChange={handleChange}
                     variant="outlined"
                   />
-                  <Button type="submit" variant="contained" color="primary" size="large">
+                  <Button
+                    type="submit"
+                    variant="contained"
+                    color="primary"
+                    size="large"
+                    endIcon={<ArrowForwardIcon />}
+                    sx={{
+                      px: 4,
+                      py: 1.5,
+                      fontWeight: 600,
+                      borderRadius: '25px',
+                      boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                      fontSize: '1rem',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
+                      },
+                    }}
+                  >
                     Send Message
                   </Button>
                 </Stack>
@@ -158,16 +470,40 @@ export default function Contact() {
 
         <Grid size={{ xs: 12, md: 4 }}>
           <Stack spacing={3}>
-            <Card>
-              <CardContent>
+            <Card
+              sx={{
+                borderTop: '4px solid',
+                borderTopColor: 'primary.main',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 6px 20px rgba(0, 35, 149, 0.15)',
+                },
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
-                  <EmailIcon sx={{ color: 'primary.main', mr: 2, mt: 0.5 }} />
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'primary.main',
+                      mr: 2,
+                    }}
+                  >
+                    <EmailIcon />
+                  </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                       Email
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      <a href="mailto:mitra.france@gmail.com" style={{ color: 'inherit' }}>
+                      <a href="mailto:mitra.france@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
                         mitra.france@gmail.com
                       </a>
                     </Typography>
@@ -176,16 +512,40 @@ export default function Contact() {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent>
+            <Card
+              sx={{
+                borderTop: '4px solid',
+                borderTopColor: 'error.main',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 6px 20px rgba(237, 41, 57, 0.15)',
+                },
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
-                  <PhoneIcon sx={{ color: 'primary.main', mr: 2, mt: 0.5 }} />
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(237, 41, 57, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'error.main',
+                      mr: 2,
+                    }}
+                  >
+                    <PhoneIcon />
+                  </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                       Phone
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
-                      <a href="tel:+33641092395" style={{ color: 'inherit' }}>
+                      <a href="tel:+33641092395" style={{ color: 'inherit', textDecoration: 'none' }}>
                         +33 6 41 09 23 95
                       </a>
                     </Typography>
@@ -194,12 +554,36 @@ export default function Contact() {
               </CardContent>
             </Card>
 
-            <Card>
-              <CardContent>
+            <Card
+              sx={{
+                borderTop: '4px solid',
+                borderTopColor: 'success.main',
+                transition: 'transform 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 6px 20px rgba(76, 175, 80, 0.15)',
+                },
+              }}
+            >
+              <CardContent sx={{ p: 3 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
-                  <LocationOnIcon sx={{ color: 'primary.main', mr: 2, mt: 0.5 }} />
+                  <Box
+                    sx={{
+                      width: 48,
+                      height: 48,
+                      borderRadius: '12px',
+                      backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      color: 'success.main',
+                      mr: 2,
+                    }}
+                  >
+                    <LocationOnIcon />
+                  </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
                       Location
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -647,5 +1031,6 @@ export default function Contact() {
         </Alert>
       </Snackbar>
     </Container>
+    </Box>
   );
 }

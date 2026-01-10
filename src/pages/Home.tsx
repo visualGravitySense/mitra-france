@@ -346,42 +346,42 @@ export default function Home() {
       >
         <Container
           sx={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
             pt: { xs: 14, sm: 20 },
             pb: { xs: 8, sm: 12 },
           }}
         >
+          <Grid container spacing={4} alignItems="center">
+            {/* Left side: Text content */}
+            <Grid size={{ xs: 12, md: 6 }}>
           <Stack
             spacing={2}
             useFlexGap
-            sx={{ alignItems: 'center', width: { xs: '100%', sm: '70%' } }}
+                sx={{ alignItems: { xs: 'center', md: 'flex-start' }, width: '100%' }}
           >
             <Typography
               variant="h1"
               sx={{
                 display: 'flex',
                 flexDirection: { xs: 'column', sm: 'row' },
-                alignItems: 'center',
-                fontSize: 'clamp(3rem, 10vw, 4rem)',
-                textAlign: 'center',
-                fontWeight: 800,
-                letterSpacing: '-0.03em',
-                mb: 1,
-                position: 'relative',
-                zIndex: 1,
-                '&::after': {
-                  content: '""',
-                  position: 'absolute',
-                  bottom: -10,
-                  left: '50%',
-                  transform: 'translateX(-50%)',
-                  width: '60%',
-                  height: 4,
-                  background: 'linear-gradient(90deg, transparent, rgba(0, 35, 149, 0.3), transparent)',
-                  borderRadius: 2,
-                },
+                    alignItems: { xs: 'center', md: 'flex-start' },
+                    fontSize: 'clamp(2.5rem, 8vw, 3.5rem)',
+                    textAlign: { xs: 'center', md: 'left' },
+                    fontWeight: 800,
+                    letterSpacing: '-0.03em',
+                    mb: 1,
+                    position: 'relative',
+                    zIndex: 1,
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: -10,
+                      left: { xs: '50%', md: 0 },
+                      transform: { xs: 'translateX(-50%)', md: 'none' },
+                      width: { xs: '60%', md: '40%' },
+                      height: 4,
+                      background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.3), transparent)',
+                      borderRadius: 2,
+                    },
               }}
             >
               MITRA&nbsp;
@@ -390,16 +390,16 @@ export default function Home() {
                 variant="h1"
                 sx={{
                   fontSize: 'inherit',
-                  background: 'linear-gradient(135deg, #002395 0%, #0038d6 50%, #ED2939 100%)',
+                      background: 'linear-gradient(135deg, #002395 0%, #0038d6 50%, #ED2939 100%)',
                   backgroundClip: 'text',
                   WebkitBackgroundClip: 'text',
                   WebkitTextFillColor: 'transparent',
-                  backgroundSize: '200% 200%',
-                  animation: 'gradientShift 3s ease infinite',
-                  '@keyframes gradientShift': {
-                    '0%, 100%': { backgroundPosition: '0% 50%' },
-                    '50%': { backgroundPosition: '100% 50%' },
-                  },
+                      backgroundSize: '200% 200%',
+                      animation: 'gradientShift 3s ease infinite',
+                      '@keyframes gradientShift': {
+                        '0%, 100%': { backgroundPosition: '0% 50%' },
+                        '50%': { backgroundPosition: '100% 50%' },
+                      },
                 }}
               >
                 FRANCE
@@ -408,7 +408,7 @@ export default function Home() {
             <Typography
               variant="h5"
               sx={{
-                textAlign: 'center',
+                    textAlign: { xs: 'center', md: 'left' },
                 color: 'text.secondary',
                 fontWeight: 400,
               }}
@@ -417,9 +417,9 @@ export default function Home() {
             </Typography>
             <Typography
               sx={{
-                textAlign: 'center',
+                    textAlign: { xs: 'center', md: 'left' },
                 color: 'text.secondary',
-                width: { sm: '100%', md: '80%' },
+                    width: '100%',
                 mt: 2,
                 fontSize: '1.1rem',
                 lineHeight: 1.8,
@@ -429,176 +429,215 @@ export default function Home() {
               intercultural education, media literacy, digital skills, and cultural activities
               for diverse communities including seniors, youth, migrants, and minorities.
             </Typography>
-            {/* CUE: Enhanced visual signal with animation */}
-            <Box
-              sx={{
-                mt: 3,
-                p: 2.5,
-                borderRadius: 2,
-                backgroundColor: 'rgba(0, 35, 149, 0.08)',
-                border: '2px solid',
-                borderColor: 'primary.main',
-                maxWidth: '650px',
-                width: '100%',
-                position: 'relative',
-                overflow: 'hidden',
-                '&::before': {
-                  content: '""',
-                  position: 'absolute',
-                  top: 0,
-                  left: '-100%',
-                  width: '100%',
-                  height: '100%',
-                  background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
-                  animation: 'shimmer 3s infinite',
-                },
-                '@keyframes shimmer': {
-                  '0%': { left: '-100%' },
-                  '100%': { left: '100%' },
-                },
-                '@keyframes pulse': {
-                  '0%, 100%': { opacity: 1, transform: 'scale(1)' },
-                  '50%': { opacity: 0.7, transform: 'scale(1.1)' },
-                },
-              }}
-            >
-              <Stack direction="row" spacing={1.5} alignItems="center" justifyContent="center">
-                <NotificationsActiveIcon
+                {/* CUE: Enhanced visual signal with animation */}
+                <Box
                   sx={{
-                    color: 'primary.main',
-                    fontSize: 24,
-                    animation: 'pulse 2s infinite',
-                  }}
-                />
-                <Typography
-                  variant="body2"
-                  sx={{
-                    textAlign: 'center',
-                    color: 'primary.main',
-                    fontWeight: 700,
-                    fontSize: '1rem',
+                    mt: 3,
+                    p: 2.5,
+                    borderRadius: 2,
+                    backgroundColor: 'rgba(0, 35, 149, 0.08)',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    width: '100%',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)',
+                      animation: 'shimmer 3s infinite',
+                    },
+                    '@keyframes shimmer': {
+                      '0%': { left: '-100%' },
+                      '100%': { left: '100%' },
+                    },
+                    '@keyframes pulse': {
+                      '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                      '50%': { opacity: 0.7, transform: 'scale(1.1)' },
+                    },
                   }}
                 >
-                  ✨ Join 1000+ community members making a real difference today
-                </Typography>
-              </Stack>
-            </Box>
+                  <Stack direction="row" spacing={1.5} alignItems="center" justifyContent={{ xs: 'center', md: 'flex-start' }}>
+                    <NotificationsActiveIcon
+                      sx={{
+                        color: 'primary.main',
+                        fontSize: 24,
+                        animation: 'pulse 2s infinite',
+                      }}
+                    />
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        textAlign: { xs: 'center', md: 'left' },
+                        color: 'primary.main',
+                        fontWeight: 700,
+                        fontSize: '1rem',
+                      }}
+                    >
+                      ✨ Join 1000+ community members making a real difference today
+                    </Typography>
+                  </Stack>
+                </Box>
 
-            {/* SYSTEM 1: Quick, intuitive actions with visual cues */}
-            <Box sx={{ pt: 4, width: '100%', maxWidth: '700px' }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
-                <FlashOnIcon sx={{ color: 'warning.main', fontSize: 20 }} />
-                <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
-                  Quick decision? Choose below
-                </Typography>
-                <Tooltip title="Switch to detailed view for more information">
-                  <Chip
-                    icon={<LightbulbIcon />}
-                    label={prefersDetailedView ? 'Detailed View' : 'Quick View'}
-                    size="small"
-                    onClick={() => setPrefersDetailedView(!prefersDetailedView)}
-                    sx={{ cursor: 'pointer', ml: 1 }}
-                  />
-                </Tooltip>
-              </Box>
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={2}
-                useFlexGap
-                sx={{ width: { xs: '100%', sm: 'auto' }, justifyContent: 'center' }}
-              >
-                <Tooltip title="System 1: Quick, intuitive action - No thinking required">
-                  <Button
-                    component={RouterLink}
-                    to="/contact"
-                    variant="contained"
-                    color="primary"
-                    size="large"
-                    endIcon={<ArrowForwardIcon />}
-                    onClick={() => showFeedback('Redirecting to contact form...', 'info')}
-                    sx={{
-                      px: 5,
-                      py: 1.75,
-                      fontSize: '1.15rem',
-                      fontWeight: 700,
-                      borderRadius: 3,
-                      boxShadow: '0 4px 20px rgba(0, 35, 149, 0.3), 0 2px 8px rgba(0, 35, 149, 0.2)',
-                      background: 'linear-gradient(135deg, #002395 0%, #0038d6 100%)',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                      position: 'relative',
-                      overflow: 'hidden',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: '-100%',
-                        width: '100%',
-                        height: '100%',
-                        background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
-                        transition: 'left 0.5s ease',
-                      },
-                      '&:hover': {
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 6px 28px rgba(0, 35, 149, 0.4), 0 4px 12px rgba(0, 35, 149, 0.3)',
-                        background: 'linear-gradient(135deg, #0038d6 0%, #002395 100%)',
-                        '&::before': {
-                          left: '100%',
-                        },
-                      },
-                      '&:active': {
-                        transform: 'translateY(0)',
-                      },
-                    }}
-                  >
-                    Join Us Today
-                  </Button>
-                </Tooltip>
-                <Tooltip title="System 2: Learn more before deciding">
-                  <Button
-                    component={RouterLink}
-                    to="/about"
-                    variant="outlined"
-                    color="primary"
-                    size="large"
-                    onClick={() => showFeedback('Opening detailed information...', 'info')}
-                    sx={{
-                      px: 5,
-                      py: 1.75,
-                      fontSize: '1.15rem',
-                      fontWeight: 600,
-                      borderWidth: 2,
-                      transition: 'all 0.3s ease',
-                      '&:hover': {
-                        borderWidth: 2,
-                        backgroundColor: 'rgba(0, 35, 149, 0.08)',
-                        transform: 'translateY(-2px)',
-                        boxShadow: '0 4px 12px rgba(0, 35, 149, 0.2)',
-                      },
-                    }}
-                  >
-                    Learn More
-                  </Button>
-                </Tooltip>
-              </Stack>
-            </Box>
-            {/* ABILITY: Show how easy it is */}
-            <Typography
-              variant="caption"
-              sx={{
-                textAlign: 'center',
-                color: 'text.secondary',
-                mt: 2,
-                fontSize: '0.9rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: 0.5,
-              }}
+                {/* SYSTEM 1: Quick, intuitive actions with visual cues */}
+                <Box sx={{ pt: 4, width: '100%' }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: { xs: 'center', md: 'flex-start' }, gap: 1, mb: 2, flexWrap: 'wrap' }}>
+                    <FlashOnIcon sx={{ color: 'warning.main', fontSize: 20 }} />
+                    <Typography variant="caption" sx={{ color: 'text.secondary', fontStyle: 'italic' }}>
+                      Quick decision? Choose below
+                    </Typography>
+                    <Tooltip title="Switch to detailed view for more information">
+                      <Chip
+                        icon={<LightbulbIcon />}
+                        label={prefersDetailedView ? 'Detailed View' : 'Quick View'}
+                        size="small"
+                        onClick={() => setPrefersDetailedView(!prefersDetailedView)}
+                        sx={{ cursor: 'pointer', ml: 1 }}
+                      />
+                    </Tooltip>
+                  </Box>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              useFlexGap
+                    sx={{ width: '100%', justifyContent: { xs: 'center', md: 'flex-start' } }}
             >
-              <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
-              Free to join • No commitment • Takes 2 minutes
-            </Typography>
-          </Stack>
+                    <Tooltip title="System 1: Quick, intuitive action - No thinking required">
+              <Button
+                component={RouterLink}
+                to="/contact"
+                variant="contained"
+                color="primary"
+                size="large"
+                endIcon={<ArrowForwardIcon />}
+                        onClick={() => showFeedback('Redirecting to contact form...', 'info')}
+                sx={{
+                          px: 5,
+                          py: 1.75,
+                          fontSize: '1.15rem',
+                          fontWeight: 700,
+                          borderRadius: 3,
+                          boxShadow: '0 4px 20px rgba(0, 35, 149, 0.3), 0 2px 8px rgba(0, 35, 149, 0.2)',
+                          background: 'linear-gradient(135deg, #002395 0%, #0038d6 100%)',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          position: 'relative',
+                          overflow: 'hidden',
+                          '&::before': {
+                            content: '""',
+                            position: 'absolute',
+                            top: 0,
+                            left: '-100%',
+                            width: '100%',
+                            height: '100%',
+                            background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+                            transition: 'left 0.5s ease',
+                          },
+                          '&:hover': {
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 6px 28px rgba(0, 35, 149, 0.4), 0 4px 12px rgba(0, 35, 149, 0.3)',
+                            background: 'linear-gradient(135deg, #0038d6 0%, #002395 100%)',
+                            '&::before': {
+                              left: '100%',
+                            },
+                          },
+                          '&:active': {
+                            transform: 'translateY(0)',
+                          },
+                }}
+              >
+                Join Us Today
+              </Button>
+                    </Tooltip>
+                    <Tooltip title="System 2: Learn more before deciding">
+              <Button
+                component={RouterLink}
+                to="/about"
+                variant="outlined"
+                color="primary"
+                size="large"
+                        onClick={() => showFeedback('Opening detailed information...', 'info')}
+                sx={{
+                          px: 5,
+                          py: 1.75,
+                          fontSize: '1.15rem',
+                  fontWeight: 600,
+                  borderWidth: 2,
+                          transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderWidth: 2,
+                            backgroundColor: 'rgba(0, 35, 149, 0.08)',
+                            transform: 'translateY(-2px)',
+                            boxShadow: '0 4px 12px rgba(0, 35, 149, 0.2)',
+                  },
+                }}
+              >
+                Learn More
+              </Button>
+                    </Tooltip>
+            </Stack>
+                </Box>
+                {/* ABILITY: Show how easy it is */}
+                <Typography
+                  variant="caption"
+                  sx={{
+                    textAlign: { xs: 'center', md: 'left' },
+                    color: 'text.secondary',
+                    mt: 2,
+                    fontSize: '0.9rem',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: { xs: 'center', md: 'flex-start' },
+                    gap: 0.5,
+                  }}
+                >
+                  <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+                  Free to join • No commitment • Takes 2 minutes
+                </Typography>
+              </Stack>
+            </Grid>
+
+            {/* Right side: Hero image */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: { xs: '400px', md: '600px' },
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/main-hero.jpg"
+                  alt="MITRA FRANCE Community"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    display: 'block',
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
 
@@ -908,52 +947,52 @@ export default function Home() {
               </Box>
 
               {/* Traditional stats */}
-              <Stack
-                direction={{ xs: 'column', sm: 'row' }}
-                spacing={4}
-                sx={{
-                  width: '100%',
-                  justifyContent: 'center',
-                  alignItems: 'center',
-                  flexWrap: 'wrap',
-                }}
-              >
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                    10+
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
-                    Years of Impact
-                  </Typography>
-                </Box>
-                <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                    20+
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
-                    European Projects
-                  </Typography>
-                </Box>
-                <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                    1000+
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
-                    Lives Impacted
-                  </Typography>
-                </Box>
-                <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
-                <Box sx={{ textAlign: 'center' }}>
-                  <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                    15+
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
-                    Partner Organizations
-                  </Typography>
-                </Box>
-              </Stack>
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={4}
+              sx={{
+                width: '100%',
+                justifyContent: 'center',
+                alignItems: 'center',
+                flexWrap: 'wrap',
+              }}
+            >
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
+                  10+
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
+                  Years of Impact
+                </Typography>
+              </Box>
+              <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
+                  20+
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
+                  European Projects
+                </Typography>
+              </Box>
+              <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
+                  1000+
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
+                  Lives Impacted
+                </Typography>
+              </Box>
+              <Divider orientation="vertical" flexItem sx={{ display: { xs: 'none', sm: 'block' } }} />
+              <Box sx={{ textAlign: 'center' }}>
+                <Typography variant="h3" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
+                  15+
+                </Typography>
+                <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.95rem' }}>
+                  Partner Organizations
+                </Typography>
+              </Box>
+            </Stack>
           </Box>
         </Container>
       </Box>
@@ -1345,7 +1384,7 @@ export default function Home() {
                     <Typography>• Collaborative Projects</Typography>
                   </>
                 )}
-              </Stack>
+          </Stack>
               <Button
                 component={RouterLink}
                 to="/contact"
@@ -1868,27 +1907,27 @@ export default function Home() {
               color="primary"
               sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2.5 }}
             />
-            <Typography
-              variant="h2"
-              sx={{
-                mb: 2,
-              }}
-            >
-              Why Choose MITRA FRANCE?
-            </Typography>
-            <Typography
-              variant="body1"
-              sx={{
-                textAlign: 'center',
-                color: 'text.secondary',
+          <Typography
+            variant="h2"
+            sx={{
+              mb: 2,
+            }}
+          >
+            Why Choose MITRA FRANCE?
+          </Typography>
+          <Typography
+            variant="body1"
+            sx={{
+              textAlign: 'center',
+              color: 'text.secondary',
                 mb: 1,
-                maxWidth: '700px',
-                mx: 'auto',
+              maxWidth: '700px',
+              mx: 'auto',
                 fontSize: '1.1rem',
-              }}
-            >
-              We make it easy to get involved and create meaningful change in your community
-            </Typography>
+            }}
+          >
+            We make it easy to get involved and create meaningful change in your community
+          </Typography>
             <Typography
               variant="body2"
               sx={{
@@ -2108,10 +2147,10 @@ export default function Home() {
           <Typography variant="h2" sx={{ mb: 2 }}>
             Is It Worth Your Time?
           </Typography>
-          <Typography
+        <Typography
             variant="body1"
-            sx={{
-              textAlign: 'center',
+          sx={{
+            textAlign: 'center',
               color: 'text.secondary',
               mb: 1,
               maxWidth: '700px',
@@ -2251,24 +2290,24 @@ export default function Home() {
                   background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
                   borderRadius: '2px',
                 },
-              }}
-            >
-              Our Focus Areas
-            </Typography>
-            <Typography
+          }}
+        >
+          Our Focus Areas
+        </Typography>
+        <Typography
               variant="h6"
-              sx={{
-                textAlign: 'center',
-                color: 'text.secondary',
+          sx={{
+            textAlign: 'center',
+            color: 'text.secondary',
                 mb: 4,
                 maxWidth: '800px',
-                mx: 'auto',
+            mx: 'auto',
                 fontWeight: 400,
                 lineHeight: 1.7,
-              }}
-            >
-              Explore how we make a difference across five key areas of community empowerment
-            </Typography>
+          }}
+        >
+          Explore how we make a difference across five key areas of community empowerment
+        </Typography>
             
             {/* MOTIVATION: Show value and impact */}
             <Box
@@ -2340,7 +2379,7 @@ export default function Home() {
               </Typography>
             </Box>
           </Box>
-          <Grid container spacing={4}>
+        <Grid container spacing={4}>
             {focusAreas.map((area, index) => {
               const colors = [
                 { primary: '#002395', secondary: 'rgba(0, 35, 149, 0.1)', accent: 'rgba(0, 35, 149, 0.05)' },
@@ -2352,18 +2391,18 @@ export default function Home() {
               const colorScheme = colors[index % colors.length];
               
               return (
-                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={area.title}>
-                  <Card
-                    component={RouterLink}
-                    to={area.path}
-                    sx={{
-                      height: '100%',
-                      textDecoration: 'none',
+            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={area.title}>
+              <Card
+                component={RouterLink}
+                to={area.path}
+                sx={{
+                  height: '100%',
+                  textDecoration: 'none',
                       borderRadius: 4,
                       border: '2px solid',
                       borderColor: 'divider',
                       background: 'white',
-                      position: 'relative',
+                  position: 'relative',
                       overflow: 'hidden',
                       transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                       '&::before': {
@@ -2378,7 +2417,7 @@ export default function Home() {
                         transformOrigin: 'left',
                         transition: 'transform 0.4s ease',
                       },
-                      '&:hover': {
+                  '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: `0 16px 48px ${colorScheme.primary}25, 0 4px 16px rgba(0, 0, 0, 0.1)`,
                         borderColor: colorScheme.primary,
@@ -2397,23 +2436,23 @@ export default function Home() {
                           color: colorScheme.primary,
                         },
                         '& .focus-link': {
-                          opacity: 1,
+                      opacity: 1,
                           transform: 'translateX(6px)',
                           color: colorScheme.primary,
-                        },
-                      },
-                    }}
-                  >
+                    },
+                  },
+                }}
+              >
                     <CardContent sx={{ p: 4, textAlign: 'center', position: 'relative', zIndex: 1 }}>
                       {/* MOTIVATION: Visual appeal with icon */}
-                      <Box
+                  <Box
                         className="focus-icon-wrapper"
-                        sx={{
+                    sx={{
                           width: 100,
                           height: 100,
                           borderRadius: '24px',
-                          display: 'flex',
-                          alignItems: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
                           justifyContent: 'center',
                           mb: 3,
                           mx: 'auto',
@@ -2439,10 +2478,10 @@ export default function Home() {
                             color: colorScheme.primary,
                             fontSize: 56,
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                          }}
-                        >
-                          {area.icon}
-                        </Box>
+                    }}
+                  >
+                    {area.icon}
+                  </Box>
                       </Box>
                       
                       {/* MOTIVATION: Title with value */}
@@ -2457,8 +2496,8 @@ export default function Home() {
                           fontSize: { xs: '1.35rem', sm: '1.5rem' },
                         }}
                       >
-                        {area.title}
-                      </Typography>
+                    {area.title}
+                  </Typography>
                       
                       {/* MOTIVATION: Show value and stats */}
                       <Stack direction="row" spacing={1} justifyContent="center" sx={{ mb: 2, flexWrap: 'wrap' }}>
@@ -2496,12 +2535,12 @@ export default function Home() {
                           minHeight: '4em',
                         }}
                       >
-                        {area.description}
-                      </Typography>
+                    {area.description}
+                  </Typography>
                       
                       {/* MOTIVATION: Show benefit */}
-                      <Box
-                        sx={{
+                  <Box
+                    sx={{
                           mb: 2.5,
                           p: 1.5,
                           borderRadius: 2,
@@ -2515,9 +2554,9 @@ export default function Home() {
                             fontWeight: 600,
                             color: colorScheme.primary,
                             fontSize: '0.9rem',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
                             gap: 0.5,
                           }}
                         >
@@ -2540,7 +2579,7 @@ export default function Home() {
                           fontSize: '0.95rem',
                           borderRadius: '25px',
                           opacity: 0.8,
-                          transition: 'all 0.3s ease',
+                      transition: 'all 0.3s ease',
                           '&:hover': {
                             borderWidth: 2,
                             borderColor: colorScheme.primary,
@@ -2556,7 +2595,7 @@ export default function Home() {
                           window.location.href = area.path;
                         }}
                       >
-                        Learn more
+                      Learn more
                       </Button>
                       
                       {/* ABILITY: Show simplicity indicator */}
@@ -2572,15 +2611,15 @@ export default function Home() {
                         <CheckCircleIcon sx={{ fontSize: 14, color: 'success.main' }} />
                         <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
                           No registration required
-                        </Typography>
-                      </Box>
-                    </CardContent>
-                  </Card>
-                </Grid>
+                    </Typography>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
               );
             })}
-          </Grid>
-        </Container>
+        </Grid>
+      </Container>
       </Box>
 
       {/* MOTIVATION: Enhanced social proof and testimonials section */}
@@ -2605,10 +2644,10 @@ export default function Home() {
           <Grid container spacing={4} alignItems="center">
             <Grid size={{ xs: 12, md: 6 }}>
               <Stack direction="row" spacing={1} sx={{ mb: 2, flexWrap: 'wrap' }}>
-                <Chip
-                  icon={<EmojiEventsIcon />}
-                  label="Trusted Partner"
-                  color="primary"
+              <Chip
+                icon={<EmojiEventsIcon />}
+                label="Trusted Partner"
+                color="primary"
                   sx={{ fontWeight: 600 }}
                 />
                 <Chip
@@ -3522,11 +3561,11 @@ export default function Home() {
             sx={{ mb: 3, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
           />
           <Typography variant="h2" gutterBottom sx={{ mb: 2 }}>
-            Ready to Make a Difference?
-          </Typography>
-          <Typography
-            variant="body1"
-            color="text.secondary"
+          Ready to Make a Difference?
+        </Typography>
+        <Typography
+          variant="body1"
+          color="text.secondary"
             sx={{ mb: 1, maxWidth: '600px', mx: 'auto', fontSize: '1.15rem', fontWeight: 500 }}
           >
             Join our community today and be part of positive change.
@@ -3537,20 +3576,20 @@ export default function Home() {
             sx={{ mb: 4, maxWidth: '500px', mx: 'auto', fontStyle: 'italic' }}
           >
             It only takes a moment to get started. No commitment required.
-          </Typography>
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={2}
+        </Typography>
+        <Stack
+          direction={{ xs: 'column', sm: 'row' }}
+          spacing={2}
             sx={{ justifyContent: 'center', alignItems: 'center', mb: 3 }}
-          >
-            <Button
-              component={RouterLink}
-              to="/contact"
-              variant="contained"
-              color="primary"
-              size="large"
-              endIcon={<ArrowForwardIcon />}
-              sx={{
+        >
+          <Button
+            component={RouterLink}
+            to="/contact"
+            variant="contained"
+            color="primary"
+            size="large"
+            endIcon={<ArrowForwardIcon />}
+            sx={{
                 px: 6,
                 py: 2,
                 fontSize: '1.2rem',
@@ -3566,37 +3605,37 @@ export default function Home() {
                 '&:active': {
                   transform: 'translateY(-1px)',
                 },
-              }}
-            >
-              Get Started Now
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/events"
-              variant="outlined"
-              color="error"
-              size="large"
-              sx={{
+            }}
+          >
+            Get Started Now
+          </Button>
+          <Button
+            component={RouterLink}
+            to="/events"
+            variant="outlined"
+            color="error"
+            size="large"
+            sx={{
                 px: 6,
                 py: 2,
                 fontSize: '1.2rem',
-                fontWeight: 600,
+              fontWeight: 600,
                 borderWidth: 2.5,
-                borderColor: '#ED2939',
-                color: '#ED2939',
+              borderColor: '#ED2939',
+              color: '#ED2939',
                 transition: 'all 0.3s ease',
-                '&:hover': {
+              '&:hover': {
                   borderWidth: 2.5,
-                  borderColor: '#c91f2f',
+                borderColor: '#c91f2f',
                   backgroundColor: 'rgba(237, 41, 57, 0.08)',
                   transform: 'translateY(-3px)',
                   boxShadow: '0 6px 20px rgba(237, 41, 57, 0.25)',
-                },
-              }}
-            >
-              View Upcoming Events
-            </Button>
-          </Stack>
+              },
+            }}
+          >
+            View Upcoming Events
+          </Button>
+        </Stack>
           {/* ABILITY: Show the simplicity */}
           <Box
             sx={{
@@ -3630,7 +3669,7 @@ export default function Home() {
               </Typography>
             </Box>
           </Box>
-        </Container>
+      </Container>
       </Box>
 
       {/* NUDGE: Timely intervention - Contextual prompt when scrolling */}
