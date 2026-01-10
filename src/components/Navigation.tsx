@@ -46,6 +46,7 @@ export default function Navigation() {
     { label: 'Home', path: '/' },
     { label: 'About Us', path: '/about' },
     { label: 'Focus Areas', path: '/focus-areas' },
+    { label: 'Courses', path: '/courses' },
     { label: 'Projects', path: '/projects' },
     { label: 'Team', path: '/team' },
     { label: 'Partners', path: '/partners' },

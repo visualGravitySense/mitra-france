@@ -346,25 +346,44 @@ export default function FocusAreas() {
 
                     {/* PROMPT: Clear CTA */}
                     <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 3 }}>
-                      <Button
-                        component={RouterLink}
-                        to="/projects"
-                        variant="contained"
-                        endIcon={<ArrowForwardIcon />}
-                        sx={{
-                          backgroundColor: area.color,
-                          '&:hover': {
+                      {area.id === 'intercultural' ? (
+                        <Button
+                          component={RouterLink}
+                          to="/intercultural-education"
+                          variant="contained"
+                          endIcon={<ArrowForwardIcon />}
+                          sx={{
                             backgroundColor: area.color,
-                            opacity: 0.9,
-                          },
-                          px: 4,
-                        }}
-                      >
-                        View Projects
-                      </Button>
+                            '&:hover': {
+                              backgroundColor: area.color,
+                              opacity: 0.9,
+                            },
+                            px: 4,
+                          }}
+                        >
+                          Learn More
+                        </Button>
+                      ) : (
+                        <Button
+                          component={RouterLink}
+                          to="/projects"
+                          variant="contained"
+                          endIcon={<ArrowForwardIcon />}
+                          sx={{
+                            backgroundColor: area.color,
+                            '&:hover': {
+                              backgroundColor: area.color,
+                              opacity: 0.9,
+                            },
+                            px: 4,
+                          }}
+                        >
+                          View Projects
+                        </Button>
+                      )}
                       <Button
                         component={RouterLink}
-                        to="/events"
+                        to={area.id === 'intercultural' ? '/intercultural-education' : '/events'}
                         variant="outlined"
                         sx={{
                           borderColor: area.color,
@@ -378,7 +397,7 @@ export default function FocusAreas() {
                           px: 4,
                         }}
                       >
-                        Join Events
+                        {area.id === 'intercultural' ? 'Explore Behavior Insights' : 'Join Events'}
                       </Button>
                     </Stack>
                   </Grid>

@@ -86,6 +86,12 @@ export default function Footer() {
           <Link component={RouterLink} to="/focus-areas" color="text.secondary" variant="body2">
             Focus Areas
           </Link>
+          <Link component={RouterLink} to="/intercultural-education" color="text.secondary" variant="body2">
+            Intercultural Education
+          </Link>
+          <Link component={RouterLink} to="/courses" color="text.secondary" variant="body2">
+            Courses
+          </Link>
           <Link component={RouterLink} to="/projects" color="text.secondary" variant="body2">
             Projects
           </Link>
