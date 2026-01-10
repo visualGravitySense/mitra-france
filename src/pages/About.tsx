@@ -60,91 +60,337 @@ export default function About() {
 
   return (
     <Box>
-      {/* MOTIVATION: Hero section with emotional appeal */}
+      {/* BJ FOGG BEHAVIOR MODEL: MOTIVATION + ABILITY + PROMPTS */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
-          py: { xs: 6, sm: 8 },
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 50%, rgba(0, 35, 149, 0.05) 100%)',
+          pt: { xs: 10, sm: 12, md: 14 }, // Отступ сверху, чтобы контент не скрывался под Header
+          pb: { xs: 8, sm: 10 },
           mb: { xs: 6, sm: 8 },
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            height: '4px',
+            background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+          },
         }}
       >
         <Container>
-          <Typography
-            variant="h2"
-            sx={{
-              mb: 2,
-              textAlign: 'center',
-              background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-              backgroundClip: 'text',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-            }}
-          >
-            About MITRA FRANCE
-          </Typography>
-          <Typography
-            variant="h5"
-            sx={{
-              textAlign: 'center',
-              color: 'text.secondary',
-              fontWeight: 400,
-              mb: 4,
-              maxWidth: '800px',
-              mx: 'auto',
-            }}
-          >
-            Empowering Communities Through Education, Culture & Digital Inclusion Since 2015
-          </Typography>
-          
-          {/* PROMPT: Quick navigation to key sections */}
-          <Stack
-            direction={{ xs: 'column', sm: 'row' }}
-            spacing={2}
-            sx={{ justifyContent: 'center', flexWrap: 'wrap', mt: 4 }}
-          >
-            <Button
-              component="a"
-              href="#mission"
-              variant="outlined"
-              size="small"
-              sx={{ borderRadius: '20px', px: 3 }}
-            >
-              Our Mission
-            </Button>
-            <Button
-              component="a"
-              href="#history"
-              variant="outlined"
-              size="small"
-              sx={{ borderRadius: '20px', px: 3 }}
-            >
-              Our History
-            </Button>
-            <Button
-              component="a"
-              href="#achievements"
-              variant="outlined"
-              size="small"
-              sx={{ borderRadius: '20px', px: 3 }}
-            >
-              Achievements
-            </Button>
-            <Button
-              component={RouterLink}
-              to="/team"
-              variant="contained"
-              size="small"
-              endIcon={<ArrowForwardIcon />}
-              sx={{ borderRadius: '20px', px: 3 }}
-            >
-              Meet Our Team
-            </Button>
-          </Stack>
+          <Grid container spacing={4} alignItems="center">
+            {/* Left side: Text content */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Stack spacing={3} sx={{ alignItems: { xs: 'center', md: 'flex-start' } }}>
+                {/* MOTIVATION: Emotional appeal and benefits */}
+                <Box sx={{ width: '100%' }}>
+                  <Chip
+                    icon={<EmojiEventsIcon />}
+                    label="Trusted Since 2015"
+                    color="primary"
+                    sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
+                  />
+                  <Typography
+                    variant="h2"
+                    sx={{
+                      mb: 2,
+                      textAlign: { xs: 'center', md: 'left' },
+                      background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                      backgroundClip: 'text',
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      fontWeight: 700,
+                    }}
+                  >
+                    About MITRA FRANCE
+                  </Typography>
+                  <Typography
+                    variant="h5"
+                    sx={{
+                      textAlign: { xs: 'center', md: 'left' },
+                      color: 'text.secondary',
+                      fontWeight: 400,
+                      mb: 3,
+                    }}
+                  >
+                    Empowering Communities Through Education, Culture & Digital Inclusion Since 2015
+                  </Typography>
+                  
+                  {/* MOTIVATION: Show benefits and value */}
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      justifyContent: { xs: 'center', md: 'flex-start' },
+                      alignItems: 'center',
+                      gap: 2,
+                      flexWrap: 'wrap',
+                      mb: 3,
+                    }}
+                  >
+                    <Chip
+                      icon={<CheckCircleIcon sx={{ color: 'success.main' }} />}
+                      label="10+ Years of Impact"
+                      sx={{
+                        backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                        color: 'success.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                    <Chip
+                      icon={<PeopleIcon sx={{ color: 'primary.main' }} />}
+                      label="1000+ Lives Changed"
+                      sx={{
+                        backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                        color: 'primary.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                    <Chip
+                      icon={<PublicIcon sx={{ color: 'error.main' }} />}
+                      label="15+ European Countries"
+                      sx={{
+                        backgroundColor: 'rgba(237, 41, 57, 0.1)',
+                        color: 'error.main',
+                        fontWeight: 600,
+                      }}
+                    />
+                  </Box>
+                </Box>
+
+                {/* ABILITY: Make it easy to navigate and understand */}
+                <Box sx={{ width: '100%' }}>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      textAlign: { xs: 'center', md: 'left' },
+                      mb: 3,
+                      color: 'text.secondary',
+                      fontWeight: 500,
+                    }}
+                  >
+                    Choose what interests you most:
+                  </Typography>
+                  <Stack
+                    direction={{ xs: 'column', sm: 'row' }}
+                    spacing={2}
+                    sx={{ justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}
+                  >
+              <Button
+                component="a"
+                href="#mission"
+                variant="outlined"
+                size="medium"
+                startIcon={<FavoriteIcon />}
+                sx={{
+                  borderRadius: '25px',
+                  px: 4,
+                  py: 1.5,
+                  borderWidth: 2,
+                  fontWeight: 600,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 35, 149, 0.2)',
+                  },
+                }}
+              >
+                Our Mission
+              </Button>
+              <Button
+                component="a"
+                href="#history"
+                variant="outlined"
+                size="medium"
+                startIcon={<HistoryIcon />}
+                sx={{
+                  borderRadius: '25px',
+                  px: 4,
+                  py: 1.5,
+                  borderWidth: 2,
+                  fontWeight: 600,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 35, 149, 0.2)',
+                  },
+                }}
+              >
+                Our History
+              </Button>
+              <Button
+                component="a"
+                href="#achievements"
+                variant="outlined"
+                size="medium"
+                startIcon={<EmojiEventsIcon />}
+                sx={{
+                  borderRadius: '25px',
+                  px: 4,
+                  py: 1.5,
+                  borderWidth: 2,
+                  fontWeight: 600,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    borderWidth: 2,
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 4px 12px rgba(0, 35, 149, 0.2)',
+                  },
+                }}
+              >
+                Achievements
+              </Button>
+              <Button
+                component={RouterLink}
+                to="/team"
+                variant="contained"
+                size="medium"
+                startIcon={<GroupsIcon />}
+                endIcon={<ArrowForwardIcon />}
+                sx={{
+                  borderRadius: '25px',
+                  px: 4,
+                  py: 1.5,
+                  fontWeight: 700,
+                  background: 'linear-gradient(135deg, rgba(0, 35, 149, 1) 0%, rgba(0, 35, 149, 0.8) 100%)',
+                  boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.9) 0%, rgba(0, 35, 149, 0.7) 100%)',
+                    transform: 'translateY(-2px)',
+                    boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
+                  },
+                }}
+              >
+                Meet Our Team
+              </Button>
+                  </Stack>
+                </Box>
+
+                {/* PROMPT: Clear call-to-action with urgency */}
+                <Box
+                  sx={{
+                    textAlign: { xs: 'center', md: 'left' },
+                    p: 3,
+                    borderRadius: 3,
+                    backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                    border: '2px solid',
+                    borderColor: 'primary.main',
+                    width: '100%',
+                  }}
+                >
+                  <Typography variant="h6" sx={{ mb: 1, fontWeight: 600, color: 'primary.main' }}>
+                    Ready to Learn More?
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                    Discover our impact, explore our programs, or connect with our team
+                  </Typography>
+                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: { xs: 'center', md: 'flex-start' } }}>
+                    <Button
+                      component={RouterLink}
+                      to="/projects"
+                      variant="contained"
+                      color="primary"
+                      size="large"
+                      endIcon={<ArrowForwardIcon />}
+                      sx={{
+                        px: 4,
+                        py: 1.5,
+                        fontWeight: 700,
+                        borderRadius: '25px',
+                        boxShadow: '0 4px 14px rgba(0, 35, 149, 0.3)',
+                      }}
+                    >
+                      Explore Projects
+                    </Button>
+                    <Button
+                      component={RouterLink}
+                      to="/contact"
+                      variant="outlined"
+                      color="primary"
+                      size="large"
+                      sx={{
+                        px: 4,
+                        py: 1.5,
+                        fontWeight: 600,
+                        borderRadius: '25px',
+                        borderWidth: 2,
+                        '&:hover': {
+                          borderWidth: 2,
+                        },
+                      }}
+                    >
+                      Get in Touch
+                    </Button>
+                  </Stack>
+                </Box>
+
+                {/* ABILITY: Show simplicity indicator */}
+                <Typography
+                  variant="caption"
+                  sx={{
+                    textAlign: { xs: 'center', md: 'left' },
+                    color: 'text.secondary',
+                    mt: 2,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: { xs: 'center', md: 'flex-start' },
+                    gap: 0.5,
+                  }}
+                >
+                  <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
+                  Easy to navigate • All information in one place • No registration needed
+                </Typography>
+              </Stack>
+            </Grid>
+
+            {/* Right side: Hero image */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: { xs: '400px', md: '600px' },
+                  borderRadius: 4,
+                  overflow: 'hidden',
+                  boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/about-us.jpg"
+                  alt="MITRA FRANCE About Us"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    objectPosition: 'center',
+                    display: 'block',
+                  }}
+                />
+              </Box>
+            </Grid>
+          </Grid>
         </Container>
       </Box>
 
       <Container>
-        {/* MOTIVATION: Compelling story with visual impact */}
+        {/* BJ FOGG MODEL: MOTIVATION + ABILITY + PROMPTS - Our Story */}
         <Box sx={{ mb: 8 }}>
           <Grid container spacing={4} alignItems="center">
             <Grid size={{ xs: 12, md: 7 }}>
@@ -152,11 +398,32 @@ export default function About() {
                 icon={<LocationOnIcon />}
                 label="Based in Nice, France"
                 color="primary"
-                sx={{ mb: 2 }}
+                sx={{ mb: 2, fontWeight: 600 }}
               />
-              <Typography variant="h3" gutterBottom sx={{ mb: 3 }}>
+              <Typography variant="h3" gutterBottom sx={{ mb: 3, fontWeight: 700 }}>
                 Our Story
               </Typography>
+              
+              {/* MOTIVATION: Show emotional connection and benefits */}
+              <Box
+                sx={{
+                  mb: 3,
+                  p: 2.5,
+                  borderRadius: 2,
+                  backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                  borderLeft: '4px solid',
+                  borderColor: 'primary.main',
+                }}
+              >
+                <Typography variant="body2" sx={{ fontWeight: 600, mb: 1, color: 'primary.main' }}>
+                  ✨ Why We Matter
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  We've been transforming lives since 2015, creating opportunities for thousands of people 
+                  across Europe through education, culture, and digital inclusion.
+                </Typography>
+              </Box>
+              
               <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 2 }}>
                 MITRA FRANCE is a non-profit organization dedicated to fostering intercultural
                 understanding, promoting digital literacy, and supporting community engagement
@@ -170,17 +437,70 @@ export default function About() {
                 projects and promote cultural exchange.
               </Typography>
               
-              {/* PROMPT: Quick action */}
-              <Button
-                component={RouterLink}
-                to="/projects"
-                variant="outlined"
-                color="primary"
-                endIcon={<ArrowForwardIcon />}
-                sx={{ mt: 2 }}
+              {/* ABILITY: Make it easy to take next step */}
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mt: 3 }}>
+                <Button
+                  component={RouterLink}
+                  to="/projects"
+                  variant="contained"
+                  color="primary"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    fontWeight: 600,
+                    borderRadius: '25px',
+                    boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                  }}
+                >
+                  Explore Our Projects
+                </Button>
+                <Button
+                  component={RouterLink}
+                  to="/focus-areas"
+                  variant="outlined"
+                  color="primary"
+                  sx={{
+                    px: 4,
+                    py: 1.5,
+                    fontWeight: 600,
+                    borderRadius: '25px',
+                    borderWidth: 2,
+                    '&:hover': {
+                      borderWidth: 2,
+                    },
+                  }}
+                >
+                  Our Focus Areas
+                </Button>
+              </Stack>
+              
+              {/* PROMPT: Show what they'll get */}
+              <Box
+                sx={{
+                  mt: 3,
+                  p: 2,
+                  borderRadius: 2,
+                  backgroundColor: 'rgba(76, 175, 80, 0.05)',
+                  border: '1px solid',
+                  borderColor: 'success.main',
+                }}
               >
-                Explore Our Projects
-              </Button>
+                <Typography variant="caption" sx={{ fontWeight: 600, color: 'success.main', display: 'block', mb: 0.5 }}>
+                  What you'll discover:
+                </Typography>
+                <Stack direction="row" spacing={2} flexWrap="wrap">
+                  <Typography variant="caption" color="text.secondary">
+                    ✓ 50+ Programs
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    ✓ 15+ Countries
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary">
+                    ✓ 1000+ Participants
+                  </Typography>
+                </Stack>
+              </Box>
             </Grid>
             <Grid size={{ xs: 12, md: 5 }}>
               <Card
@@ -223,7 +543,7 @@ export default function About() {
 
       <Divider sx={{ my: 8 }} />
 
-      {/* ABILITY: Clear, scannable Mission & Values section */}
+      {/* BJ FOGG MODEL: ABILITY - Make it easy to understand Mission & Values */}
       <Box id="mission" sx={{ mb: 8, scrollMarginTop: '100px' }}>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 4 }}>
           <Box
@@ -241,6 +561,26 @@ export default function About() {
             <FavoriteIcon sx={{ fontSize: 32, color: 'primary.main' }} />
           </Box>
           <Typography variant="h3">Mission & Values</Typography>
+        </Box>
+        
+        {/* PROMPT: Quick summary before details */}
+        <Box
+          sx={{
+            mb: 4,
+            p: 3,
+            borderRadius: 2,
+            backgroundColor: 'rgba(0, 35, 149, 0.03)',
+            borderLeft: '4px solid',
+            borderColor: 'primary.main',
+          }}
+        >
+          <Typography variant="body1" sx={{ fontWeight: 600, mb: 1, color: 'primary.main' }}>
+            💡 Quick Summary
+          </Typography>
+          <Typography variant="body2" color="text.secondary">
+            Our mission is to empower communities through education, culture, and digital inclusion. 
+            We believe in creating inclusive learning environments that support individuals from diverse backgrounds.
+          </Typography>
         </Box>
         
         <Grid container spacing={4} sx={{ mb: 4 }}>

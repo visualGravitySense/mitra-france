@@ -57,8 +57,9 @@ export default function InterculturalEducation() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
-          py: { xs: 6, sm: 8 },
-          mb: { xs: 6, sm: 8 },
+          pt: { xs: 10, sm: 12, md: 14 },
+          pb: { xs: 6, sm: 8 },
+          mb: 0,
         }}
       >
         <Container>
@@ -95,6 +96,7 @@ export default function InterculturalEducation() {
           py: { xs: 8, sm: 10 },
           background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.03) 0%, rgba(237, 41, 57, 0.03) 100%)',
           position: 'relative',
+          mt: 0,
         }}
       >
         <Container>

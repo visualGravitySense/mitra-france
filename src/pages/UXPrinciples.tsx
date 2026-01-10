@@ -14,6 +14,7 @@ import Snackbar from '@mui/material/Snackbar';
 import Alert from '@mui/material/Alert';
 import { Link as RouterLink } from 'react-router-dom';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PsychologyIcon from '@mui/icons-material/Psychology';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
@@ -38,6 +39,10 @@ import SchoolIcon from '@mui/icons-material/School';
 import PeopleIcon from '@mui/icons-material/People';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
 import TextFieldsIcon from '@mui/icons-material/TextFields';
+import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
+import InfoIcon from '@mui/icons-material/Info';
+import UndoIcon from '@mui/icons-material/Undo';
+import CelebrationIcon from '@mui/icons-material/Celebration';
 
 export default function UXPrinciples() {
   // Make it Clear, Where to Act: Track interactions for feedback
@@ -59,8 +64,9 @@ export default function UXPrinciples() {
       <Box
         sx={{
           background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
-          py: { xs: 6, sm: 8 },
-          mb: { xs: 6, sm: 8 },
+          pt: { xs: 10, sm: 12, md: 14 },
+          pb: { xs: 6, sm: 8 },
+          mb: 0,
         }}
       >
         <Container>
@@ -104,6 +110,7 @@ export default function UXPrinciples() {
           py: { xs: 8, sm: 10 },
           background: 'linear-gradient(135deg, rgba(255, 255, 255, 1) 0%, rgba(248, 249, 250, 1) 100%)',
           position: 'relative',
+          mt: 0,
         }}
       >
         <Container>
