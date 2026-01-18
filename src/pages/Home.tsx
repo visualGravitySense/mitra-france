@@ -13,6 +13,7 @@ import Fab from '@mui/material/Fab';
 import Zoom from '@mui/material/Zoom';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
+import ParticleCTAButton from '../components/ParticleCTAButton';
 import SchoolIcon from '@mui/icons-material/School';
 import PaletteIcon from '@mui/icons-material/Palette';
 import ComputerIcon from '@mui/icons-material/Computer';
@@ -507,14 +508,15 @@ export default function Home() {
                     sx={{ width: '100%', justifyContent: { xs: 'center', md: 'flex-start' } }}
             >
                     <Tooltip title="System 1: Quick, intuitive action - No thinking required">
-              <Button
-                component={RouterLink}
+              <ParticleCTAButton
                 to="/contact"
                 variant="contained"
                 color="primary"
                 size="large"
                 endIcon={<ArrowForwardIcon />}
-                        onClick={() => showFeedback('Redirecting to contact form...', 'info')}
+                onClick={() => showFeedback('Redirecting to contact form...', 'info')}
+                particleCount={200}
+                colors={['#002395', '#0038d6', '#6B8DE3', '#ED2939', '#FFFFFF']}
                 sx={{
                           px: 5,
                           py: 1.75,
@@ -550,7 +552,7 @@ export default function Home() {
                 }}
               >
                 Join Us Today
-              </Button>
+              </ParticleCTAButton>
                     </Tooltip>
                     <Tooltip title="System 2: Learn more before deciding">
               <Button
@@ -2443,46 +2445,96 @@ export default function Home() {
                   },
                 }}
               >
-                    <CardContent sx={{ p: 4, textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                      {/* MOTIVATION: Visual appeal with icon */}
-                  <Box
-                        className="focus-icon-wrapper"
-                    sx={{
-                          width: 100,
-                          height: 100,
-                          borderRadius: '24px',
-                      display: 'flex',
-                      alignItems: 'center',
+                    <CardContent sx={{ p: 0, textAlign: 'center', position: 'relative', zIndex: 1 }}>
+                      {/* Image placeholder */}
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: { xs: 200, sm: 240 },
+                          background: `linear-gradient(135deg, ${colorScheme.primary}08 0%, ${colorScheme.accent} 100%)`,
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
                           justifyContent: 'center',
-                          mb: 3,
-                          mx: 'auto',
-                          background: colorScheme.accent,
-                          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                          boxShadow: `0 4px 16px ${colorScheme.primary}15`,
                           position: 'relative',
-                          '&::after': {
+                          overflow: 'hidden',
+                          borderBottom: '2px dashed',
+                          borderColor: `${colorScheme.primary}30`,
+                          '&::before': {
                             content: '""',
                             position: 'absolute',
-                            inset: -4,
-                            borderRadius: '28px',
-                            background: `linear-gradient(135deg, ${colorScheme.primary}20, ${colorScheme.primary}05)`,
-                            opacity: 0,
-                            transition: 'opacity 0.4s ease',
-                            zIndex: -1,
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, ${colorScheme.primary}05 10px, ${colorScheme.primary}05 20px)`,
+                            opacity: 0.5,
                           },
                         }}
                       >
-                        <Box
-                          className="focus-icon"
+                        <ImageIcon
                           sx={{
-                            color: colorScheme.primary,
-                            fontSize: 56,
+                            fontSize: 64,
+                            color: `${colorScheme.primary}40`,
+                            mb: 1,
+                            position: 'relative',
+                            zIndex: 1,
+                          }}
+                        />
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: `${colorScheme.primary}60`,
+                            fontSize: '0.75rem',
+                            fontWeight: 500,
+                            position: 'relative',
+                            zIndex: 1,
+                          }}
+                        >
+                          Image Placeholder
+                        </Typography>
+                        <Box
+                          className="focus-icon-wrapper"
+                          sx={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: '20px',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            background: 'rgba(255, 255, 255, 0.95)',
                             transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                    }}
-                  >
-                    {area.icon}
-                  </Box>
+                            boxShadow: `0 4px 16px ${colorScheme.primary}20`,
+                            position: 'absolute',
+                            bottom: 16,
+                            right: 16,
+                            zIndex: 2,
+                            '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              inset: -4,
+                              borderRadius: '24px',
+                              background: `linear-gradient(135deg, ${colorScheme.primary}20, ${colorScheme.primary}05)`,
+                              opacity: 0,
+                              transition: 'opacity 0.4s ease',
+                              zIndex: -1,
+                            },
+                          }}
+                        >
+                          <Box
+                            className="focus-icon"
+                            sx={{
+                              color: colorScheme.primary,
+                              fontSize: 40,
+                              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                            }}
+                          >
+                            {area.icon}
+                          </Box>
+                        </Box>
                       </Box>
+                      
+                      <Box sx={{ p: 4 }}>
                       
                       {/* MOTIVATION: Title with value */}
                       <Typography
@@ -2613,6 +2665,7 @@ export default function Home() {
                           No registration required
                     </Typography>
                   </Box>
+                      </Box>
                 </CardContent>
               </Card>
             </Grid>
