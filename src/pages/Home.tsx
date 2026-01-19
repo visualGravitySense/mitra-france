@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, Fragment } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -6,6 +6,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
 import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import Divider from '@mui/material/Divider';
@@ -98,6 +99,10 @@ import RepeatIcon from '@mui/icons-material/Repeat';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
 import TableChartIcon from '@mui/icons-material/TableChart';
 import ToggleButton from '@mui/material/ToggleButton';
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import HowToRegIcon from '@mui/icons-material/HowToReg';
+import EmailIcon from '@mui/icons-material/Email';
+import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
@@ -1900,36 +1905,39 @@ export default function Home() {
           backgroundColor: 'rgba(0, 35, 149, 0.03)',
           py: { xs: 6, sm: 8 },
           mt: { xs: 6, sm: 8 },
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 3 }}>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
             <Chip
               label="Simple & Accessible"
               color="primary"
               sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2.5 }}
             />
-          <Typography
-            variant="h2"
-            sx={{
-              mb: 2,
-            }}
-          >
-            Why Choose MITRA FRANCE?
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              textAlign: 'center',
-              color: 'text.secondary',
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2,
+                fontWeight: 700,
+              }}
+            >
+              Why Choose MITRA FRANCE?
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: 'center',
+                color: 'text.secondary',
                 mb: 1,
-              maxWidth: '700px',
-              mx: 'auto',
+                maxWidth: '700px',
+                mx: 'auto',
                 fontSize: '1.1rem',
-            }}
-          >
-            We make it easy to get involved and create meaningful change in your community
-          </Typography>
+              }}
+            >
+              We make it easy to get involved and create meaningful change in your community
+            </Typography>
             <Typography
               variant="body2"
               sx={{
@@ -1943,35 +1951,48 @@ export default function Home() {
               No complex forms. No long waiting. Just simple steps to start making a difference.
             </Typography>
           </Box>
-          <Grid container spacing={3}>
+          
+          <Grid container spacing={4}>
             {[
               {
-                icon: <CheckCircleIcon sx={{ fontSize: 40 }} />,
+                icon: <CheckCircleIcon sx={{ fontSize: 80 }} />,
                 title: 'Easy to Join',
                 description: 'Simple registration process. No complex requirements.',
                 detail: '3-step process • 2 minutes',
                 color: 'success',
+                gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                imagePlaceholder: '👥',
+                screenshot: false,
               },
               {
-                icon: <PeopleIcon sx={{ fontSize: 40 }} />,
+                icon: <PeopleIcon sx={{ fontSize: 80 }} />,
                 title: 'Inclusive Community',
                 description: 'Welcome to all - seniors, youth, migrants, everyone belongs.',
                 detail: 'Open to everyone • No barriers',
                 color: 'primary',
+                gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                imagePlaceholder: '🌍',
+                screenshot: false,
               },
               {
-                icon: <PublicIcon sx={{ fontSize: 40 }} />,
+                icon: <PublicIcon sx={{ fontSize: 80 }} />,
                 title: 'European Network',
                 description: 'Connect with partners across Europe through Erasmus+ projects.',
                 detail: '15+ countries • Active network',
                 color: 'info',
+                gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
+                imagePlaceholder: '📊',
+                screenshot: true,
               },
               {
-                icon: <TrendingUpIcon sx={{ fontSize: 40 }} />,
+                icon: <TrendingUpIcon sx={{ fontSize: 80 }} />,
                 title: 'Proven Impact',
                 description: 'Track record of successful programs and positive outcomes.',
                 detail: '1000+ lives changed • 10+ years',
                 color: 'warning',
+                gradient: 'linear-gradient(135deg, #f57c00 0%, #ffb74d 100%)',
+                imagePlaceholder: '📈',
+                screenshot: false,
               },
             ].map((benefit) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={benefit.title}>
@@ -1979,48 +2000,222 @@ export default function Home() {
                   sx={{
                     height: '100%',
                     textAlign: 'center',
-                    p: 3,
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.06)',
-                    transition: 'all 0.3s ease',
+                    border: 'none',
+                    borderRadius: 4,
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     cursor: 'pointer',
                     position: 'relative',
-                    overflow: 'visible',
+                    overflow: 'hidden',
+                    background: 'white',
                     '&:hover': {
-                      boxShadow: '0 8px 24px rgba(0, 35, 149, 0.2)',
-                      transform: 'translateY(-5px)',
-                      borderColor: 'primary.main',
+                      boxShadow: '0 12px 40px rgba(0, 35, 149, 0.2)',
+                      transform: 'translateY(-8px)',
                       '& .benefit-icon': {
+                        transform: 'scale(1.15) rotate(5deg)',
+                      },
+                      '& .benefit-image': {
                         transform: 'scale(1.1)',
                       },
                     },
                   }}
                 >
+                  {/* Large Icon with Gradient Background */}
                   <Box
                     className="benefit-icon"
                     sx={{
-                      color: `${benefit.color}.main`,
-                      mb: 2,
+                      position: 'relative',
+                      mb: 3,
+                      mt: 3,
                       display: 'flex',
                       justifyContent: 'center',
-                      transition: 'transform 0.3s ease',
+                      alignItems: 'center',
+                      transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                     }}
                   >
-                    {benefit.icon}
+                    <Box
+                      sx={{
+                        width: { xs: 140, sm: 160 },
+                        height: { xs: 140, sm: 160 },
+                        borderRadius: '50%',
+                        background: benefit.gradient,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        boxShadow: `0 8px 32px ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.3)' : 'rgba(245, 124, 0, 0.3)'}`,
+                        position: 'relative',
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          inset: -12,
+                          borderRadius: '50%',
+                          background: `radial-gradient(circle, ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.15)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.15)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.15)' : 'rgba(245, 124, 0, 0.15)'}, transparent)`,
+                          zIndex: -1,
+                        },
+                      }}
+                    >
+                      {benefit.icon}
+                    </Box>
                   </Box>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 1 }}>
-                    {benefit.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, minHeight: '3em' }}>
-                    {benefit.description}
-                  </Typography>
-                  <Chip
-                    label={benefit.detail}
-                    size="small"
-                    color={benefit.color as 'success' | 'primary' | 'info' | 'warning'}
-                    sx={{ fontSize: '0.75rem', fontWeight: 600 }}
-                  />
+
+                  {/* Photo/Image Section - Real People or Screenshot */}
+                  <Box
+                    className="benefit-image"
+                    sx={{
+                      mx: 2,
+                      mb: 2,
+                      borderRadius: 3,
+                      overflow: 'hidden',
+                      transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      height: { xs: 120, sm: 140 },
+                      position: 'relative',
+                      background: benefit.screenshot 
+                        ? 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)'
+                        : `linear-gradient(135deg, ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.1)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.1)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.1)' : 'rgba(245, 124, 0, 0.1)'} 0%, transparent 100%)`,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      border: `2px dashed ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.3)' : 'rgba(245, 124, 0, 0.3)'}`,
+                    }}
+                  >
+                    {benefit.screenshot ? (
+                      // Screenshot placeholder - можно заменить на реальный скриншот
+                      <Box
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          gap: 1,
+                          p: 2,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: '80%',
+                            height: 8,
+                            borderRadius: 1,
+                            background: 'linear-gradient(90deg, #002395 0%, #1e88e5 100%)',
+                            mb: 1,
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            width: '90%',
+                            height: 6,
+                            borderRadius: 1,
+                            background: 'rgba(0, 0, 0, 0.1)',
+                            mb: 1,
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            width: '70%',
+                            height: 6,
+                            borderRadius: 1,
+                            background: 'rgba(0, 0, 0, 0.08)',
+                          }}
+                        />
+                        <Typography
+                          variant="caption"
+                          sx={{
+                            color: 'text.secondary',
+                            fontSize: '0.7rem',
+                            mt: 1,
+                            fontStyle: 'italic',
+                          }}
+                        >
+                          Platform Screenshot
+                        </Typography>
+                      </Box>
+                    ) : (
+                      // People photos placeholder - можно заменить на реальные фотографии
+                      <AvatarGroup
+                        max={3}
+                        sx={{
+                          '& .MuiAvatar-root': {
+                            width: { xs: 40, sm: 48 },
+                            height: { xs: 40, sm: 48 },
+                            border: `3px solid white`,
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                          },
+                        }}
+                      >
+                        <Avatar
+                          sx={{
+                            background: benefit.gradient,
+                            fontSize: { xs: '1.5rem', sm: '2rem' },
+                          }}
+                        >
+                          {benefit.imagePlaceholder}
+                        </Avatar>
+                        <Avatar
+                          sx={{
+                            background: `linear-gradient(135deg, ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.8)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.8)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.8)' : 'rgba(245, 124, 0, 0.8)'}, ${benefit.color === 'success' ? 'rgba(102, 187, 106, 0.8)' : benefit.color === 'primary' ? 'rgba(30, 136, 229, 0.8)' : benefit.color === 'info' ? 'rgba(41, 182, 246, 0.8)' : 'rgba(255, 183, 77, 0.8)'})`,
+                            fontSize: { xs: '1.2rem', sm: '1.5rem' },
+                          }}
+                        >
+                          👤
+                        </Avatar>
+                        <Avatar
+                          sx={{
+                            background: `linear-gradient(135deg, ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.6)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.6)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.6)' : 'rgba(245, 124, 0, 0.6)'}, ${benefit.color === 'success' ? 'rgba(102, 187, 106, 0.6)' : benefit.color === 'primary' ? 'rgba(30, 136, 229, 0.6)' : benefit.color === 'info' ? 'rgba(41, 182, 246, 0.6)' : 'rgba(255, 183, 77, 0.6)'})`,
+                            fontSize: { xs: '1rem', sm: '1.2rem' },
+                          }}
+                        >
+                          👥
+                        </Avatar>
+                      </AvatarGroup>
+                    )}
+                  </Box>
+
+                  {/* Content */}
+                  <Box sx={{ px: 2, pb: 3 }}>
+                    <Typography 
+                      variant="h6" 
+                      gutterBottom 
+                      sx={{ 
+                        fontWeight: 700, 
+                        mb: 1.5,
+                        fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                      }}
+                    >
+                      {benefit.title}
+                    </Typography>
+                    <Typography 
+                      variant="body2" 
+                      color="text.secondary" 
+                      sx={{ 
+                        mb: 2, 
+                        minHeight: { xs: 'auto', sm: '3.5em' },
+                        lineHeight: 1.7,
+                        fontSize: { xs: '0.9rem', sm: '0.95rem' },
+                      }}
+                    >
+                      {benefit.description}
+                    </Typography>
+                    <Chip
+                      icon={<AccessTimeIcon sx={{ fontSize: 16 }} />}
+                      label={benefit.detail}
+                      size="small"
+                      sx={{ 
+                        fontSize: '0.8rem', 
+                        fontWeight: 600,
+                        background: benefit.color === 'success' 
+                          ? 'rgba(46, 125, 50, 0.1)' 
+                          : benefit.color === 'primary' 
+                          ? 'rgba(0, 35, 149, 0.1)' 
+                          : benefit.color === 'info' 
+                          ? 'rgba(2, 119, 189, 0.1)' 
+                          : 'rgba(245, 124, 0, 0.1)',
+                        color: `${benefit.color}.main`,
+                        border: `1px solid ${benefit.color === 'success' ? 'rgba(46, 125, 50, 0.2)' : benefit.color === 'primary' ? 'rgba(0, 35, 149, 0.2)' : benefit.color === 'info' ? 'rgba(2, 119, 189, 0.2)' : 'rgba(245, 124, 0, 0.2)'}`,
+                      }}
+                    />
+                  </Box>
                 </Card>
               </Grid>
             ))}
@@ -2032,108 +2227,253 @@ export default function Home() {
       <Box
         sx={{
           backgroundColor: 'rgba(237, 41, 57, 0.02)',
-          py: { xs: 6, sm: 8 },
+          py: { xs: 8, sm: 10 },
           borderTop: '1px solid',
           borderBottom: '1px solid',
           borderColor: 'divider',
+          position: 'relative',
+          overflow: 'hidden',
         }}
       >
         <Container>
-          <Grid container spacing={4} alignItems="center">
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 2 }}>
-                <Stack direction="row" spacing={0.5}>
-                  <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                  <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                  <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                  <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                  <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                </Stack>
-                <Chip
-                  label="4.9/5 Average Rating"
-                  size="small"
-                  color="warning"
-                  sx={{ ml: 1, fontWeight: 600 }}
-                />
-              </Box>
-              <Typography variant="h4" gutterBottom sx={{ mb: 2, fontWeight: 600 }}>
-                Stories That Inspire
-              </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8, fontSize: '1.05rem' }}>
-                "Joining MITRA FRANCE changed my life. I went from feeling isolated to being part of a vibrant
-                community that values diversity and learning. The digital skills program helped me connect with
-                my grandchildren and find new opportunities."
-              </Typography>
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 3 }}>
-                <Avatar sx={{ bgcolor: 'primary.main', width: 56, height: 56 }}>
-                  MC
-                </Avatar>
-                <Box>
-                  <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                    Marie-Claire, 68
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    Digital Literacy Participant • Joined 3 months ago
-                  </Typography>
-                </Box>
-              </Box>
-              {/* NUDGE: Social proof - Recent joiners */}
-              <Box
-                sx={{
-                  p: 2,
-                  borderRadius: 2,
-                  backgroundColor: 'rgba(0, 35, 149, 0.05)',
-                  border: '1px solid',
-                  borderColor: 'divider',
-                }}
-              >
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
-                  Recently joined:
-                </Typography>
-                <AvatarGroup max={5} sx={{ justifyContent: 'flex-start' }}>
-                  <Avatar sx={{ bgcolor: 'primary.main' }}>A</Avatar>
-                  <Avatar sx={{ bgcolor: 'error.main' }}>B</Avatar>
-                  <Avatar sx={{ bgcolor: 'success.main' }}>C</Avatar>
-                  <Avatar sx={{ bgcolor: 'warning.main' }}>D</Avatar>
-                  <Avatar sx={{ bgcolor: 'info.main' }}>E</Avatar>
-                </AvatarGroup>
-                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 1 }}>
-                  +{liveActivity.recent} more in the last hour
-                </Typography>
-              </Box>
-            </Grid>
-            <Grid size={{ xs: 12, md: 6 }}>
-              <Box
-                sx={{
-                  p: 3,
-                  borderRadius: 3,
-                  backgroundColor: 'rgba(0, 35, 149, 0.05)',
-                  border: '1px solid',
-                  borderColor: 'primary.main',
-                  height: '100%',
-                }}
-              >
-                <Typography variant="h6" gutterBottom sx={{ mb: 2, color: 'primary.main', fontWeight: 600 }}>
-                  Why People Love Us
-                </Typography>
-                <Stack spacing={2}>
-                  {[
-                    { icon: <PeopleIcon />, text: 'Welcoming community for all ages and backgrounds' },
-                    { icon: <SchoolIcon />, text: 'Practical skills you can use immediately' },
-                    { icon: <EmojiEventsIcon />, text: 'Real impact on your personal growth' },
-                    { icon: <PublicIcon />, text: 'Connection to European opportunities' },
-                  ].map((item, index) => (
-                    <Box key={index} sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Box sx={{ color: 'primary.main' }}>{item.icon}</Box>
-                      <Typography variant="body2" color="text.secondary">
-                        {item.text}
+          {/* Header */}
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
+              <Stack direction="row" spacing={0.5}>
+                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+              </Stack>
+              <Chip
+                label="4.9/5 Average Rating"
+                size="small"
+                color="warning"
+                sx={{ ml: 1, fontWeight: 600 }}
+              />
+            </Box>
+            <Typography variant="h2" gutterBottom sx={{ mb: 2, fontWeight: 700 }}>
+              Stories That Inspire
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}>
+              Real stories from our community members who have transformed their lives through our programs
+            </Typography>
+          </Box>
+
+          {/* Testimonials Grid */}
+          <Grid container spacing={4}>
+            {[
+              {
+                name: 'Marie-Claire',
+                age: 68,
+                role: 'Digital Literacy Participant',
+                joined: '3 months ago',
+                quote: 'Joining MITRA FRANCE changed my life. I went from feeling isolated to being part of a vibrant community that values diversity and learning. The digital skills program helped me connect with my grandchildren and find new opportunities.',
+                photoGradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                backgroundGradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(30, 136, 229, 0.05) 100%)',
+                initials: 'MC',
+                rating: 5,
+                photoUrl: 'https://i.pravatar.cc/300?img=68', // Placeholder photo - replace with: /images/testimonials/marie-claire.jpg
+              },
+              {
+                name: 'Ahmed',
+                age: 32,
+                role: 'Cultural Exchange Participant',
+                joined: '6 months ago',
+                quote: 'As a newcomer to France, MITRA FRANCE provided me with a welcoming community and practical skills. The intercultural programs helped me understand French culture while sharing my own heritage. I\'ve made lifelong friends here.',
+                photoGradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                backgroundGradient: 'linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(102, 187, 106, 0.05) 100%)',
+                initials: 'AH',
+                rating: 5,
+                photoUrl: 'https://i.pravatar.cc/300?img=47', // Placeholder photo - replace with: /images/testimonials/ahmed.jpg
+              },
+              {
+                name: 'Sophie',
+                age: 24,
+                role: 'Youth Program Coordinator',
+                joined: '1 year ago',
+                quote: 'Working with MITRA FRANCE has been incredibly rewarding. The Erasmus+ projects opened doors to European opportunities I never imagined. The team\'s dedication to inclusion and education is truly inspiring.',
+                photoGradient: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
+                backgroundGradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%)',
+                initials: 'SO',
+                rating: 5,
+                photoUrl: 'https://i.pravatar.cc/300?img=12', // Placeholder photo - replace with: /images/testimonials/sophie.jpg
+              },
+            ].map((testimonial, index) => (
+              <Grid size={{ xs: 12, md: 4 }} key={index}>
+                <Card
+                  sx={{
+                    height: '100%',
+                    position: 'relative',
+                    borderRadius: 4,
+                    overflow: 'hidden',
+                    border: 'none',
+                    boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+                    },
+                  }}
+                >
+                  {/* Background Image/Gradient */}
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: testimonial.backgroundGradient,
+                      opacity: 0.6,
+                      zIndex: 0,
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: testimonial.photoGradient === 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)'
+                          ? 'radial-gradient(circle at 20% 30%, rgba(0, 35, 149, 0.2), transparent 60%)'
+                          : testimonial.photoGradient === 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)'
+                          ? 'radial-gradient(circle at 20% 30%, rgba(46, 125, 50, 0.2), transparent 60%)'
+                          : 'radial-gradient(circle at 20% 30%, rgba(237, 41, 57, 0.2), transparent 60%)',
+                        opacity: 0.3,
+                      },
+                    }}
+                  />
+
+                  {/* Content */}
+                  <CardContent
+                    sx={{
+                      position: 'relative',
+                      zIndex: 1,
+                      p: { xs: 3, sm: 4 },
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    {/* Quote Icon */}
+                    <Box
+                      sx={{
+                        mb: 2,
+                        color: 'primary.main',
+                        opacity: 0.3,
+                      }}
+                    >
+                      <Typography variant="h2" sx={{ fontSize: '3rem', lineHeight: 1 }}>
+                        "
                       </Typography>
                     </Box>
-                  ))}
-                </Stack>
-              </Box>
-            </Grid>
+
+                    {/* Quote Text */}
+                    <Typography
+                      variant="body1"
+                      sx={{
+                        mb: 3,
+                        lineHeight: 1.8,
+                        fontSize: { xs: '0.95rem', sm: '1rem' },
+                        fontStyle: 'italic',
+                        color: 'text.primary',
+                        flexGrow: 1,
+                      }}
+                    >
+                      {testimonial.quote}
+                    </Typography>
+
+                    {/* Rating */}
+                    <Box sx={{ mb: 3 }}>
+                      <Stack direction="row" spacing={0.5}>
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <StarIcon key={i} sx={{ color: 'warning.main', fontSize: 18 }} />
+                        ))}
+                      </Stack>
+                    </Box>
+
+                    {/* User Info */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                      {/* Customer Photo - Placeholder ready for real photos */}
+                      <Avatar
+                        sx={{
+                          width: { xs: 64, sm: 72 },
+                          height: { xs: 64, sm: 72 },
+                          background: testimonial.photoGradient,
+                          fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                          fontWeight: 700,
+                          border: '4px solid white',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                          objectFit: 'cover',
+                        }}
+                        src={testimonial.photoUrl}
+                        alt={`${testimonial.name} photo`}
+                      >
+                        {testimonial.initials}
+                      </Avatar>
+                      <Box sx={{ flex: 1 }}>
+                        <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          {testimonial.name}, {testimonial.age}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                          {testimonial.role}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
+                          Joined {testimonial.joined}
+                        </Typography>
+                      </Box>
+                    </Box>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ))}
           </Grid>
+
+          {/* Recent Joiners Section */}
+          <Box sx={{ mt: 6, textAlign: 'center' }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                p: 3,
+                borderRadius: 3,
+                backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                border: '1px solid',
+                borderColor: 'divider',
+                maxWidth: '600px',
+              }}
+            >
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2, fontWeight: 600 }}>
+                Recently joined our community:
+              </Typography>
+              <AvatarGroup 
+                max={8} 
+                sx={{ 
+                  justifyContent: 'center',
+                  '& .MuiAvatar-root': {
+                    width: { xs: 40, sm: 48 },
+                    height: { xs: 40, sm: 48 },
+                    border: '3px solid white',
+                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                  },
+                }}
+              >
+                <Avatar sx={{ bgcolor: 'primary.main', fontSize: '1rem' }}>A</Avatar>
+                <Avatar sx={{ bgcolor: 'error.main', fontSize: '1rem' }}>B</Avatar>
+                <Avatar sx={{ bgcolor: 'success.main', fontSize: '1rem' }}>C</Avatar>
+                <Avatar sx={{ bgcolor: 'warning.main', fontSize: '1rem' }}>D</Avatar>
+                <Avatar sx={{ bgcolor: 'info.main', fontSize: '1rem' }}>E</Avatar>
+                <Avatar sx={{ bgcolor: 'secondary.main', fontSize: '1rem' }}>F</Avatar>
+                <Avatar sx={{ bgcolor: 'primary.dark', fontSize: '1rem' }}>G</Avatar>
+                <Avatar sx={{ bgcolor: 'error.dark', fontSize: '1rem' }}>H</Avatar>
+              </AvatarGroup>
+              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, fontStyle: 'italic' }}>
+                +{liveActivity.recent} more joined in the last hour
+              </Typography>
+            </Box>
+          </Box>
         </Container>
       </Box>
 
@@ -2311,47 +2651,438 @@ export default function Home() {
           Explore how we make a difference across five key areas of community empowerment
         </Typography>
             
-            {/* MOTIVATION: Show value and impact */}
+            {/* MOTIVATION: Show value and impact with infographics */}
+            <Grid container spacing={4} sx={{ mb: 6 }}>
+              {/* Statistics Cards with Visualizations */}
+              {[
+                {
+                  value: 5,
+                  label: 'Focus Areas',
+                  icon: <AccountTreeIcon sx={{ fontSize: 40 }} />,
+                  color: 'primary',
+                  gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                  progress: 100,
+                  description: 'Key areas of impact',
+                },
+                {
+                  value: 50,
+                  label: 'Active Programs',
+                  icon: <SchoolIcon sx={{ fontSize: 40 }} />,
+                  color: 'success',
+                  gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                  progress: 85,
+                  description: 'Ongoing initiatives',
+                },
+                {
+                  value: 1000,
+                  label: 'Participants',
+                  icon: <PeopleIcon sx={{ fontSize: 40 }} />,
+                  color: 'error',
+                  gradient: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
+                  progress: 75,
+                  description: 'Lives transformed',
+                },
+                {
+                  value: 15,
+                  label: 'Countries',
+                  icon: <PublicIcon sx={{ fontSize: 40 }} />,
+                  color: 'info',
+                  gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
+                  progress: 60,
+                  description: 'European network',
+                },
+              ].map((stat, index) => (
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
+                  <Card
+                    sx={{
+                      p: 3,
+                      height: '100%',
+                      textAlign: 'center',
+                      borderRadius: 4,
+                      border: 'none',
+                      background: 'white',
+                      boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      position: 'relative',
+                      overflow: 'hidden',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+                      },
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        height: 4,
+                        background: stat.gradient,
+                      },
+                    }}
+                  >
+                    {/* Icon with Gradient Background */}
+                    <Box
+                      sx={{
+                        width: 80,
+                        height: 80,
+                        borderRadius: '50%',
+                        background: stat.gradient,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        color: 'white',
+                        mx: 'auto',
+                        mb: 2,
+                        boxShadow: `0 8px 24px ${stat.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : stat.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : stat.color === 'error' ? 'rgba(237, 41, 57, 0.3)' : 'rgba(2, 119, 189, 0.3)'}`,
+                      }}
+                    >
+                      {stat.icon}
+                    </Box>
+
+                    {/* Value */}
+                    <Typography
+                      variant="h2"
+                      sx={{
+                        color: `${stat.color}.main`,
+                        fontWeight: 800,
+                        mb: 0.5,
+                        fontSize: { xs: '2rem', sm: '2.5rem' },
+                      }}
+                    >
+                      {stat.value}{stat.value === 50 || stat.value === 1000 ? '+' : ''}
+                    </Typography>
+
+                    {/* Label */}
+                    <Typography
+                      variant="h6"
+                      sx={{
+                        fontWeight: 700,
+                        mb: 1,
+                        fontSize: { xs: '1rem', sm: '1.1rem' },
+                      }}
+                    >
+                      {stat.label}
+                    </Typography>
+
+                    {/* Progress Bar Visualization */}
+                    <Box sx={{ mb: 1 }}>
+                      <LinearProgress
+                        variant="determinate"
+                        value={stat.progress}
+                        sx={{
+                          height: 8,
+                          borderRadius: 4,
+                          backgroundColor: `${stat.color}.lighter`,
+                          '& .MuiLinearProgress-bar': {
+                            borderRadius: 4,
+                            background: stat.gradient,
+                          },
+                        }}
+                      />
+                    </Box>
+
+                    {/* Description */}
+                    <Typography
+                      variant="caption"
+                      color="text.secondary"
+                      sx={{ fontSize: '0.8rem', fontStyle: 'italic' }}
+                    >
+                      {stat.description}
+                    </Typography>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+
+            {/* Geography Map Section */}
             <Box
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                gap: 4,
-                flexWrap: 'wrap',
-                mb: 4,
-                p: 3,
-                borderRadius: 3,
-                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 100%)',
+                mb: 6,
+                p: { xs: 3, sm: 4 },
+                borderRadius: 4,
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
+                border: '2px solid',
+                borderColor: 'divider',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <Box sx={{ textAlign: 'center', mb: 3 }}>
+                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+                  Our European Presence
+                </Typography>
+                <Typography variant="body2" color="text.secondary">
+                  Active partnerships and projects across Europe
+                </Typography>
+              </Box>
+
+              {/* Map Visualization Placeholder */}
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: { xs: 300, sm: 400 },
+                  borderRadius: 3,
+                  background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
+                  border: '2px dashed',
+                  borderColor: 'divider',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  overflow: 'hidden',
+                  mb: 3,
+                }}
+              >
+                {/* Map Placeholder - можно заменить на реальную карту */}
+                <Box
+                  sx={{
+                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    flexDirection: 'column',
+                    gap: 2,
+                  }}
+                >
+                  {/* Simplified Europe Map Representation */}
+                  <PublicIcon sx={{ fontSize: 120, color: 'primary.main', opacity: 0.3 }} />
+                  <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>
+                    Europe Map with Location Markers
+                  </Typography>
+                  <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
+                    Replace with interactive map showing: France, Germany, Spain, Italy, Poland, Greece, Portugal, Netherlands, Belgium, Sweden, Denmark, Finland, Austria, Czech Republic, Hungary
+                  </Typography>
+                </Box>
+
+                {/* Location Markers */}
+                {[
+                  { top: '30%', left: '45%', country: 'FR' },
+                  { top: '25%', left: '55%', country: 'DE' },
+                  { top: '50%', left: '20%', country: 'PT' },
+                  { top: '55%', left: '25%', country: 'ES' },
+                  { top: '40%', left: '60%', country: 'PL' },
+                  { top: '60%', left: '65%', country: 'GR' },
+                  { top: '20%', left: '50%', country: 'NL' },
+                  { top: '15%', left: '55%', country: 'DK' },
+                ].map((marker, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      position: 'absolute',
+                      top: marker.top,
+                      left: marker.left,
+                      width: 24,
+                      height: 24,
+                      borderRadius: '50%',
+                      background: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
+                      border: '3px solid white',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      animation: 'pulse 2s ease-in-out infinite',
+                      '@keyframes pulse': {
+                        '0%, 100%': { transform: 'scale(1)', opacity: 1 },
+                        '50%': { transform: 'scale(1.2)', opacity: 0.8 },
+                      },
+                    }}
+                  >
+                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700, fontSize: '0.6rem' }}>
+                      {marker.country}
+                    </Typography>
+                  </Box>
+                ))}
+              </Box>
+
+              {/* Countries List */}
+              <Grid container spacing={2}>
+                {[
+                  'France', 'Germany', 'Spain', 'Italy', 'Poland', 'Greece', 'Portugal',
+                  'Netherlands', 'Belgium', 'Sweden', 'Denmark', 'Finland', 'Austria',
+                  'Czech Republic', 'Hungary',
+                ].map((country, index) => (
+                  <Grid size={{ xs: 6, sm: 4, md: 3 }} key={index}>
+                    <Chip
+                      icon={<PublicIcon sx={{ fontSize: 16 }} />}
+                      label={country}
+                      size="small"
+                      sx={{
+                        width: '100%',
+                        justifyContent: 'flex-start',
+                        backgroundColor: 'white',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        fontWeight: 600,
+                      }}
+                    />
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
+            {/* Partners & Case Studies */}
+            <Box
+              sx={{
+                mb: 6,
+                p: { xs: 3, sm: 4 },
+                borderRadius: 4,
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.04) 0%, rgba(237, 41, 57, 0.04) 100%)',
                 border: '1px solid',
                 borderColor: 'divider',
               }}
             >
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                  5
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Chip
+                  icon={<HandshakeIcon />}
+                  label="Partners & Case Studies"
+                  color="primary"
+                  sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2 }}
+                />
+                <Typography variant="h4" sx={{ fontWeight: 700, mb: 1.5 }}>
+                  Trusted Partnerships in Action
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
-                  Focus Areas
-                </Typography>
-              </Box>
-              <Divider orientation="vertical" flexItem />
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                  50+
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
-                  Active Programs
+                <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '720px', mx: 'auto' }}>
+                  Real collaborations with visible outcomes: joint projects, events, and programs across Europe.
                 </Typography>
               </Box>
-              <Divider orientation="vertical" flexItem />
-              <Box sx={{ textAlign: 'center' }}>
-                <Typography variant="h4" sx={{ color: 'primary.main', fontWeight: 700, mb: 0.5 }}>
-                  1000+
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600 }}>
-                  Participants
-                </Typography>
-              </Box>
+
+              {/* Logos with mini-thumbnails of joint projects */}
+              <Grid container spacing={3} sx={{ mb: 4 }}>
+                {[
+                  {
+                    name: 'MATRA France',
+                    logo: '/matra-france-logo.png',
+                    caption: 'STEM Workshops • Paris',
+                  },
+                  {
+                    name: 'MITRA FR',
+                    logo: '/mitra-fr-logo.svg',
+                    caption: 'Digital Literacy • Lyon',
+                  },
+                  {
+                    name: 'MITRA Menu',
+                    logo: '/mitra-fr-logo-menu-1.svg',
+                    caption: 'Youth Media Lab • Marseille',
+                  },
+                ].map((partner) => (
+                  <Grid size={{ xs: 12, sm: 4 }} key={partner.name}>
+                    <Card
+                      sx={{
+                        height: '100%',
+                        p: 2.5,
+                        textAlign: 'center',
+                        borderRadius: 3,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        boxShadow: '0 4px 16px rgba(0,0,0,0.08)',
+                        transition: 'all 0.3s ease',
+                        '&:hover': {
+                          transform: 'translateY(-6px)',
+                          boxShadow: '0 12px 32px rgba(0,0,0,0.15)',
+                        },
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src={partner.logo}
+                        alt={`${partner.name} logo`}
+                        sx={{ height: 60, objectFit: 'contain', mx: 'auto', mb: 2 }}
+                      />
+                      <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 1 }}>
+                        {partner.name}
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 1 }}>
+                        Joint project highlight
+                      </Typography>
+                      <Chip
+                        icon={<AutoAwesomeIcon sx={{ fontSize: 18 }} />}
+                        label={partner.caption}
+                        size="small"
+                        color="primary"
+                        sx={{ fontWeight: 700 }}
+                      />
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+
+              {/* Case Study Gallery */}
+              <Grid container spacing={3}>
+                {[
+                  {
+                    title: 'Erasmus+ Media Lab',
+                    result: '120 youth trained',
+                    location: 'Berlin • 2024',
+                    img: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
+                  },
+                  {
+                    title: 'Intercultural Festival',
+                    result: '15 countries represented',
+                    location: 'Marseille • 2023',
+                    img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
+                  },
+                  {
+                    title: 'Digital Inclusion Sprint',
+                    result: '300 seniors upskilled',
+                    location: 'Paris • 2024',
+                    img: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80',
+                  },
+                ].map((caseItem, index) => (
+                  <Grid size={{ xs: 12, md: 4 }} key={index}>
+                    <Card
+                      sx={{
+                        height: '100%',
+                        borderRadius: 4,
+                        overflow: 'hidden',
+                        position: 'relative',
+                        boxShadow: '0 6px 20px rgba(0,0,0,0.1)',
+                        border: 'none',
+                      }}
+                    >
+                      <CardMedia
+                        component="img"
+                        height="220"
+                        image={caseItem.img}
+                        alt={caseItem.title}
+                        sx={{ objectFit: 'cover' }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 12,
+                          left: 12,
+                          px: 1.5,
+                          py: 0.5,
+                          borderRadius: 20,
+                          backgroundColor: 'rgba(0, 35, 149, 0.8)',
+                          color: 'white',
+                          fontWeight: 700,
+                          fontSize: '0.8rem',
+                          boxShadow: '0 3px 12px rgba(0,0,0,0.2)',
+                        }}
+                      >
+                        {caseItem.location}
+                      </Box>
+                      <CardContent sx={{ p: 3 }}>
+                        <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
+                          {caseItem.title}
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, lineHeight: 1.6 }}>
+                          Real-world collaboration showcasing tangible outcomes and community impact.
+                        </Typography>
+                        <Chip
+                          icon={<EmojiEventsIcon sx={{ fontSize: 18 }} />}
+                          label={caseItem.result}
+                          size="small"
+                          color="success"
+                          sx={{ fontWeight: 700 }}
+                        />
+                      </CardContent>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
             </Box>
 
             {/* PROMPT: Enhanced visual cue with motivation */}
@@ -3246,134 +3977,302 @@ export default function Home() {
       </Box>
 
       {/* EXECUTION: Simple step-by-step process */}
-      <Container sx={{ py: { xs: 8, sm: 10 } }}>
-        <Box sx={{ textAlign: 'center', mb: 6 }}>
-          <Chip
-            icon={<PlayArrowIcon />}
-            label="How It Works"
-            color="primary"
-            sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2.5 }}
-          />
-          <Typography variant="h2" sx={{ mb: 2 }}>
-            Getting Started is Simple
-          </Typography>
-          <Typography
-            variant="body1"
-            sx={{
-              textAlign: 'center',
-              color: 'text.secondary',
-              maxWidth: '700px',
-              mx: 'auto',
-              fontSize: '1.1rem',
-            }}
-          >
-            Follow these three easy steps to join our community and start your journey
-          </Typography>
-        </Box>
-        <Grid container spacing={4}>
-          {[
-            {
-              step: 1,
-              icon: <BadgeIcon sx={{ fontSize: 48 }} />,
-              title: 'Register',
-              description: 'Fill out a simple form with your basic information. No documents required.',
-              time: '2 minutes',
-              color: 'primary',
-            },
-            {
-              step: 2,
-              icon: <CheckCircleIcon sx={{ fontSize: 48 }} />,
-              title: 'Get Confirmed',
-              description: 'Receive instant confirmation and welcome materials via email.',
-              time: 'Immediate',
-              color: 'success',
-            },
-            {
-              step: 3,
-              icon: <PeopleIcon sx={{ fontSize: 48 }} />,
-              title: 'Start Participating',
-              description: 'Access programs, join events, and connect with the community right away.',
-              time: 'Same day',
-              color: 'info',
-            },
-          ].map((stepItem) => (
-            <Grid size={{ xs: 12, md: 4 }} key={stepItem.step}>
-              <Card
-                sx={{
-                  p: 4,
-                  height: '100%',
-                  textAlign: 'center',
-                  position: 'relative',
-                  border: '2px solid',
-                  borderColor: `${stepItem.color}.main`,
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-8px)',
-                    boxShadow: `0 12px 32px rgba(0, 0, 0, 0.15)`,
-                  },
-                }}
-              >
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: -20,
-                    left: '50%',
-                    transform: 'translateX(-50%)',
-                    width: 40,
-                    height: 40,
-                    borderRadius: '50%',
-                    backgroundColor: `${stepItem.color}.main`,
-                    color: 'white',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontWeight: 700,
-                    fontSize: '1.2rem',
-                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
-                  }}
-                >
-                  {stepItem.step}
-                </Box>
-                <Box sx={{ color: `${stepItem.color}.main`, mb: 2, mt: 2 }}>
-                  {stepItem.icon}
-                </Box>
-                <Typography variant="h5" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                  {stepItem.title}
-                </Typography>
-                <Typography variant="body1" color="text.secondary" sx={{ mb: 2, minHeight: '3em' }}>
-                  {stepItem.description}
-                </Typography>
-                <Chip
-                  icon={<AccessTimeIcon />}
-                  label={stepItem.time}
-                  size="small"
-                  color={stepItem.color as 'primary' | 'success' | 'info'}
-                  sx={{ fontWeight: 600 }}
-                />
-              </Card>
+      <Box
+        sx={{
+          py: { xs: 8, sm: 10 },
+          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.02) 0%, rgba(255, 255, 255, 0.95) 50%, rgba(0, 35, 149, 0.02) 100%)',
+          position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'radial-gradient(circle at 20% 50%, rgba(0, 35, 149, 0.05) 0%, transparent 50%), radial-gradient(circle at 80% 50%, rgba(25, 118, 210, 0.05) 0%, transparent 50%)',
+            pointerEvents: 'none',
+          },
+        }}
+      >
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Chip
+              icon={<PlayArrowIcon />}
+              label="How It Works"
+              color="primary"
+              sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2.5 }}
+            />
+            <Typography variant="h2" sx={{ mb: 2, fontWeight: 700 }}>
+              Getting Started is Simple
+            </Typography>
+            <Typography
+              variant="body1"
+              sx={{
+                textAlign: 'center',
+                color: 'text.secondary',
+                maxWidth: '700px',
+                mx: 'auto',
+                fontSize: '1.1rem',
+              }}
+            >
+              Follow these three easy steps to join our community and start your journey
+            </Typography>
+          </Box>
+          
+          <Box sx={{ position: 'relative' }}>
+            <Grid container spacing={{ xs: 4, md: 2 }} sx={{ alignItems: 'center' }}>
+              {[
+                {
+                  step: 1,
+                  icon: <HowToRegIcon sx={{ fontSize: 64 }} />,
+                  title: 'Register',
+                  description: 'Fill out a simple form with your basic information. No documents required.',
+                  time: '2 minutes',
+                  color: 'primary',
+                  gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                },
+                {
+                  step: 2,
+                  icon: <EmailIcon sx={{ fontSize: 64 }} />,
+                  title: 'Get Confirmed',
+                  description: 'Receive instant confirmation and welcome materials via email.',
+                  time: 'Immediate',
+                  color: 'success',
+                  gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                },
+                {
+                  step: 3,
+                  icon: <RocketLaunchIcon sx={{ fontSize: 64 }} />,
+                  title: 'Start Participating',
+                  description: 'Access programs, join events, and connect with the community right away.',
+                  time: 'Same day',
+                  color: 'info',
+                  gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
+                },
+              ].map((stepItem, index) => (
+                <Fragment key={stepItem.step}>
+                  <Grid size={{ xs: 12, md: 4 }}>
+                    <Card
+                      sx={{
+                        p: { xs: 3, sm: 4 },
+                        height: '100%',
+                        textAlign: 'center',
+                        position: 'relative',
+                        background: 'white',
+                        borderRadius: 4,
+                        border: 'none',
+                        boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        overflow: 'visible',
+                        '&:hover': {
+                          transform: 'translateY(-12px) scale(1.02)',
+                          boxShadow: `0 16px 48px rgba(0, 0, 0, 0.15)`,
+                        },
+                      }}
+                    >
+                      {/* Step Number Badge */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: -24,
+                          left: '50%',
+                          transform: 'translateX(-50%)',
+                          width: 56,
+                          height: 56,
+                          borderRadius: '50%',
+                          background: stepItem.gradient,
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 800,
+                          fontSize: '1.5rem',
+                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.25)',
+                          zIndex: 2,
+                        }}
+                      >
+                        {stepItem.step}
+                      </Box>
+
+                      {/* Icon Container with Gradient Background */}
+                      <Box
+                        sx={{
+                          mt: 4,
+                          mb: 3,
+                          display: 'flex',
+                          justifyContent: 'center',
+                          alignItems: 'center',
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: { xs: 120, sm: 140 },
+                            height: { xs: 120, sm: 140 },
+                            borderRadius: '50%',
+                            background: stepItem.gradient,
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            color: 'white',
+                            boxShadow: `0 8px 32px ${stepItem.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : stepItem.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : 'rgba(2, 119, 189, 0.3)'}`,
+                            position: 'relative',
+                            '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              inset: -8,
+                              borderRadius: '50%',
+                              background: `linear-gradient(135deg, ${stepItem.color === 'primary' ? 'rgba(0, 35, 149, 0.1)' : stepItem.color === 'success' ? 'rgba(46, 125, 50, 0.1)' : 'rgba(2, 119, 189, 0.1)'}, transparent)`,
+                              zIndex: -1,
+                            },
+                          }}
+                        >
+                          {stepItem.icon}
+                        </Box>
+                      </Box>
+
+                      {/* Title */}
+                      <Typography 
+                        variant="h5" 
+                        gutterBottom 
+                        sx={{ 
+                          fontWeight: 700, 
+                          mb: 2,
+                          fontSize: { xs: '1.3rem', sm: '1.5rem' },
+                          color: 'text.primary',
+                        }}
+                      >
+                        {stepItem.title}
+                      </Typography>
+
+                      {/* Description */}
+                      <Typography 
+                        variant="body1" 
+                        color="text.secondary" 
+                        sx={{ 
+                          mb: 3, 
+                          minHeight: { xs: 'auto', sm: '4em' },
+                          fontSize: { xs: '0.95rem', sm: '1rem' },
+                          lineHeight: 1.7,
+                        }}
+                      >
+                        {stepItem.description}
+                      </Typography>
+
+                      {/* Time Chip */}
+                      <Box
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 1,
+                          px: 2.5,
+                          py: 1,
+                          borderRadius: 3,
+                          background: stepItem.color === 'primary' 
+                            ? 'rgba(0, 35, 149, 0.1)' 
+                            : stepItem.color === 'success' 
+                            ? 'rgba(46, 125, 50, 0.1)' 
+                            : 'rgba(2, 119, 189, 0.1)',
+                          color: `${stepItem.color}.main`,
+                        }}
+                      >
+                        <AccessTimeIcon sx={{ fontSize: 18 }} />
+                        <Typography 
+                          variant="body2" 
+                          sx={{ 
+                            fontWeight: 600,
+                            fontSize: '0.9rem',
+                          }}
+                        >
+                          {stepItem.time}
+                        </Typography>
+                      </Box>
+                    </Card>
+                  </Grid>
+
+                  {/* Connecting Arrow (only on desktop, between steps) */}
+                  {index < 2 && (
+                    <Grid 
+                      size={{ xs: 0, md: 'auto' }}
+                      sx={{
+                        display: { xs: 'none', md: 'flex' },
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        px: 1,
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          display: 'flex',
+                          flexDirection: 'column',
+                          alignItems: 'center',
+                          gap: 1,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: 60,
+                            height: 2,
+                            background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.3) 0%, rgba(25, 118, 210, 0.3) 100%)',
+                            borderRadius: 1,
+                          }}
+                        />
+                        <ArrowRightAltIcon 
+                          sx={{ 
+                            fontSize: 32, 
+                            color: 'primary.main',
+                            animation: 'pulse 2s ease-in-out infinite',
+                            '@keyframes pulse': {
+                              '0%, 100%': { opacity: 0.6, transform: 'translateX(0)' },
+                              '50%': { opacity: 1, transform: 'translateX(4px)' },
+                            },
+                          }} 
+                        />
+                        <Box
+                          sx={{
+                            width: 60,
+                            height: 2,
+                            background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.3) 0%, rgba(25, 118, 210, 0.3) 100%)',
+                            borderRadius: 1,
+                          }}
+                        />
+                      </Box>
+                    </Grid>
+                  )}
+                </Fragment>
+              ))}
             </Grid>
-          ))}
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 6 }}>
-          <Button
-            component={RouterLink}
-            to="/contact"
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-            sx={{
-              px: 6,
-              py: 2,
-              fontSize: '1.2rem',
-              fontWeight: 700,
-              boxShadow: '0 6px 20px rgba(0, 35, 149, 0.35)',
-            }}
-          >
-            Start Step 1 Now
-          </Button>
-        </Box>
-      </Container>
+          </Box>
+
+          <Box sx={{ textAlign: 'center', mt: 8 }}>
+            <Button
+              component={RouterLink}
+              to="/contact"
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+              sx={{
+                px: 6,
+                py: 2.5,
+                fontSize: '1.2rem',
+                fontWeight: 700,
+                borderRadius: 3,
+                background: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                boxShadow: '0 8px 24px rgba(0, 35, 149, 0.35)',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 12px 32px rgba(0, 35, 149, 0.45)',
+                  background: 'linear-gradient(135deg, #001f7a 0%, #1565c0 100%)',
+                },
+              }}
+            >
+              Start Step 1 Now
+            </Button>
+          </Box>
+        </Container>
+      </Box>
 
       {/* SYSTEM 2: Detailed information for deliberate decision-making */}
       {prefersDetailedView && (
