@@ -8,9 +8,11 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import Container from '@mui/material/Container';
 import MenuItem from '@mui/material/MenuItem';
+import Menu from '@mui/material/Menu';
 import Drawer from '@mui/material/Drawer';
 import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown.tsx';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => ({
@@ -29,31 +31,118 @@ const StyledToolbar = styled(Toolbar)(({ theme }) => ({
   padding: '8px 12px',
 }));
 
-const StyledButton = styled(Button)(() => ({
+const StyledButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
   fontWeight: 500,
+  borderRadius: theme.shape.borderRadius,
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+  },
 }));
+
+const DropdownButton = styled(Button)(({ theme }) => ({
+  textTransform: 'none',
+  fontWeight: 500,
+  borderRadius: theme.shape.borderRadius,
+  '&:hover': {
+    backgroundColor: alpha(theme.palette.primary.main, 0.08),
+  },
+}));
+
+const StyledMenu = styled(Menu)(({ theme }) => ({
+  '& .MuiPaper-root': {
+    borderRadius: theme.shape.borderRadius * 2,
+    marginTop: theme.spacing(1),
+    minWidth: 200,
+    boxShadow: theme.shadows[8],
+    border: '1px solid',
+    borderColor: (theme.vars || theme).palette.divider,
+    backdropFilter: 'blur(24px)',
+    backgroundColor: theme.vars
+      ? `rgba(${theme.vars.palette.background.paperChannel} / 0.95)`
+      : alpha(theme.palette.background.paper, 0.95),
+    '& .MuiMenuItem-root': {
+      padding: theme.spacing(1, 2),
+      borderRadius: theme.shape.borderRadius,
+      margin: theme.spacing(0.5, 1),
+      '&:hover': {
+        backgroundColor: alpha(theme.palette.primary.main, 0.08),
+      },
+      '&.Mui-selected': {
+        backgroundColor: alpha(theme.palette.primary.main, 0.12),
+        '&:hover': {
+          backgroundColor: alpha(theme.palette.primary.main, 0.16),
+        },
+      },
+    },
+  },
+}));
+
+interface NavGroup {
+  label: string;
+  path?: string;
+  items?: Array<{ label: string; path: string }>;
+}
 
 export default function Navigation() {
   const [open, setOpen] = React.useState(false);
+  const [anchorEls, setAnchorEls] = React.useState<{ [key: string]: HTMLElement | null }>({});
   const location = useLocation();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
   };
 
-  const navItems = [
-    { label: 'Home', path: '/' },
-    { label: 'About Us', path: '/about' },
-    { label: 'Focus Areas', path: '/focus-areas' },
-    { label: 'Courses', path: '/courses' },
-    { label: 'Projects', path: '/projects' },
-    { label: 'Team', path: '/team' },
-    { label: 'Partners', path: '/partners' },
-    { label: 'Events', path: '/events' },
-    { label: 'Gallery', path: '/gallery' },
-    { label: 'Contact', path: '/contact' },
+  const handleMenuOpen = (groupLabel: string) => (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEls((prev) => ({ ...prev, [groupLabel]: event.currentTarget }));
+  };
+
+  const handleMenuClose = (groupLabel: string) => () => {
+    setAnchorEls((prev) => ({ ...prev, [groupLabel]: null }));
+  };
+
+  const navGroups: NavGroup[] = [
+    {
+      label: 'About Us',
+      items: [
+        { label: 'About Us', path: '/about' },
+        { label: 'Team', path: '/team' },
+        { label: 'Partners', path: '/partners' },
+      ],
+    },
+    {
+      label: 'Education',
+      items: [
+        { label: 'Focus Areas', path: '/focus-areas' },
+        { label: 'Courses', path: '/courses' },
+        { label: 'Programs & Workshops', path: '/programs-workshops' },
+      ],
+    },
+    {
+      label: 'Activities',
+      items: [
+        { label: 'Projects', path: '/projects' },
+        { label: 'Events', path: '/events' },
+        { label: 'Gallery', path: '/gallery' },
+      ],
+    },
+    {
+      label: 'Contact',
+      path: '/contact',
+    },
   ];
+
+  const allNavItems = [
+    { label: 'Home', path: '/' },
+    ...navGroups.flatMap((group) => (group.items || [{ label: group.label, path: group.path! }])),
+  ];
+
+  const isActiveGroup = (group: NavGroup): boolean => {
+    if (group.path) {
+      return location.pathname === group.path;
+    }
+    return group.items?.some((item) => location.pathname === item.path) || false;
+  };
 
   return (
     <AppBar
@@ -69,36 +158,93 @@ export default function Navigation() {
       <Container maxWidth="lg">
         <StyledToolbar variant="dense" disableGutters>
           <Box sx={{ flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }}>
-            <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
+            <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
               <Box
+                component="img"
+                src="/mitra-fr-logo-menu-1.svg"
+                alt="MITRA FRANCE"
                 sx={{
-                  fontSize: '1.5rem',
-                  fontWeight: 800,
-                  letterSpacing: '-0.02em',
-                  background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-                  backgroundClip: 'text',
-                  WebkitBackgroundClip: 'text',
-                  WebkitTextFillColor: 'transparent',
+                  height: { xs: 18, md: 23 },
+                  width: 'auto',
                   mr: 3,
+                  transition: 'opacity 0.3s ease',
+                  '&:hover': {
+                    opacity: 0.8,
+                  },
                 }}
-              >
-                MITRA FRANCE
-              </Box>
+              />
             </Link>
-            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5 }}>
-              {navItems.slice(1).map((item) => (
-                <Button
-                  key={item.path}
-                  component={Link}
-                  to={item.path}
-                  variant={location.pathname === item.path ? 'outlined' : 'text'}
-                  color="info"
-                  size="small"
-                  sx={{ textTransform: 'none', fontWeight: 500 }}
-                >
-                  {item.label}
-                </Button>
-              ))}
+            <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: 0.5, alignItems: 'center' }}>
+              {navGroups.map((group) => {
+                if (group.items) {
+                  const open = Boolean(anchorEls[group.label]);
+                  const isActive = isActiveGroup(group);
+                  return (
+                    <React.Fragment key={group.label}>
+                      <DropdownButton
+                        onClick={handleMenuOpen(group.label)}
+                        variant={isActive ? 'outlined' : 'text'}
+                        color="info"
+                        size="small"
+                        endIcon={<ExpandMoreIcon sx={{ fontSize: 18, transition: 'transform 0.2s', transform: open ? 'rotate(180deg)' : 'rotate(0deg)' }} />}
+                        sx={{
+                          ...(isActive && {
+                            borderColor: 'primary.main',
+                            backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08),
+                          }),
+                        }}
+                      >
+                        {group.label}
+                      </DropdownButton>
+                      <StyledMenu
+                        anchorEl={anchorEls[group.label]}
+                        open={open}
+                        onClose={handleMenuClose(group.label)}
+                        anchorOrigin={{
+                          vertical: 'bottom',
+                          horizontal: 'left',
+                        }}
+                        transformOrigin={{
+                          vertical: 'top',
+                          horizontal: 'left',
+                        }}
+                      >
+                        {group.items.map((item) => (
+                          <MenuItem
+                            key={item.path}
+                            component={Link}
+                            to={item.path}
+                            onClick={handleMenuClose(group.label)}
+                            selected={location.pathname === item.path}
+                          >
+                            {item.label}
+                          </MenuItem>
+                        ))}
+                      </StyledMenu>
+                    </React.Fragment>
+                  );
+                } else {
+                  const isActive = location.pathname === group.path;
+                  return (
+                    <StyledButton
+                      key={group.label}
+                      component={Link}
+                      to={group.path!}
+                      variant={isActive ? 'outlined' : 'text'}
+                      color="info"
+                      size="small"
+                      sx={{
+                        ...(isActive && {
+                          borderColor: 'primary.main',
+                          backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.08),
+                        }),
+                      }}
+                    >
+                      {group.label}
+                    </StyledButton>
+                  );
+                }
+              })}
             </Box>
           </Box>
           <Box
@@ -135,30 +281,33 @@ export default function Navigation() {
                   }}
                 >
                   <Box
+                    component="img"
+                    src="/mitra-fr-logo-menu-1.svg"
+                    alt="MITRA FRANCE"
                     sx={{
-                      fontSize: '1.25rem',
-                      fontWeight: 800,
-                      letterSpacing: '-0.02em',
-                      background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-                      backgroundClip: 'text',
-                      WebkitBackgroundClip: 'text',
-                      WebkitTextFillColor: 'transparent',
+                      height: 18,
+                      width: 'auto',
                     }}
-                  >
-                    MITRA FRANCE
-                  </Box>
+                  />
                   <IconButton onClick={toggleDrawer(false)}>
                     <CloseRoundedIcon />
                   </IconButton>
                 </Box>
 
-                {navItems.map((item) => (
+                {allNavItems.map((item) => (
                   <MenuItem
                     key={item.path}
                     component={Link}
                     to={item.path}
                     onClick={toggleDrawer(false)}
                     selected={location.pathname === item.path}
+                    sx={{
+                      borderRadius: 1,
+                      mb: 0.5,
+                      '&.Mui-selected': {
+                        backgroundColor: (theme) => alpha(theme.palette.primary.main, 0.12),
+                      },
+                    }}
                   >
                     {item.label}
                   </MenuItem>

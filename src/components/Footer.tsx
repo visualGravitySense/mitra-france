@@ -52,19 +52,16 @@ export default function Footer() {
         >
           <Box sx={{ width: { xs: '100%', sm: '60%' } }}>
             <Box
+              component="img"
+              src="/mitra-fr-logo-menu-1.svg"
+              alt="MITRA FRANCE"
               sx={{
-                fontSize: '1.5rem',
-                fontWeight: 800,
-                letterSpacing: '-0.02em',
-                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
+                height: { xs: 20, sm: 25 },
+                width: 'auto',
                 mb: 2,
+                maxWidth: '100%',
               }}
-            >
-              MITRA FRANCE
-            </Box>
+            />
             <Typography variant="body2" sx={{ color: 'text.secondary', mb: 2 }}>
               Empowering Communities Through Education, Media & Culture
             </Typography>
