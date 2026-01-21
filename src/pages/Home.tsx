@@ -1,4 +1,4 @@
-import { useState, useEffect, Fragment } from 'react';
+import { useState, useEffect, Fragment, cloneElement } from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Container from '@mui/material/Container';
@@ -94,6 +94,7 @@ import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import StepContent from '@mui/material/StepContent';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import TimelineIcon from '@mui/icons-material/Timeline';
 import RepeatIcon from '@mui/icons-material/Repeat';
 import TrendingFlatIcon from '@mui/icons-material/TrendingFlat';
@@ -106,6 +107,7 @@ import RocketLaunchIcon from '@mui/icons-material/RocketLaunch';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import AssignmentIcon from '@mui/icons-material/Assignment';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import EventIcon from '@mui/icons-material/Event';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -313,6 +315,43 @@ export default function Home() {
     return () => clearInterval(interval);
   }, []);
 
+  // LIVE STATS: subtle pulse for "people joined" indicator
+  const [showJoinPulse, setShowJoinPulse] = useState(true);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setShowJoinPulse((prev) => !prev);
+    }, 1200);
+    return () => clearInterval(interval);
+  }, []);
+
+  // HERO: Animated counter for social proof in hero section
+  const [heroStatCount, setHeroStatCount] = useState(0);
+
+  useEffect(() => {
+    const target = 1000;
+    const duration = 1200;
+    const start = performance.now();
+    let frameId: number;
+
+    const step = (now: number) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const value = Math.floor(progress * target);
+      setHeroStatCount(value);
+      if (progress < 1) {
+        frameId = requestAnimationFrame(step);
+      }
+    };
+
+    frameId = requestAnimationFrame(step);
+
+    return () => {
+      if (frameId) {
+        cancelAnimationFrame(frameId);
+      }
+    };
+  }, []);
+
   return (
     <Box>
       <Box
@@ -484,7 +523,7 @@ export default function Home() {
                         fontSize: '1rem',
                       }}
                     >
-                      ✨ Join 1000+ community members making a real difference today
+                      ✨ Join {heroStatCount.toLocaleString()}+ community members making a real difference today
                     </Typography>
                   </Stack>
                 </Box>
@@ -607,41 +646,86 @@ export default function Home() {
               </Stack>
             </Grid>
 
-            {/* Right side: Hero image */}
+            {/* Right side: Hero visual collage */}
             <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 sx={{
                   position: 'relative',
                   width: '100%',
-                  height: { xs: '400px', md: '600px' },
-                  borderRadius: 4,
-                  overflow: 'hidden',
-                  boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
-                    zIndex: 1,
-                    pointerEvents: 'none',
-                  },
+                  height: { xs: 'auto', md: '520px' },
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
                 }}
               >
-                <Box
-                  component="img"
-                  src="/main-hero.jpg"
-                  alt="MITRA FRANCE Community"
+                <Grid
+                  container
+                  spacing={2}
                   sx={{
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    objectPosition: 'center',
-                    display: 'block',
+                    position: 'relative',
+                    zIndex: 1,
+                    maxWidth: 520,
                   }}
-                />
+                >
+                  {[
+                    '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                    '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                    '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  ].map((src, index) => (
+                    <Grid key={src} size={{ xs: 6 }}>
+                      <Box
+                        component="img"
+                        src={src}
+                        alt="MITRA FRANCE activity"
+                        loading="lazy"
+                        sx={{
+                          width: '100%',
+                          height: { xs: 140, sm: 160, md: 180 },
+                          objectFit: 'cover',
+                          borderRadius: 3,
+                          boxShadow: '0 12px 32px rgba(0, 35, 149, 0.25)',
+                          transform:
+                            index % 2 === 0 ? 'translateY(8px)' : 'translateY(-8px)',
+                          transition: 'transform 0.4s ease, box-shadow 0.4s ease',
+                          '&:hover': {
+                            transform:
+                              index % 2 === 0 ? 'translateY(0)' : 'translateY(-2px)',
+                            boxShadow: '0 16px 40px rgba(0, 35, 149, 0.35)',
+                          },
+                        }}
+                      />
+                    </Grid>
+                  ))}
+                </Grid>
+
+                {/* Floating stat card */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: { xs: -10, md: 12 },
+                    right: { xs: 8, md: 32 },
+                    px: 2.5,
+                    py: 1.5,
+                    borderRadius: 3,
+                    backgroundColor: 'background.paper',
+                    boxShadow: '0 10px 30px rgba(0, 0, 0, 0.18)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1.5,
+                    zIndex: 2,
+                  }}
+                >
+                  <GroupIcon sx={{ color: 'primary.main' }} />
+                  <Box>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 700 }}>
+                      20+ European projects
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Real stories from Nice and beyond
+                    </Typography>
+                  </Box>
+                </Box>
               </Box>
             </Grid>
           </Grid>
@@ -718,34 +802,81 @@ export default function Home() {
       {/* PERSUASIVE: Reinforcement - Show rewards and achievements */}
       <Box>
         <Container>
-          <Box sx={{ mt: 4, width: '100%', maxWidth: '800px', mx: 'auto' }}>
-          <Box
-            sx={{
-              p: 2.5,
-              borderRadius: 2,
-              backgroundColor: 'rgba(0, 35, 149, 0.05)',
-              border: '1px solid',
-              borderColor: 'primary.main',
-              mb: 3,
-              textAlign: 'center',
-            }}
-          >
-            <Stack direction="row" spacing={2} justifyContent="center" alignItems="center" flexWrap="wrap">
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                <WorkspacePremiumIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                <Typography variant="body2" sx={{ fontWeight: 600 }}>
-                  Join now and earn your <strong>Community Member</strong> badge
-                </Typography>
-              </Box>
+          <Box sx={{ mt: 4, width: '100%', maxWidth: '900px', mx: 'auto' }}>
+            {/* JOIN BANNER: gradient + micro-animations */}
+            <Box
+              sx={{
+                p: { xs: 2.5, sm: 3 },
+                borderRadius: 3,
+                mb: 3,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 2,
+                flexWrap: 'wrap',
+                background: 'linear-gradient(120deg, #e3f2fd 0%, #f3e5f5 50%, #fff 100%)',
+                backgroundSize: '200% 200%',
+                animation: 'gradientShiftBanner 6s ease infinite',
+                boxShadow: '0 8px 24px rgba(0, 35, 149, 0.18)',
+                border: '1px solid rgba(0,35,149,0.15)',
+                '@keyframes gradientShiftBanner': {
+                  '0%, 100%': { backgroundPosition: '0% 50%' },
+                  '50%': { backgroundPosition: '100% 50%' },
+                },
+              }}
+            >
+              <Stack direction="row" spacing={2} alignItems="center" flexWrap="wrap">
+                <Box
+                  sx={{
+                    width: 52,
+                    height: 52,
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxShadow: '0 6px 18px rgba(0, 0, 0, 0.15)',
+                    animation: 'floatBadge 3s ease-in-out infinite',
+                    '@keyframes floatBadge': {
+                      '0%, 100%': { transform: 'translateY(0)' },
+                      '50%': { transform: 'translateY(-4px)' },
+                    },
+                  }}
+                >
+                  <WorkspacePremiumIcon sx={{ color: 'warning.main', fontSize: 30 }} />
+                </Box>
+                <Box>
+                  <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                    Join now and earn your <strong>Community Member</strong> badge
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary">
+                    Be among the first to get our new digital badge for active participants.
+                  </Typography>
+                </Box>
+              </Stack>
               <Chip
                 icon={<MilitaryTechIcon />}
-                label="Free Badge"
+                label="Free badge"
                 color="warning"
-                size="small"
-                sx={{ fontWeight: 700 }}
+                size="medium"
+                sx={{
+                  fontWeight: 700,
+                  px: 1.5,
+                  py: 0.5,
+                  borderRadius: 999,
+                  boxShadow: '0 4px 10px rgba(245, 124, 0, 0.4)',
+                  transform: showJoinPulse ? 'scale(1)' : 'scale(1.06)',
+                  transition: 'transform 0.4s ease',
+                  '& .MuiChip-icon': {
+                    animation: 'spinSlight 2.4s ease-in-out infinite',
+                    '@keyframes spinSlight': {
+                      '0%, 100%': { transform: 'rotate(0deg)' },
+                      '50%': { transform: 'rotate(8deg)' },
+                    },
+                  },
+                }}
               />
-            </Stack>
-          </Box>
+            </Box>
 
           <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
             <FlashOnIcon sx={{ color: 'warning.main' }} />
@@ -756,6 +887,8 @@ export default function Home() {
               <InfoIcon sx={{ fontSize: 18, color: 'text.secondary' }} />
             </Tooltip>
           </Box>
+
+          {/* QUICK ACTIONS: elevated buttons with icons & hover micro-interactions */}
           <Grid container spacing={2}>
                 {[
                   { icon: <ContactMailIcon />, label: 'Contact', path: '/contact', color: 'primary', tooltip: 'Get in touch instantly' },
@@ -776,11 +909,29 @@ export default function Home() {
                           py: 2,
                           borderWidth: 2,
                           fontWeight: 600,
-                          transition: 'all 0.2s ease',
+                          borderRadius: 3,
+                          position: 'relative',
+                          overflow: 'hidden',
+                          backgroundColor: 'rgba(255,255,255,0.9)',
+                          transition: 'transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, background-color 0.2s ease',
                           '&:hover': {
                             borderWidth: 2,
                             transform: 'translateY(-2px)',
-                            boxShadow: `0 4px 12px ${action.color}40`,
+                            boxShadow: `0 6px 18px ${action.color}40`,
+                            backgroundColor: 'rgba(255,255,255,1)',
+                          },
+                          '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            inset: 0,
+                            borderRadius: 3,
+                            border: '1px solid transparent',
+                            borderImage: `linear-gradient(120deg, rgba(0,35,149,0.3), rgba(237,41,57,0.3)) 1`,
+                            opacity: 0,
+                            transition: 'opacity 0.25s ease',
+                          },
+                          '&:hover::after': {
+                            opacity: 1,
                           },
                         }}
                         color={action.color as 'primary' | 'error' | 'info' | 'success'}
@@ -794,7 +945,7 @@ export default function Home() {
           </Box>
 
           {/* NUDGE: Social proof with live activity indicators */}
-          <Box sx={{ mt: 6, pt: 4, width: '100%', maxWidth: '800px', mx: 'auto' }}>
+          <Box sx={{ mt: 5, pt: 4, width: '100%', maxWidth: '900px', mx: 'auto' }}>
               <Box
                 sx={{
                   p: 3,
@@ -805,9 +956,23 @@ export default function Home() {
                   mb: 3,
                 }}
               >
-                <Stack direction="row" spacing={2} alignItems="center" justifyContent="center" flexWrap="wrap">
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <PersonAddIcon sx={{ color: 'success.main' }} />
+                <Stack direction="row" spacing={3} alignItems="center" justifyContent="center" flexWrap="wrap">
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.2 }}>
+                    <Box
+                      sx={{
+                        width: 10,
+                        height: 10,
+                        borderRadius: '50%',
+                        backgroundColor: 'success.main',
+                        boxShadow: '0 0 0 0 rgba(76, 175, 80, 0.6)',
+                        animation: 'pulseDot 1.8s infinite',
+                        '@keyframes pulseDot': {
+                          '0%': { transform: 'scale(0.9)', boxShadow: '0 0 0 0 rgba(76, 175, 80, 0.6)' },
+                          '70%': { transform: 'scale(1)', boxShadow: '0 0 0 8px rgba(76, 175, 80, 0)' },
+                          '100%': { transform: 'scale(0.9)', boxShadow: '0 0 0 0 rgba(76, 175, 80, 0)' },
+                        },
+                      }}
+                    />
                     <Typography variant="body2" color="text.secondary">
                       <strong>{liveActivity.recent}</strong> people joined in the last hour
                     </Typography>
@@ -816,7 +981,7 @@ export default function Home() {
                   <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
                     <VisibilityIcon sx={{ color: 'info.main' }} />
                     <Typography variant="body2" color="text.secondary">
-                      <strong>{liveActivity.count.toLocaleString()}</strong> active members
+                      <strong>{liveActivity.count.toLocaleString()}</strong> active members right now
                     </Typography>
                   </Box>
                 </Stack>
@@ -840,6 +1005,8 @@ export default function Home() {
                       backgroundColor: selectedOption === 'join' ? 'rgba(0, 35, 149, 0.05)' : 'transparent',
                       transition: 'all 0.3s ease',
                       cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
                       '&:hover': {
                         borderColor: 'primary.main',
                         backgroundColor: 'rgba(0, 35, 149, 0.03)',
@@ -851,13 +1018,32 @@ export default function Home() {
                       value="join"
                       control={<Radio />}
                       label={
-                        <Box>
-                          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                            Join Our Community (Recommended)
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Free registration • Instant access • No commitment
-                          </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { sm: 'center' }, gap: 2, width: '100%' }}>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                              Join Our Community (Recommended)
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Free registration • Instant access • No commitment
+                            </Typography>
+                            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                              <Chip size="small" color="success" label="Free" />
+                              <Chip size="small" color="primary" label="Instant access" />
+                              <Chip size="small" variant="outlined" label="Community" />
+                            </Stack>
+                          </Box>
+                          <Box
+                            component="img"
+                            src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                            alt="Community gathering"
+                            loading="lazy"
+                            sx={{
+                              width: { xs: '100%', sm: 140 },
+                              height: { xs: 100, sm: 90 },
+                              objectFit: 'cover',
+                              borderRadius: 2,
+                            }}
+                          />
                         </Box>
                       }
                       sx={{ m: 0, width: '100%' }}
@@ -882,13 +1068,31 @@ export default function Home() {
                       value="learn"
                       control={<Radio />}
                       label={
-                        <Box>
-                          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                            Learn More First
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            Explore our programs and activities
-                          </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { sm: 'center' }, gap: 2, width: '100%' }}>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                              Learn More First
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              Explore our programs and activities
+                            </Typography>
+                            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                              <Chip size="small" variant="outlined" icon={<MenuBookIcon sx={{ fontSize: 16 }} />} label="Programs overview" />
+                              <Chip size="small" variant="outlined" icon={<ComputerIcon sx={{ fontSize: 16 }} />} label="Digital skills" />
+                            </Stack>
+                          </Box>
+                          <Box
+                            component="img"
+                            src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                            alt="Learning in action"
+                            loading="lazy"
+                            sx={{
+                              width: { xs: '100%', sm: 140 },
+                              height: { xs: 100, sm: 90 },
+                              objectFit: 'cover',
+                              borderRadius: 2,
+                            }}
+                          />
                         </Box>
                       }
                       sx={{ m: 0, width: '100%' }}
@@ -913,13 +1117,47 @@ export default function Home() {
                       value="events"
                       control={<Radio />}
                       label={
-                        <Box>
-                          <Typography variant="subtitle1" sx={{ fontWeight: 600 }}>
-                            Browse Events
-                          </Typography>
-                          <Typography variant="body2" color="text.secondary">
-                            See upcoming activities and workshops
-                          </Typography>
+                        <Box sx={{ display: 'flex', flexDirection: { xs: 'column', sm: 'row' }, alignItems: { sm: 'center' }, gap: 2, width: '100%' }}>
+                          <Box sx={{ flex: 1 }}>
+                            <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+                              Browse Events
+                            </Typography>
+                            <Typography variant="body2" color="text.secondary">
+                              See upcoming activities and workshops
+                            </Typography>
+                            <Stack direction="row" spacing={1} sx={{ mt: 1 }}>
+                              <Chip size="small" variant="outlined" icon={<EventIcon sx={{ fontSize: 16 }} />} label="Next event soon" />
+                            </Stack>
+                          </Box>
+                          <Box
+                            sx={{
+                              display: 'grid',
+                              gridTemplateColumns: 'repeat(2, 1fr)',
+                              gap: 0.5,
+                              width: { xs: '100%', sm: 140 },
+                            }}
+                          >
+                            {[
+                              '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                              '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                              '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                              '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
+                            ].map((src) => (
+                              <Box
+                                key={src}
+                                component="img"
+                                src={src}
+                                alt="Event preview"
+                                loading="lazy"
+                                sx={{
+                                  width: '100%',
+                                  height: 44,
+                                  objectFit: 'cover',
+                                  borderRadius: 1,
+                                }}
+                              />
+                            ))}
+                          </Box>
                         </Box>
                       }
                       sx={{ m: 0, width: '100%' }}
@@ -1004,6 +1242,36 @@ export default function Home() {
         </Container>
       </Box>
 
+      {/* Image Placeholder Section */}
+      <Box
+        sx={{
+          py: { xs: 6, sm: 8 },
+          position: 'relative',
+        }}
+      >
+        <Container>
+          <Box
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              overflow: 'hidden',
+              boxShadow: '0 4px 20px rgba(0, 0, 0, 0.1)',
+            }}
+          >
+            <CardMedia
+              component="img"
+              image="https://via.placeholder.com/1200x400/002395/ffffff?text=Placeholder+Image"
+              alt="Placeholder"
+              sx={{
+                width: '100%',
+                height: { xs: 250, sm: 350, md: 400 },
+                objectFit: 'cover',
+              }}
+            />
+          </Box>
+        </Container>
+      </Box>
+
       {/* SYSTEM 1: INTUITIVE RESPONSES - Enhanced modern design */}
       <Box
         sx={{
@@ -1023,19 +1291,20 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
+          <Box sx={{ textAlign: 'center', mb: 8, mt: 2 }}>
             <Box
               sx={{
                 display: 'inline-flex',
                 alignItems: 'center',
                 gap: 1,
-                mb: 3,
+                mb: 4,
                 px: 2.5,
                 py: 1,
                 borderRadius: '50px',
-                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 100%)',
                 border: '1px solid',
                 borderColor: 'primary.main',
+                opacity: 0.9,
               }}
             >
               <FlashOnIcon sx={{ color: 'warning.main', fontSize: 20 }} />
@@ -1057,16 +1326,28 @@ export default function Home() {
             <Typography
               variant="h2"
               sx={{
-                mb: 2,
-                fontWeight: 700,
+                mb: 3,
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
                 background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
                 backgroundClip: 'text',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
+                letterSpacing: '-0.02em',
               }}
             >
               Find What You Need Instantly
             </Typography>
+            <Box
+              sx={{
+                width: 80,
+                height: 4,
+                mx: 'auto',
+                mb: 3,
+                background: 'linear-gradient(90deg, transparent, rgba(237, 41, 57, 0.4), transparent)',
+                borderRadius: 2,
+              }}
+            />
             <Typography
               variant="h6"
               color="text.secondary"
@@ -1074,53 +1355,72 @@ export default function Home() {
                 maxWidth: '700px',
                 mx: 'auto',
                 fontWeight: 400,
-                lineHeight: 1.7,
+                lineHeight: 1.8,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
               }}
             >
               Based on familiar patterns and visual cues you already know. No thinking required - just click and go.
             </Typography>
           </Box>
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 3, sm: 4, md: 5 }}>
             {[
               {
                 icon: <SchoolIcon />,
                 title: 'I want to learn',
-                description: 'Educational programs and courses',
+                description: 'Discover educational programs and courses designed for your growth',
                 path: '/focus-areas',
                 color: '#002395',
-                gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(0, 35, 149, 0.05) 100%)',
-                hoverGradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.15) 0%, rgba(0, 35, 149, 0.08) 100%)',
+                gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(0, 35, 149, 0.03) 100%)',
+                hoverGradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.12) 0%, rgba(0, 35, 149, 0.06) 100%)',
                 badge: '50+ Programs',
+                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                showAvatars: true,
+                avatars: [
+                  '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                ],
               },
               {
                 icon: <PeopleIcon />,
                 title: 'I want to connect',
-                description: 'Community events and networking',
+                description: 'Join community events and build meaningful connections',
                 path: '/events',
                 color: '#ED2939',
-                gradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.1) 0%, rgba(237, 41, 57, 0.05) 100%)',
-                hoverGradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.15) 0%, rgba(237, 41, 57, 0.08) 100%)',
+                gradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.08) 0%, rgba(237, 41, 57, 0.03) 100%)',
+                hoverGradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.12) 0%, rgba(237, 41, 57, 0.06) 100%)',
                 badge: '20+ Events',
+                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                showAvatars: true,
+                avatars: [
+                  '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
+                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                ],
               },
               {
                 icon: <VolunteerActivismIcon />,
                 title: 'I want to help',
-                description: 'Volunteer opportunities',
+                description: 'Become part of the change and make a real impact',
                 path: '/contact',
                 color: '#4CAF50',
-                gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%)',
-                hoverGradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.08) 100%)',
+                gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0.03) 100%)',
+                hoverGradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.12) 0%, rgba(76, 175, 80, 0.06) 100%)',
                 badge: 'Join Now',
+                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                showAvatars: false,
               },
               {
                 icon: <PublicIcon />,
                 title: 'I want to explore',
-                description: 'Projects and partnerships',
+                description: 'Discover our European projects and partnerships',
                 path: '/projects',
                 color: '#FF9800',
-                gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.1) 0%, rgba(255, 152, 0, 0.05) 100%)',
-                hoverGradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.08) 100%)',
+                gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.08) 0%, rgba(255, 152, 0, 0.03) 100%)',
+                hoverGradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.12) 0%, rgba(255, 152, 0, 0.06) 100%)',
                 badge: '15+ Projects',
+                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                showAvatars: false,
               },
             ].map((item, index) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.title}>
@@ -1151,66 +1451,81 @@ export default function Home() {
                       transition: 'opacity 0.4s ease',
                     },
                     '&:hover': {
-                      transform: 'translateY(-8px) scale(1.02)',
-                      boxShadow: `0 12px 40px ${item.color}30, 0 4px 12px rgba(0, 0, 0, 0.1)`,
+                      transform: 'translateY(-12px) scale(1.03)',
+                      boxShadow: `0 16px 48px ${item.color}35, 0 6px 16px rgba(0, 0, 0, 0.12)`,
                       '&::before': {
                         opacity: 1,
                       },
                       '& .intuitive-icon-wrapper': {
-                        transform: 'scale(1.15) rotate(5deg)',
-                        background: `linear-gradient(135deg, ${item.color}15, ${item.color}08)`,
+                        transform: 'scale(1.08)',
+                        boxShadow: `0 12px 32px ${item.color}30`,
+                        '&::after': {
+                          borderColor: `${item.color}50`,
+                        },
                       },
-                      '& .intuitive-icon': {
-                        color: item.color,
+                      '& .intuitive-photo': {
                         transform: 'scale(1.1)',
                       },
                       '& .intuitive-title': {
                         color: item.color,
                       },
-                      '& .intuitive-arrow': {
-                        opacity: 1,
-                        transform: 'translateX(4px)',
-                      },
                     },
                   }}
                 >
-                  <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                  <Box sx={{ p: { xs: 3, sm: 4 }, position: 'relative', zIndex: 1, display: 'flex', flexDirection: 'column', height: '100%' }}>
+                    {/* Photo instead of icon */}
                     <Box
                       className="intuitive-icon-wrapper"
                       sx={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: '20px',
+                        width: { xs: 100, sm: 120 },
+                        height: { xs: 100, sm: 120 },
+                        borderRadius: '50%',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
                         mb: 3,
                         mx: 'auto',
-                        background: 'rgba(255, 255, 255, 0.6)',
+                        background: 'transparent',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                        boxShadow: `0 8px 24px ${item.color}20`,
+                        border: `4px solid white`,
+                        overflow: 'hidden',
+                        position: 'relative',
+                        '&::after': {
+                          content: '""',
+                          position: 'absolute',
+                          inset: 0,
+                          borderRadius: '50%',
+                          border: `3px solid ${item.color}30`,
+                          transition: 'all 0.4s ease',
+                        },
                       }}
                     >
                       <Box
-                        className="intuitive-icon"
+                        component="img"
+                        src={item.photo}
+                        alt={item.title}
+                        className="intuitive-photo"
                         sx={{
-                          color: item.color,
-                          fontSize: 48,
-                          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                          filter: 'brightness(0.95) saturate(1.1)',
                         }}
-                      >
-                        {item.icon}
-                      </Box>
+                      />
                     </Box>
                     <Typography
                       className="intuitive-title"
-                      variant="h5"
+                      variant="h4"
                       gutterBottom
                       sx={{
-                        fontWeight: 700,
-                        mb: 1.5,
+                        fontWeight: 800,
+                        mb: 2,
                         transition: 'color 0.3s ease',
-                        fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                        fontSize: { xs: '1.35rem', sm: '1.65rem', md: '1.75rem' },
+                        lineHeight: 1.2,
+                        textAlign: 'center',
                       }}
                     >
                       {item.title}
@@ -1219,10 +1534,13 @@ export default function Home() {
                       variant="body1"
                       color="text.secondary"
                       sx={{
-                        mb: 3,
-                        lineHeight: 1.6,
-                        fontSize: '0.95rem',
-                        minHeight: '3em',
+                        mb: 4,
+                        lineHeight: 1.75,
+                        fontSize: { xs: '0.95rem', sm: '1.05rem' },
+                        minHeight: { xs: '3.5em', sm: '3em' },
+                        textAlign: 'center',
+                        color: 'text.primary',
+                        opacity: 0.8,
                       }}
                     >
                       {item.description}
@@ -1230,33 +1548,74 @@ export default function Home() {
                     <Box
                       sx={{
                         display: 'flex',
+                        flexDirection: 'column',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        gap: 1,
+                        gap: 2,
                         mt: 'auto',
+                        pt: 2,
                       }}
                     >
-                      <Chip
-                        label={item.badge}
-                        size="small"
+                      {/* Avatar Stack for community visualization */}
+                      {item.showAvatars && item.avatars && (
+                        <AvatarGroup
+                          max={3}
+                          sx={{
+                            justifyContent: 'center',
+                            mb: 1,
+                            '& .MuiAvatar-root': {
+                              width: { xs: 36, sm: 40 },
+                              height: { xs: 36, sm: 40 },
+                              border: '2px solid white',
+                              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.15)',
+                              transition: 'transform 0.3s ease',
+                              '&:hover': {
+                                transform: 'scale(1.1)',
+                                zIndex: 2,
+                              },
+                            },
+                          }}
+                        >
+                          {item.avatars.map((avatar, idx) => (
+                            <Avatar key={idx} src={avatar} alt={`Community member ${idx + 1}`} />
+                          ))}
+                        </AvatarGroup>
+                      )}
+                      <Button
+                        variant="contained"
+                        size="medium"
+                        endIcon={
+                          <ArrowForwardIcon
+                            className="intuitive-arrow"
+                            sx={{
+                              fontSize: 18,
+                              transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                            }}
+                          />
+                        }
                         sx={{
-                          backgroundColor: `${item.color}15`,
-                          color: item.color,
+                          backgroundColor: item.color,
+                          color: 'white',
                           fontWeight: 700,
-                          fontSize: '0.75rem',
-                          height: '28px',
-                          border: `1px solid ${item.color}30`,
+                          fontSize: { xs: '0.85rem', sm: '0.9rem' },
+                          px: { xs: 2.5, sm: 3 },
+                          py: 1,
+                          borderRadius: 3,
+                          boxShadow: `0 4px 16px ${item.color}30`,
+                          textTransform: 'none',
+                          transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                          '&:hover': {
+                            backgroundColor: item.color,
+                            transform: 'translateY(-2px)',
+                            boxShadow: `0 6px 24px ${item.color}40`,
+                            '& .intuitive-arrow': {
+                              transform: 'translateX(4px)',
+                            },
+                          },
                         }}
-                      />
-                      <ArrowForwardIcon
-                        className="intuitive-arrow"
-                        sx={{
-                          fontSize: 20,
-                          color: item.color,
-                          opacity: 0.6,
-                          transition: 'all 0.3s ease',
-                        }}
-                      />
+                      >
+                        {item.badge}
+                      </Button>
                     </Box>
                   </Box>
                 </Card>
@@ -1269,82 +1628,309 @@ export default function Home() {
       {/* PERSUASIVE: Personalization - Enhanced role-based experience */}
       <Box
         sx={{
-          py: { xs: 6, sm: 8 },
-          backgroundColor: 'rgba(237, 41, 57, 0.03)',
+          py: { xs: 8, sm: 10 },
+          position: 'relative',
+          background: 'linear-gradient(180deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundImage: 'radial-gradient(circle at 20% 50%, rgba(102, 126, 234, 0.08) 0%, transparent 50%), radial-gradient(circle at 80% 80%, rgba(118, 75, 162, 0.08) 0%, transparent 50%)',
+            pointerEvents: 'none',
+          },
         }}
       >
-        <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Chip
-              icon={<PsychologyIcon />}
-              label="Personalized Experience"
-              color="error"
-              sx={{ mb: 2, fontWeight: 600 }}
-            />
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 4,
+                px: 3,
+                py: 1.5,
+                borderRadius: '50px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4), 0 0 30px rgba(102, 126, 234, 0.2)',
+                animation: 'pulse 3s ease-in-out infinite',
+                '@keyframes pulse': {
+                  '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4), 0 0 30px rgba(102, 126, 234, 0.2)' },
+                  '50%': { transform: 'scale(1.02)', boxShadow: '0 6px 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.3)' },
+                },
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  boxShadow: '0 6px 20px rgba(102, 126, 234, 0.6), 0 0 40px rgba(102, 126, 234, 0.3)',
+                },
+              }}
+            >
+              <StarIcon sx={{ color: 'white', fontSize: 20, animation: 'sparkle 2s ease-in-out infinite', '@keyframes sparkle': { '0%, 100%': { opacity: 1, transform: 'scale(1)' }, '50%': { opacity: 0.7, transform: 'scale(1.2)' } } }} />
+              <Typography
+                sx={{
+                  color: 'white',
+                  fontWeight: 700,
+                  fontSize: '0.9rem',
+                  letterSpacing: '0.5px',
+                }}
+              >
+                Personalized Experience
+              </Typography>
+            </Box>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 3,
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                background: 'linear-gradient(135deg, #002395 0%, #667eea 50%, #764ba2 100%)',
+                backgroundSize: '200% auto',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                animation: 'gradientShift 3s linear infinite',
+                '@keyframes gradientShift': {
+                  '0%': { backgroundPosition: '0% center' },
+                  '100%': { backgroundPosition: '200% center' },
+                },
+                letterSpacing: '-0.02em',
+              }}
+            >
               Who Are You?
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
-              Choose your role to see personalized recommendations tailored just for you
+            <Typography
+              variant="h6"
+              color="text.secondary"
+              sx={{
+                maxWidth: '700px',
+                mx: 'auto',
+                fontWeight: 400,
+                lineHeight: 1.8,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                animation: 'fadeIn 0.8s ease-out 0.3s both',
+                '@keyframes fadeIn': {
+                  from: { opacity: 0, transform: 'translateY(10px)' },
+                  to: { opacity: 1, transform: 'translateY(0)' },
+                },
+              }}
+            >
+              Choose your role to see personalized recommendations tailored just for you 🎯
             </Typography>
           </Box>
-          <Grid container spacing={3} sx={{ mb: 4 }}>
+          <Grid container spacing={{ xs: 3, sm: 4 }} sx={{ mb: 6 }}>
             {[
               {
                 role: 'senior',
                 icon: <PersonIcon />,
                 label: 'Senior',
                 description: 'Digital skills and social activities',
-                color: 'primary',
+                color: '#4287f5',
+                gradient: 'linear-gradient(135deg, rgba(66, 135, 245, 0.85) 0%, transparent 100%)',
+                stats: { members: 156, programs: 12 },
+                features: ['💻 Digital Literacy', '🎨 Art Classes', '☕ Social Meetups'],
+                image: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
               },
               {
                 role: 'youth',
                 icon: <GroupIcon />,
                 label: 'Youth',
                 description: 'Education and career development',
-                color: 'error',
+                color: '#ff9800',
+                gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.85) 0%, transparent 100%)',
+                stats: { members: 340, placement: '89%' },
+                features: ['💻 Coding Bootcamp', '🎬 Media Production', '🗣️ Public Speaking', '🌍 EU Opportunities'],
+                image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
               },
               {
                 role: 'migrant',
                 icon: <PublicIcon />,
                 label: 'Migrant',
                 description: 'Integration and language support',
-                color: 'info',
+                color: '#4caf50',
+                gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, transparent 100%)',
+                stats: { languages: 15, success: '95%' },
+                features: ['🇫🇷 French Classes', '📄 Document Help', '🏠 Housing Support', '👔 Job Training'],
+                image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
               },
               {
                 role: 'organization',
                 icon: <BusinessIcon />,
                 label: 'Organization',
                 description: 'Partnership opportunities',
-                color: 'success',
+                color: '#43a047',
+                gradient: 'linear-gradient(135deg, rgba(67, 160, 71, 0.85) 0%, transparent 100%)',
+                stats: { partners: 23, countries: 8 },
+                features: ['💰 Funding Access', '📊 Project Collaboration', '🎓 Training Programs', '📱 Resource Sharing'],
+                image: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
               },
             ].map((roleOption) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={roleOption.role}>
                 <Card
                   onClick={() => setSelectedRole(roleOption.role)}
                   sx={{
-                    p: 3,
+                    p: 0,
                     textAlign: 'center',
                     cursor: 'pointer',
                     height: '100%',
-                    border: '2px solid',
-                    borderColor: selectedRole === roleOption.role ? `${roleOption.color}.main` : 'divider',
-                    backgroundColor:
-                      selectedRole === roleOption.role ? `${roleOption.color}.main` : 'transparent',
-                    color: selectedRole === roleOption.role ? 'white' : 'inherit',
-                    transition: 'all 0.3s ease',
+                    border: selectedRole === roleOption.role ? `3px solid ${roleOption.color}` : '2px solid',
+                    borderColor: selectedRole === roleOption.role ? roleOption.color : 'divider',
+                    backgroundColor: selectedRole === roleOption.role ? `${roleOption.color}15` : 'background.paper',
+                    color: selectedRole === roleOption.role ? 'text.primary' : 'inherit',
+                    transition: 'all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    boxShadow: selectedRole === roleOption.role
+                      ? `0 0 0 4px ${roleOption.color}30, 0 20px 40px rgba(0, 0, 0, 0.15)`
+                      : '0 2px 8px rgba(0, 0, 0, 0.08)',
+                    transform: selectedRole === roleOption.role ? 'scale(1.05)' : selectedRole && selectedRole !== roleOption.role ? 'scale(0.95)' : 'scale(1)',
+                    filter: selectedRole && selectedRole !== roleOption.role ? 'blur(2px) grayscale(50%)' : 'none',
+                    opacity: selectedRole && selectedRole !== roleOption.role ? 0.6 : 1,
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: 0,
+                      left: '-100%',
+                      width: '100%',
+                      height: '100%',
+                      background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)',
+                      transition: 'left 0.5s',
+                    },
                     '&:hover': {
-                      borderColor: `${roleOption.color}.main`,
-                      transform: 'translateY(-3px)',
-                      boxShadow: `0 6px 20px ${roleOption.color}40`,
+                      transform: selectedRole === roleOption.role ? 'scale(1.05) translateY(-12px)' : 'translateY(-12px) scale(1.03)',
+                      boxShadow: `0 20px 40px rgba(0, 0, 0, 0.15), 0 0 30px ${roleOption.color}30`,
+                      borderColor: roleOption.color,
+                      '&::before': {
+                        left: '100%',
+                      },
                     },
                   }}
                 >
-                  <Box sx={{ mb: 2 }}>{roleOption.icon}</Box>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    {roleOption.label}
-                  </Typography>
-                  <Typography variant="body2">{roleOption.description}</Typography>
+                  {selectedRole === roleOption.role && (
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                        width: 40,
+                        height: 40,
+                        background: 'white',
+                        borderRadius: '50%',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: 24,
+                        color: roleOption.color,
+                        zIndex: 2,
+                        animation: 'checkmark-pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                        '@keyframes checkmark-pop': {
+                          '0%': { transform: 'scale(0)', opacity: 0 },
+                          '50%': { transform: 'scale(1.2)' },
+                          '100%': { transform: 'scale(1)', opacity: 1 },
+                        },
+                      }}
+                    >
+                      ✓
+                    </Box>
+                  )}
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 140,
+                      overflow: 'hidden',
+                      background: roleOption.gradient,
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={roleOption.image}
+                      alt={roleOption.label}
+                      loading="lazy"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.4s ease',
+                        transform: selectedRole === roleOption.role ? 'scale(1.1)' : 'scale(1)',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        width: 80,
+                        height: 80,
+                        borderRadius: '20px',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        background: 'rgba(255, 255, 255, 0.9)',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        transition: 'all 0.4s ease',
+                        '& svg': {
+                          fontSize: 40,
+                          color: roleOption.color,
+                        },
+                      }}
+                    >
+                      {roleOption.icon}
+                    </Box>
+                  </Box>
+                  <Box sx={{ p: 3, position: 'relative', zIndex: 1 }}>
+                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 700, mb: 1 }}>
+                      {roleOption.label}
+                    </Typography>
+                    <Typography variant="body2" sx={{ mb: 2, minHeight: '2.5em' }}>
+                      {roleOption.description}
+                    </Typography>
+                    <Stack direction="row" spacing={1} justifyContent="center" sx={{ mb: 2, flexWrap: 'wrap', gap: 0.5 }}>
+                      <Chip
+                        size="small"
+                        label={`👥 ${roleOption.stats.members || roleOption.stats.partners || roleOption.stats.languages} ${roleOption.role === 'organization' ? 'partners' : roleOption.role === 'migrant' ? 'languages' : 'members'}`}
+                        sx={{
+                          fontSize: '0.7rem',
+                          height: 24,
+                          backgroundColor: `${roleOption.color}15`,
+                          color: roleOption.color,
+                          fontWeight: 600,
+                        }}
+                      />
+                      {roleOption.stats.programs && (
+                        <Chip
+                          size="small"
+                          label={`📚 ${roleOption.stats.programs} programs`}
+                          sx={{
+                            fontSize: '0.7rem',
+                            height: 24,
+                            backgroundColor: `${roleOption.color}15`,
+                            color: roleOption.color,
+                            fontWeight: 600,
+                          }}
+                        />
+                      )}
+                    </Stack>
+                    <Stack direction="row" spacing={0.5} justifyContent="center" sx={{ flexWrap: 'wrap', gap: 0.5 }}>
+                      {roleOption.features.slice(0, 3).map((feature, idx) => (
+                        <Chip
+                          key={idx}
+                          size="small"
+                          label={feature}
+                          sx={{
+                            fontSize: '0.65rem',
+                            height: 22,
+                            backgroundColor: `${roleOption.color}10`,
+                            color: 'text.secondary',
+                            border: `1px solid ${roleOption.color}20`,
+                          }}
+                        />
+                      ))}
+                    </Stack>
+                  </Box>
                 </Card>
               </Grid>
             ))}
@@ -1352,56 +1938,190 @@ export default function Home() {
           {selectedRole !== 'all' && (
             <Box
               sx={{
-                p: 3,
-                borderRadius: 2,
-                backgroundColor: 'rgba(0, 35, 149, 0.05)',
-                border: '1px solid',
-                borderColor: 'primary.main',
+                mt: 4,
+                p: { xs: 3, sm: 4 },
+                borderRadius: 4,
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(240, 248, 255, 0.95) 100%)',
+                border: '2px solid transparent',
+                position: 'relative',
+                backdropFilter: 'blur(10px)',
+                boxShadow: '0 8px 32px rgba(0, 0, 0, 0.1)',
+                animation: 'slideUp 0.5s ease-out',
+                '@keyframes slideUp': {
+                  from: { opacity: 0, transform: 'translateY(30px)' },
+                  to: { opacity: 1, transform: 'translateY(0)' },
+                },
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                  borderRadius: 'inherit',
+                  padding: 2,
+                  background: 'linear-gradient(135deg, #667eea, #764ba2)',
+                  WebkitMask: 'linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)',
+                  WebkitMaskComposite: 'xor',
+                  maskComposite: 'exclude',
+                  zIndex: -1,
+                },
               }}
             >
-              <Typography variant="h6" gutterBottom sx={{ fontWeight: 600, mb: 2 }}>
-                Recommended for You
-              </Typography>
-              <Stack spacing={2}>
-                {selectedRole === 'senior' && (
-                  <>
-                    <Typography>• Digital Literacy Workshops</Typography>
-                    <Typography>• Social Integration Activities</Typography>
-                    <Typography>• Cultural Exchange Programs</Typography>
-                  </>
-                )}
-                {selectedRole === 'youth' && (
-                  <>
-                    <Typography>• Erasmus+ Projects</Typography>
-                    <Typography>• Media & Arts Education</Typography>
-                    <Typography>• Career Development Programs</Typography>
-                  </>
-                )}
-                {selectedRole === 'migrant' && (
-                  <>
-                    <Typography>• Intercultural Education</Typography>
-                    <Typography>• Language Support</Typography>
-                    <Typography>• Community Integration</Typography>
-                  </>
-                )}
-                {selectedRole === 'organization' && (
-                  <>
-                    <Typography>• Partnership Opportunities</Typography>
-                    <Typography>• European Network Access</Typography>
-                    <Typography>• Collaborative Projects</Typography>
-                  </>
-                )}
-          </Stack>
-              <Button
-                component={RouterLink}
-                to="/contact"
-                variant="contained"
-                color="primary"
-                sx={{ mt: 3 }}
-                endIcon={<ArrowForwardIcon />}
-              >
-                Get Started
-              </Button>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5, mb: 3 }}>
+                <StarIcon sx={{ color: '#667eea', fontSize: 28, animation: 'sparkle 2s ease-in-out infinite' }} />
+                <Typography variant="h5" sx={{ fontWeight: 700, background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)', backgroundClip: 'text', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent' }}>
+                  Recommended for You
+                </Typography>
+                <Chip
+                  label={`Based on: ${selectedRole === 'senior' ? 'Senior' : selectedRole === 'youth' ? 'Youth' : selectedRole === 'migrant' ? 'Migrant' : 'Organization'}`}
+                  size="small"
+                  sx={{
+                    backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                    color: '#667eea',
+                    fontWeight: 600,
+                    fontSize: '0.75rem',
+                  }}
+                />
+              </Box>
+              <Grid container spacing={3} sx={{ mb: 4 }}>
+                {(
+                  selectedRole === 'senior'
+                    ? [
+                        { title: 'Digital Literacy Workshops', description: 'Learn essential computer skills in a friendly environment', badge: '🔥 Most Popular', icon: '💻' },
+                        { title: 'Social Integration Activities', description: 'Connect with peers through cultural and social events', badge: '👥', icon: '🎨' },
+                        { title: 'Cultural Exchange Programs', description: 'Share experiences and learn from diverse cultures', badge: '🌍', icon: '☕' },
+                      ]
+                    : selectedRole === 'youth'
+                      ? [
+                          { title: 'Erasmus+ Projects', description: 'Join European mobility programs and international exchanges', badge: '🔥 Most Popular', icon: '🌍' },
+                          { title: 'Media & Arts Education', description: 'Develop creative skills in media production and arts', badge: '🎬', icon: '📚' },
+                          { title: 'Career Development Programs', description: 'Build your professional path with mentorship', badge: '💼', icon: '🚀' },
+                        ]
+                      : selectedRole === 'migrant'
+                        ? [
+                            { title: 'Intercultural Education', description: 'Learn about French culture and integration pathways', badge: '🔥 Most Popular', icon: '🎓' },
+                            { title: 'Language Support', description: 'French classes with multilingual support team', badge: '🗣️', icon: '📄' },
+                            { title: 'Community Integration', description: 'Connect with local community and find support', badge: '🤝', icon: '🏠' },
+                          ]
+                        : [
+                            { title: 'Partnership Opportunities', description: 'Connect with 15+ organizations for collaborative projects', badge: '🔥 Most Popular', icon: '🤝' },
+                            { title: 'European Network Access', description: 'Join 200+ organizations across Europe', badge: '🌍', icon: '📊' },
+                            { title: 'Collaborative Projects', description: 'Co-create impact with partner organizations', badge: '💡', icon: '🎓' },
+                          ]
+                ).map((rec, index) => (
+                  <Grid size={{ xs: 12, md: 4 }} key={rec.title}>
+                    <Card
+                      sx={{
+                        p: 2.5,
+                        height: '100%',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        borderRadius: 3,
+                        position: 'relative',
+                        overflow: 'hidden',
+                        transition: 'all 0.3s ease',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          left: 0,
+                          top: 0,
+                          width: 4,
+                          height: '100%',
+                          background: 'linear-gradient(180deg, #667eea, #764ba2)',
+                          transform: 'scaleY(0)',
+                          transition: 'transform 0.3s ease',
+                        },
+                        '&:hover': {
+                          transform: 'translateX(10px)',
+                          boxShadow: '-5px 5px 20px rgba(0, 0, 0, 0.1)',
+                          '&::before': {
+                            transform: 'scaleY(1)',
+                          },
+                        },
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'flex-start', gap: 1.5, mb: 1.5 }}>
+                        <Typography sx={{ fontSize: 28 }}>{rec.icon}</Typography>
+                        <Box sx={{ flex: 1 }}>
+                          {rec.badge && (
+                            <Chip
+                              label={rec.badge}
+                              size="small"
+                              sx={{
+                                mb: 1,
+                                fontSize: '0.7rem',
+                                height: 20,
+                                backgroundColor: rec.badge.includes('🔥') ? 'rgba(255, 152, 0, 0.15)' : 'rgba(102, 126, 234, 0.1)',
+                                color: rec.badge.includes('🔥') ? '#ff9800' : '#667eea',
+                                fontWeight: 700,
+                              }}
+                            />
+                          )}
+                          <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, fontSize: '1.1rem' }}>
+                            {rec.title}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                        {rec.description}
+                      </Typography>
+                    </Card>
+                  </Grid>
+                ))}
+              </Grid>
+              <Box sx={{ textAlign: 'center' }}>
+                <Button
+                  component={RouterLink}
+                  to="/contact"
+                  variant="contained"
+                  size="large"
+                  endIcon={<ArrowForwardIcon sx={{ transition: 'transform 0.3s ease' }} />}
+                  sx={{
+                    background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                    backgroundSize: '200% auto',
+                    animation: 'gradientShift 3s linear infinite',
+                    '@keyframes gradientShift': {
+                      '0%': { backgroundPosition: '0% center' },
+                      '100%': { backgroundPosition: '200% center' },
+                    },
+                    boxShadow: '0 4px 15px rgba(102, 126, 234, 0.4), 0 0 30px rgba(102, 126, 234, 0.2)',
+                    px: 5,
+                    py: 1.5,
+                    fontSize: '1.1rem',
+                    fontWeight: 700,
+                    borderRadius: 3,
+                    textTransform: 'none',
+                    position: 'relative',
+                    overflow: 'hidden',
+                    '&::before': {
+                      content: '""',
+                      position: 'absolute',
+                      top: '50%',
+                      left: '50%',
+                      width: 0,
+                      height: 0,
+                      borderRadius: '50%',
+                      background: 'rgba(255, 255, 255, 0.3)',
+                      transform: 'translate(-50%, -50%)',
+                      transition: 'width 0.6s, height 0.6s',
+                    },
+                    '&:hover': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(102, 126, 234, 0.5), 0 0 40px rgba(102, 126, 234, 0.3)',
+                      '&::before': {
+                        width: 300,
+                        height: 300,
+                      },
+                      '& .MuiButton-endIcon': {
+                        transform: 'translateX(4px)',
+                      },
+                    },
+                  }}
+                >
+                  Get Started
+                </Button>
+                <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, fontSize: '0.85rem' }}>
+                  ⏱️ Takes only 2 minutes • No commitment required
+                </Typography>
+              </Box>
             </Box>
           )}
         </Container>
@@ -1415,225 +2135,850 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Chip
-              icon={<SpeedIcon />}
-              label="Quick Decisions"
-              color="primary"
-              sx={{ mb: 2, fontWeight: 600 }}
-            />
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                mb: 2, 
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               Choose Your Path
+              <Typography
+                component="span"
+                sx={{
+                  ml: 1.5,
+                  fontSize: '0.4em',
+                  fontWeight: 600,
+                  color: 'primary.main',
+                  verticalAlign: 'middle',
+                }}
+              >
+                • Quick Decisions
+              </Typography>
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto', fontWeight: 400, lineHeight: 1.7 }}>
               Simple rules to help you decide quickly
             </Typography>
           </Box>
           <Box 
             sx={{ 
-              borderBottom: 2, 
-              borderColor: 'divider', 
-              mb: 4,
-              borderRadius: 2,
-              background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.02) 0%, rgba(237, 41, 57, 0.02) 100%)',
+              mb: 5,
+              position: 'relative',
             }}
           >
             <Tabs
               value={quickDecisionTab}
               onChange={(_, newValue) => setQuickDecisionTab(newValue)}
-              variant="scrollable"
-              scrollButtons="auto"
+              variant="fullWidth"
               sx={{
+                position: 'relative',
                 '& .MuiTab-root': {
                   fontWeight: 600,
                   fontSize: '1rem',
                   textTransform: 'none',
-                  minHeight: 64,
-                  transition: 'all 0.3s ease',
+                  minHeight: 72,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  borderRadius: 2,
+                  mx: 0.5,
                   '&:hover': {
                     backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                    transform: 'translateY(-2px)',
                   },
                 },
                 '& .Mui-selected': {
                   color: 'primary.main',
                   fontWeight: 700,
+                  backgroundColor: 'rgba(0, 35, 149, 0.08)',
+                  boxShadow: '0 4px 12px rgba(0, 35, 149, 0.15)',
+                  transform: 'translateY(-2px)',
                 },
                 '& .MuiTabs-indicator': {
-                  height: 3,
-                  borderRadius: '3px 3px 0 0',
-                  background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+                  display: 'none',
                 },
               }}
             >
-              <Tab icon={<ThumbUpIcon />} iconPosition="start" label="I'm Ready" />
-              <Tab icon={<InfoIcon />} iconPosition="start" label="I Need Info" />
-              <Tab icon={<AccessTimeIcon />} iconPosition="start" label="I'm Exploring" />
+              <Tab 
+                icon={<ThumbUpIcon sx={{ fontSize: 24 }} />} 
+                iconPosition="start" 
+                label="I'm Ready"
+                sx={{
+                  '&.Mui-selected': {
+                    '& .MuiSvgIcon-root': {
+                      color: 'success.main',
+                    },
+                  },
+                }}
+              />
+              <Tab 
+                icon={<InfoIcon sx={{ fontSize: 24 }} />} 
+                iconPosition="start" 
+                label="I Need Info"
+              />
+              <Tab 
+                icon={<AccessTimeIcon sx={{ fontSize: 24 }} />} 
+                iconPosition="start" 
+                label="I'm Exploring"
+              />
             </Tabs>
+            <Box
+              sx={{
+                position: 'absolute',
+                bottom: 0,
+                left: 0,
+                right: 0,
+                height: 3,
+                background: 'linear-gradient(90deg, transparent, rgba(0, 35, 149, 0.2), transparent)',
+                borderRadius: '0 0 2px 2px',
+              }}
+            />
           </Box>
           <Box sx={{ minHeight: '200px' }}>
             {quickDecisionTab === 0 && (
-              <Grid container spacing={3}>
+              <Grid container spacing={{ xs: 3, sm: 4 }}>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Card 
+                    component={RouterLink}
+                    to="/contact"
                     sx={{ 
-                      p: 3.5, 
+                      p: 0,
                       height: '100%', 
-                      border: '2px solid', 
-                      borderColor: 'success.main',
-                      borderRadius: 3,
-                      background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.05) 0%, rgba(255, 255, 255, 1) 100%)',
-                      boxShadow: '0 4px 20px rgba(76, 175, 80, 0.1)',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(76, 175, 80, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
                       '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 8px 30px rgba(76, 175, 80, 0.2)',
-                        borderColor: 'success.dark',
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(76, 175, 80, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(76, 175, 80, 0.5)',
+                        },
                       },
                     }}
                   >
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'success.main', mb: 1.5 }}>
-                      ✓ Ready to Join?
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7, color: 'text.secondary' }}>
-                      If you're ready to get started, click below to register. It takes just 2 minutes.
-                    </Typography>
-                    <Button
-                      component={RouterLink}
-                      to="/contact"
-                      variant="contained"
-                      color="success"
-                      fullWidth
-                      endIcon={<ArrowForwardIcon />}
+                    <Box
                       sx={{
-                        py: 1.5,
-                        fontWeight: 700,
-                        borderRadius: 2,
-                        boxShadow: '0 4px 14px rgba(76, 175, 80, 0.3)',
-                        '&:hover': {
-                          boxShadow: '0 6px 20px rgba(76, 175, 80, 0.4)',
-                        },
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
                       }}
                     >
-                      Register Now
-                    </Button>
+                      <Box
+                        component="img"
+                        src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                        alt="Ready to Join"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, rgba(76, 175, 80, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <CheckCircleIcon sx={{ fontSize: 28, color: '#4caf50' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Ready to Join?
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        If you're ready to get started, click below to register. It takes just 2 minutes.
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#4caf50',
+                          boxShadow: '0 4px 16px rgba(76, 175, 80, 0.4), 0 0 24px rgba(76, 175, 80, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#43a047',
+                          },
+                        }}
+                      >
+                        Register Now
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Card 
+                    component={RouterLink}
+                    to="/contact"
                     sx={{ 
-                      p: 3.5, 
+                      p: 0,
                       height: '100%', 
-                      border: '2px solid', 
-                      borderColor: 'primary.main',
-                      borderRadius: 3,
-                      background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(255, 255, 255, 1) 100%)',
-                      boxShadow: '0 4px 20px rgba(0, 35, 149, 0.1)',
-                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
                       '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: '0 8px 30px rgba(0, 35, 149, 0.2)',
-                        borderColor: 'primary.dark',
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(0, 35, 149, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(0, 35, 149, 0.5)',
+                        },
                       },
                     }}
                   >
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'primary.main', mb: 1.5 }}>
-                      ✓ Want to Volunteer?
-                    </Typography>
-                    <Typography variant="body1" sx={{ mb: 3, lineHeight: 1.7, color: 'text.secondary' }}>
-                      Help others while developing your skills. Join our volunteer program.
-                    </Typography>
-                    <Button
-                      component={RouterLink}
-                      to="/contact"
-                      variant="contained"
-                      color="primary"
-                      fullWidth
-                      endIcon={<ArrowForwardIcon />}
+                    <Box
                       sx={{
-                        py: 1.5,
-                        fontWeight: 700,
-                        borderRadius: 2,
-                        boxShadow: '0 4px 14px rgba(0, 35, 149, 0.3)',
-                        '&:hover': {
-                          boxShadow: '0 6px 20px rgba(0, 35, 149, 0.4)',
-                        },
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
                       }}
                     >
-                      Become a Volunteer
-                    </Button>
+                      <Box
+                        component="img"
+                        src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                        alt="Want to Volunteer"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <CheckCircleIcon sx={{ fontSize: 28, color: '#002395' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Want to Volunteer?
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        Help others while developing your skills. Join our volunteer program.
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#002395',
+                          boxShadow: '0 4px 16px rgba(0, 35, 149, 0.4), 0 0 24px rgba(0, 35, 149, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#0038d6',
+                          },
+                        }}
+                      >
+                        Become a Volunteer
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
               </Grid>
             )}
             {quickDecisionTab === 1 && (
-              <Grid container spacing={3}>
+              <Grid container spacing={{ xs: 3, sm: 4 }}>
                 <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ p: 3, height: '100%' }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                      Learn About Us
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Discover our mission, values, and impact
-                    </Typography>
-                    <Button component={RouterLink} to="/about" variant="outlined" fullWidth>
-                      About Us
-                    </Button>
+                  <Card 
+                    component={RouterLink}
+                    to="/about"
+                    sx={{ 
+                      p: 0,
+                      height: '100%', 
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(102, 126, 234, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(102, 126, 234, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(102, 126, 234, 0.5)',
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                        alt="Learn About Us"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.85) 0%, rgba(118, 75, 162, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <InfoIcon sx={{ fontSize: 28, color: '#667eea' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Learn About Us
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        Discover our mission, values, and impact
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#667eea',
+                          boxShadow: '0 4px 16px rgba(102, 126, 234, 0.4), 0 0 24px rgba(102, 126, 234, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#5a6fd8',
+                          },
+                        }}
+                      >
+                        About Us
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
                 <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ p: 3, height: '100%' }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                      Our Programs
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Explore all our focus areas and programs
-                    </Typography>
-                    <Button component={RouterLink} to="/focus-areas" variant="outlined" fullWidth>
-                      View Programs
-                    </Button>
+                  <Card 
+                    component={RouterLink}
+                    to="/focus-areas"
+                    sx={{ 
+                      p: 0,
+                      height: '100%', 
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(237, 41, 57, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(237, 41, 57, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                        alt="Our Programs"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.85) 0%, rgba(237, 41, 57, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <MenuBookIcon sx={{ fontSize: 28, color: '#ED2939' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Our Programs
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        Explore all our focus areas and programs
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#ED2939',
+                          boxShadow: '0 4px 16px rgba(237, 41, 57, 0.4), 0 0 24px rgba(237, 41, 57, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#d21e2e',
+                          },
+                        }}
+                      >
+                        View Programs
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
                 <Grid size={{ xs: 12, md: 4 }}>
-                  <Card sx={{ p: 3, height: '100%' }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                      Contact Us
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      Have questions? We're here to help
-                    </Typography>
-                    <Button component={RouterLink} to="/contact" variant="outlined" fullWidth>
-                      Get in Touch
-                    </Button>
+                  <Card 
+                    component={RouterLink}
+                    to="/contact"
+                    sx={{ 
+                      p: 0,
+                      height: '100%', 
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(0, 35, 149, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(0, 35, 149, 0.5)',
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                        alt="Contact Us"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <ContactMailIcon sx={{ fontSize: 28, color: '#002395' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Contact Us
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        Have questions? We're here to help
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#002395',
+                          boxShadow: '0 4px 16px rgba(0, 35, 149, 0.4), 0 0 24px rgba(0, 35, 149, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#0038d6',
+                          },
+                        }}
+                      >
+                        Get in Touch
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
               </Grid>
             )}
             {quickDecisionTab === 2 && (
-              <Grid container spacing={3}>
+              <Grid container spacing={{ xs: 3, sm: 4 }}>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Card sx={{ p: 3, height: '100%' }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                      Browse Events
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      See what's happening in our community
-                    </Typography>
-                    <Button component={RouterLink} to="/events" variant="outlined" fullWidth>
-                      View Events
-                    </Button>
+                  <Card 
+                    component={RouterLink}
+                    to="/events"
+                    sx={{ 
+                      p: 0,
+                      height: '100%', 
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(255, 152, 0, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(255, 152, 0, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(255, 152, 0, 0.5)',
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/photos/574604314_1146960820945256_3308026953512837589_n.jpg"
+                        alt="Browse Events"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.85) 0%, rgba(255, 152, 0, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <EventIcon sx={{ fontSize: 28, color: '#FF9800' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        Browse Events
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        See what's happening in our community
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#FF9800',
+                          boxShadow: '0 4px 16px rgba(255, 152, 0, 0.4), 0 0 24px rgba(255, 152, 0, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#f57c00',
+                          },
+                        }}
+                      >
+                        View Events
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
-                  <Card sx={{ p: 3, height: '100%' }}>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                      View Gallery
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                      See photos from our activities and programs
-                    </Typography>
-                    <Button component={RouterLink} to="/gallery" variant="outlined" fullWidth>
-                      Visit Gallery
-                    </Button>
+                  <Card 
+                    component={RouterLink}
+                    to="/gallery"
+                    sx={{ 
+                      p: 0,
+                      height: '100%', 
+                      borderRadius: 4,
+                      overflow: 'hidden',
+                      position: 'relative',
+                      background: 'transparent',
+                      boxShadow: '0 8px 32px rgba(156, 39, 176, 0.15)',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      textDecoration: 'none',
+                      '&:hover': {
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(156, 39, 176, 0.25)',
+                        '& .card-image': {
+                          transform: 'scale(1.1)',
+                        },
+                        '& .card-button': {
+                          transform: 'translateY(-2px)',
+                          boxShadow: '0 8px 24px rgba(156, 39, 176, 0.5)',
+                        },
+                      },
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        position: 'relative',
+                        height: 200,
+                        overflow: 'hidden',
+                      }}
+                    >
+                      <Box
+                        component="img"
+                        src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg"
+                        alt="View Gallery"
+                        className="card-image"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.4s ease',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(135deg, rgba(156, 39, 176, 0.85) 0%, rgba(156, 39, 176, 0.6) 100%)',
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        }}
+                      >
+                        <ImageIcon sx={{ fontSize: 28, color: '#9c27b0' }} />
+                      </Box>
+                    </Box>
+                    <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                      <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' } }}>
+                        View Gallery
+                      </Typography>
+                      <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.8, color: 'text.secondary', minHeight: '3em' }}>
+                        See photos from our activities and programs
+                      </Typography>
+                      <Button
+                        variant="contained"
+                        fullWidth
+                        endIcon={<ArrowForwardIcon />}
+                        className="card-button"
+                        sx={{
+                          py: 2,
+                          fontWeight: 700,
+                          fontSize: '1rem',
+                          borderRadius: 3,
+                          backgroundColor: '#9c27b0',
+                          boxShadow: '0 4px 16px rgba(156, 39, 176, 0.4), 0 0 24px rgba(156, 39, 176, 0.2)',
+                          textTransform: 'none',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#7b1fa2',
+                          },
+                        }}
+                      >
+                        Visit Gallery
+                      </Button>
+                    </Box>
                   </Card>
                 </Grid>
               </Grid>
@@ -1650,138 +2995,502 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
-              <LightbulbIcon sx={{ color: 'primary.main' }} />
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 4,
+                px: 3,
+                py: 1.5,
+                borderRadius: '50px',
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(0, 35, 149, 0.05) 100%)',
+                border: '1px solid',
+                borderColor: 'primary.main',
+              }}
+            >
+              <LightbulbIcon sx={{ color: 'primary.main', fontSize: 20 }} />
               <Chip
-                icon={<CalculateIcon />}
+                icon={<CalculateIcon sx={{ fontSize: 16 }} />}
                 label="System 2: Detailed Information"
-                color="primary"
-                sx={{ fontWeight: 600 }}
+                sx={{
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  height: '28px',
+                  backgroundColor: 'transparent',
+                  color: 'primary.main',
+                  '& .MuiChip-icon': {
+                    color: 'primary.main',
+                  },
+                }}
               />
             </Box>
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                mb: 3, 
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               Making an Important Decision?
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontWeight: 400, lineHeight: 1.8 }}>
               Get all the facts you need to make an informed choice. Take your time to analyze and compare options.
             </Typography>
           </Box>
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 3, sm: 4, md: 5 }}>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Accordion defaultExpanded>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    What are the costs?
-                  </Typography>
+              <Accordion 
+                defaultExpanded
+                sx={{
+                  borderRadius: 3,
+                  mb: 2,
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                  '&:before': { display: 'none' },
+                  overflow: 'hidden',
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    px: 3,
+                    py: 2.5,
+                    minHeight: 72,
+                    '& .MuiAccordionSummary-content': {
+                      my: 1.5,
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                    <Box
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 2,
+                        background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.15) 0%, rgba(76, 175, 80, 0.08) 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <AttachMoneyIcon sx={{ fontSize: 32, color: '#4caf50' }} />
+                    </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.2rem' }}>
+                      What are the costs?
+                    </Typography>
+                  </Box>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <Stack spacing={2}>
-                    <Typography variant="body1">
-                      <strong>Registration:</strong> Free - No cost to join our community
+                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                  <Box
+                    sx={{
+                      mb: 3,
+                      p: 2.5,
+                      borderRadius: 2,
+                      background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%)',
+                      border: '2px dashed',
+                      borderColor: '#4caf50',
+                      textAlign: 'center',
+                    }}
+                  >
+                    <Typography variant="h3" sx={{ fontWeight: 800, color: '#4caf50', mb: 0.5 }}>
+                      0€
                     </Typography>
-                    <Typography variant="body1">
-                      <strong>Programs:</strong> Most programs are free. Some specialized workshops may have
-                      minimal fees (typically €10-30), with discounts for members.
+                    <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 600 }}>
+                      Free registration - No cost to join
                     </Typography>
-                    <Typography variant="body1">
-                      <strong>Events:</strong> Community events are generally free. Special events may have
-                      ticket prices clearly stated in advance.
-                    </Typography>
+                  </Box>
+                  <Stack spacing={2.5}>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#4caf50', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Registration
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Free - No cost to join our community
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#4caf50', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Programs
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Most programs are free. Some specialized workshops may have minimal fees (typically €10-30), with discounts for members.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#4caf50', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Events
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Community events are generally free. Special events may have ticket prices clearly stated in advance.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Stack>
                 </AccordionDetails>
               </Accordion>
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    What is the time commitment?
-                  </Typography>
+              <Accordion
+                sx={{
+                  borderRadius: 3,
+                  mb: 2,
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                  '&:before': { display: 'none' },
+                  overflow: 'hidden',
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    px: 3,
+                    py: 2.5,
+                    minHeight: 72,
+                    '& .MuiAccordionSummary-content': {
+                      my: 1.5,
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                    <Box
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 2,
+                        background: 'linear-gradient(135deg, rgba(255, 152, 0, 0.15) 0%, rgba(255, 152, 0, 0.08) 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <AccessTimeIcon sx={{ fontSize: 32, color: '#FF9800' }} />
+                    </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.2rem' }}>
+                      What is the time commitment?
+                    </Typography>
+                  </Box>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <Stack spacing={2}>
-                    <Typography variant="body1">
-                      <strong>Flexible participation:</strong> Join programs and events as your schedule
-                      allows. No minimum commitment required.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Program duration:</strong> Programs range from one-day workshops to multi-month
-                      courses. You choose what fits your needs.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Volunteering:</strong> Volunteer hours are flexible and can be arranged around
-                      your availability.
-                    </Typography>
+                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                  <Stack spacing={2.5}>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#FF9800', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Flexible participation
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Join programs and events as your schedule allows. No minimum commitment required.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#FF9800', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Program duration
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Programs range from one-day workshops to multi-month courses. You choose what fits your needs.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <CheckCircleIcon sx={{ color: '#FF9800', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Volunteering
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Volunteer hours are flexible and can be arranged around your availability.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Stack>
                 </AccordionDetails>
               </Accordion>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
-              <Accordion defaultExpanded>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    What are the requirements?
-                  </Typography>
+              <Accordion 
+                defaultExpanded
+                sx={{
+                  borderRadius: 3,
+                  mb: 2,
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                  '&:before': { display: 'none' },
+                  overflow: 'hidden',
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    px: 3,
+                    py: 2.5,
+                    minHeight: 72,
+                    '& .MuiAccordionSummary-content': {
+                      my: 1.5,
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                    <Box
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 2,
+                        background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.15) 0%, rgba(0, 35, 149, 0.08) 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <CheckCircleIcon sx={{ fontSize: 32, color: '#002395' }} />
+                    </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.2rem' }}>
+                      What are the requirements?
+                    </Typography>
+                  </Box>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <Stack spacing={2}>
-                    <Typography variant="body1">
-                      <strong>Age:</strong> Open to all ages - from youth to seniors
+                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                  <Box
+                    sx={{
+                      mb: 3,
+                      p: 2,
+                      borderRadius: 2,
+                      background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(0, 35, 149, 0.03) 100%)',
+                      display: 'flex',
+                      gap: 1.5,
+                      alignItems: 'center',
+                      flexWrap: 'wrap',
+                    }}
+                  >
+                    {[
+                      { icon: <PersonIcon />, label: 'Youth' },
+                      { icon: <GroupIcon />, label: 'Adults' },
+                      { icon: <PersonIcon />, label: 'Seniors' },
+                    ].map((item, idx) => (
+                      <Chip
+                        key={idx}
+                        icon={item.icon}
+                        label={item.label}
+                        size="small"
+                        sx={{
+                          backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                          color: '#002395',
+                          fontWeight: 600,
+                          '& .MuiChip-icon': {
+                            color: '#002395',
+                          },
+                        }}
+                      />
+                    ))}
+                    <Typography variant="caption" sx={{ ml: 'auto', fontWeight: 700, color: 'text.secondary' }}>
+                      All ages welcome
                     </Typography>
-                    <Typography variant="body1">
-                      <strong>Background:</strong> No specific qualifications needed. All backgrounds
-                      welcome.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Language:</strong> Programs available in multiple languages. English and
-                      French are primary.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Location:</strong> Based in Nice, France, but many programs are available
-                      online.
-                    </Typography>
+                  </Box>
+                  <Stack spacing={2.5}>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <PersonIcon sx={{ color: '#002395', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Age
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Open to all ages - from youth to seniors
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <SchoolIcon sx={{ color: '#002395', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Background
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          No specific qualifications needed. All backgrounds welcome.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <PublicIcon sx={{ color: '#002395', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Language
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Programs available in multiple languages. English and French are primary.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <Box
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          borderRadius: '50%',
+                          background: 'linear-gradient(135deg, #002395, #ED2939)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          flexShrink: 0,
+                          mt: 0.5,
+                        }}
+                      >
+                        <LocationOnIcon sx={{ fontSize: 16, color: 'white' }} />
+                      </Box>
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Location
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Based in Nice, France, but many programs are available online.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Stack>
                 </AccordionDetails>
               </Accordion>
-              <Accordion>
-                <AccordionSummary expandIcon={<ExpandMoreIcon />}>
-                  <Typography variant="h6" sx={{ fontWeight: 600 }}>
-                    What can I expect?
-                  </Typography>
+              <Accordion
+                sx={{
+                  borderRadius: 3,
+                  mb: 2,
+                  boxShadow: '0 4px 12px rgba(0, 0, 0, 0.08)',
+                  '&:before': { display: 'none' },
+                  overflow: 'hidden',
+                }}
+              >
+                <AccordionSummary 
+                  expandIcon={<ExpandMoreIcon />}
+                  sx={{
+                    px: 3,
+                    py: 2.5,
+                    minHeight: 72,
+                    '& .MuiAccordionSummary-content': {
+                      my: 1.5,
+                    },
+                  }}
+                >
+                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, width: '100%' }}>
+                    <Box
+                      sx={{
+                        width: 56,
+                        height: 56,
+                        borderRadius: 2,
+                        background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.15) 0%, rgba(237, 41, 57, 0.08) 100%)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        flexShrink: 0,
+                      }}
+                    >
+                      <StarIcon sx={{ fontSize: 32, color: '#ED2939' }} />
+                    </Box>
+                    <Typography variant="h6" sx={{ fontWeight: 700, fontSize: '1.2rem' }}>
+                      What can I expect?
+                    </Typography>
+                  </Box>
                 </AccordionSummary>
-                <AccordionDetails>
-                  <Stack spacing={2}>
-                    <Typography variant="body1">
-                      <strong>Support:</strong> Dedicated staff and volunteers to help you every step of the
-                      way.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Community:</strong> Welcoming, inclusive environment with diverse participants.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Growth:</strong> Opportunities for personal and professional development.
-                    </Typography>
-                    <Typography variant="body1">
-                      <strong>Impact:</strong> Be part of positive change in your community and across
-                      Europe.
-                    </Typography>
+                <AccordionDetails sx={{ px: 3, pb: 3, pt: 0 }}>
+                  <Stack spacing={2.5}>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <VolunteerActivismIcon sx={{ color: '#ED2939', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Support
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Dedicated staff and volunteers to help you every step of the way.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <PeopleIcon sx={{ color: '#ED2939', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Community
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Welcoming, inclusive environment with diverse participants.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <TrendingUpIcon sx={{ color: '#ED2939', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Growth
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Opportunities for personal and professional development.
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box sx={{ display: 'flex', gap: 2, alignItems: 'flex-start' }}>
+                      <EmojiEventsIcon sx={{ color: '#ED2939', fontSize: 24, mt: 0.5, flexShrink: 0 }} />
+                      <Box>
+                        <Typography variant="body1" sx={{ fontWeight: 700, mb: 0.5 }}>
+                          Impact
+                        </Typography>
+                        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7 }}>
+                          Be part of positive change in your community and across Europe.
+                        </Typography>
+                      </Box>
+                    </Box>
                   </Stack>
                 </AccordionDetails>
               </Accordion>
             </Grid>
           </Grid>
-          <Box sx={{ textAlign: 'center', mt: 4 }}>
+          <Box sx={{ textAlign: 'center', mt: 6 }}>
             <Button
               component={RouterLink}
               to="/contact"
               variant="contained"
-              color="primary"
               size="large"
-              endIcon={<ArrowForwardIcon />}
+              endIcon={<ArrowForwardIcon sx={{ transition: 'transform 0.3s ease' }} />}
               sx={{
                 px: 6,
                 py: 2,
                 fontSize: '1.1rem',
                 fontWeight: 700,
+                borderRadius: 3,
+                background: 'linear-gradient(135deg, #002395 0%, #0038d6 100%)',
+                boxShadow: '0 4px 20px rgba(0, 35, 149, 0.3), 0 2px 8px rgba(0, 35, 149, 0.2)',
+                textTransform: 'none',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+                overflow: 'hidden',
+                '&::before': {
+                  content: '""',
+                  position: 'absolute',
+                  top: 0,
+                  left: '-100%',
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+                  transition: 'left 0.5s ease',
+                },
+                '&:hover': {
+                  transform: 'translateY(-2px)',
+                  boxShadow: '0 6px 28px rgba(0, 35, 149, 0.4), 0 4px 12px rgba(0, 35, 149, 0.3)',
+                  background: 'linear-gradient(135deg, #0038d6 0%, #002395 100%)',
+                  '&::before': {
+                    left: '100%',
+                  },
+                  '& .MuiButton-endIcon': {
+                    transform: 'translateX(4px)',
+                  },
+                },
               }}
             >
               Still Have Questions? Contact Us
@@ -1798,99 +3507,211 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Chip
-              icon={<SentimentSatisfiedIcon />}
-              label="Emotional Connection"
-              color="error"
-              sx={{ mb: 2, fontWeight: 600 }}
-            />
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Box
+              sx={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 1,
+                mb: 4,
+                px: 3,
+                py: 1.5,
+                borderRadius: '50px',
+                background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.1) 0%, rgba(237, 41, 57, 0.05) 100%)',
+                border: '1px solid',
+                borderColor: 'error.main',
+              }}
+            >
+              <SentimentSatisfiedIcon sx={{ color: 'error.main', fontSize: 20 }} />
+              <Chip
+                label="Emotional Connection"
+                sx={{
+                  fontWeight: 700,
+                  fontSize: '0.85rem',
+                  height: '28px',
+                  backgroundColor: 'transparent',
+                  color: 'error.main',
+                }}
+              />
+            </Box>
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                mb: 3, 
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               How Are You Feeling?
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontWeight: 400, lineHeight: 1.8 }}>
               We understand that joining a community is an emotional decision. Let's find the right path for you.
             </Typography>
           </Box>
-          <Grid container spacing={3}>
+          <Grid container spacing={{ xs: 3, sm: 4 }}>
             {[
               {
                 emotion: 'curious',
-                icon: <AutoStoriesIcon sx={{ fontSize: 40 }} />,
+                icon: <AutoStoriesIcon />,
                 title: 'I\'m Curious',
                 description: 'I want to learn more before deciding',
                 action: 'Explore our programs',
-                color: 'info',
+                color: '#0288d1',
+                gradient: 'linear-gradient(135deg, rgba(2, 136, 209, 0.85) 0%, rgba(2, 136, 209, 0.6) 100%)',
+                image: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
               },
               {
                 emotion: 'interested',
-                icon: <ThumbUpAltIcon sx={{ fontSize: 40 }} />,
+                icon: <ThumbUpAltIcon />,
                 title: 'I\'m Interested',
                 description: 'This sounds like something for me',
                 action: 'See how to get started',
-                color: 'primary',
+                color: '#002395',
+                gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 100%)',
+                image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
               },
               {
                 emotion: 'committed',
-                icon: <HandshakeIcon sx={{ fontSize: 40 }} />,
+                icon: <HandshakeIcon />,
                 title: 'I\'m Ready',
                 description: 'I want to join and make a difference',
                 action: 'Register now',
-                color: 'success',
+                color: '#4caf50',
+                gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, rgba(76, 175, 80, 0.6) 100%)',
+                image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
               },
             ].map((emotionOption) => (
               <Grid size={{ xs: 12, md: 4 }} key={emotionOption.emotion}>
                 <Card
+                  component={RouterLink}
+                  to={
+                    emotionOption.emotion === 'curious'
+                      ? '/about'
+                      : emotionOption.emotion === 'interested'
+                        ? '/focus-areas'
+                        : '/contact'
+                  }
                   onClick={() => {
                     setEmotionalState(emotionOption.emotion as 'curious' | 'interested' | 'committed');
                     setSatisfactionMetrics((prev) => ({ ...prev, interactions: prev.interactions + 1 }));
                   }}
                   sx={{
-                    p: 3,
+                    p: 0,
                     textAlign: 'center',
                     height: '100%',
                     cursor: 'pointer',
-                    border: '2px solid',
-                    borderColor:
-                      emotionalState === emotionOption.emotion ? `${emotionOption.color}.main` : 'divider',
-                    backgroundColor:
-                      emotionalState === emotionOption.emotion
-                        ? `${emotionOption.color}.main`
-                        : 'transparent',
-                    color: emotionalState === emotionOption.emotion ? 'white' : 'inherit',
-                    transition: 'all 0.3s ease',
+                    borderRadius: 4,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    background: 'transparent',
+                    border: emotionalState === emotionOption.emotion ? `3px solid ${emotionOption.color}` : '2px solid',
+                    borderColor: emotionalState === emotionOption.emotion ? emotionOption.color : 'divider',
+                    boxShadow: emotionalState === emotionOption.emotion
+                      ? `0 0 0 4px ${emotionOption.color}30, 0 12px 32px rgba(0, 0, 0, 0.15)`
+                      : '0 4px 12px rgba(0, 0, 0, 0.08)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    textDecoration: 'none',
                     '&:hover': {
-                      borderColor: `${emotionOption.color}.main`,
-                      transform: 'translateY(-5px)',
-                      boxShadow: `0 8px 24px ${emotionOption.color}40`,
+                      transform: 'translateY(-8px)',
+                      boxShadow: `0 16px 48px ${emotionOption.color}35, 0 8px 24px rgba(0, 0, 0, 0.15)`,
+                      borderColor: emotionOption.color,
+                      '& .emotion-image': {
+                        transform: 'scale(1.1)',
+                      },
+                      '& .emotion-button': {
+                        transform: 'translateY(-2px)',
+                        boxShadow: `0 6px 20px ${emotionOption.color}50`,
+                      },
                     },
                   }}
                 >
-                  <Box sx={{ mb: 2, color: emotionalState === emotionOption.emotion ? 'white' : `${emotionOption.color}.main` }}>
-                    {emotionOption.icon}
-                  </Box>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    {emotionOption.title}
-                  </Typography>
-                  <Typography variant="body2" sx={{ mb: 2, minHeight: '3em' }}>
-                    {emotionOption.description}
-                  </Typography>
-                  <Button
-                    component={RouterLink}
-                    to={
-                      emotionOption.emotion === 'curious'
-                        ? '/about'
-                        : emotionOption.emotion === 'interested'
-                          ? '/focus-areas'
-                          : '/contact'
-                    }
-                    variant={emotionalState === emotionOption.emotion ? 'contained' : 'outlined'}
-                    color={emotionOption.color as 'info' | 'primary' | 'success'}
-                    size="small"
-                    onClick={() => showFeedback(`Great choice! Taking you to ${emotionOption.action.toLowerCase()}...`, 'success')}
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 240,
+                      overflow: 'hidden',
+                    }}
                   >
-                    {emotionOption.action}
-                  </Button>
+                    <Box
+                      component="img"
+                      src={emotionOption.image}
+                      alt={emotionOption.title}
+                      className="emotion-image"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                        filter: 'brightness(0.9) saturate(1.1)',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: emotionOption.gradient,
+                      }}
+                    />
+                    {emotionalState === emotionOption.emotion && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 16,
+                          right: 16,
+                          width: 48,
+                          height: 48,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                          animation: 'checkmark-pop 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)',
+                          '@keyframes checkmark-pop': {
+                            '0%': { transform: 'scale(0)', opacity: 0 },
+                            '50%': { transform: 'scale(1.2)' },
+                            '100%': { transform: 'scale(1)', opacity: 1 },
+                          },
+                        }}
+                      >
+                        <CheckCircleIcon sx={{ fontSize: 28, color: emotionOption.color }} />
+                      </Box>
+                    )}
+                  </Box>
+                  <Box sx={{ p: 4, position: 'relative', zIndex: 1 }}>
+                    <Typography variant="h5" gutterBottom sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '1.35rem', sm: '1.5rem' }, color: 'text.primary' }}>
+                      {emotionOption.title}
+                    </Typography>
+                    <Typography variant="body1" sx={{ mb: 4, minHeight: '3em', lineHeight: 1.8, color: 'text.secondary' }}>
+                      {emotionOption.description}
+                    </Typography>
+                    <Button
+                      variant="contained"
+                      className="emotion-button"
+                      sx={{
+                        py: 1.75,
+                        px: 4,
+                        fontWeight: 700,
+                        fontSize: '1rem',
+                        borderRadius: 3,
+                        backgroundColor: emotionOption.color,
+                        boxShadow: `0 4px 16px ${emotionOption.color}40, 0 0 24px ${emotionOption.color}20`,
+                        textTransform: 'none',
+                        transition: 'all 0.3s ease',
+                        color: 'white',
+                        '&:hover': {
+                          backgroundColor: emotionOption.color,
+                          filter: 'brightness(1.1)',
+                        },
+                      }}
+                    >
+                      {emotionOption.action}
+                    </Button>
+                  </Box>
                 </Card>
               </Grid>
             ))}
@@ -1952,7 +3773,7 @@ export default function Home() {
             </Typography>
           </Box>
           
-          <Grid container spacing={4}>
+          <Grid container spacing={{ xs: 3, sm: 4, md: 5 }}>
             {[
               {
                 icon: <CheckCircleIcon sx={{ fontSize: 80 }} />,
@@ -1973,6 +3794,11 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
                 imagePlaceholder: '🌍',
                 screenshot: false,
+                photos: [
+                  '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                ],
               },
               {
                 icon: <PublicIcon sx={{ fontSize: 80 }} />,
@@ -2131,8 +3957,30 @@ export default function Home() {
                           Platform Screenshot
                         </Typography>
                       </Box>
+                    ) : benefit.title === 'Inclusive Community' && benefit.photos ? (
+                      <AvatarGroup
+                        max={3}
+                        sx={{
+                          '& .MuiAvatar-root': {
+                            width: { xs: 40, sm: 48 },
+                            height: { xs: 40, sm: 48 },
+                            border: `3px solid white`,
+                            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.25)',
+                          },
+                        }}
+                      >
+                        {benefit.photos.map((photo) => (
+                          <Avatar
+                            key={photo}
+                            src={photo}
+                            alt="Community member"
+                            sx={{
+                              img: { objectFit: 'cover' },
+                            }}
+                          />
+                        ))}
+                      </AvatarGroup>
                     ) : (
-                      // People photos placeholder - можно заменить на реальные фотографии
                       <AvatarGroup
                         max={3}
                         sx={{
@@ -2237,26 +4085,45 @@ export default function Home() {
       >
         <Container>
           {/* Header */}
-          <Box sx={{ textAlign: 'center', mb: 6 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 2 }}>
+          <Box sx={{ textAlign: 'center', mb: 8 }}>
+            <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 3 }}>
               <Stack direction="row" spacing={0.5}>
-                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
-                <StarIcon sx={{ color: 'warning.main', fontSize: 28 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 32 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 32 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 32 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 32 }} />
+                <StarIcon sx={{ color: 'warning.main', fontSize: 32 }} />
               </Stack>
               <Chip
                 label="4.9/5 Average Rating"
-                size="small"
+                size="medium"
                 color="warning"
-                sx={{ ml: 1, fontWeight: 600 }}
+                sx={{ ml: 1, fontWeight: 700, fontSize: '0.95rem', py: 1.5, px: 2 }}
               />
             </Box>
-            <Typography variant="h2" gutterBottom sx={{ mb: 2, fontWeight: 700 }}>
+            <Typography 
+              variant="h2" 
+              gutterBottom 
+              sx={{ 
+                mb: 3, 
+                fontWeight: 800,
+                fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               Stories That Inspire
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}>
+            <Typography 
+              variant="h6" 
+              color="text.secondary" 
+              sx={{ 
+                maxWidth: '700px', 
+                mx: 'auto', 
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                lineHeight: 1.8,
+                fontWeight: 400,
+              }}
+            >
               Real stories from our community members who have transformed their lives through our programs
             </Typography>
           </Box>
@@ -2311,47 +4178,123 @@ export default function Home() {
                     border: 'none',
                     boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                     transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    background: 'white',
                     '&:hover': {
                       transform: 'translateY(-8px)',
                       boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+                      '& .testimonial-photo': {
+                        transform: 'scale(1.05)',
+                      },
                     },
                   }}
                 >
-                  {/* Background Image/Gradient */}
+                  {/* Full-size Portrait Photo */}
                   <Box
                     sx={{
-                      position: 'absolute',
-                      top: 0,
-                      left: 0,
-                      right: 0,
-                      bottom: 0,
-                      background: testimonial.backgroundGradient,
-                      opacity: 0.6,
-                      zIndex: 0,
-                      '&::before': {
-                        content: '""',
+                      position: 'relative',
+                      width: '100%',
+                      height: { xs: 280, sm: 320 },
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={testimonial.photoUrl}
+                      alt={`${testimonial.name} photo`}
+                      className="testimonial-photo"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                        filter: 'brightness(0.95) saturate(1.1)',
+                      }}
+                    />
+                    {/* Gradient Overlay for text readability */}
+                    <Box
+                      sx={{
                         position: 'absolute',
-                        top: 0,
+                        bottom: 0,
                         left: 0,
                         right: 0,
+                        height: '60%',
+                        background: 'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.3) 50%, transparent 100%)',
+                      }}
+                    />
+                    {/* Video Play Button for first testimonial */}
+                    {index === 0 && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          cursor: 'pointer',
+                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            transform: 'translate(-50%, -50%) scale(1.1)',
+                            background: 'white',
+                            boxShadow: '0 12px 32px rgba(0, 0, 0, 0.4)',
+                          },
+                        }}
+                      >
+                        <PlayArrowIcon sx={{ fontSize: 40, color: 'primary.main', ml: 0.5 }} />
+                      </Box>
+                    )}
+                    {/* User Info Overlay on Photo */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
                         bottom: 0,
-                        background: testimonial.photoGradient === 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)'
-                          ? 'radial-gradient(circle at 20% 30%, rgba(0, 35, 149, 0.2), transparent 60%)'
-                          : testimonial.photoGradient === 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)'
-                          ? 'radial-gradient(circle at 20% 30%, rgba(46, 125, 50, 0.2), transparent 60%)'
-                          : 'radial-gradient(circle at 20% 30%, rgba(237, 41, 57, 0.2), transparent 60%)',
-                        opacity: 0.3,
-                      },
-                    }}
-                  />
+                        left: 0,
+                        right: 0,
+                        p: 3,
+                        zIndex: 2,
+                      }}
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                        <Avatar
+                          sx={{
+                            width: 56,
+                            height: 56,
+                            border: '3px solid white',
+                            boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                          }}
+                          src={testimonial.photoUrl}
+                          alt={`${testimonial.name} photo`}
+                        >
+                          {testimonial.initials}
+                        </Avatar>
+                        <Box>
+                          <Typography variant="subtitle1" sx={{ fontWeight: 700, color: 'white', mb: 0.25 }}>
+                            {testimonial.name}, {testimonial.age}
+                          </Typography>
+                          <Typography variant="caption" sx={{ color: 'rgba(255, 255, 255, 0.9)', fontSize: '0.8rem' }}>
+                            {testimonial.role}
+                          </Typography>
+                        </Box>
+                      </Box>
+                      {/* Rating on Photo */}
+                      <Stack direction="row" spacing={0.5} sx={{ mb: 1 }}>
+                        {[...Array(testimonial.rating)].map((_, i) => (
+                          <StarIcon key={i} sx={{ color: 'warning.main', fontSize: 16 }} />
+                        ))}
+                      </Stack>
+                    </Box>
+                  </Box>
 
                   {/* Content */}
                   <CardContent
                     sx={{
-                      position: 'relative',
-                      zIndex: 1,
                       p: { xs: 3, sm: 4 },
-                      height: '100%',
                       display: 'flex',
                       flexDirection: 'column',
                     }}
@@ -2361,10 +4304,10 @@ export default function Home() {
                       sx={{
                         mb: 2,
                         color: 'primary.main',
-                        opacity: 0.3,
+                        opacity: 0.2,
                       }}
                     >
-                      <Typography variant="h2" sx={{ fontSize: '3rem', lineHeight: 1 }}>
+                      <Typography variant="h2" sx={{ fontSize: '2.5rem', lineHeight: 1 }}>
                         "
                       </Typography>
                     </Box>
@@ -2384,46 +4327,10 @@ export default function Home() {
                       {testimonial.quote}
                     </Typography>
 
-                    {/* Rating */}
-                    <Box sx={{ mb: 3 }}>
-                      <Stack direction="row" spacing={0.5}>
-                        {[...Array(testimonial.rating)].map((_, i) => (
-                          <StarIcon key={i} sx={{ color: 'warning.main', fontSize: 18 }} />
-                        ))}
-                      </Stack>
-                    </Box>
-
-                    {/* User Info */}
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      {/* Customer Photo - Placeholder ready for real photos */}
-                      <Avatar
-                        sx={{
-                          width: { xs: 64, sm: 72 },
-                          height: { xs: 64, sm: 72 },
-                          background: testimonial.photoGradient,
-                          fontSize: { xs: '1.5rem', sm: '1.75rem' },
-                          fontWeight: 700,
-                          border: '4px solid white',
-                          boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
-                          objectFit: 'cover',
-                        }}
-                        src={testimonial.photoUrl}
-                        alt={`${testimonial.name} photo`}
-                      >
-                        {testimonial.initials}
-                      </Avatar>
-                      <Box sx={{ flex: 1 }}>
-                        <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.5 }}>
-                          {testimonial.name}, {testimonial.age}
-                        </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
-                          {testimonial.role}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.75rem' }}>
-                          Joined {testimonial.joined}
-                        </Typography>
-                      </Box>
-                    </Box>
+                    {/* Joined Info */}
+                    <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.8rem', mt: 'auto' }}>
+                      Joined {testimonial.joined}
+                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -2431,47 +4338,95 @@ export default function Home() {
           </Grid>
 
           {/* Recent Joiners Section */}
-          <Box sx={{ mt: 6, textAlign: 'center' }}>
+          <Box sx={{ mt: 8, textAlign: 'center' }}>
             <Box
               sx={{
                 display: 'inline-flex',
                 flexDirection: 'column',
                 alignItems: 'center',
-                p: 3,
-                borderRadius: 3,
+                p: 4,
+                borderRadius: 4,
                 backgroundColor: 'rgba(0, 35, 149, 0.05)',
                 border: '1px solid',
                 borderColor: 'divider',
-                maxWidth: '600px',
+                maxWidth: '700px',
+                position: 'relative',
               }}
             >
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mb: 2, fontWeight: 600 }}>
+              <Typography variant="subtitle1" color="text.secondary" sx={{ display: 'block', mb: 3, fontWeight: 700, fontSize: '1rem' }}>
                 Recently joined our community:
               </Typography>
-              <AvatarGroup 
-                max={8} 
-                sx={{ 
-                  justifyContent: 'center',
-                  '& .MuiAvatar-root': {
-                    width: { xs: 40, sm: 48 },
-                    height: { xs: 40, sm: 48 },
-                    border: '3px solid white',
-                    boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
-                  },
-                }}
-              >
-                <Avatar sx={{ bgcolor: 'primary.main', fontSize: '1rem' }}>A</Avatar>
-                <Avatar sx={{ bgcolor: 'error.main', fontSize: '1rem' }}>B</Avatar>
-                <Avatar sx={{ bgcolor: 'success.main', fontSize: '1rem' }}>C</Avatar>
-                <Avatar sx={{ bgcolor: 'warning.main', fontSize: '1rem' }}>D</Avatar>
-                <Avatar sx={{ bgcolor: 'info.main', fontSize: '1rem' }}>E</Avatar>
-                <Avatar sx={{ bgcolor: 'secondary.main', fontSize: '1rem' }}>F</Avatar>
-                <Avatar sx={{ bgcolor: 'primary.dark', fontSize: '1rem' }}>G</Avatar>
-                <Avatar sx={{ bgcolor: 'error.dark', fontSize: '1rem' }}>H</Avatar>
-              </AvatarGroup>
-              <Typography variant="caption" color="text.secondary" sx={{ display: 'block', mt: 2, fontStyle: 'italic' }}>
-                +{liveActivity.recent} more joined in the last hour
-              </Typography>
+              <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1.5, flexWrap: 'wrap' }}>
+                {[
+                  '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                  '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
+                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                ].slice(0, 8).map((photo, idx) => (
+                  <Box
+                    key={idx}
+                    sx={{
+                      position: 'relative',
+                      '&::before': {
+                        content: '""',
+                        position: 'absolute',
+                        top: -4,
+                        right: -4,
+                        width: 12,
+                        height: 12,
+                        borderRadius: '50%',
+                        background: '#4caf50',
+                        border: '2px solid white',
+                        boxShadow: '0 2px 8px rgba(76, 175, 80, 0.4)',
+                        animation: 'pulse 2s ease-in-out infinite',
+                        '@keyframes pulse': {
+                          '0%, 100%': { transform: 'scale(1)', opacity: 1 },
+                          '50%': { transform: 'scale(1.2)', opacity: 0.8 },
+                        },
+                        zIndex: 1,
+                      },
+                    }}
+                  >
+                    <Avatar
+                      sx={{
+                        width: { xs: 48, sm: 56 },
+                        height: { xs: 48, sm: 56 },
+                        border: '3px solid white',
+                        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.15)',
+                        transition: 'transform 0.3s ease',
+                        '&:hover': {
+                          transform: 'scale(1.1)',
+                          zIndex: 2,
+                        },
+                      }}
+                      src={photo}
+                      alt={`Recent joiner ${idx + 1}`}
+                    />
+                  </Box>
+                ))}
+              </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mt: 3 }}>
+                <Box
+                  sx={{
+                    width: 8,
+                    height: 8,
+                    borderRadius: '50%',
+                    background: '#4caf50',
+                    animation: 'pulse-dot 1.5s ease-in-out infinite',
+                    '@keyframes pulse-dot': {
+                      '0%, 100%': { opacity: 1, transform: 'scale(1)' },
+                      '50%': { opacity: 0.5, transform: 'scale(1.3)' },
+                    },
+                  }}
+                />
+                <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 600, fontSize: '0.95rem' }}>
+                  +{liveActivity.recent} more joined in the last hour
+                </Typography>
+              </Box>
             </Box>
           </Box>
         </Container>
@@ -2663,6 +4618,8 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
                   progress: 100,
                   description: 'Key areas of impact',
+                  photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  photoType: 'collage',
                 },
                 {
                   value: 50,
@@ -2672,6 +4629,8 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
                   progress: 85,
                   description: 'Ongoing initiatives',
+                  photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  photoType: 'single',
                 },
                 {
                   value: 1000,
@@ -2681,6 +4640,8 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
                   progress: 75,
                   description: 'Lives transformed',
+                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photoType: 'group',
                 },
                 {
                   value: 15,
@@ -2690,12 +4651,14 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
                   progress: 60,
                   description: 'European network',
+                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photoType: 'map',
                 },
               ].map((stat, index) => (
                 <Grid size={{ xs: 12, sm: 6, md: 3 }} key={index}>
                   <Card
                     sx={{
-                      p: 3,
+                      p: 0,
                       height: '100%',
                       textAlign: 'center',
                       borderRadius: 4,
@@ -2705,9 +4668,19 @@ export default function Home() {
                       transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                       position: 'relative',
                       overflow: 'hidden',
+                      opacity: 0,
+                      animation: 'fadeInUp 0.6s ease forwards',
+                      animationDelay: `${index * 0.1}s`,
+                      '@keyframes fadeInUp': {
+                        '0%': { opacity: 0, transform: 'translateY(20px)' },
+                        '100%': { opacity: 1, transform: 'translateY(0)' },
+                      },
                       '&:hover': {
                         transform: 'translateY(-8px)',
                         boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
+                        '& .stat-photo': {
+                          transform: 'scale(1.1)',
+                        },
                       },
                       '&::before': {
                         content: '""',
@@ -2717,27 +4690,68 @@ export default function Home() {
                         right: 0,
                         height: 4,
                         background: stat.gradient,
+                        zIndex: 1,
                       },
                     }}
                   >
-                    {/* Icon with Gradient Background */}
+                    {/* Photo Background with Overlay */}
                     <Box
                       sx={{
-                        width: 80,
-                        height: 80,
-                        borderRadius: '50%',
-                        background: stat.gradient,
-                        display: 'flex',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                        color: 'white',
-                        mx: 'auto',
-                        mb: 2,
-                        boxShadow: `0 8px 24px ${stat.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : stat.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : stat.color === 'error' ? 'rgba(237, 41, 57, 0.3)' : 'rgba(2, 119, 189, 0.3)'}`,
+                        position: 'relative',
+                        height: { xs: 180, sm: 200 },
+                        overflow: 'hidden',
                       }}
                     >
-                      {stat.icon}
+                      <Box
+                        component="img"
+                        src={stat.photo}
+                        alt={stat.label}
+                        className="stat-photo"
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                          filter: 'brightness(0.85) saturate(1.1)',
+                        }}
+                      />
+                      {/* Gradient Overlay */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: `linear-gradient(to bottom, ${stat.color === 'primary' ? 'rgba(0, 35, 149, 0.6)' : stat.color === 'success' ? 'rgba(46, 125, 50, 0.6)' : stat.color === 'error' ? 'rgba(237, 41, 57, 0.6)' : 'rgba(2, 119, 189, 0.6)'} 0%, ${stat.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : stat.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : stat.color === 'error' ? 'rgba(237, 41, 57, 0.3)' : 'rgba(2, 119, 189, 0.3)'} 100%)`,
+                        }}
+                      />
+                      {/* Icon Overlay on Photo */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          background: 'rgba(255, 255, 255, 0.95)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 8px 24px rgba(0, 0, 0, 0.3)',
+                          zIndex: 2,
+                        }}
+                      >
+                        <Box sx={{ color: `${stat.color}.main` }}>
+                          {stat.icon}
+                        </Box>
+                      </Box>
                     </Box>
+                    
+                    {/* Content */}
+                    <Box sx={{ p: 3 }}>
 
                     {/* Value */}
                     <Typography
@@ -2789,6 +4803,7 @@ export default function Home() {
                     >
                       {stat.description}
                     </Typography>
+                    </Box>
                   </Card>
                 </Grid>
               ))}
@@ -2807,55 +4822,104 @@ export default function Home() {
                 overflow: 'hidden',
               }}
             >
-              <Box sx={{ textAlign: 'center', mb: 3 }}>
-                <Typography variant="h5" sx={{ fontWeight: 700, mb: 1 }}>
+              <Box sx={{ textAlign: 'center', mb: 4 }}>
+                <Typography 
+                  variant="h4" 
+                  sx={{ 
+                    fontWeight: 800, 
+                    mb: 2,
+                    fontSize: { xs: '1.75rem', sm: '2rem' },
+                  }}
+                >
                   Our European Presence
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography variant="h6" color="text.secondary" sx={{ fontWeight: 400, lineHeight: 1.7 }}>
                   Active partnerships and projects across Europe
                 </Typography>
               </Box>
 
-              {/* Map Visualization Placeholder */}
+              {/* Erasmus+ Project Photo with Overlay */}
               <Box
                 sx={{
                   position: 'relative',
                   height: { xs: 300, sm: 400 },
-                  borderRadius: 3,
-                  background: 'linear-gradient(135deg, #f5f5f5 0%, #e0e0e0 100%)',
-                  border: '2px dashed',
-                  borderColor: 'divider',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
+                  borderRadius: 4,
                   overflow: 'hidden',
-                  mb: 3,
+                  mb: 4,
+                  boxShadow: '0 8px 32px rgba(0, 0, 0, 0.15)',
+                  transition: 'transform 0.4s ease',
+                  '&:hover': {
+                    transform: 'scale(1.02)',
+                    '& .europe-photo': {
+                      transform: 'scale(1.1)',
+                    },
+                  },
                 }}
               >
-                {/* Map Placeholder - можно заменить на реальную карту */}
+                {/* Background Photo - Erasmus+ Project */}
                 <Box
+                  component="img"
+                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  alt="Erasmus+ European Project"
+                  className="europe-photo"
                   sx={{
-                    position: 'relative',
                     width: '100%',
                     height: '100%',
+                    objectFit: 'cover',
+                    transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                    filter: 'brightness(0.9) saturate(1.1)',
+                  }}
+                />
+                {/* Gradient Overlay */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.7) 0%, rgba(237, 41, 57, 0.5) 100%)',
+                  }}
+                />
+                {/* European Flags Overlay */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
                     display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    flexDirection: 'column',
-                    gap: 2,
+                    gap: 1,
+                    flexWrap: 'wrap',
+                    maxWidth: '200px',
                   }}
                 >
-                  {/* Simplified Europe Map Representation */}
-                  <PublicIcon sx={{ fontSize: 120, color: 'primary.main', opacity: 0.3 }} />
-                  <Typography variant="h6" sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                    Europe Map with Location Markers
-                  </Typography>
-                  <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic' }}>
-                    Replace with interactive map showing: France, Germany, Spain, Italy, Poland, Greece, Portugal, Netherlands, Belgium, Sweden, Denmark, Finland, Austria, Czech Republic, Hungary
-                  </Typography>
+                  {['🇫🇷', '🇩🇪', '🇪🇸', '🇮🇹', '🇵🇱', '🇬🇷', '🇵🇹', '🇳🇱'].map((flag, idx) => (
+                    <Box
+                      key={idx}
+                      sx={{
+                        width: 32,
+                        height: 32,
+                        borderRadius: '50%',
+                        background: 'rgba(255, 255, 255, 0.95)',
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        fontSize: '1.2rem',
+                        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                        animation: 'fadeIn 0.5s ease forwards',
+                        animationDelay: `${idx * 0.1}s`,
+                        opacity: 0,
+                        '@keyframes fadeIn': {
+                          '0%': { opacity: 0, transform: 'scale(0)' },
+                          '100%': { opacity: 1, transform: 'scale(1)' },
+                        },
+                      }}
+                    >
+                      {flag}
+                    </Box>
+                  ))}
                 </Box>
-
-                {/* Location Markers */}
+                {/* Location Markers on Photo */}
                 {[
                   { top: '30%', left: '45%', country: 'FR' },
                   { top: '25%', left: '55%', country: 'DE' },
@@ -2872,50 +4936,118 @@ export default function Home() {
                       position: 'absolute',
                       top: marker.top,
                       left: marker.left,
-                      width: 24,
-                      height: 24,
+                      width: 32,
+                      height: 32,
                       borderRadius: '50%',
                       background: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
                       border: '3px solid white',
-                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                      boxShadow: '0 4px 12px rgba(237, 41, 57, 0.5)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
                       animation: 'pulse 2s ease-in-out infinite',
+                      zIndex: 2,
                       '@keyframes pulse': {
                         '0%, 100%': { transform: 'scale(1)', opacity: 1 },
-                        '50%': { transform: 'scale(1.2)', opacity: 0.8 },
+                        '50%': { transform: 'scale(1.2)', opacity: 0.9 },
                       },
                     }}
                   >
-                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700, fontSize: '0.6rem' }}>
+                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700, fontSize: '0.7rem' }}>
                       {marker.country}
                     </Typography>
                   </Box>
                 ))}
+                {/* Erasmus+ Badge */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 16,
+                    left: 16,
+                    px: 2,
+                    py: 1,
+                    borderRadius: 2,
+                    background: 'rgba(255, 255, 255, 0.95)',
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 1,
+                    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.2)',
+                  }}
+                >
+                  <PublicIcon sx={{ color: 'primary.main', fontSize: 20 }} />
+                  <Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.main' }}>
+                    Erasmus+ Projects
+                  </Typography>
+                </Box>
               </Box>
 
-              {/* Countries List */}
+              {/* Countries List with Flags */}
               <Grid container spacing={2}>
                 {[
-                  'France', 'Germany', 'Spain', 'Italy', 'Poland', 'Greece', 'Portugal',
-                  'Netherlands', 'Belgium', 'Sweden', 'Denmark', 'Finland', 'Austria',
-                  'Czech Republic', 'Hungary',
+                  { name: 'France', flag: '🇫🇷', code: 'FR' },
+                  { name: 'Germany', flag: '🇩🇪', code: 'DE' },
+                  { name: 'Spain', flag: '🇪🇸', code: 'ES' },
+                  { name: 'Italy', flag: '🇮🇹', code: 'IT' },
+                  { name: 'Poland', flag: '🇵🇱', code: 'PL' },
+                  { name: 'Greece', flag: '🇬🇷', code: 'GR' },
+                  { name: 'Portugal', flag: '🇵🇹', code: 'PT' },
+                  { name: 'Netherlands', flag: '🇳🇱', code: 'NL' },
+                  { name: 'Belgium', flag: '🇧🇪', code: 'BE' },
+                  { name: 'Sweden', flag: '🇸🇪', code: 'SE' },
+                  { name: 'Denmark', flag: '🇩🇰', code: 'DK' },
+                  { name: 'Finland', flag: '🇫🇮', code: 'FI' },
+                  { name: 'Austria', flag: '🇦🇹', code: 'AT' },
+                  { name: 'Czech Republic', flag: '🇨🇿', code: 'CZ' },
+                  { name: 'Hungary', flag: '🇭🇺', code: 'HU' },
                 ].map((country, index) => (
                   <Grid size={{ xs: 6, sm: 4, md: 3 }} key={index}>
-                    <Chip
-                      icon={<PublicIcon sx={{ fontSize: 16 }} />}
-                      label={country}
-                      size="small"
+                    <Card
                       sx={{
-                        width: '100%',
-                        justifyContent: 'flex-start',
+                        p: 2,
+                        borderRadius: 3,
                         backgroundColor: 'white',
                         border: '1px solid',
                         borderColor: 'divider',
-                        fontWeight: 600,
+                        transition: 'all 0.3s ease',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          transform: 'translateY(-4px)',
+                          boxShadow: '0 8px 24px rgba(0, 35, 149, 0.15)',
+                          borderColor: 'primary.main',
+                          '& .country-flag': {
+                            transform: 'scale(1.2) rotate(5deg)',
+                          },
+                        },
                       }}
-                    />
+                    >
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 1.5 }}>
+                        <Box
+                          className="country-flag"
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: '50%',
+                            background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            fontSize: '1.5rem',
+                            transition: 'transform 0.3s ease',
+                            flexShrink: 0,
+                          }}
+                        >
+                          {country.flag}
+                        </Box>
+                        <Box sx={{ flex: 1, minWidth: 0 }}>
+                          <Typography variant="body2" sx={{ fontWeight: 700, mb: 0.25 }}>
+                            {country.name}
+                          </Typography>
+                          <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.7rem' }}>
+                            {country.code}
+                          </Typography>
+                        </Box>
+                      </Box>
+                    </Card>
                   </Grid>
                 ))}
               </Grid>
@@ -3014,19 +5146,19 @@ export default function Home() {
                     title: 'Erasmus+ Media Lab',
                     result: '120 youth trained',
                     location: 'Berlin • 2024',
-                    img: 'https://images.unsplash.com/photo-1545239351-1141bd82e8a6?auto=format&fit=crop&w=1200&q=80',
+                    img: '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
                   },
                   {
                     title: 'Intercultural Festival',
                     result: '15 countries represented',
                     location: 'Marseille • 2023',
-                    img: 'https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=1200&q=80',
+                    img: '/photos/557776852_1117802063861132_509746235238804573_n.jpg',
                   },
                   {
                     title: 'Digital Inclusion Sprint',
                     result: '300 seniors upskilled',
                     location: 'Paris • 2024',
-                    img: 'https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&fit=crop&w=1200&q=80',
+                    img: '/photos/559033237_1124004446574227_6921470462676666260_n.jpg',
                   },
                 ].map((caseItem, index) => (
                   <Grid size={{ xs: 12, md: 4 }} key={index}>
@@ -3038,37 +5170,95 @@ export default function Home() {
                         position: 'relative',
                         boxShadow: '0 6px 20px rgba(0,0,0,0.1)',
                         border: 'none',
+                        cursor: 'pointer',
+                        transition: 'transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.4s ease',
+                        '&:hover': {
+                          transform: 'translateY(-8px)',
+                          boxShadow: '0 16px 40px rgba(0,0,0,0.2)',
+                          '& .case-photo': {
+                            transform: 'scale(1.08)',
+                          },
+                          '& .case-overlay': {
+                            opacity: 1,
+                          },
+                        },
                       }}
                     >
-                      <CardMedia
-                        component="img"
-                        height="220"
-                        image={caseItem.img}
-                        alt={caseItem.title}
-                        sx={{ objectFit: 'cover' }}
-                      />
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: 12,
-                          left: 12,
-                          px: 1.5,
-                          py: 0.5,
-                          borderRadius: 20,
-                          backgroundColor: 'rgba(0, 35, 149, 0.8)',
-                          color: 'white',
-                          fontWeight: 700,
-                          fontSize: '0.8rem',
-                          boxShadow: '0 3px 12px rgba(0,0,0,0.2)',
-                        }}
-                      >
-                        {caseItem.location}
+                      <Box sx={{ position: 'relative', height: 240, overflow: 'hidden' }}>
+                        <CardMedia
+                          component="img"
+                          image={caseItem.img}
+                          alt={caseItem.title}
+                          className="case-photo"
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                            filter: 'brightness(0.95) saturate(1.05)',
+                          }}
+                        />
+                        {/* Location badge */}
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 12,
+                            left: 12,
+                            px: 1.5,
+                            py: 0.5,
+                            borderRadius: 20,
+                            backgroundColor: 'rgba(0, 35, 149, 0.85)',
+                            color: 'white',
+                            fontWeight: 700,
+                            fontSize: '0.8rem',
+                            boxShadow: '0 3px 12px rgba(0,0,0,0.3)',
+                            zIndex: 2,
+                          }}
+                        >
+                          {caseItem.location}
+                        </Box>
+                        {/* Hover overlay CTA */}
+                        <Box
+                          className="case-overlay"
+                          sx={{
+                            position: 'absolute',
+                            inset: 0,
+                            background: 'linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, transparent 60%)',
+                            opacity: 0,
+                            transition: 'opacity 0.4s ease',
+                            display: 'flex',
+                            alignItems: 'flex-end',
+                            justifyContent: 'flex-end',
+                            p: 2,
+                          }}
+                        >
+                          <Button
+                            variant="contained"
+                            size="small"
+                            sx={{
+                              borderRadius: 999,
+                              px: 2.5,
+                              py: 0.5,
+                              fontSize: '0.75rem',
+                              fontWeight: 700,
+                              backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                              color: 'primary.main',
+                              textTransform: 'none',
+                              boxShadow: '0 3px 10px rgba(0,0,0,0.3)',
+                              '&:hover': {
+                                backgroundColor: 'white',
+                              },
+                            }}
+                          >
+                            View story
+                          </Button>
+                        </Box>
                       </Box>
                       <CardContent sx={{ p: 3 }}>
                         <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>
                           {caseItem.title}
                         </Typography>
-                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, lineHeight: 1.6 }}>
+                        <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, lineHeight: 1.7 }}>
                           Real-world collaboration showcasing tangible outcomes and community impact.
                         </Typography>
                         <Chip
@@ -3122,6 +5312,20 @@ export default function Home() {
                 { primary: '#9C27B0', secondary: 'rgba(156, 39, 176, 0.1)', accent: 'rgba(156, 39, 176, 0.05)' },
               ];
               const colorScheme = colors[index % colors.length];
+
+              const photoMap = [
+                // Intercultural Education
+                '/photos/557776852_1117802063861132_509746235238804573_n.jpg',
+                // Media & Arts
+                '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
+                // Digital Literacy
+                '/photos/559033237_1124004446574227_6921470462676666260_n.jpg',
+                // Volunteering
+                '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                // Adult Education
+                '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+              ];
+              const areaPhoto = photoMap[index % photoMap.length];
               
               return (
             <Grid size={{ xs: 12, sm: 6, md: 4 }} key={area.title}>
@@ -3131,99 +5335,109 @@ export default function Home() {
                 sx={{
                   height: '100%',
                   textDecoration: 'none',
-                      borderRadius: 4,
-                      border: '2px solid',
-                      borderColor: 'divider',
-                      background: 'white',
+                  borderRadius: 4,
+                  border: '2px solid',
+                  borderColor: 'divider',
+                  background: 'white',
                   position: 'relative',
-                      overflow: 'hidden',
-                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                      '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '4px',
-                        background: `linear-gradient(90deg, ${colorScheme.primary} 0%, ${colorScheme.primary}80 100%)`,
-                        transform: 'scaleX(0)',
-                        transformOrigin: 'left',
-                        transition: 'transform 0.4s ease',
-                      },
+                  overflow: 'hidden',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    height: '4px',
+                    background: `linear-gradient(90deg, ${colorScheme.primary} 0%, ${colorScheme.primary}80 100%)`,
+                    transform: 'scaleX(0)',
+                    transformOrigin: 'left',
+                    transition: 'transform 0.4s ease',
+                  },
                   '&:hover': {
-                        transform: 'translateY(-8px)',
-                        boxShadow: `0 16px 48px ${colorScheme.primary}25, 0 4px 16px rgba(0, 0, 0, 0.1)`,
-                        borderColor: colorScheme.primary,
-                        '&::before': {
-                          transform: 'scaleX(1)',
-                        },
-                        '& .focus-icon-wrapper': {
-                          transform: 'scale(1.1) rotate(5deg)',
-                          background: colorScheme.secondary,
-                        },
-                        '& .focus-icon': {
-                          color: colorScheme.primary,
-                          transform: 'scale(1.15)',
-                        },
-                        '& .focus-title': {
-                          color: colorScheme.primary,
-                        },
-                        '& .focus-link': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: `0 16px 48px ${colorScheme.primary}25, 0 4px 16px rgba(0, 0, 0, 0.1)`,
+                    borderColor: colorScheme.primary,
+                    '&::before': {
+                      transform: 'scaleX(1)',
+                    },
+                    '& .focus-photo': {
+                      transform: 'scale(1.08)',
+                    },
+                    '& .focus-icon-wrapper': {
+                      transform: 'scale(1.1) rotate(5deg)',
+                      background: colorScheme.secondary,
+                    },
+                    '& .focus-icon': {
+                      color: colorScheme.primary,
+                      transform: 'scale(1.15)',
+                    },
+                    '& .focus-title': {
+                      color: colorScheme.primary,
+                    },
+                    '& .focus-link': {
                       opacity: 1,
-                          transform: 'translateX(6px)',
-                          color: colorScheme.primary,
+                      transform: 'translateX(6px)',
+                      color: colorScheme.primary,
                     },
                   },
                 }}
               >
                     <CardContent sx={{ p: 0, textAlign: 'center', position: 'relative', zIndex: 1 }}>
-                      {/* Image placeholder */}
+                      {/* Area photo with tinted overlay */}
                       <Box
                         sx={{
                           width: '100%',
                           height: { xs: 200, sm: 240 },
-                          background: `linear-gradient(135deg, ${colorScheme.primary}08 0%, ${colorScheme.accent} 100%)`,
-                          display: 'flex',
-                          flexDirection: 'column',
-                          alignItems: 'center',
-                          justifyContent: 'center',
                           position: 'relative',
                           overflow: 'hidden',
-                          borderBottom: '2px dashed',
-                          borderColor: `${colorScheme.primary}30`,
-                          '&::before': {
-                            content: '""',
-                            position: 'absolute',
-                            top: 0,
-                            left: 0,
-                            right: 0,
-                            bottom: 0,
-                            backgroundImage: `repeating-linear-gradient(45deg, transparent, transparent 10px, ${colorScheme.primary}05 10px, ${colorScheme.primary}05 20px)`,
-                            opacity: 0.5,
-                          },
+                          borderBottom: '2px solid',
+                          borderColor: `${colorScheme.primary}20`,
                         }}
                       >
-                        <ImageIcon
+                        <Box
+                          component="img"
+                          src={areaPhoto}
+                          alt={area.title}
+                          className="focus-photo"
                           sx={{
-                            fontSize: 64,
-                            color: `${colorScheme.primary}40`,
-                            mb: 1,
-                            position: 'relative',
-                            zIndex: 1,
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                            filter: 'brightness(0.9) saturate(1.05)',
                           }}
                         />
-                        <Typography
-                          variant="caption"
+                        {/* Tinted overlay for readability */}
+                        <Box
                           sx={{
-                            color: `${colorScheme.primary}60`,
-                            fontSize: '0.75rem',
-                            fontWeight: 500,
-                            position: 'relative',
-                            zIndex: 1,
+                            position: 'absolute',
+                            inset: 0,
+                            background: `linear-gradient(135deg, ${colorScheme.primary}40 0%, ${colorScheme.accent} 70%)`,
+                            mixBlendMode: 'multiply',
                           }}
-                        >
-                          Image Placeholder
-                        </Typography>
+                        />
+                        {/* Stats badge */}
+                        {area.stats && (
+                          <Box
+                            sx={{
+                              position: 'absolute',
+                              top: 12,
+                              left: 12,
+                              px: 1.5,
+                              py: 0.5,
+                              borderRadius: 999,
+                              backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                              color: colorScheme.primary,
+                              fontWeight: 700,
+                              fontSize: '0.75rem',
+                              boxShadow: '0 2px 8px rgba(0, 0, 0, 0.2)',
+                              zIndex: 2,
+                            }}
+                          >
+                            {area.stats}
+                          </Box>
+                        )}
                         <Box
                           className="focus-icon-wrapper"
                           sx={{
@@ -3486,10 +5700,30 @@ export default function Home() {
             <Grid size={{ xs: 12, md: 6 }}>
               <Grid container spacing={3}>
                 {[
-                  { icon: <SchoolIcon />, text: 'Educational Excellence', count: '50+ Programs' },
-                  { icon: <PeopleIcon />, text: 'Community Reach', count: '1000+ Participants' },
-                  { icon: <PublicIcon />, text: 'European Network', count: '15+ Countries' },
-                  { icon: <EmojiEventsIcon />, text: 'Awards & Recognition', count: 'Multiple Projects' },
+                  {
+                    icon: <SchoolIcon />,
+                    text: 'Educational Excellence',
+                    count: '50+ Programs',
+                    photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  },
+                  {
+                    icon: <PeopleIcon />,
+                    text: 'Community Reach',
+                    count: '1000+ Participants',
+                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  },
+                  {
+                    icon: <PublicIcon />,
+                    text: 'European Network',
+                    count: '15+ Countries',
+                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  },
+                  {
+                    icon: <EmojiEventsIcon />,
+                    text: 'Awards & Recognition',
+                    count: 'Multiple Projects',
+                    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  },
                 ].map((item, index) => (
                   <Grid size={{ xs: 6 }} key={index}>
                     <Card
@@ -3499,20 +5733,56 @@ export default function Home() {
                         height: '100%',
                         border: '1px solid',
                         borderColor: 'divider',
-                        transition: 'all 0.3s ease',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        backgroundImage: `linear-gradient(180deg, rgba(255,255,255,0.95) 40%, rgba(255,255,255,1) 100%), url(${item.photo})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        '&::before': {
+                          content: '""',
+                          position: 'absolute',
+                          inset: 0,
+                          background: 'linear-gradient(180deg, rgba(0,0,0,0.15) 0%, transparent 50%)',
+                          mixBlendMode: 'multiply',
+                          pointerEvents: 'none',
+                        },
                         '&:hover': {
                           borderColor: 'primary.main',
-                          boxShadow: '0 4px 12px rgba(0, 35, 149, 0.15)',
+                          boxShadow: '0 8px 20px rgba(0, 35, 149, 0.18)',
+                          transform: 'translateY(-6px)',
                         },
                       }}
                     >
-                      <Box sx={{ color: 'primary.main', mb: 1 }}>{item.icon}</Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontSize: '0.85rem', mb: 0.5 }}>
-                        {item.text}
-                      </Typography>
-                      <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 700 }}>
-                        {item.count}
-                      </Typography>
+                      <Box sx={{ position: 'relative', zIndex: 1 }}>
+                        <Box
+                          sx={{
+                            width: 40,
+                            height: 40,
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(0, 35, 149, 0.08)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            mx: 'auto',
+                            mb: 1,
+                            color: 'primary.main',
+                          }}
+                        >
+                          {item.icon}
+                        </Box>
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{ fontSize: '0.85rem', mb: 0.5, lineHeight: 1.6 }}
+                        >
+                          {item.text}
+                        </Typography>
+                        <Typography variant="h6" sx={{ color: 'primary.main', fontWeight: 800 }}>
+                          {item.count}
+                        </Typography>
+                      </Box>
                     </Card>
                   </Grid>
                 ))}
@@ -3552,39 +5822,116 @@ export default function Home() {
                   }}
                 />
               </Stack>
-              <Typography variant="h4" gutterBottom sx={{ mb: 2, fontWeight: 600 }}>
+              <Typography 
+                variant="h3" 
+                gutterBottom 
+                sx={{ 
+                  mb: 3, 
+                  fontWeight: 800,
+                  fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                  letterSpacing: '-0.02em',
+                }}
+              >
                 Don't Miss Out on Upcoming Opportunities
               </Typography>
-              <Typography variant="body1" color="text.secondary" sx={{ mb: 3, lineHeight: 1.8, fontSize: '1.05rem' }}>
+              <Typography 
+                variant="body1" 
+                color="text.secondary" 
+                sx={{ 
+                  mb: 4, 
+                  lineHeight: 1.9, 
+                  fontSize: { xs: '1rem', sm: '1.1rem' },
+                }}
+              >
                 New programs and events are launching regularly. <strong>{liveActivity.recent} people joined today</strong> to be notified about upcoming
                 opportunities and secure their spot in our next cohort. Early registration ensures you get
                 priority access to limited spaces.
               </Typography>
-              <Box
-                sx={{
-                  display: 'flex',
-                  flexWrap: 'wrap',
-                  gap: 2,
-                  mb: 3,
-                }}
-              >
+              <Grid container spacing={2} sx={{ mb: 4 }}>
                 {[
-                  'Next Digital Skills Workshop: Starting in 2 weeks',
-                  'Cultural Exchange Event: Registration open now',
-                  'Erasmus+ Project: Applications closing soon',
+                  { 
+                    title: 'Next Digital Skills Workshop', 
+                    subtitle: 'Starting in 2 weeks',
+                    photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                    color: '#002395',
+                  },
+                  { 
+                    title: 'Cultural Exchange Event', 
+                    subtitle: 'Registration open now',
+                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    color: '#ED2939',
+                  },
+                  { 
+                    title: 'Erasmus+ Project', 
+                    subtitle: 'Applications closing soon',
+                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    color: '#4caf50',
+                  },
                 ].map((item, index) => (
-                  <Chip
-                    key={index}
-                    label={item}
-                    sx={{
-                      backgroundColor: 'rgba(0, 35, 149, 0.1)',
-                      color: 'primary.main',
-                      fontWeight: 600,
-                      fontSize: '0.9rem',
-                    }}
-                  />
+                  <Grid size={{ xs: 12, sm: 4 }} key={index}>
+                    <Card
+                      sx={{
+                        p: 0,
+                        borderRadius: 3,
+                        overflow: 'hidden',
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        position: 'relative',
+                        transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                        cursor: 'pointer',
+                        '&:hover': {
+                          transform: 'translateY(-6px)',
+                          boxShadow: `0 12px 32px ${item.color}25`,
+                          borderColor: item.color,
+                          '& .opportunity-photo': {
+                            transform: 'scale(1.1)',
+                          },
+                        },
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          position: 'relative',
+                          height: 120,
+                          overflow: 'hidden',
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src={item.photo}
+                          alt={item.title}
+                          className="opportunity-photo"
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                            filter: 'brightness(0.9) saturate(1.1)',
+                          }}
+                        />
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: 0,
+                            left: 0,
+                            right: 0,
+                            bottom: 0,
+                            background: `linear-gradient(135deg, ${item.color}80 0%, ${item.color}40 100%)`,
+                          }}
+                        />
+                      </Box>
+                      <Box sx={{ p: 2.5 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 0.5, fontSize: '0.95rem' }}>
+                          {item.title}
+                        </Typography>
+                        <Typography variant="caption" color="text.secondary" sx={{ fontSize: '0.85rem' }}>
+                          {item.subtitle}
+                        </Typography>
+                      </Box>
+                    </Card>
+                  </Grid>
                 ))}
-              </Box>
+              </Grid>
               {/* NUDGE: Default option highlighted */}
               <Box
                 sx={{
@@ -3608,13 +5955,27 @@ export default function Home() {
             <Grid size={{ xs: 12, md: 4 }}>
               <Card
                 sx={{
-                  p: 3,
+                  p: 0,
                   textAlign: 'center',
-                  backgroundColor: 'rgba(237, 41, 57, 0.1)',
                   border: '2px solid',
                   borderColor: 'error.main',
                   position: 'relative',
-                  overflow: 'visible',
+                  overflow: 'hidden',
+                  borderRadius: 4,
+                  boxShadow: '0 8px 32px rgba(237, 41, 57, 0.2)',
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  background: 'white',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 16px 48px rgba(237, 41, 57, 0.3)',
+                    '& .cta-photo': {
+                      transform: 'scale(1.1)',
+                    },
+                    '& .cta-button': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                    },
+                  },
                   '&::before': {
                     content: '"Most Popular"',
                     position: 'absolute',
@@ -3623,38 +5984,101 @@ export default function Home() {
                     transform: 'translateX(-50%)',
                     backgroundColor: 'error.main',
                     color: 'white',
-                    px: 2,
-                    py: 0.5,
-                    borderRadius: 1,
+                    px: 2.5,
+                    py: 0.75,
+                    borderRadius: 2,
                     fontSize: '0.75rem',
                     fontWeight: 700,
+                    zIndex: 2,
+                    boxShadow: '0 4px 12px rgba(237, 41, 57, 0.3)',
                   },
                 }}
               >
-                <Typography variant="h3" sx={{ color: 'error.main', fontWeight: 700, mb: 1 }}>
-                  Act Now
-                </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
-                  Join today to receive priority notifications about upcoming programs and events
-                </Typography>
-                <Button
-                  component={RouterLink}
-                  to="/contact"
-                  variant="contained"
-                  color="error"
-                  size="large"
-                  fullWidth
-                  endIcon={<ArrowForwardIcon />}
-                  onClick={() => showFeedback('Redirecting to registration...', 'info')}
+                {/* Background Photo */}
+                <Box
                   sx={{
-                    px: 4,
-                    py: 1.5,
-                    fontWeight: 700,
-                    boxShadow: '0 4px 14px rgba(237, 41, 57, 0.4)',
+                    position: 'relative',
+                    height: 180,
+                    overflow: 'hidden',
                   }}
                 >
-                  Register Now
-                </Button>
+                  <Box
+                    component="img"
+                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    alt="Join our community"
+                    className="cta-photo"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                      filter: 'brightness(0.85) saturate(1.1)',
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.7) 0%, rgba(237, 41, 57, 0.4) 100%)',
+                    }}
+                  />
+                </Box>
+                <Box sx={{ p: 3.5, position: 'relative', zIndex: 1 }}>
+                  <Typography 
+                    variant="h4" 
+                    sx={{ 
+                      color: 'error.main', 
+                      fontWeight: 800, 
+                      mb: 1.5,
+                      fontSize: { xs: '1.5rem', sm: '1.75rem' },
+                    }}
+                  >
+                    Act Now
+                  </Typography>
+                  <Typography 
+                    variant="body1" 
+                    color="text.secondary" 
+                    sx={{ 
+                      mb: 3, 
+                      lineHeight: 1.8,
+                      fontSize: '0.95rem',
+                    }}
+                  >
+                    Join today to receive priority notifications about upcoming programs and events
+                  </Typography>
+                  <Button
+                    component={RouterLink}
+                    to="/contact"
+                    variant="contained"
+                    color="error"
+                    size="large"
+                    fullWidth
+                    endIcon={<ArrowForwardIcon sx={{ transition: 'transform 0.3s ease' }} />}
+                    className="cta-button"
+                    onClick={() => showFeedback('Redirecting to registration...', 'info')}
+                    sx={{
+                      px: 4,
+                      py: 2,
+                      fontWeight: 700,
+                      fontSize: '1rem',
+                      borderRadius: 3,
+                      boxShadow: '0 4px 16px rgba(237, 41, 57, 0.4), 0 0 24px rgba(237, 41, 57, 0.2)',
+                      textTransform: 'none',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        backgroundColor: '#d21e2e',
+                        '& .MuiButton-endIcon': {
+                          transform: 'translateX(4px)',
+                        },
+                      },
+                    }}
+                  >
+                    Register Now
+                  </Button>
+                </Box>
               </Card>
             </Grid>
           </Grid>
@@ -3665,21 +6089,44 @@ export default function Home() {
       <Box
         sx={{
           py: { xs: 6, sm: 8 },
-          backgroundColor: 'rgba(0, 35, 149, 0.02)',
+          background: 'radial-gradient(circle at top, rgba(0, 35, 149, 0.08) 0, transparent 55%)',
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box sx={{ textAlign: 'center', mb: { xs: 4, md: 6 } }}>
             <Chip
               icon={<CheckCircleIcon />}
               label="Your Journey"
               color="primary"
-              sx={{ mb: 2, fontWeight: 600 }}
+              sx={{
+                mb: 2,
+                fontWeight: 700,
+                borderRadius: 2,
+                px: 1.5,
+                fontSize: '0.8rem',
+              }}
             />
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+            <Typography
+              variant="h3"
+              sx={{
+                mb: 2,
+                fontWeight: 800,
+                fontSize: { xs: '1.9rem', sm: '2.1rem', md: '2.35rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               Start Small, Build Big
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography
+              variant="body1"
+              color="text.secondary"
+              sx={{
+                maxWidth: '640px',
+                mx: 'auto',
+                lineHeight: 1.9,
+                fontSize: { xs: '0.98rem', sm: '1.05rem' },
+              }}
+            >
               Make small commitments that lead to meaningful impact. Track your progress and unlock achievements.
             </Typography>
           </Box>
@@ -3692,6 +6139,7 @@ export default function Home() {
                 reward: 'Welcome Badge',
                 progress: userProgress.step >= 1 ? 100 : 0,
                 completed: userProgress.completed.includes(1),
+                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
               },
               {
                 step: 2,
@@ -3700,6 +6148,7 @@ export default function Home() {
                 reward: 'Profile Badge',
                 progress: userProgress.step >= 2 ? 100 : 0,
                 completed: userProgress.completed.includes(2),
+                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
               },
               {
                 step: 3,
@@ -3708,6 +6157,7 @@ export default function Home() {
                 reward: 'Active Member Badge',
                 progress: userProgress.step >= 3 ? 100 : 0,
                 completed: userProgress.completed.includes(3),
+                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
               },
               {
                 step: 4,
@@ -3716,65 +6166,143 @@ export default function Home() {
                 reward: 'Achievement Badge',
                 progress: userProgress.step >= 4 ? 100 : 0,
                 completed: userProgress.completed.includes(4),
+                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
               },
             ].map((milestone) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={milestone.step}>
                 <Card
                   sx={{
-                    p: 3,
+                    p: 0,
                     height: '100%',
                     border: milestone.completed ? '2px solid' : '1px solid',
                     borderColor: milestone.completed ? 'success.main' : 'divider',
-                    backgroundColor: milestone.completed ? 'rgba(76, 175, 80, 0.05)' : 'transparent',
+                    backgroundColor: 'white',
                     position: 'relative',
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    boxShadow: milestone.completed
+                      ? '0 10px 30px rgba(76, 175, 80, 0.18)'
+                      : '0 8px 24px rgba(0, 0, 0, 0.05)',
+                    transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                    '&:hover': {
+                      transform: 'translateY(-6px)',
+                      boxShadow: '0 16px 40px rgba(0, 35, 149, 0.18)',
+                      '& .journey-photo': {
+                        transform: 'scale(1.08)',
+                      },
+                    },
                   }}
                 >
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                  <Box
+                    sx={{
+                      position: 'relative',
+                      height: 90,
+                      overflow: 'hidden',
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src={milestone.photo}
+                      alt={milestone.title}
+                      className="journey-photo"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                        filter: 'brightness(0.9) saturate(1.05)',
+                      }}
+                    />
                     <Box
                       sx={{
-                        width: 40,
-                        height: 40,
-                        borderRadius: '50%',
-                        backgroundColor: milestone.completed ? 'success.main' : 'primary.main',
-                        color: 'white',
+                        position: 'absolute',
+                        inset: 0,
+                        background:
+                          'linear-gradient(135deg, rgba(0, 35, 149, 0.55) 0%, rgba(0, 35, 149, 0.25) 60%, transparent 100%)',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: 12,
+                        left: 12,
+                        px: 1,
+                        py: 0.5,
+                        borderRadius: 999,
+                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
                         display: 'flex',
                         alignItems: 'center',
-                        justifyContent: 'center',
-                        fontWeight: 700,
+                        gap: 1,
                       }}
                     >
-                      {milestone.completed ? <CheckCircleIcon /> : milestone.step}
+                      <Box
+                        sx={{
+                          width: 28,
+                          height: 28,
+                          borderRadius: '50%',
+                          backgroundColor: milestone.completed ? 'success.main' : 'primary.main',
+                          color: 'white',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          fontWeight: 700,
+                          fontSize: '0.85rem',
+                        }}
+                      >
+                        {milestone.completed ? <CheckCircleIcon sx={{ fontSize: 18 }} /> : milestone.step}
+                      </Box>
+                      <Typography variant="caption" sx={{ fontWeight: 600, fontSize: '0.75rem' }}>
+                        Step {milestone.step}
+                      </Typography>
                     </Box>
-                    <Box sx={{ flex: 1 }}>
-                      <Typography variant="h6" sx={{ fontWeight: 600 }}>
+                  </Box>
+                  <Box sx={{ p: 3 }}>
+                    <Box sx={{ mb: 2 }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 700, mb: 0.5 }}>
                         {milestone.title}
                       </Typography>
-                      <Typography variant="caption" color="text.secondary">
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ display: 'block', lineHeight: 1.7 }}
+                      >
                         {milestone.description}
                       </Typography>
                     </Box>
+                    <Box sx={{ mb: 2.5 }}>
+                      <LinearProgress
+                        variant="determinate"
+                        value={milestone.progress}
+                        sx={{
+                          height: 6,
+                          borderRadius: 999,
+                          backgroundColor: 'rgba(0, 35, 149, 0.06)',
+                          '& .MuiLinearProgress-bar': {
+                            borderRadius: 999,
+                          },
+                        }}
+                      />
+                      <Typography
+                        variant="caption"
+                        color="text.secondary"
+                        sx={{ mt: 0.75, display: 'block', fontSize: '0.75rem' }}
+                      >
+                        {milestone.completed ? 'Completed' : 'In progress'}
+                      </Typography>
+                    </Box>
+                    <Stack direction="row" alignItems="center" spacing={1}>
+                      <Chip
+                        size="small"
+                        icon={<EmojiEventsIcon fontSize="small" />}
+                        label={milestone.reward}
+                        sx={{
+                          fontWeight: 600,
+                          borderRadius: 999,
+                          backgroundColor: 'rgba(0, 35, 149, 0.04)',
+                        }}
+                      />
+                    </Stack>
                   </Box>
-                  <Box sx={{ mb: 2 }}>
-                    <LinearProgress
-                      variant="determinate"
-                      value={milestone.progress}
-                      sx={{
-                        height: 8,
-                        borderRadius: 4,
-                        backgroundColor: 'rgba(0, 0, 0, 0.1)',
-                        '& .MuiLinearProgress-bar': {
-                          backgroundColor: milestone.completed ? 'success.main' : 'primary.main',
-                        },
-                      }}
-                    />
-                  </Box>
-                  <Chip
-                    icon={milestone.completed ? <WorkspacePremiumIcon /> : <MilitaryTechIcon />}
-                    label={milestone.reward}
-                    size="small"
-                    color={milestone.completed ? 'success' : 'default'}
-                    sx={{ fontWeight: 600 }}
-                  />
                 </Card>
               </Grid>
             ))}
@@ -3909,65 +6437,313 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
+          <Box sx={{ textAlign: 'center', mb: 5 }}>
             <Chip
               icon={<PeopleIcon />}
               label="Join the Community"
               color="primary"
-              sx={{ mb: 2, fontWeight: 600 }}
+              sx={{ 
+                mb: 2.5, 
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                px: 1.5,
+                py: 0.5,
+                height: 'auto',
+              }}
             />
-            <Typography variant="h3" sx={{ mb: 2, fontWeight: 600 }}>
+            <Typography 
+              variant="h3" 
+              sx={{ 
+                mb: 2.5, 
+                fontWeight: 800,
+                fontSize: { xs: '1.75rem', sm: '2.25rem', md: '2.5rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               People Like You Are Already Here
             </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography 
+              variant="body1" 
+              color="text.secondary" 
+              sx={{ 
+                maxWidth: '600px', 
+                mx: 'auto',
+                lineHeight: 1.8,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+              }}
+            >
               Connect with others who share your interests and goals
             </Typography>
           </Box>
           <Grid container spacing={3}>
             <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, textAlign: 'center', height: '100%' }}>
-                <AvatarGroup max={6} sx={{ justifyContent: 'center', mb: 2 }}>
-                  <Avatar sx={{ bgcolor: 'primary.main' }}>A</Avatar>
-                  <Avatar sx={{ bgcolor: 'error.main' }}>B</Avatar>
-                  <Avatar sx={{ bgcolor: 'success.main' }}>C</Avatar>
-                  <Avatar sx={{ bgcolor: 'warning.main' }}>D</Avatar>
-                  <Avatar sx={{ bgcolor: 'info.main' }}>E</Avatar>
-                  <Avatar sx={{ bgcolor: 'primary.main' }}>+{liveActivity.recent}</Avatar>
+              <Card 
+                sx={{ 
+                  p: 3.5, 
+                  textAlign: 'center', 
+                  height: '100%',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 3,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 12px 32px rgba(0, 35, 149, 0.15)',
+                    borderColor: 'primary.main',
+                    '& .community-avatar': {
+                      transform: 'scale(1.1)',
+                      boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
+                    },
+                  },
+                }}
+              >
+                <AvatarGroup 
+                  max={6} 
+                  sx={{ 
+                    justifyContent: 'center', 
+                    mb: 3,
+                    '& .MuiAvatar-root': {
+                      border: '3px solid white',
+                      boxShadow: '0 2px 8px rgba(0, 0, 0, 0.1)',
+                    },
+                  }}
+                >
+                  <Avatar 
+                    className="community-avatar"
+                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    sx={{ 
+                      transition: 'all 0.3s ease',
+                      width: 56,
+                      height: 56,
+                    }}
+                  />
+                  <Avatar 
+                    className="community-avatar"
+                    src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                    sx={{ 
+                      transition: 'all 0.3s ease',
+                      width: 56,
+                      height: 56,
+                    }}
+                  />
+                  <Avatar 
+                    className="community-avatar"
+                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    sx={{ 
+                      transition: 'all 0.3s ease',
+                      width: 56,
+                      height: 56,
+                    }}
+                  />
+                  <Avatar 
+                    className="community-avatar"
+                    src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                    sx={{ 
+                      transition: 'all 0.3s ease',
+                      width: 56,
+                      height: 56,
+                    }}
+                  />
+                  <Avatar 
+                    className="community-avatar"
+                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    sx={{ 
+                      transition: 'all 0.3s ease',
+                      width: 56,
+                      height: 56,
+                    }}
+                  />
+                  <Avatar 
+                    sx={{ 
+                      bgcolor: 'primary.main',
+                      color: 'white',
+                      fontWeight: 700,
+                      width: 56,
+                      height: 56,
+                      fontSize: '0.9rem',
+                    }}
+                  >
+                    +{liveActivity.recent}
+                  </Avatar>
                 </AvatarGroup>
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                <Typography 
+                  variant="h5" 
+                  gutterBottom 
+                  sx={{ 
+                    fontWeight: 700,
+                    mb: 1.5,
+                    fontSize: { xs: '1.25rem', sm: '1.5rem' },
+                  }}
+                >
                   {liveActivity.count.toLocaleString()} Active Members
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{
+                    lineHeight: 1.8,
+                    fontSize: '0.95rem',
+                  }}
+                >
                   Join a vibrant community of learners and changemakers
                 </Typography>
               </Card>
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, textAlign: 'center', height: '100%' }}>
-                <Stack direction="row" spacing={1} justifyContent="center" sx={{ mb: 2 }}>
-                  <FavoriteIcon sx={{ color: 'error.main', fontSize: 32 }} />
-                  <Typography variant="h4" sx={{ fontWeight: 700, color: 'error.main' }}>
+              <Card 
+                sx={{ 
+                  p: 3.5, 
+                  textAlign: 'center', 
+                  height: '100%',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 3,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 12px 32px rgba(237, 41, 57, 0.15)',
+                    borderColor: 'error.main',
+                    '& .satisfaction-heart': {
+                      transform: 'scale(1.15) rotate(5deg)',
+                      animation: 'pulse 1s ease-in-out infinite',
+                    },
+                  },
+                  '@keyframes pulse': {
+                    '0%, 100%': {
+                      transform: 'scale(1.15) rotate(5deg)',
+                    },
+                    '50%': {
+                      transform: 'scale(1.25) rotate(5deg)',
+                    },
+                  },
+                }}
+              >
+                <Stack 
+                  direction="row" 
+                  spacing={1.5} 
+                  justifyContent="center" 
+                  alignItems="center"
+                  sx={{ mb: 3 }}
+                >
+                  <FavoriteIcon 
+                    className="satisfaction-heart"
+                    sx={{ 
+                      color: 'error.main', 
+                      fontSize: 40,
+                      transition: 'all 0.3s ease',
+                    }} 
+                  />
+                  <Typography 
+                    variant="h3" 
+                    sx={{ 
+                      fontWeight: 800, 
+                      color: 'error.main',
+                      fontSize: { xs: '2rem', sm: '2.5rem' },
+                    }}
+                  >
                     98%
                   </Typography>
                 </Stack>
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                <Typography 
+                  variant="h6" 
+                  gutterBottom 
+                  sx={{ 
+                    fontWeight: 700,
+                    mb: 1.5,
+                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                  }}
+                >
                   Satisfaction Rate
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{
+                    lineHeight: 1.8,
+                    fontSize: '0.95rem',
+                  }}
+                >
                   Members love our programs and community
                 </Typography>
               </Card>
             </Grid>
             <Grid size={{ xs: 12, md: 4 }}>
-              <Card sx={{ p: 3, textAlign: 'center', height: '100%' }}>
-                <ShareIcon sx={{ fontSize: 48, color: 'primary.main', mb: 2 }} />
-                <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+              <Card 
+                sx={{ 
+                  p: 3.5, 
+                  textAlign: 'center', 
+                  height: '100%',
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  borderRadius: 3,
+                  transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                  '&:hover': {
+                    transform: 'translateY(-8px)',
+                    boxShadow: '0 12px 32px rgba(0, 35, 149, 0.15)',
+                    borderColor: 'primary.main',
+                    '& .share-icon': {
+                      transform: 'scale(1.15) rotate(15deg)',
+                    },
+                    '& .share-button': {
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(0, 35, 149, 0.3)',
+                    },
+                  },
+                }}
+              >
+                <ShareIcon 
+                  className="share-icon"
+                  sx={{ 
+                    fontSize: 52, 
+                    color: 'primary.main', 
+                    mb: 2.5,
+                    transition: 'all 0.3s ease',
+                  }} 
+                />
+                <Typography 
+                  variant="h6" 
+                  gutterBottom 
+                  sx={{ 
+                    fontWeight: 700,
+                    mb: 1.5,
+                    fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                  }}
+                >
                   Share with Friends
                 </Typography>
-                <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary" 
+                  sx={{ 
+                    mb: 3,
+                    lineHeight: 1.8,
+                    fontSize: '0.95rem',
+                  }}
+                >
                   {liveActivity.recent} people shared this with their network today
                 </Typography>
-                <Button variant="outlined" color="primary" startIcon={<ShareIcon />}>
+                <Button 
+                  variant="outlined" 
+                  color="primary" 
+                  startIcon={<ShareIcon />}
+                  className="share-button"
+                  onClick={() => showFeedback('Sharing options coming soon!', 'info')}
+                  sx={{
+                    px: 3,
+                    py: 1.5,
+                    fontWeight: 600,
+                    borderRadius: 2,
+                    borderWidth: 2,
+                    textTransform: 'none',
+                    fontSize: '0.95rem',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      borderWidth: 2,
+                      backgroundColor: 'primary.main',
+                      color: 'white',
+                    },
+                  }}
+                >
                   Share Now
                 </Button>
               </Card>
@@ -4001,9 +6777,28 @@ export default function Home() {
               icon={<PlayArrowIcon />}
               label="How It Works"
               color="primary"
-              sx={{ mb: 2, fontWeight: 600, fontSize: '0.9rem', py: 2.5 }}
+              sx={{
+                mb: 2.5,
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                px: 1.5,
+                py: 0.75,
+                height: 'auto',
+                borderRadius: 999,
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.12) 0%, rgba(25, 118, 210, 0.10) 100%)',
+                border: '1px solid',
+                borderColor: 'rgba(0, 35, 149, 0.25)',
+              }}
             />
-            <Typography variant="h2" sx={{ mb: 2, fontWeight: 700 }}>
+            <Typography
+              variant="h2"
+              sx={{
+                mb: 2.5,
+                fontWeight: 800,
+                letterSpacing: '-0.02em',
+                fontSize: { xs: '2.0rem', sm: '2.4rem', md: '2.75rem' },
+              }}
+            >
               Getting Started is Simple
             </Typography>
             <Typography
@@ -4013,7 +6808,8 @@ export default function Home() {
                 color: 'text.secondary',
                 maxWidth: '700px',
                 mx: 'auto',
-                fontSize: '1.1rem',
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+                lineHeight: 1.9,
               }}
             >
               Follow these three easy steps to join our community and start your journey
@@ -4031,6 +6827,7 @@ export default function Home() {
                   time: '2 minutes',
                   color: 'primary',
                   gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+                  photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
                 },
                 {
                   step: 2,
@@ -4040,6 +6837,7 @@ export default function Home() {
                   time: 'Immediate',
                   color: 'success',
                   gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
                 },
                 {
                   step: 3,
@@ -4049,6 +6847,7 @@ export default function Home() {
                   time: 'Same day',
                   color: 'info',
                   gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
+                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
                 },
               ].map((stepItem, index) => (
                 <Fragment key={stepItem.step}>
@@ -4064,13 +6863,52 @@ export default function Home() {
                         border: 'none',
                         boxShadow: '0 4px 20px rgba(0, 0, 0, 0.08)',
                         transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                        overflow: 'visible',
+                        overflow: 'hidden',
                         '&:hover': {
                           transform: 'translateY(-12px) scale(1.02)',
                           boxShadow: `0 16px 48px rgba(0, 0, 0, 0.15)`,
+                          '& .howitworks-photo': {
+                            transform: 'scale(1.08)',
+                            opacity: 0.22,
+                          },
+                          '& .howitworks-iconBubble': {
+                            transform: 'scale(1.04)',
+                          },
                         },
                       }}
                     >
+                      {/* subtle background photo (kept behind content for depth) */}
+                      <Box
+                        className="howitworks-photo"
+                        sx={{
+                          position: 'absolute',
+                          inset: 0,
+                          backgroundImage: `url(${stepItem.photo})`,
+                          backgroundSize: 'cover',
+                          backgroundPosition: 'center',
+                          opacity: 0.14,
+                          filter: 'saturate(1.05) brightness(1.05)',
+                          transform: 'scale(1.02)',
+                          transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                          pointerEvents: 'none',
+                          zIndex: 0,
+                        }}
+                      />
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          inset: 0,
+                          // contrast overlay for readability (WCAG-friendly): dark at top, clean white for text area
+                          background:
+                            stepItem.color === 'primary'
+                              ? 'linear-gradient(180deg, rgba(0, 35, 149, 0.58) 0%, rgba(0, 35, 149, 0.32) 38%, rgba(255,255,255,0.98) 66%, rgba(255,255,255,1) 100%)'
+                              : stepItem.color === 'success'
+                                ? 'linear-gradient(180deg, rgba(20, 83, 45, 0.55) 0%, rgba(20, 83, 45, 0.28) 38%, rgba(255,255,255,0.98) 66%, rgba(255,255,255,1) 100%)'
+                                : 'linear-gradient(180deg, rgba(1, 57, 93, 0.55) 0%, rgba(1, 57, 93, 0.28) 38%, rgba(255,255,255,0.98) 66%, rgba(255,255,255,1) 100%)',
+                          pointerEvents: 'none',
+                          zIndex: 0,
+                        }}
+                      />
                       {/* Step Number Badge */}
                       <Box
                         sx={{
@@ -4095,6 +6933,7 @@ export default function Home() {
                         {stepItem.step}
                       </Box>
 
+                      <Box sx={{ position: 'relative', zIndex: 1 }}>
                       {/* Icon Container with Gradient Background */}
                       <Box
                         sx={{
@@ -4106,6 +6945,7 @@ export default function Home() {
                         }}
                       >
                         <Box
+                          className="howitworks-iconBubble"
                           sx={{
                             width: { xs: 120, sm: 140 },
                             height: { xs: 120, sm: 140 },
@@ -4117,6 +6957,7 @@ export default function Home() {
                             color: 'white',
                             boxShadow: `0 8px 32px ${stepItem.color === 'primary' ? 'rgba(0, 35, 149, 0.3)' : stepItem.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : 'rgba(2, 119, 189, 0.3)'}`,
                             position: 'relative',
+                            transition: 'transform 0.35s ease',
                             '&::after': {
                               content: '""',
                               position: 'absolute',
@@ -4136,10 +6977,10 @@ export default function Home() {
                         variant="h5" 
                         gutterBottom 
                         sx={{ 
-                          fontWeight: 700, 
+                          fontWeight: 800, 
                           mb: 2,
-                          fontSize: { xs: '1.3rem', sm: '1.5rem' },
-                          color: 'text.primary',
+                          fontSize: { xs: '1.35rem', sm: '1.6rem' },
+                          color: '#0b1b3a',
                         }}
                       >
                         {stepItem.title}
@@ -4153,7 +6994,7 @@ export default function Home() {
                           mb: 3, 
                           minHeight: { xs: 'auto', sm: '4em' },
                           fontSize: { xs: '0.95rem', sm: '1rem' },
-                          lineHeight: 1.7,
+                          lineHeight: 1.85,
                         }}
                       >
                         {stepItem.description}
@@ -4168,24 +7009,28 @@ export default function Home() {
                           px: 2.5,
                           py: 1,
                           borderRadius: 3,
-                          background: stepItem.color === 'primary' 
-                            ? 'rgba(0, 35, 149, 0.1)' 
-                            : stepItem.color === 'success' 
-                            ? 'rgba(46, 125, 50, 0.1)' 
-                            : 'rgba(2, 119, 189, 0.1)',
-                          color: `${stepItem.color}.main`,
+                          background: stepItem.gradient,
+                          color: 'white',
+                          boxShadow:
+                            stepItem.color === 'primary'
+                              ? '0 10px 26px rgba(0, 35, 149, 0.22)'
+                              : stepItem.color === 'success'
+                                ? '0 10px 26px rgba(46, 125, 50, 0.22)'
+                                : '0 10px 26px rgba(2, 119, 189, 0.22)',
                         }}
                       >
-                        <AccessTimeIcon sx={{ fontSize: 18 }} />
+                        <AccessTimeIcon sx={{ fontSize: 18, color: 'white', opacity: 0.95 }} />
                         <Typography 
                           variant="body2" 
                           sx={{ 
-                            fontWeight: 600,
+                            fontWeight: 800,
                             fontSize: '0.9rem',
+                            letterSpacing: '0.01em',
                           }}
                         >
                           {stepItem.time}
                         </Typography>
+                      </Box>
                       </Box>
                     </Card>
                   </Grid>
@@ -4211,10 +7056,26 @@ export default function Home() {
                       >
                         <Box
                           sx={{
-                            width: 60,
-                            height: 2,
-                            background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.3) 0%, rgba(25, 118, 210, 0.3) 100%)',
-                            borderRadius: 1,
+                            position: 'relative',
+                            width: 72,
+                            height: 3,
+                            background:
+                              'linear-gradient(90deg, rgba(0, 35, 149, 0.18) 0%, rgba(25, 118, 210, 0.18) 45%, rgba(46, 125, 50, 0.18) 100%)',
+                            borderRadius: 999,
+                            overflow: 'hidden',
+                            '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              inset: 0,
+                              background:
+                                'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.65) 40%, transparent 80%)',
+                              transform: 'translateX(-45%)',
+                              animation: 'howitworksLine 2.2s ease-in-out infinite',
+                            },
+                            '@keyframes howitworksLine': {
+                              '0%': { transform: 'translateX(-55%)' },
+                              '100%': { transform: 'translateX(55%)' },
+                            },
                           }}
                         />
                         <ArrowRightAltIcon 
@@ -4230,10 +7091,26 @@ export default function Home() {
                         />
                         <Box
                           sx={{
-                            width: 60,
-                            height: 2,
-                            background: 'linear-gradient(90deg, rgba(0, 35, 149, 0.3) 0%, rgba(25, 118, 210, 0.3) 100%)',
-                            borderRadius: 1,
+                            position: 'relative',
+                            width: 72,
+                            height: 3,
+                            background:
+                              'linear-gradient(90deg, rgba(46, 125, 50, 0.18) 0%, rgba(25, 118, 210, 0.18) 55%, rgba(0, 35, 149, 0.18) 100%)',
+                            borderRadius: 999,
+                            overflow: 'hidden',
+                            '&::after': {
+                              content: '""',
+                              position: 'absolute',
+                              inset: 0,
+                              background:
+                                'linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.65) 40%, transparent 80%)',
+                              transform: 'translateX(-55%)',
+                              animation: 'howitworksLine2 2.2s ease-in-out infinite',
+                            },
+                            '@keyframes howitworksLine2': {
+                              '0%': { transform: 'translateX(-60%)' },
+                              '100%': { transform: 'translateX(60%)' },
+                            },
                           }}
                         />
                       </Box>
@@ -4261,10 +7138,31 @@ export default function Home() {
                 background: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
                 boxShadow: '0 8px 24px rgba(0, 35, 149, 0.35)',
                 transition: 'all 0.3s ease',
+                position: 'relative',
+                overflow: 'hidden',
+                textTransform: 'none',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  inset: 0,
+                  background:
+                    'linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.35) 45%, transparent 70%)',
+                  transform: 'translateX(-120%)',
+                  transition: 'transform 0.8s ease',
+                },
                 '&:hover': {
                   transform: 'translateY(-2px)',
                   boxShadow: '0 12px 32px rgba(0, 35, 149, 0.45)',
                   background: 'linear-gradient(135deg, #001f7a 0%, #1565c0 100%)',
+                  '&::after': {
+                    transform: 'translateX(120%)',
+                  },
+                  '& .MuiButton-endIcon': {
+                    transform: 'translateX(4px)',
+                  },
+                },
+                '& .MuiButton-endIcon': {
+                  transition: 'transform 0.25s ease',
                 },
               }}
             >
@@ -4427,17 +7325,43 @@ export default function Home() {
         }}
       >
         <Container>
-          <Box sx={{ textAlign: 'center', mb: 3 }}>
+          <Box sx={{ textAlign: 'center', mb: 5 }}>
             <Chip
               icon={<ErrorOutlineIcon />}
               label="Error Prevention"
               color="warning"
-              sx={{ mb: 2, fontWeight: 600 }}
+              sx={{ 
+                mb: 2.5, 
+                fontWeight: 700,
+                fontSize: '0.9rem',
+                px: 1.5,
+                py: 0.5,
+                height: 'auto',
+                border: '1px solid',
+                borderColor: 'warning.main',
+              }}
             />
-            <Typography variant="h5" sx={{ mb: 2, fontWeight: 600 }}>
+            <Typography 
+              variant="h4" 
+              sx={{ 
+                mb: 2.5, 
+                fontWeight: 800,
+                fontSize: { xs: '1.75rem', sm: '2rem', md: '2.25rem' },
+                letterSpacing: '-0.02em',
+              }}
+            >
               We Help You Avoid Mistakes
             </Typography>
-            <Typography variant="body2" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>
+            <Typography 
+              variant="body1" 
+              color="text.secondary" 
+              sx={{ 
+                maxWidth: '600px', 
+                mx: 'auto',
+                lineHeight: 1.9,
+                fontSize: { xs: '1rem', sm: '1.1rem' },
+              }}
+            >
               Our design prevents common errors and provides clear feedback
             </Typography>
           </Box>
@@ -4467,33 +7391,136 @@ export default function Home() {
                 description: 'Tooltips and help text guide you through every step',
                 color: 'primary',
               },
-            ].map((item) => (
-              <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.title}>
-                <Card
-                  sx={{
-                    p: 3,
-                    textAlign: 'center',
-                    height: '100%',
-                    border: '1px solid',
-                    borderColor: 'divider',
-                    transition: 'all 0.3s ease',
-                    '&:hover': {
-                      borderColor: `${item.color}.main`,
-                      transform: 'translateY(-3px)',
-                      boxShadow: `0 6px 20px ${item.color}30`,
-                    },
-                  }}
-                >
-                  <Box sx={{ color: `${item.color}.main`, mb: 2 }}>{item.icon}</Box>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    {item.title}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary">
-                    {item.description}
-                  </Typography>
-                </Card>
-              </Grid>
-            ))}
+            ].map((item, index) => {
+              const photos = [
+                '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+              ];
+              const gradients = {
+                success: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
+                warning: 'linear-gradient(135deg, #f57c00 0%, #ffb74d 100%)',
+                info: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
+                primary: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+              };
+              return (
+                <Grid size={{ xs: 12, sm: 6, md: 3 }} key={item.title}>
+                  <Card
+                    sx={{
+                      p: 3.5,
+                      textAlign: 'center',
+                      height: '100%',
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      borderRadius: 3,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                      background: 'white',
+                      '&:hover': {
+                        borderColor: `${item.color}.main`,
+                        transform: 'translateY(-8px)',
+                        boxShadow: `0 12px 32px ${item.color === 'success' ? 'rgba(46, 125, 50, 0.2)' : item.color === 'warning' ? 'rgba(245, 124, 0, 0.2)' : item.color === 'info' ? 'rgba(2, 119, 189, 0.2)' : 'rgba(0, 35, 149, 0.2)'}`,
+                        '& .errorprevention-photo': {
+                          transform: 'scale(1.1)',
+                          opacity: 0.2,
+                        },
+                        '& .errorprevention-icon': {
+                          transform: 'scale(1.1) rotate(5deg)',
+                        },
+                      },
+                    }}
+                  >
+                    {/* Subtle background photo */}
+                    <Box
+                      className="errorprevention-photo"
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        backgroundImage: `url(${photos[index]})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        opacity: 0.12,
+                        filter: 'saturate(1.1) brightness(1.05)',
+                        transform: 'scale(1.02)',
+                        transition: 'all 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        inset: 0,
+                        background: item.color === 'success'
+                          ? 'linear-gradient(180deg, rgba(46, 125, 50, 0.05) 0%, rgba(255,255,255,0.98) 60%, rgba(255,255,255,1) 100%)'
+                          : item.color === 'warning'
+                            ? 'linear-gradient(180deg, rgba(245, 124, 0, 0.05) 0%, rgba(255,255,255,0.98) 60%, rgba(255,255,255,1) 100%)'
+                            : item.color === 'info'
+                              ? 'linear-gradient(180deg, rgba(2, 119, 189, 0.05) 0%, rgba(255,255,255,0.98) 60%, rgba(255,255,255,1) 100%)'
+                              : 'linear-gradient(180deg, rgba(0, 35, 149, 0.05) 0%, rgba(255,255,255,0.98) 60%, rgba(255,255,255,1) 100%)',
+                        pointerEvents: 'none',
+                      }}
+                    />
+                    
+                    {/* Icon in gradient circle */}
+                    <Box sx={{ position: 'relative', zIndex: 1, mb: 3 }}>
+                      <Box
+                        className="errorprevention-icon"
+                        sx={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          width: { xs: 80, sm: 96 },
+                          height: { xs: 80, sm: 96 },
+                          borderRadius: '50%',
+                          background: gradients[item.color as keyof typeof gradients],
+                          color: 'white',
+                          mb: 2,
+                          boxShadow: `0 8px 24px ${item.color === 'success' ? 'rgba(46, 125, 50, 0.3)' : item.color === 'warning' ? 'rgba(245, 124, 0, 0.3)' : item.color === 'info' ? 'rgba(2, 119, 189, 0.3)' : 'rgba(0, 35, 149, 0.3)'}`,
+                          transition: 'all 0.35s ease',
+                          position: 'relative',
+                          '&::after': {
+                            content: '""',
+                            position: 'absolute',
+                            inset: -8,
+                            borderRadius: '50%',
+                            background: `linear-gradient(135deg, ${item.color === 'success' ? 'rgba(46, 125, 50, 0.1)' : item.color === 'warning' ? 'rgba(245, 124, 0, 0.1)' : item.color === 'info' ? 'rgba(2, 119, 189, 0.1)' : 'rgba(0, 35, 149, 0.1)'}, transparent)`,
+                            zIndex: -1,
+                          },
+                        }}
+                      >
+                        {cloneElement(item.icon, { sx: { fontSize: { xs: 40, sm: 48 } } })}
+                      </Box>
+                    </Box>
+                    
+                    <Box sx={{ position: 'relative', zIndex: 1 }}>
+                      <Typography 
+                        variant="h6" 
+                        gutterBottom 
+                        sx={{ 
+                          fontWeight: 700,
+                          mb: 1.5,
+                          fontSize: { xs: '1.1rem', sm: '1.25rem' },
+                        }}
+                      >
+                        {item.title}
+                      </Typography>
+                      <Typography 
+                        variant="body1" 
+                        color="text.secondary"
+                        sx={{
+                          lineHeight: 1.8,
+                          fontSize: '0.95rem',
+                        }}
+                      >
+                        {item.description}
+                      </Typography>
+                    </Box>
+                  </Card>
+                </Grid>
+              );
+            })}
           </Grid>
         </Container>
       </Box>
@@ -4501,38 +7528,94 @@ export default function Home() {
       {/* PROMPT: Enhanced final call-to-action with urgency and clarity */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
+          background: 'radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 1) 0%, rgba(255, 255, 255, 0.95) 40%, rgba(250, 248, 255, 0.9) 100%)',
           py: { xs: 8, sm: 10 },
           position: 'relative',
+          overflow: 'hidden',
+          '&::before': {
+            content: '""',
+            position: 'absolute',
+            inset: 0,
+            backgroundImage: 'url(/photos/571419367_1143811194593552_6930038688628840775_n.jpg)',
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: 0.08,
+            filter: 'saturate(1.1) brightness(1.1)',
+            pointerEvents: 'none',
+          },
         }}
       >
-        <Container sx={{ textAlign: 'center', position: 'relative' }}>
+        <Container sx={{ textAlign: 'center', position: 'relative', zIndex: 1 }}>
           <Chip
             label="Start Your Journey"
             color="primary"
-            sx={{ mb: 3, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
+            sx={{ 
+              mb: 3.5, 
+              fontWeight: 700, 
+              fontSize: '0.95rem', 
+              py: 2,
+              px: 2,
+              height: 'auto',
+              border: '1px solid',
+              borderColor: 'primary.main',
+              boxShadow: '0 4px 12px rgba(0, 35, 149, 0.15)',
+            }}
           />
-          <Typography variant="h2" gutterBottom sx={{ mb: 2 }}>
-          Ready to Make a Difference?
-        </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-            sx={{ mb: 1, maxWidth: '600px', mx: 'auto', fontSize: '1.15rem', fontWeight: 500 }}
+          <Typography 
+            variant="h2" 
+            gutterBottom 
+            sx={{ 
+              mb: 3,
+              fontWeight: 800,
+              fontSize: { xs: '2rem', sm: '2.5rem', md: '3rem' },
+              letterSpacing: '-0.02em',
+            }}
+          >
+            Ready to Make a Difference?
+          </Typography>
+          
+          {/* Red divider line */}
+          <Box
+            sx={{
+              width: { xs: '80%', sm: '60%', md: '40%' },
+              height: 2,
+              background: 'linear-gradient(90deg, transparent 0%, #ED2939 50%, transparent 100%)',
+              mx: 'auto',
+              mb: 3.5,
+            }}
+          />
+          
+          <Typography
+            variant="body1"
+            color="text.secondary"
+            sx={{ 
+              mb: 2, 
+              maxWidth: '600px', 
+              mx: 'auto', 
+              fontSize: { xs: '1rem', sm: '1.15rem' }, 
+              fontWeight: 500,
+              lineHeight: 1.9,
+            }}
           >
             Join our community today and be part of positive change.
           </Typography>
           <Typography
-            variant="body2"
+            variant="body1"
             color="text.secondary"
-            sx={{ mb: 4, maxWidth: '500px', mx: 'auto', fontStyle: 'italic' }}
+            sx={{ 
+              mb: 5, 
+              maxWidth: '500px', 
+              mx: 'auto',
+              fontSize: { xs: '0.95rem', sm: '1.05rem' },
+              lineHeight: 1.8,
+            }}
           >
             It only takes a moment to get started. No commitment required.
-        </Typography>
+          </Typography>
         <Stack
           direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-            sx={{ justifyContent: 'center', alignItems: 'center', mb: 3 }}
+          spacing={3}
+          sx={{ justifyContent: 'center', alignItems: 'center', mb: 5 }}
         >
           <Button
             component={RouterLink}
@@ -4540,23 +7623,44 @@ export default function Home() {
             variant="contained"
             color="primary"
             size="large"
-            endIcon={<ArrowForwardIcon />}
+            endIcon={<ArrowForwardIcon sx={{ transition: 'transform 0.3s ease' }} />}
+            onClick={() => showFeedback('Redirecting to registration...', 'info')}
             sx={{
-                px: 6,
-                py: 2,
-                fontSize: '1.2rem',
-                fontWeight: 700,
-                boxShadow: '0 6px 20px rgba(0, 35, 149, 0.35)',
-                transition: 'all 0.3s ease',
-                position: 'relative',
-                overflow: 'hidden',
-                '&:hover': {
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 8px 25px rgba(0, 35, 149, 0.45)',
+              px: 6,
+              py: 2.5,
+              fontSize: { xs: '1.1rem', sm: '1.2rem' },
+              fontWeight: 700,
+              borderRadius: 3,
+              background: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
+              boxShadow: '0 8px 24px rgba(0, 35, 149, 0.4), 0 0 32px rgba(0, 35, 149, 0.15)',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              position: 'relative',
+              overflow: 'hidden',
+              textTransform: 'none',
+              '&::before': {
+                content: '""',
+                position: 'absolute',
+                top: 0,
+                left: '-100%',
+                width: '100%',
+                height: '100%',
+                background: 'linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent)',
+                transition: 'left 0.5s ease',
+              },
+              '&:hover': {
+                transform: 'translateY(-4px) scale(1.02)',
+                boxShadow: '0 12px 32px rgba(0, 35, 149, 0.5), 0 0 48px rgba(0, 35, 149, 0.2)',
+                background: 'linear-gradient(135deg, #001f7a 0%, #1565c0 100%)',
+                '&::before': {
+                  left: '100%',
                 },
-                '&:active': {
-                  transform: 'translateY(-1px)',
+                '& .MuiButton-endIcon': {
+                  transform: 'translateX(4px)',
                 },
+              },
+              '&:active': {
+                transform: 'translateY(-2px) scale(1.01)',
+              },
             }}
           >
             Get Started Now
@@ -4567,21 +7671,27 @@ export default function Home() {
             variant="outlined"
             color="error"
             size="large"
+            onClick={() => showFeedback('Opening events page...', 'info')}
             sx={{
-                px: 6,
-                py: 2,
-                fontSize: '1.2rem',
-              fontWeight: 600,
-                borderWidth: 2.5,
+              px: 6,
+              py: 2.5,
+              fontSize: { xs: '1.1rem', sm: '1.2rem' },
+              fontWeight: 700,
+              borderRadius: 3,
+              borderWidth: 2.5,
               borderColor: '#ED2939',
               color: '#ED2939',
-                transition: 'all 0.3s ease',
+              backgroundColor: 'white',
+              transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+              textTransform: 'none',
+              boxShadow: '0 4px 16px rgba(237, 41, 57, 0.15)',
               '&:hover': {
-                  borderWidth: 2.5,
+                borderWidth: 2.5,
                 borderColor: '#c91f2f',
-                  backgroundColor: 'rgba(237, 41, 57, 0.08)',
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 6px 20px rgba(237, 41, 57, 0.25)',
+                backgroundColor: '#ED2939',
+                color: 'white',
+                transform: 'translateY(-4px) scale(1.02)',
+                boxShadow: '0 12px 32px rgba(237, 41, 57, 0.35)',
               },
             }}
           >
@@ -4594,32 +7704,67 @@ export default function Home() {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'center',
-              gap: 3,
+              gap: { xs: 2.5, sm: 4 },
               flexWrap: 'wrap',
-              mt: 4,
+              mt: 5,
               pt: 4,
-              borderTop: '1px solid',
+              borderTop: '2px solid',
               borderColor: 'divider',
             }}
           >
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <CheckCircleIcon sx={{ fontSize: 20, color: 'success.main' }} />
-              <Typography variant="body2" color="text.secondary">
-                Free to join
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <CheckCircleIcon sx={{ fontSize: 20, color: 'success.main' }} />
-              <Typography variant="body2" color="text.secondary">
-                No commitment
-              </Typography>
-            </Box>
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <CheckCircleIcon sx={{ fontSize: 20, color: 'success.main' }} />
-              <Typography variant="body2" color="text.secondary">
-                Instant access
-              </Typography>
-            </Box>
+            {[
+              { text: 'Free to join', icon: <CheckCircleIcon /> },
+              { text: 'No commitment', icon: <CheckCircleIcon /> },
+              { text: 'Instant access', icon: <CheckCircleIcon /> },
+            ].map((benefit, index) => (
+              <Box 
+                key={benefit.text}
+                sx={{ 
+                  display: 'flex', 
+                  alignItems: 'center', 
+                  gap: 1.5,
+                  px: 2,
+                  py: 1,
+                  borderRadius: 2,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: 'rgba(76, 175, 80, 0.08)',
+                    transform: 'translateY(-2px)',
+                    '& .benefit-icon': {
+                      transform: 'scale(1.15) rotate(5deg)',
+                    },
+                  },
+                }}
+              >
+                <Box
+                  className="benefit-icon"
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 32,
+                    height: 32,
+                    borderRadius: '50%',
+                    backgroundColor: 'rgba(76, 175, 80, 0.1)',
+                    color: 'success.main',
+                    transition: 'all 0.3s ease',
+                  }}
+                >
+                  {cloneElement(benefit.icon, { sx: { fontSize: 20 } })}
+                </Box>
+                <Typography 
+                  variant="body1" 
+                  color="text.secondary"
+                  sx={{
+                    fontWeight: 500,
+                    fontSize: { xs: '0.9rem', sm: '1rem' },
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {benefit.text}
+                </Typography>
+              </Box>
+            ))}
           </Box>
       </Container>
       </Box>
