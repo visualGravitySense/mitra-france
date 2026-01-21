@@ -22,6 +22,28 @@ import PublicIcon from '@mui/icons-material/Public';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link as RouterLink } from 'react-router-dom';
+import CameraAltIcon from '@mui/icons-material/CameraAlt';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import ImageIcon from '@mui/icons-material/Image';
+import MovieIcon from '@mui/icons-material/Movie';
+import EventIcon from '@mui/icons-material/Event';
+import SchoolIcon from '@mui/icons-material/School';
+import PaletteIcon from '@mui/icons-material/Palette';
+import AllInclusiveIcon from '@mui/icons-material/AllInclusive';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import FacebookIcon from '@mui/icons-material/Facebook';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ChatBubbleOutlineIcon from '@mui/icons-material/ChatBubbleOutline';
+import ShareIcon from '@mui/icons-material/Share';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+import PersonIcon from '@mui/icons-material/Person';
+import PlaceIcon from '@mui/icons-material/Place';
+import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
+import TagIcon from '@mui/icons-material/Tag';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -47,26 +69,181 @@ function TabPanel(props: TabPanelProps) {
 
 export default function Gallery() {
   const [value, setValue] = React.useState(0);
+  const [socialTab, setSocialTab] = React.useState(0);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
   };
 
-  // Placeholder for gallery items - in a real application, these would come from a backend
-  const photoPlaceholders = Array.from({ length: 6 }, (_, i) => i + 1);
-  const videoPlaceholders = Array.from({ length: 4 }, (_, i) => i + 1);
+  const handleSocialTabChange = (_event: React.SyntheticEvent, newValue: number) => {
+    setSocialTab(newValue);
+  };
+
+  // Gallery albums data with categories
+  const galleryAlbums = {
+    all: [
+      {
+        id: 1,
+        title: 'Digital Literacy Workshop, 2025',
+        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photosCount: 24,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 2,
+        title: 'Erasmus+ Conference, Nice',
+        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photosCount: 18,
+        videosCount: 1,
+        type: 'video',
+        category: 'Events',
+      },
+      {
+        id: 3,
+        title: 'Cultural Heritage Exhibition',
+        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photosCount: 32,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 4,
+        title: 'Media Training Session',
+        photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+        photosCount: 15,
+        videosCount: 3,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 5,
+        title: 'Community Festival, 2024',
+        photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+        photosCount: 28,
+        videosCount: 2,
+        type: 'video',
+        category: 'Events',
+      },
+      {
+        id: 6,
+        title: 'Museum Visit - Le 109',
+        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photosCount: 20,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 7,
+        title: 'Youth Workshop Series',
+        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photosCount: 22,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 8,
+        title: 'International Networking Event',
+        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photosCount: 19,
+        videosCount: 4,
+        type: 'video',
+        category: 'Events',
+      },
+    ],
+    events: [
+      {
+        id: 1,
+        title: 'Erasmus+ Conference, Nice',
+        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photosCount: 18,
+        videosCount: 1,
+        type: 'video',
+      },
+      {
+        id: 2,
+        title: 'Community Festival, 2024',
+        photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+        photosCount: 28,
+        videosCount: 2,
+        type: 'video',
+      },
+      {
+        id: 3,
+        title: 'International Networking Event',
+        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photosCount: 19,
+        videosCount: 4,
+        type: 'video',
+      },
+    ],
+    education: [
+      {
+        id: 1,
+        title: 'Digital Literacy Workshop, 2025',
+        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photosCount: 24,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 2,
+        title: 'Media Training Session',
+        photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+        photosCount: 15,
+        videosCount: 3,
+        type: 'photo',
+      },
+      {
+        id: 3,
+        title: 'Youth Workshop Series',
+        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photosCount: 22,
+        videosCount: 1,
+        type: 'photo',
+      },
+    ],
+    culture: [
+      {
+        id: 1,
+        title: 'Cultural Heritage Exhibition',
+        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photosCount: 32,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 2,
+        title: 'Museum Visit - Le 109',
+        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photosCount: 20,
+        videosCount: 0,
+        type: 'photo',
+      },
+    ],
+  };
+
+  const currentAlbums = 
+    value === 0 ? galleryAlbums.all : 
+    value === 1 ? galleryAlbums.events : 
+    value === 2 ? galleryAlbums.education : 
+    galleryAlbums.culture;
 
   return (
     <Box>
       {/* BJ FOGG BEHAVIOR MODEL: MOTIVATION + ABILITY + PROMPTS */}
       <Box
         sx={{
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 50%, rgba(0, 35, 149, 0.05) 100%)',
-          pt: { xs: 10, sm: 12, md: 14 }, // Отступ сверху, чтобы контент не скрывался под Header
-          pb: { xs: 6, sm: 8 },
+          pt: { xs: 10, sm: 12, md: 16 },
+          pb: { xs: 8, sm: 10, md: 12 },
           mb: { xs: 6, sm: 8 },
           position: 'relative',
           overflow: 'hidden',
+          minHeight: { xs: '600px', md: '700px' },
           '&::before': {
             content: '""',
             position: 'absolute',
@@ -75,203 +252,283 @@ export default function Gallery() {
             right: 0,
             height: '4px',
             background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
+            zIndex: 3,
           },
         }}
       >
-        <Container>
-          {/* MOTIVATION: Emotional appeal and value proposition */}
-          <Box sx={{ textAlign: 'center', mb: 4 }}>
-            <Chip
-              icon={<CollectionsIcon />}
-              label="Our Gallery"
-              color="primary"
-              sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
-            />
-            <Typography
-              variant="h2"
-              sx={{
-                mb: 2,
-                textAlign: 'center',
-                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-                backgroundClip: 'text',
-                WebkitBackgroundClip: 'text',
-                WebkitTextFillColor: 'transparent',
-                fontWeight: 700,
-              }}
-            >
-        Gallery
-      </Typography>
-      <Typography
-              variant="h5"
-              sx={{
-                textAlign: 'center',
-                mb: 3,
-                color: 'text.secondary',
-                fontWeight: 400,
-                maxWidth: '800px',
-                mx: 'auto',
-              }}
-            >
-              Explore our photos, videos, and exhibitions from projects and events. 
-              Discover the impact we create together with our community.
-      </Typography>
-
-            {/* MOTIVATION: Show benefits and value */}
+        {/* Dynamic "Wall of Moments" - Masonry Grid */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'grid',
+            gridTemplateColumns: { xs: 'repeat(3, 1fr)', sm: 'repeat(4, 1fr)', md: 'repeat(6, 1fr)' },
+            gridAutoRows: 'minmax(120px, auto)',
+            gap: { xs: 1, sm: 2 },
+            zIndex: 0,
+          }}
+        >
+          {[
+            { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 2', sm: '1 / 2', md: '1 / 2' }, row: { xs: '1 / 3', sm: '1 / 3', md: '1 / 3' } },
+            { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '2 / 3', md: '2 / 4' }, row: { xs: '1 / 2', sm: '1 / 2', md: '1 / 2' } },
+            { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '4 / 5' }, row: { xs: '2 / 4', sm: '1 / 3', md: '1 / 3' } },
+            { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '5 / 7' }, row: { xs: '3 / 4', sm: '2 / 3', md: '1 / 2' } },
+            { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', span: { xs: '1 / 3', sm: '2 / 3', md: '1 / 2' }, row: { xs: '4 / 5', sm: '3 / 4', md: '2 / 4' } },
+            { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '2 / 3' }, row: { xs: '5 / 6', sm: '4 / 5', md: '3 / 4' } },
+            { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '3 / 5' }, row: { xs: '6 / 7', sm: '5 / 6', md: '4 / 5' } },
+            { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', span: { xs: '1 / 3', sm: '2 / 4', md: '5 / 7' }, row: { xs: '7 / 8', sm: '6 / 7', md: '2 / 3' } },
+            { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '1 / 2' }, row: { xs: '8 / 9', sm: '7 / 8', md: '3 / 5' } },
+            { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', span: { xs: '2 / 4', sm: '1 / 3', md: '2 / 4' }, row: { xs: '9 / 10', sm: '8 / 9', md: '4 / 6' } },
+            { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 3', sm: '3 / 4', md: '4 / 6' }, row: { xs: '10 / 11', sm: '9 / 10', md: '5 / 6' } },
+            { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '6 / 7' }, row: { xs: '11 / 12', sm: '10 / 11', md: '3 / 4' } },
+          ].map((item, idx) => (
             <Box
+              key={idx}
               sx={{
-                display: 'flex',
-                justifyContent: 'center',
-                alignItems: 'center',
-                gap: 2,
-                flexWrap: 'wrap',
-                mb: 4,
+                gridColumn: item.span,
+                gridRow: item.row,
+                position: 'relative',
+                overflow: 'hidden',
+                borderRadius: { xs: '8px', sm: '12px' },
+                transition: 'all 0.4s ease',
+                '&:hover': {
+                  transform: 'scale(1.05)',
+                  zIndex: 2,
+                  boxShadow: '0 8px 24px rgba(0,0,0,0.4)',
+                },
               }}
             >
-              <Chip
-                icon={<CheckCircleIcon sx={{ color: 'success.main' }} />}
-                label="100+ Photos"
+              <Box
+                component="img"
+                src={item.photo}
+                alt={`Gallery moment ${idx + 1}`}
                 sx={{
-                  backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                  color: 'success.main',
-                  fontWeight: 600,
-                }}
-              />
-              <Chip
-                icon={<TrendingUpIcon sx={{ color: 'primary.main' }} />}
-                label="50+ Videos"
-                sx={{
-                  backgroundColor: 'rgba(0, 35, 149, 0.1)',
-                  color: 'primary.main',
-                  fontWeight: 600,
-                }}
-              />
-              <Chip
-                icon={<PublicIcon sx={{ color: 'error.main' }} />}
-                label="10+ Exhibitions"
-                sx={{
-                  backgroundColor: 'rgba(237, 41, 57, 0.1)',
-                  color: 'error.main',
-                  fontWeight: 600,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.85) saturate(1.1)',
                 }}
               />
             </Box>
-          </Box>
+          ))}
+        </Box>
 
-          {/* MOTIVATION: Gallery statistics with visual appeal */}
-          <Grid container spacing={3} sx={{ mt: 2, mb: 4 }}>
-            {[
-              { icon: <PhotoLibraryIcon />, label: 'Total Photos', value: '100+', color: 'primary.main' },
-              { icon: <VideoLibraryIcon />, label: 'Project Videos', value: '50+', color: 'error.main' },
-              { icon: <MuseumIcon />, label: 'Exhibitions', value: '10+', color: 'success.main' },
-              { icon: <EmojiEventsIcon />, label: 'Events Documented', value: '30+', color: 'info.main' },
-            ].map((stat) => (
-              <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
-                <Card
+        {/* Gradient Overlay for Text Readability */}
+        <Box
+          sx={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 30%, transparent 70%)',
+            zIndex: 1,
+          }}
+        />
+        <Container sx={{ position: 'relative', zIndex: 2 }}>
+          <Grid container spacing={4} alignItems="center">
+            {/* Interactive "Focus Center" - Left Side */}
+            <Grid size={{ xs: 12, md: 7 }}>
+              <Box sx={{ mb: 6 }}>
+                <Chip
+                  icon={<CollectionsIcon />}
+                  label="Our Gallery"
                   sx={{
-                    textAlign: 'center',
-                    p: 3,
-                    border: '2px solid',
-                    borderColor: `${stat.color}30`,
-                    backgroundColor: `${stat.color}08`,
-                    transition: 'all 0.3s ease',
+                    mb: 3,
+                    fontWeight: 800,
+                    fontSize: '1rem',
+                    py: 2,
+                    px: 1,
+                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                    backdropFilter: 'blur(10px)',
+                    color: 'white',
+                    border: '2px solid rgba(255, 255, 255, 0.3)',
+                  }}
+                />
+                <Typography
+                  variant="h1"
+                  sx={{
+                    mb: 3,
+                    fontWeight: 900,
+                    fontSize: { xs: '2.5rem', sm: '3rem', md: '4rem' },
+                    color: 'white',
+                    textShadow: '0 4px 16px rgba(0,0,0,0.5)',
+                    lineHeight: 1.2,
+                  }}
+                >
+                  Visual Journey Through Our Impact
+                </Typography>
+                <Typography
+                  variant="h6"
+                  sx={{
+                    mb: 4,
+                    color: 'rgba(255, 255, 255, 0.95)',
+                    fontWeight: 500,
+                    lineHeight: 1.8,
+                    textShadow: '0 2px 8px rgba(0,0,0,0.5)',
+                    maxWidth: '600px',
+                  }}
+                >
+                  Capturing the moments, faces, and stories that define our international community
+                </Typography>
+                <Button
+                  component={RouterLink}
+                  to="#gallery-content"
+                  variant="outlined"
+                  size="large"
+                  endIcon={<ArrowForwardIcon />}
+                  sx={{
+                    px: 5,
+                    py: 2,
+                    fontWeight: 700,
+                    fontSize: '1.1rem',
+                    borderRadius: '30px',
+                    borderWidth: 3,
+                    borderColor: 'white',
+                    color: 'white',
+                    backgroundColor: 'transparent',
+                    transition: 'all 0.4s ease',
                     '&:hover': {
+                      borderWidth: 3,
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
                       transform: 'translateY(-4px)',
-                      boxShadow: `0 6px 20px ${stat.color}30`,
-                      borderColor: stat.color,
+                      boxShadow: '0 8px 24px rgba(255,255,255,0.3)',
+                      '& .MuiButton-endIcon': {
+                        transform: 'translateX(6px)',
+                      },
+                    },
+                    '& .MuiButton-endIcon': {
+                      transition: 'transform 0.4s ease',
                     },
                   }}
                 >
-                  <Box sx={{ color: stat.color, mb: 1.5 }}>{stat.icon}</Box>
-                  <Typography variant="h4" sx={{ color: stat.color, fontWeight: 700, mb: 0.5 }}>
-                    {stat.value}
+                  Explore Latest Albums
+                </Button>
+              </Box>
+            </Grid>
+
+            {/* Featured Preview - Floating Card (Right Side) */}
+            <Grid size={{ xs: 12, md: 5 }}>
+              <Card
+                sx={{
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  border: '3px solid rgba(255, 255, 255, 0.3)',
+                  background: 'rgba(255, 255, 255, 0.95)',
+                  backdropFilter: 'blur(20px)',
+                  boxShadow: '0 16px 48px rgba(0,0,0,0.4)',
+                  transition: 'all 0.4s ease',
+                  transform: { xs: 'none', md: 'translateY(-20px)' },
+                  '&:hover': {
+                    transform: { xs: 'translateY(-8px)', md: 'translateY(-28px)' },
+                    boxShadow: '0 20px 56px rgba(0,0,0,0.5)',
+                    '& .featured-photo': {
+                      transform: 'scale(1.1)',
+                    },
+                  },
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'relative',
+                    height: 300,
+                    overflow: 'hidden',
+                  }}
+                >
+                  <Box
+                    className="featured-photo"
+                    component="img"
+                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    alt="Latest Event"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      transition: 'transform 0.6s ease',
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.6) 100%)',
+                    }}
+                  />
+                  <Chip
+                    label="Latest: Erasmus+ Workshop, Nice"
+                    size="small"
+                    sx={{
+                      position: 'absolute',
+                      top: 16,
+                      right: 16,
+                      backgroundColor: '#ED2939',
+                      color: 'white',
+                      fontWeight: 800,
+                      fontSize: '0.75rem',
+                      zIndex: 2,
+                    }}
+                  />
+                </Box>
+                <CardContent sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 1, color: '#0b1b3a' }}>
+                    Latest Event
                   </Typography>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500 }}>
-                    {stat.label}
+                  <Typography variant="body2" sx={{ color: '#666', mb: 2 }}>
+                    Our gallery is constantly updated with new moments from our community activities
                   </Typography>
-                </Card>
-              </Grid>
-            ))}
+                </CardContent>
+              </Card>
+            </Grid>
           </Grid>
 
-          {/* PROMPT: Clear call-to-action */}
+          {/* Visual Counter "Media Stats" - Glassmorphism Panel */}
           <Box
             sx={{
-              textAlign: 'center',
-              p: 4,
-              borderRadius: 3,
-              background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
-              border: '2px solid',
-              borderColor: 'primary.main',
-              maxWidth: '700px',
-              mx: 'auto',
-              mt: 2,
-              position: 'relative',
-              overflow: 'hidden',
-              '&::before': {
-                content: '""',
-                position: 'absolute',
-                top: 0,
-                left: 0,
-                right: 0,
-                height: '3px',
-                background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
-              },
+              mt: 6,
+              p: 3,
+              borderRadius: '20px',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(20px)',
+              border: '1px solid rgba(255, 255, 255, 0.2)',
+              boxShadow: '0 8px 32px rgba(0,0,0,0.2)',
             }}
           >
-            <Typography variant="h5" sx={{ mb: 1, fontWeight: 700, color: 'primary.main' }}>
-              Explore Our Gallery
-            </Typography>
-            <Typography variant="body1" color="text.secondary" sx={{ mb: 3, fontSize: '1.05rem' }}>
-              Browse through our collection of photos, videos, and exhibitions. 
-              See the impact we create together with our community.
-            </Typography>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ justifyContent: 'center' }}>
-              <Button
-                component={RouterLink}
-                to="/events"
-                variant="contained"
-                color="primary"
-                size="large"
-                endIcon={<ArrowForwardIcon />}
-                sx={{
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  borderRadius: '25px',
-                  boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-2px)',
-                    boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
-                  },
-                }}
-              >
-                View Events
-              </Button>
-              <Button
-                component={RouterLink}
-                to="/contact"
-                variant="outlined"
-                color="primary"
-                size="large"
-                sx={{
-                  px: 4,
-                  py: 1.5,
-                  fontWeight: 600,
-                  borderRadius: '25px',
-                  borderWidth: 2,
-                  fontSize: '1rem',
-                  transition: 'all 0.3s ease',
-                  '&:hover': {
-                    borderWidth: 2,
-                    transform: 'translateY(-2px)',
-                  },
-                }}
-              >
-                Contact Us
-              </Button>
-            </Stack>
+            <Grid container spacing={3}>
+              {[
+                { icon: <CameraAltIcon />, label: 'Photos', value: '2,500+', color: 'white' },
+                { icon: <PlayArrowIcon />, label: 'Videos', value: '150+', color: 'white' },
+                { icon: <LocationOnIcon />, label: 'Events Captured', value: '45+', color: 'white' },
+                { icon: <PublicIcon />, label: 'Countries', value: '12', color: 'white' },
+              ].map((stat) => (
+                <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
+                  <Box sx={{ textAlign: 'center' }}>
+                    <Box
+                      sx={{
+                        color: stat.color,
+                        mb: 1.5,
+                        fontSize: 36,
+                        filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))',
+                      }}
+                    >
+                      {stat.icon}
+                    </Box>
+                    <Typography variant="h4" sx={{ color: stat.color, fontWeight: 800, mb: 0.5, textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                      {stat.value}
+                    </Typography>
+                    <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', fontWeight: 600, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                      {stat.label}
+                    </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
           </Box>
 
           {/* ABILITY: Show simplicity indicator */}
@@ -293,55 +550,163 @@ export default function Gallery() {
         </Container>
       </Box>
 
-      <Container>
-        {/* ABILITY: Enhanced tabs with clear labels */}
+      <Container id="gallery-content">
+        {/* ABILITY: Enhanced tabs with clear labels - Interactive Album Covers */}
         <Box sx={{ mb: 6, mt: 4 }}>
           <Typography
             variant="h5"
             sx={{
-              mb: 3,
+              mb: 4,
               color: 'text.primary',
-              fontWeight: 600,
+              fontWeight: 800,
               textAlign: 'center',
+              fontSize: { xs: '1.5rem', md: '2rem' },
             }}
           >
             Choose gallery type:
           </Typography>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            aria-label="gallery tabs"
-            variant="scrollable"
-            scrollButtons="auto"
+          <Box
             sx={{
-              borderBottom: 2,
-              borderColor: 'divider',
+              display: 'flex',
+              gap: 3,
+              justifyContent: 'center',
+              flexWrap: 'wrap',
               mb: 4,
-              '& .MuiTab-root': {
-                textTransform: 'none',
-                fontWeight: 600,
-                fontSize: '1rem',
-                minHeight: 72,
-                transition: 'all 0.3s ease',
-                '&:hover': {
-                  backgroundColor: 'rgba(0, 35, 149, 0.05)',
-                  transform: 'translateY(-2px)',
-                },
-              },
-              '& .Mui-selected': {
-                color: 'primary.main',
-                fontWeight: 700,
-              },
-              '& .MuiTabs-indicator': {
-                height: 3,
-                borderRadius: '3px 3px 0 0',
-              },
             }}
           >
-          <Tab label="Photos" icon={<PhotoLibraryIcon />} iconPosition="start" />
-          <Tab label="Videos" icon={<VideoLibraryIcon />} iconPosition="start" />
-          <Tab label="Exhibitions" icon={<MuseumIcon />} iconPosition="start" />
-        </Tabs>
+            {[
+              {
+                label: 'All Moments',
+                icon: <AllInclusiveIcon />,
+                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                count: '12 Albums',
+                color: '#002395',
+              },
+              {
+                label: 'Events',
+                icon: <EventIcon />,
+                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                count: '8 Albums',
+                color: '#ED2939',
+              },
+              {
+                label: 'Education',
+                icon: <SchoolIcon />,
+                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                count: '15 Albums',
+                color: '#002395',
+              },
+              {
+                label: 'Culture',
+                icon: <PaletteIcon />,
+                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                count: '6 Albums',
+                color: '#ED2939',
+              },
+            ].map((tab, index) => (
+              <Box
+                key={tab.label}
+                onClick={() => handleChange({} as React.SyntheticEvent, index)}
+                sx={{
+                  position: 'relative',
+                  width: { xs: '100%', sm: 200, md: 240 },
+                  height: 120,
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                  cursor: 'pointer',
+                  border: value === index ? '3px solid #ED2939' : '2px solid transparent',
+                  transition: 'all 0.4s ease',
+                  boxShadow: value === index
+                    ? '0 8px 24px rgba(237, 41, 57, 0.4)'
+                    : '0 4px 12px rgba(0,0,0,0.1)',
+                  '&:hover': {
+                    transform: 'translateY(-4px)',
+                    boxShadow: value === index
+                      ? '0 12px 32px rgba(237, 41, 57, 0.5)'
+                      : '0 8px 20px rgba(0,0,0,0.2)',
+                  },
+                }}
+              >
+                <Box
+                  component="img"
+                  src={tab.photo}
+                  alt={tab.label}
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                    filter: value === index ? 'brightness(0.7) saturate(1.2)' : 'brightness(0.5) grayscale(0.8)',
+                    transition: 'all 0.4s ease',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: value === index
+                      ? `linear-gradient(135deg, ${tab.color}40 0%, transparent 100%)`
+                      : 'linear-gradient(135deg, rgba(0,0,0,0.6) 0%, transparent 100%)',
+                    transition: 'all 0.4s ease',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    zIndex: 2,
+                    p: 2,
+                  }}
+                >
+                  <Box
+                    sx={{
+                      color: 'white',
+                      mb: 1,
+                      fontSize: 32,
+                      filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.5))',
+                    }}
+                  >
+                    {tab.icon}
+                  </Box>
+                  <Typography
+                    variant="h6"
+                    sx={{
+                      color: 'white',
+                      fontWeight: value === index ? 800 : 700,
+                      textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                      textAlign: 'center',
+                      mb: 0.5,
+                    }}
+                  >
+                    {tab.label}
+                  </Typography>
+                  <Typography
+                    variant="caption"
+                    sx={{
+                      color: 'rgba(255,255,255,0.9)',
+                      fontWeight: 600,
+                      textShadow: '0 1px 4px rgba(0,0,0,0.7)',
+                      fontSize: '0.75rem',
+                    }}
+                  >
+                    {tab.count}
+                  </Typography>
+                </Box>
+              </Box>
+            ))}
+          </Box>
           
           {/* ABILITY: Show simplicity indicator for navigation */}
           <Typography
@@ -353,7 +718,7 @@ export default function Gallery() {
               alignItems: 'center',
               justifyContent: 'center',
               gap: 0.5,
-              mb: 2,
+              mb: 4,
             }}
           >
             <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
@@ -363,122 +728,569 @@ export default function Gallery() {
 
       <TabPanel value={value} index={0}>
         <Grid container spacing={3}>
-          {photoPlaceholders.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6, md: 4 }} key={item}>
-              <Card
+          <Grid size={{ xs: 12, lg: 9 }}>
+            {/* Dynamic Mosaic Grid - Masonry Style */}
+            <ImageList
+              variant="masonry"
+              cols={3}
+              gap={16}
+              sx={{
+                mb: 0,
+                columnCount: {
+                  xs: '1 !important',
+                  sm: '2 !important',
+                  md: '3 !important',
+                },
+                '& .MuiImageListItem-root': {
+                  breakInside: 'avoid',
+                  pageBreakInside: 'avoid',
+                },
+              }}
+            >
+              {currentAlbums.map((album, index) => (
+                <ImageListItem
+                  key={album.id}
+                  sx={{
+                    mb: 2,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '24px',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                      '& .album-overlay': {
+                        opacity: 1,
+                      },
+                      '& .album-photo': {
+                        transform: 'scale(1.1)',
+                      },
+                    },
+                  }}
+                >
+                  <Card
+                    sx={{
+                      height: index % 3 === 0 ? 320 : index % 3 === 1 ? 280 : 360,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: '24px',
+                      border: '2px solid',
+                      borderColor: album.type === 'video' ? '#ED2939' : 'transparent',
+                    }}
+                  >
+                    <Box
+                      className="album-photo"
+                      component="img"
+                      src={album.photo}
+                      alt={album.title}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s ease',
+                      }}
+                    />
+                    {/* Gradient Overlay */}
+                    <Box
+                      className="album-overlay"
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                        opacity: 0,
+                        transition: 'opacity 0.4s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        p: 3,
+                        zIndex: 2,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: 'white',
+                          fontWeight: 800,
+                          mb: 2,
+                          textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {album.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          <ImageIcon sx={{ fontSize: 18, color: 'white' }} />
+                          <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                            {album.photosCount} photos
+                          </Typography>
+                        </Box>
+                        {album.videosCount > 0 && (
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <MovieIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                              {album.videosCount} videos
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        startIcon={<VisibilityIcon />}
+                        sx={{
+                          backgroundColor: '#002395',
+                          color: 'white',
+                          fontWeight: 700,
+                          borderRadius: '12px',
+                          py: 1,
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#001a6b',
+                            transform: 'translateX(4px)',
+                          },
+                        }}
+                      >
+                        View Album
+                      </Button>
+                    </Box>
+                    {/* Video Play Icon Overlay */}
+                    {album.type === 'video' && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          zIndex: 1,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(237, 41, 57, 0.9)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                            animation: 'pulse 2s infinite',
+                            '@keyframes pulse': {
+                              '0%, 100%': {
+                                transform: 'translate(-50%, -50%) scale(1)',
+                                boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                              },
+                              '50%': {
+                                transform: 'translate(-50%, -50%) scale(1.1)',
+                                boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
+                              },
+                            },
+                          }}
+                        >
+                          <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
+                        </Box>
+                      </Box>
+                    )}
+                  </Card>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+
+          {/* Featured Album - Side Highlight */}
+          <Grid size={{ xs: 12, lg: 3 }}>
+            <Card
+              sx={{
+                position: 'sticky',
+                top: 100,
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '3px solid #ED2939',
+                boxShadow: '0 12px 40px rgba(237, 41, 57, 0.3)',
+                background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.05) 0%, rgba(0, 35, 149, 0.05) 100%)',
+              }}
+            >
+              <Box
                 sx={{
-                  borderTop: '4px solid',
-                  borderTopColor: index % 3 === 0 ? 'primary.main' : index % 3 === 1 ? 'error.main' : 'success.main',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                    boxShadow: index % 3 === 0
-                      ? '0 12px 30px rgba(0, 35, 149, 0.2)'
-                      : index % 3 === 1
-                      ? '0 12px 30px rgba(237, 41, 57, 0.2)'
-                      : '0 12px 30px rgba(76, 175, 80, 0.2)',
-                  },
+                  position: 'relative',
+                  height: 250,
+                  overflow: 'hidden',
                 }}
               >
                 <Box
+                  component="img"
+                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  alt="Highlight of the Month"
                   sx={{
-                    aspectRatio: '16/9',
-                    background: index % 3 === 0
-                      ? 'linear-gradient(135deg, rgba(0, 35, 149, 0.2), rgba(0, 35, 149, 0.1))'
-                      : index % 3 === 1
-                      ? 'linear-gradient(135deg, rgba(237, 41, 57, 0.2), rgba(237, 41, 57, 0.1))'
-                      : 'linear-gradient(135deg, rgba(76, 175, 80, 0.2), rgba(76, 175, 80, 0.1))',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  }}
+                />
+                <Chip
+                  label="NEW"
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '0.85rem',
+                    zIndex: 2,
+                    animation: 'glow 2s infinite',
+                    '@keyframes glow': {
+                      '0%, 100%': {
+                        boxShadow: '0 0 8px rgba(237, 41, 57, 0.5)',
+                      },
+                      '50%': {
+                        boxShadow: '0 0 16px rgba(237, 41, 57, 0.8)',
+                      },
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 3,
+                    zIndex: 2,
                   }}
                 >
-                  <PhotoLibraryIcon
-                    sx={{
-                      fontSize: 60,
-                      color: index % 3 === 0 ? 'primary.main' : index % 3 === 1 ? 'error.main' : 'success.main',
-                      opacity: 0.5,
-                    }}
-                  />
-                </Box>
-                <CardContent sx={{ p: 2 }}>
-                  <Typography variant="body2" color="text.secondary" sx={{ fontWeight: 500, textAlign: 'center' }}>
-                    Project Photo {item}
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'white', mb: 1, textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                    Highlight of the Month
                   </Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', mb: 2, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                    Latest Erasmus+ Workshop
+                  </Typography>
+                </Box>
+              </Box>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="body2" sx={{ color: '#666', mb: 2, lineHeight: 1.6 }}>
+                  Discover our most recent event captured in stunning detail. This album features the best moments from our latest workshop.
+                </Typography>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  startIcon={<VisibilityIcon />}
+                  sx={{
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    py: 1.5,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 16px rgba(237, 41, 57, 0.5)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: '#c91e2d',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(237, 41, 57, 0.7)',
+                    },
+                  }}
+                >
+                  View Album
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
       </TabPanel>
 
       <TabPanel value={value} index={1}>
         <Grid container spacing={3}>
-          {videoPlaceholders.map((item, index) => (
-            <Grid size={{ xs: 12, sm: 6 }} key={item}>
-              <Card
+          <Grid size={{ xs: 12, lg: 9 }}>
+            {/* Dynamic Mosaic Grid - Masonry Style for Videos */}
+            <ImageList
+              variant="masonry"
+              cols={3}
+              gap={16}
+              sx={{
+                mb: 0,
+                columnCount: {
+                  xs: '1 !important',
+                  sm: '2 !important',
+                  md: '3 !important',
+                },
+                '& .MuiImageListItem-root': {
+                  breakInside: 'avoid',
+                  pageBreakInside: 'avoid',
+                },
+              }}
+            >
+              {currentAlbums.map((album, index) => (
+                <ImageListItem
+                  key={album.id}
+                  sx={{
+                    mb: 2,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '24px',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                      '& .album-overlay': {
+                        opacity: 1,
+                      },
+                      '& .album-photo': {
+                        transform: 'scale(1.1)',
+                      },
+                    },
+                  }}
+                >
+                  <Card
+                    sx={{
+                      height: index % 3 === 0 ? 320 : index % 3 === 1 ? 280 : 360,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: '24px',
+                      border: '3px solid #ED2939',
+                    }}
+                  >
+                    <Box
+                      className="album-photo"
+                      component="img"
+                      src={album.photo}
+                      alt={album.title}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s ease',
+                      }}
+                    />
+                    <Box
+                      className="album-overlay"
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                        opacity: 0,
+                        transition: 'opacity 0.4s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        p: 3,
+                        zIndex: 2,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: 'white',
+                          fontWeight: 800,
+                          mb: 2,
+                          textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {album.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          <ImageIcon sx={{ fontSize: 18, color: 'white' }} />
+                          <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                            {album.photosCount} photos
+                          </Typography>
+                        </Box>
+                        {album.videosCount > 0 && (
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <MovieIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                              {album.videosCount} videos
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        startIcon={<PlayArrowIcon />}
+                        sx={{
+                          backgroundColor: '#ED2939',
+                          color: 'white',
+                          fontWeight: 700,
+                          borderRadius: '12px',
+                          py: 1,
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#c91e2d',
+                            transform: 'translateX(4px)',
+                          },
+                        }}
+                      >
+                        Watch Video
+                      </Button>
+                    </Box>
+                    {/* Video Play Icon Overlay - Always Visible */}
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        top: '50%',
+                        left: '50%',
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 1,
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          width: 80,
+                          height: 80,
+                          borderRadius: '50%',
+                          backgroundColor: 'rgba(237, 41, 57, 0.9)',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                          animation: 'pulse 2s infinite',
+                          '@keyframes pulse': {
+                            '0%, 100%': {
+                              transform: 'translate(-50%, -50%) scale(1)',
+                              boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                            },
+                            '50%': {
+                              transform: 'translate(-50%, -50%) scale(1.1)',
+                              boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
+                            },
+                          },
+                        }}
+                      >
+                        <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
+                      </Box>
+                    </Box>
+                  </Card>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+
+          {/* Featured Album - Side Highlight */}
+          <Grid size={{ xs: 12, lg: 3 }}>
+            <Card
+              sx={{
+                position: 'sticky',
+                top: 100,
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '3px solid #ED2939',
+                boxShadow: '0 12px 40px rgba(237, 41, 57, 0.3)',
+                background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.05) 0%, rgba(0, 35, 149, 0.05) 100%)',
+              }}
+            >
+              <Box
                 sx={{
-                  borderTop: '4px solid',
-                  borderTopColor: index % 2 === 0 ? 'error.main' : 'primary.main',
-                  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-                  '&:hover': {
-                    transform: 'translateY(-6px)',
-                    boxShadow: index % 2 === 0
-                      ? '0 12px 30px rgba(237, 41, 57, 0.2)'
-                      : '0 12px 30px rgba(0, 35, 149, 0.2)',
-                  },
+                  position: 'relative',
+                  height: 250,
+                  overflow: 'hidden',
                 }}
               >
                 <Box
+                  component="img"
+                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  alt="Highlight of the Month"
                   sx={{
-                    aspectRatio: '16/9',
-                    background: index % 2 === 0
-                      ? 'linear-gradient(135deg, rgba(237, 41, 57, 0.2), rgba(237, 41, 57, 0.1))'
-                      : 'linear-gradient(135deg, rgba(0, 35, 149, 0.2), rgba(0, 35, 149, 0.1))',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    position: 'relative',
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  }}
+                />
+                <Chip
+                  label="NEW"
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '0.85rem',
+                    zIndex: 2,
+                    animation: 'glow 2s infinite',
+                    '@keyframes glow': {
+                      '0%, 100%': {
+                        boxShadow: '0 0 8px rgba(237, 41, 57, 0.5)',
+                      },
+                      '50%': {
+                        boxShadow: '0 0 16px rgba(237, 41, 57, 0.8)',
+                      },
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 3,
+                    zIndex: 2,
                   }}
                 >
-                  <PlayCircleOutlineIcon
-                    sx={{
-                      fontSize: 80,
-                      color: index % 2 === 0 ? 'error.main' : 'primary.main',
-                      opacity: 0.7,
-                    }}
-                  />
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'white', mb: 1, textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                    Highlight of the Month
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', mb: 2, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                    Latest Event Video
+                  </Typography>
                 </Box>
-                <CardContent sx={{ p: 3 }}>
-                  <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                    Project Video {item}
-                  </Typography>
-                  <Typography variant="body2" color="text.secondary" paragraph sx={{ mb: 2 }}>
-                    Watch our project videos documenting our work and impact.
-                  </Typography>
-                  {/* PROMPT: Video-specific CTA */}
-                  <Button
-                    variant="outlined"
-                    color={index % 2 === 0 ? 'error' : 'primary'}
-                    startIcon={<YouTubeIcon />}
-                    href="https://www.youtube.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    fullWidth
-                    sx={{
-                      borderWidth: 2,
-                      fontWeight: 600,
-                      '&:hover': {
-                        borderWidth: 2,
-                      },
-                    }}
-                  >
-                    Watch on YouTube
-                  </Button>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
+              </Box>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="body2" sx={{ color: '#666', mb: 2, lineHeight: 1.6 }}>
+                  Watch our most recent event video. This collection features the best moments from our latest conference.
+                </Typography>
+                <Button
+                  variant="contained"
+                  fullWidth
+                  startIcon={<PlayArrowIcon />}
+                  sx={{
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    py: 1.5,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 16px rgba(237, 41, 57, 0.5)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: '#c91e2d',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(237, 41, 57, 0.7)',
+                    },
+                  }}
+                >
+                  Watch Video
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
         </Grid>
         {/* PROMPT: YouTube channel CTA */}
         <Box sx={{ mt: 6, textAlign: 'center' }}>
@@ -547,270 +1359,952 @@ export default function Gallery() {
       </TabPanel>
 
       <TabPanel value={value} index={2}>
-        <Card
-          sx={{
-            borderLeft: '4px solid',
-            borderLeftColor: 'success.main',
-            transition: 'transform 0.3s ease',
-            '&:hover': {
-              transform: 'translateY(-4px)',
-              boxShadow: '0 8px 25px rgba(76, 175, 80, 0.15)',
-            },
-          }}
-        >
-          <CardContent sx={{ p: 4 }}>
-            <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, gap: 2 }}>
+        <Grid container spacing={3}>
+          <Grid size={{ xs: 12, lg: 9 }}>
+            {/* Dynamic Mosaic Grid - Masonry Style for Education */}
+            <ImageList
+              variant="masonry"
+              cols={3}
+              gap={16}
+              sx={{
+                mb: 0,
+                columnCount: {
+                  xs: '1 !important',
+                  sm: '2 !important',
+                  md: '3 !important',
+                },
+                '& .MuiImageListItem-root': {
+                  breakInside: 'avoid',
+                  pageBreakInside: 'avoid',
+                },
+              }}
+            >
+              {currentAlbums.map((album, index) => (
+                <ImageListItem
+                  key={album.id}
+                  sx={{
+                    mb: 2,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '24px',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                      '& .album-overlay': {
+                        opacity: 1,
+                      },
+                      '& .album-photo': {
+                        transform: 'scale(1.1)',
+                      },
+                    },
+                  }}
+                >
+                  <Card
+                    sx={{
+                      height: index % 3 === 0 ? 320 : index % 3 === 1 ? 280 : 360,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: '24px',
+                      border: '2px solid',
+                      borderColor: album.type === 'video' ? '#ED2939' : 'transparent',
+                    }}
+                  >
+                    <Box
+                      className="album-photo"
+                      component="img"
+                      src={album.photo}
+                      alt={album.title}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s ease',
+                      }}
+                    />
+                    <Box
+                      className="album-overlay"
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                        opacity: 0,
+                        transition: 'opacity 0.4s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        p: 3,
+                        zIndex: 2,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: 'white',
+                          fontWeight: 800,
+                          mb: 2,
+                          textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {album.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          <ImageIcon sx={{ fontSize: 18, color: 'white' }} />
+                          <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                            {album.photosCount} photos
+                          </Typography>
+                        </Box>
+                        {album.videosCount > 0 && (
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <MovieIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                              {album.videosCount} videos
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        startIcon={<VisibilityIcon />}
+                        sx={{
+                          backgroundColor: '#002395',
+                          color: 'white',
+                          fontWeight: 700,
+                          borderRadius: '12px',
+                          py: 1,
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#001a6b',
+                            transform: 'translateX(4px)',
+                          },
+                        }}
+                      >
+                        View Album
+                      </Button>
+                    </Box>
+                    {album.type === 'video' && (
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: '50%',
+                          left: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          zIndex: 1,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: 80,
+                            height: 80,
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(237, 41, 57, 0.9)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                            animation: 'pulse 2s infinite',
+                            '@keyframes pulse': {
+                              '0%, 100%': {
+                                transform: 'translate(-50%, -50%) scale(1)',
+                                boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
+                              },
+                              '50%': {
+                                transform: 'translate(-50%, -50%) scale(1.1)',
+                                boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
+                              },
+                            },
+                          }}
+                        >
+                          <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
+                        </Box>
+                      </Box>
+                    )}
+                  </Card>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+
+          {/* Featured Album - Side Highlight */}
+          <Grid size={{ xs: 12, lg: 3 }}>
+            <Card
+              sx={{
+                position: 'sticky',
+                top: 100,
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '3px solid #002395',
+                boxShadow: '0 12px 40px rgba(0, 35, 149, 0.3)',
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
+              }}
+            >
               <Box
                 sx={{
-                  width: 64,
-                  height: 64,
-                  borderRadius: '12px',
-                  backgroundColor: 'rgba(76, 175, 80, 0.1)',
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  color: 'success.main',
+                  position: 'relative',
+                  height: 250,
+                  overflow: 'hidden',
                 }}
               >
-                <MuseumIcon sx={{ fontSize: 40 }} />
+                <Box
+                  component="img"
+                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  alt="Highlight of the Month"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  }}
+                />
+                <Chip
+                  label="NEW"
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    backgroundColor: '#002395',
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '0.85rem',
+                    zIndex: 2,
+                    animation: 'glow 2s infinite',
+                    '@keyframes glow': {
+                      '0%, 100%': {
+                        boxShadow: '0 0 8px rgba(0, 35, 149, 0.5)',
+                      },
+                      '50%': {
+                        boxShadow: '0 0 16px rgba(0, 35, 149, 0.8)',
+                      },
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 3,
+                    zIndex: 2,
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'white', mb: 1, textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                    Highlight of the Month
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', mb: 2, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                    Latest Education Workshop
+                  </Typography>
+                </Box>
               </Box>
-              <Box>
-                <Typography variant="h4" gutterBottom sx={{ fontWeight: 600 }}>
-                  Exhibitions
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="body2" sx={{ color: '#666', mb: 2, lineHeight: 1.6 }}>
+                  Discover our most recent educational workshop. This album features the best moments from our latest training session.
                 </Typography>
-                <Typography variant="body2" color="text.secondary">
-                  Showcasing our work and impact
-                </Typography>
-              </Box>
-            </Box>
-            <Typography variant="body1" paragraph sx={{ fontSize: '1.1rem', lineHeight: 1.8, mb: 3 }}>
-              We regularly organize and participate in exhibitions showcasing:
-            </Typography>
-            <Grid container spacing={3} sx={{ mb: 3 }}>
-              {[
-                {
-                  title: 'Cultural Heritage Exhibitions',
-                  description: 'Showcasing cultural heritage from our European projects',
-                  color: 'primary.main',
+                <Button
+                  variant="contained"
+                  fullWidth
+                  startIcon={<VisibilityIcon />}
+                  sx={{
+                    backgroundColor: '#002395',
+                    color: 'white',
+                    fontWeight: 800,
+                    py: 1.5,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 16px rgba(0, 35, 149, 0.5)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: '#001a6b',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(0, 35, 149, 0.7)',
+                    },
+                  }}
+                >
+                  View Album
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </TabPanel>
+
+      <TabPanel value={value} index={3}>
+        <Grid container spacing={3}>
+          <Grid size={{ xs: 12, lg: 9 }}>
+            {/* Dynamic Mosaic Grid - Masonry Style for Culture */}
+            <ImageList
+              variant="masonry"
+              cols={3}
+              gap={16}
+              sx={{
+                mb: 0,
+                columnCount: {
+                  xs: '1 !important',
+                  sm: '2 !important',
+                  md: '3 !important',
                 },
-                {
-                  title: 'Media Literacy Art',
-                  description: 'Creative works exploring media and information literacy themes',
-                  color: 'error.main',
+                '& .MuiImageListItem-root': {
+                  breakInside: 'avoid',
+                  pageBreakInside: 'avoid',
                 },
-                {
-                  title: 'Community Art Projects',
-                  description: 'Artworks created through our community engagement programs',
-                  color: 'success.main',
-                },
-                {
-                  title: 'Digital Media Showcases',
-                  description: 'Digital art and multimedia projects from our workshops',
-                  color: 'info.main',
-                },
-              ].map((exhibition, index) => (
-                <Grid size={{ xs: 12, sm: 6 }} key={exhibition.title}>
+              }}
+            >
+              {currentAlbums.map((album, index) => (
+                <ImageListItem
+                  key={album.id}
+                  sx={{
+                    mb: 2,
+                    position: 'relative',
+                    overflow: 'hidden',
+                    borderRadius: '24px',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      transform: 'translateY(-8px)',
+                      boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                      '& .album-overlay': {
+                        opacity: 1,
+                      },
+                      '& .album-photo': {
+                        transform: 'scale(1.1)',
+                      },
+                    },
+                  }}
+                >
                   <Card
-                    variant="outlined"
                     sx={{
-                      height: '100%',
-                      borderTop: `4px solid ${exhibition.color}`,
-                      transition: 'transform 0.3s ease',
+                      height: index % 3 === 0 ? 320 : index % 3 === 1 ? 280 : 360,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: '24px',
+                      border: '2px solid',
+                      borderColor: 'transparent',
+                    }}
+                  >
+                    <Box
+                      className="album-photo"
+                      component="img"
+                      src={album.photo}
+                      alt={album.title}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        transition: 'transform 0.6s ease',
+                      }}
+                    />
+                    <Box
+                      className="album-overlay"
+                      sx={{
+                        position: 'absolute',
+                        top: 0,
+                        left: 0,
+                        right: 0,
+                        bottom: 0,
+                        background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.85) 100%)',
+                        opacity: 0,
+                        transition: 'opacity 0.4s ease',
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'flex-end',
+                        p: 3,
+                        zIndex: 2,
+                      }}
+                    >
+                      <Typography
+                        variant="h6"
+                        sx={{
+                          color: 'white',
+                          fontWeight: 800,
+                          mb: 2,
+                          textShadow: '0 2px 8px rgba(0,0,0,0.7)',
+                        }}
+                      >
+                        {album.title}
+                      </Typography>
+                      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                          <ImageIcon sx={{ fontSize: 18, color: 'white' }} />
+                          <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                            {album.photosCount} photos
+                          </Typography>
+                        </Box>
+                        {album.videosCount > 0 && (
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <MovieIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 600 }}>
+                              {album.videosCount} videos
+                            </Typography>
+                          </Box>
+                        )}
+                      </Box>
+                      <Button
+                        variant="contained"
+                        size="small"
+                        startIcon={<VisibilityIcon />}
+                        sx={{
+                          backgroundColor: '#ED2939',
+                          color: 'white',
+                          fontWeight: 700,
+                          borderRadius: '12px',
+                          py: 1,
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            backgroundColor: '#c91e2d',
+                            transform: 'translateX(4px)',
+                          },
+                        }}
+                      >
+                        View Album
+                      </Button>
+                    </Box>
+                  </Card>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Grid>
+
+          {/* Featured Album - Side Highlight */}
+          <Grid size={{ xs: 12, lg: 3 }}>
+            <Card
+              sx={{
+                position: 'sticky',
+                top: 100,
+                borderRadius: '24px',
+                overflow: 'hidden',
+                border: '3px solid #ED2939',
+                boxShadow: '0 12px 40px rgba(237, 41, 57, 0.3)',
+                background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.05) 0%, rgba(0, 35, 149, 0.05) 100%)',
+              }}
+            >
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: 250,
+                  overflow: 'hidden',
+                }}
+              >
+                <Box
+                  component="img"
+                  src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                  alt="Highlight of the Month"
+                  sx={{
+                    width: '100%',
+                    height: '100%',
+                    objectFit: 'cover',
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.7) 100%)',
+                  }}
+                />
+                <Chip
+                  label="NEW"
+                  sx={{
+                    position: 'absolute',
+                    top: 16,
+                    right: 16,
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    fontSize: '0.85rem',
+                    zIndex: 2,
+                    animation: 'glow 2s infinite',
+                    '@keyframes glow': {
+                      '0%, 100%': {
+                        boxShadow: '0 0 8px rgba(237, 41, 57, 0.5)',
+                      },
+                      '50%': {
+                        boxShadow: '0 0 16px rgba(237, 41, 57, 0.8)',
+                      },
+                    },
+                  }}
+                />
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    p: 3,
+                    zIndex: 2,
+                  }}
+                >
+                  <Typography variant="h6" sx={{ fontWeight: 800, color: 'white', mb: 1, textShadow: '0 2px 8px rgba(0,0,0,0.5)' }}>
+                    Highlight of the Month
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'rgba(255,255,255,0.9)', mb: 2, textShadow: '0 1px 4px rgba(0,0,0,0.5)' }}>
+                    Latest Cultural Exhibition
+                  </Typography>
+                </Box>
+              </Box>
+              <CardContent sx={{ p: 3 }}>
+                <Typography variant="body2" sx={{ color: '#666', mb: 2, lineHeight: 1.6 }}>
+                  Explore our most recent cultural exhibition. This showcase features the best works from our community engagement programs.
+                </Typography>
+                <Button
+                  component={RouterLink}
+                  to="/events"
+                  variant="contained"
+                  fullWidth
+                  startIcon={<VisibilityIcon />}
+                  sx={{
+                    backgroundColor: '#ED2939',
+                    color: 'white',
+                    fontWeight: 800,
+                    py: 1.5,
+                    borderRadius: '12px',
+                    boxShadow: '0 4px 16px rgba(237, 41, 57, 0.5)',
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      backgroundColor: '#c91e2d',
+                      transform: 'translateY(-2px)',
+                      boxShadow: '0 6px 20px rgba(237, 41, 57, 0.7)',
+                    },
+                  }}
+                >
+                  View Events Calendar
+                </Button>
+              </CardContent>
+            </Card>
+          </Grid>
+        </Grid>
+      </TabPanel>
+
+      {/* BJ FOGG MODEL: PROMPT - Social Media & Community Pulse */}
+      <Box sx={{ mt: 8, mb: 4 }}>
+        <Container>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Chip
+              icon={<ShareIcon />}
+              label="Community Social Feed"
+              sx={{
+                mb: 3,
+                fontWeight: 800,
+                fontSize: '1rem',
+                py: 2,
+                px: 1,
+                backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                color: '#002395',
+                border: '2px solid #002395',
+              }}
+            />
+            <Typography
+              variant="h3"
+              sx={{
+                mb: 2,
+                fontWeight: 900,
+                fontSize: { xs: '2rem', md: '3rem' },
+                background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
+                backgroundClip: 'text',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+              }}
+            >
+              Live Community Pulse
+            </Typography>
+            <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: '700px', mx: 'auto' }}>
+              See what's happening right now in our community. Real moments, real people, real impact.
+            </Typography>
+          </Box>
+
+          {/* Tabs: Faces, Places, Behind the Scenes */}
+          <Box sx={{ mb: 4 }}>
+            <Tabs
+              value={socialTab}
+              onChange={handleSocialTabChange}
+              variant="scrollable"
+              scrollButtons="auto"
+              sx={{
+                borderBottom: 2,
+                borderColor: 'divider',
+                mb: 4,
+                '& .MuiTab-root': {
+                  textTransform: 'none',
+                  fontWeight: 700,
+                  fontSize: '1rem',
+                  minHeight: 64,
+                  transition: 'all 0.3s ease',
+                  '&:hover': {
+                    backgroundColor: 'rgba(0, 35, 149, 0.05)',
+                  },
+                },
+                '& .Mui-selected': {
+                  color: '#ED2939',
+                  fontWeight: 800,
+                },
+                '& .MuiTabs-indicator': {
+                  height: 3,
+                  backgroundColor: '#ED2939',
+                  borderRadius: '3px 3px 0 0',
+                },
+              }}
+            >
+              <Tab label="Faces" icon={<PersonIcon />} iconPosition="start" />
+              <Tab label="Places" icon={<PlaceIcon />} iconPosition="start" />
+              <Tab label="Behind the Scenes" icon={<CameraAltOutlinedIcon />} iconPosition="start" />
+            </Tabs>
+          </Box>
+
+          <Grid container spacing={3}>
+            {/* Instagram-Style Feed Grid */}
+            <Grid size={{ xs: 12, lg: 9 }}>
+              <ImageList
+                variant="masonry"
+                cols={3}
+                gap={12}
+                sx={{
+                  mb: 0,
+                  columnCount: {
+                    xs: '2 !important',
+                    sm: '3 !important',
+                    md: '3 !important',
+                  },
+                }}
+              >
+                {[
+                  // Faces Tab Content
+                  ...(socialTab === 0 ? [
+                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 127, comments: 23, isStory: false },
+                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'facebook', likes: 89, comments: 15, isStory: false },
+                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'video', social: 'instagram', likes: 203, comments: 42, isStory: true },
+                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'photo', social: 'instagram', likes: 156, comments: 28, isStory: false },
+                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'photo', social: 'facebook', likes: 94, comments: 19, isStory: false },
+                    { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'video', social: 'instagram', likes: 178, comments: 35, isStory: true },
+                    { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'instagram', likes: 145, comments: 31, isStory: false },
+                    { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 112, comments: 22, isStory: false },
+                    { id: 9, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'video', social: 'instagram', likes: 234, comments: 48, isStory: true },
+                  ] : []),
+                  // Places Tab Content
+                  ...(socialTab === 1 ? [
+                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 198, comments: 37, isStory: false },
+                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'instagram', likes: 167, comments: 29, isStory: false },
+                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 143, comments: 26, isStory: false },
+                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'video', social: 'instagram', likes: 256, comments: 51, isStory: true },
+                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'photo', social: 'instagram', likes: 189, comments: 34, isStory: false },
+                    { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'facebook', likes: 134, comments: 24, isStory: false },
+                    { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'video', social: 'instagram', likes: 221, comments: 45, isStory: true },
+                    { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'instagram', likes: 175, comments: 32, isStory: false },
+                  ] : []),
+                  // Behind the Scenes Tab Content
+                  ...(socialTab === 2 ? [
+                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 142, comments: 27, isStory: false },
+                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'video', social: 'instagram', likes: 267, comments: 54, isStory: true },
+                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 118, comments: 21, isStory: false },
+                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'photo', social: 'instagram', likes: 163, comments: 30, isStory: false },
+                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'video', social: 'instagram', likes: 289, comments: 58, isStory: true },
+                    { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 151, comments: 28, isStory: false },
+                    { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'facebook', likes: 129, comments: 23, isStory: false },
+                    { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'video', social: 'instagram', likes: 245, comments: 49, isStory: true },
+                  ] : []),
+                ].map((post, index) => (
+                  <ImageListItem
+                    key={post.id}
+                    sx={{
+                      mb: 2,
+                      position: 'relative',
+                      overflow: 'hidden',
+                      borderRadius: post.isStory ? '20px' : '12px',
+                      cursor: 'pointer',
+                      transition: 'all 0.4s ease',
+                      height: post.isStory ? 400 : index % 3 === 0 ? 280 : index % 3 === 1 ? 320 : 300,
+                      border: post.isStory ? '3px solid' : 'none',
+                      borderColor: post.isStory ? 'transparent' : 'transparent',
+                      background: post.isStory
+                        ? 'linear-gradient(135deg, #ED2939 0%, #002395 100%)'
+                        : 'transparent',
+                      padding: post.isStory ? '3px' : 0,
                       '&:hover': {
-                        transform: 'translateY(-4px)',
-                        boxShadow: `0 6px 20px ${exhibition.color}25`,
+                        transform: 'translateY(-8px)',
+                        boxShadow: '0 16px 48px rgba(0,0,0,0.3)',
+                        '& .post-overlay': {
+                          opacity: 1,
+                        },
+                        '& .post-photo': {
+                          transform: 'scale(1.1)',
+                        },
+                        borderColor: post.isStory ? '#ED2939' : 'transparent',
                       },
                     }}
                   >
-                    <CardContent sx={{ p: 3 }}>
-                      <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
-                        {exhibition.title}
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary">
-                        {exhibition.description}
-                      </Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
+                    <Card
+                      sx={{
+                        height: '100%',
+                        position: 'relative',
+                        overflow: 'hidden',
+                        borderRadius: post.isStory ? '17px' : '12px',
+                        backgroundColor: post.isStory ? 'white' : 'transparent',
+                      }}
+                    >
+                      <Box
+                        className="post-photo"
+                        component="img"
+                        src={post.photo}
+                        alt={`Community post ${post.id}`}
+                        sx={{
+                          width: '100%',
+                          height: '100%',
+                          objectFit: 'cover',
+                          transition: 'transform 0.6s ease',
+                        }}
+                      />
+                      {/* Social Media Icon */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          top: 12,
+                          right: 12,
+                          zIndex: 3,
+                        }}
+                      >
+                        <Box
+                          sx={{
+                            width: 36,
+                            height: 36,
+                            borderRadius: '50%',
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'center',
+                            boxShadow: '0 2px 8px rgba(0,0,0,0.2)',
+                          }}
+                        >
+                          {post.social === 'instagram' ? (
+                            <InstagramIcon sx={{ fontSize: 20, color: '#E4405F' }} />
+                          ) : (
+                            <FacebookIcon sx={{ fontSize: 20, color: '#1877F2' }} />
+                          )}
+                        </Box>
+                      </Box>
+                      {/* Story Border Animation */}
+                      {post.isStory && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: -3,
+                            left: -3,
+                            right: -3,
+                            bottom: -3,
+                            borderRadius: '20px',
+                            background: 'linear-gradient(135deg, #ED2939, #002395, #ED2939)',
+                            backgroundSize: '200% 200%',
+                            zIndex: -1,
+                            animation: 'gradientShift 3s ease infinite',
+                            '@keyframes gradientShift': {
+                              '0%, 100%': {
+                                backgroundPosition: '0% 50%',
+                              },
+                              '50%': {
+                                backgroundPosition: '100% 50%',
+                              },
+                            },
+                          }}
+                        />
+                      )}
+                      {/* Video Play Icon for Stories */}
+                      {post.isStory && post.type === 'video' && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '50%',
+                            left: '50%',
+                            transform: 'translate(-50%, -50%)',
+                            zIndex: 2,
+                          }}
+                        >
+                          <Box
+                            sx={{
+                              width: 60,
+                              height: 60,
+                              borderRadius: '50%',
+                              backgroundColor: 'rgba(237, 41, 57, 0.9)',
+                              display: 'flex',
+                              alignItems: 'center',
+                              justifyContent: 'center',
+                              boxShadow: '0 4px 16px rgba(237, 41, 57, 0.6)',
+                            }}
+                          >
+                            <PlayArrowIcon sx={{ fontSize: 30, color: 'white', ml: 0.5 }} />
+                          </Box>
+                        </Box>
+                      )}
+                      {/* Hover Overlay with Likes/Comments */}
+                      <Box
+                        className="post-overlay"
+                        sx={{
+                          position: 'absolute',
+                          top: 0,
+                          left: 0,
+                          right: 0,
+                          bottom: 0,
+                          background: 'linear-gradient(180deg, transparent 0%, rgba(0,0,0,0.8) 100%)',
+                          opacity: 0,
+                          transition: 'opacity 0.4s ease',
+                          display: 'flex',
+                          flexDirection: 'column',
+                          justifyContent: 'flex-end',
+                          p: 2,
+                          zIndex: 2,
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <FavoriteIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 700 }}>
+                              {post.likes}
+                            </Typography>
+                          </Box>
+                          <Box sx={{ display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <ChatBubbleOutlineIcon sx={{ fontSize: 18, color: 'white' }} />
+                            <Typography variant="caption" sx={{ color: 'white', fontWeight: 700 }}>
+                              {post.comments}
+                            </Typography>
+                          </Box>
+                        </Box>
+                      </Box>
+                    </Card>
+                  </ImageListItem>
+                ))}
+              </ImageList>
             </Grid>
-            <Typography variant="body1" sx={{ fontSize: '1.1rem', lineHeight: 1.8, fontWeight: 500, mb: 3 }}>
-              Our exhibitions are held at various locations in Nice and partner venues. Check
-              our events calendar for upcoming exhibitions.
-            </Typography>
-            {/* PROMPT: Exhibitions CTA */}
-            <Button
-              component={RouterLink}
-              to="/events"
-              variant="contained"
-              color="success"
-              size="large"
-              endIcon={<ArrowForwardIcon />}
-              sx={{
-                px: 4,
-                py: 1.5,
-                fontWeight: 600,
-                borderRadius: '25px',
-                boxShadow: '0 4px 12px rgba(76, 175, 80, 0.3)',
-              }}
-            >
-              View Events Calendar
-            </Button>
-          </CardContent>
-        </Card>
-      </TabPanel>
 
-      {/* BJ FOGG MODEL: PROMPT - Strong call-to-action with enhanced motivation */}
-      <Box
-        sx={{
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 100%)',
-          borderRadius: '16px',
-          p: 6,
-          textAlign: 'center',
-          mt: 8,
-          mb: 4,
-          border: '2px solid',
-          borderColor: 'primary.main',
-          position: 'relative',
-          overflow: 'hidden',
-          '&::before': {
-            content: '""',
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            right: 0,
-            height: '4px',
-            background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
-          },
-        }}
-      >
-        {/* MOTIVATION: Show value and benefits */}
-        <Chip
-          icon={<CollectionsIcon />}
-          label="Explore More"
-          color="primary"
-          sx={{ mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 }}
-        />
-        <Box
-          sx={{
-            width: 80,
-            height: 80,
-            borderRadius: '50%',
-            backgroundColor: 'rgba(0, 35, 149, 0.1)',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            mx: 'auto',
-            mb: 3,
-          }}
-        >
-          <PhotoLibraryIcon sx={{ fontSize: 40, color: 'primary.main' }} />
-        </Box>
-        <Typography variant="h3" gutterBottom sx={{ fontWeight: 700, mb: 2 }}>
-          Want to See More?
-        </Typography>
-        <Typography
-          variant="body1"
-          color="text.secondary"
-          paragraph
-          sx={{ mb: 4, maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}
-        >
-          Follow us on social media, subscribe to our newsletter, or visit our events to see
-          our work in action. Join our community and be part of the impact we create together.
-        </Typography>
-        
-        {/* MOTIVATION: Show what they'll get */}
-        <Box
-          sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            gap: 3,
-            mb: 4,
-            flexWrap: 'wrap',
-          }}
-        >
-          <Box sx={{ textAlign: 'center' }}>
-            <CheckCircleIcon sx={{ fontSize: 32, color: 'success.main', mb: 0.5 }} />
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>Latest Updates</Typography>
-          </Box>
-          <Box sx={{ textAlign: 'center' }}>
-            <PublicIcon sx={{ fontSize: 32, color: 'primary.main', mb: 0.5 }} />
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>Community Access</Typography>
-          </Box>
-          <Box sx={{ textAlign: 'center' }}>
-            <TrendingUpIcon sx={{ fontSize: 32, color: 'error.main', mb: 0.5 }} />
-            <Typography variant="body2" sx={{ fontWeight: 600 }}>Exclusive Content</Typography>
-          </Box>
-        </Box>
-
-        {/* PROMPT: Clear, prominent CTAs */}
-        <Stack
-          direction={{ xs: 'column', sm: 'row' }}
-          spacing={2}
-          sx={{ justifyContent: 'center' }}
-        >
-          <Button
-            component={RouterLink}
-            to="/events"
-            variant="contained"
-            color="primary"
-            size="large"
-            endIcon={<ArrowForwardIcon />}
-            sx={{
-              px: 5,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 700,
-              borderRadius: '25px',
-              boxShadow: '0 4px 14px rgba(0, 35, 149, 0.3)',
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                transform: 'translateY(-2px)',
-                boxShadow: '0 6px 18px rgba(0, 35, 149, 0.4)',
-              },
-            }}
-          >
-            View Events
-          </Button>
-          <Button
-            component={RouterLink}
-            to="/contact"
-            variant="outlined"
-            color="primary"
-            size="large"
-            sx={{
-              px: 5,
-              py: 1.5,
-              fontSize: '1.1rem',
-              fontWeight: 600,
-              borderRadius: '25px',
-              borderWidth: 2,
-              transition: 'all 0.3s ease',
-              '&:hover': {
-                borderWidth: 2,
-                transform: 'translateY(-2px)',
-              },
-            }}
-          >
-            Contact Us
-          </Button>
-        </Stack>
-        
-        {/* ABILITY: Show simplicity */}
-        <Typography
-          variant="caption"
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            gap: 0.5,
-            mt: 3,
-            color: 'text.secondary',
-          }}
-        >
-          <CheckCircleIcon sx={{ fontSize: 16, color: 'success.main' }} />
-          Free access • Easy to browse • High quality content
-        </Typography>
+            {/* Share Your Moment CTA Panel */}
+            <Grid size={{ xs: 12, lg: 3 }}>
+              <Card
+                sx={{
+                  position: 'sticky',
+                  top: 100,
+                  borderRadius: '24px',
+                  overflow: 'hidden',
+                  border: '3px solid #ED2939',
+                  boxShadow: '0 12px 40px rgba(237, 41, 57, 0.3)',
+                  background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.05) 0%, rgba(0, 35, 149, 0.05) 100%)',
+                }}
+              >
+                <Box
+                  sx={{
+                    position: 'relative',
+                    height: 200,
+                    overflow: 'hidden',
+                    background: 'linear-gradient(135deg, #ED2939 0%, #002395 100%)',
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    alt="Share Your Moment"
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      opacity: 0.3,
+                    }}
+                  />
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      top: 0,
+                      left: 0,
+                      right: 0,
+                      bottom: 0,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      flexDirection: 'column',
+                      zIndex: 2,
+                    }}
+                  >
+                    <TagIcon sx={{ fontSize: 48, color: 'white', mb: 2 }} />
+                    <Typography variant="h6" sx={{ color: 'white', fontWeight: 800, textAlign: 'center', px: 2 }}>
+                      #MitraFrance
+                    </Typography>
+                  </Box>
+                </Box>
+                <CardContent sx={{ p: 3 }}>
+                  <Typography variant="h6" sx={{ fontWeight: 800, mb: 2, color: '#0b1b3a' }}>
+                    Share Your Moment
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: '#666', mb: 3, lineHeight: 1.6 }}>
+                    Have photos from our events? Tag us <strong>#MitraFrance</strong> and share your experience with our community!
+                  </Typography>
+                  <Button
+                    variant="contained"
+                    fullWidth
+                    startIcon={<CloudUploadIcon />}
+                    sx={{
+                      backgroundColor: '#ED2939',
+                      color: 'white',
+                      fontWeight: 800,
+                      py: 1.5,
+                      borderRadius: '12px',
+                      boxShadow: '0 4px 16px rgba(237, 41, 57, 0.5)',
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        backgroundColor: '#c91e2d',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 6px 20px rgba(237, 41, 57, 0.7)',
+                      },
+                    }}
+                  >
+                    Upload to Community Gallery
+                  </Button>
+                  <Box sx={{ mt: 3, display: 'flex', gap: 2, justifyContent: 'center' }}>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<InstagramIcon />}
+                      sx={{
+                        borderColor: '#E4405F',
+                        color: '#E4405F',
+                        '&:hover': {
+                          borderColor: '#E4405F',
+                          backgroundColor: 'rgba(228, 64, 95, 0.1)',
+                        },
+                      }}
+                    >
+                      Follow
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      size="small"
+                      startIcon={<FacebookIcon />}
+                      sx={{
+                        borderColor: '#1877F2',
+                        color: '#1877F2',
+                        '&:hover': {
+                          borderColor: '#1877F2',
+                          backgroundColor: 'rgba(24, 119, 242, 0.1)',
+                        },
+                      }}
+                    >
+                      Follow
+                    </Button>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </Container>
       </Box>
       </Container>
     </Box>
