@@ -42,6 +42,19 @@ import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
 import TrendingUpIcon from '@mui/icons-material/TrendingUp';
 import PublicIcon from '@mui/icons-material/Public';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
+import PersonIcon from '@mui/icons-material/Person';
+import EditIcon from '@mui/icons-material/Edit';
+import BusinessIcon from '@mui/icons-material/Business';
+import HandshakeIcon from '@mui/icons-material/Handshake';
+import InstagramIcon from '@mui/icons-material/Instagram';
+import LinkedInIcon from '@mui/icons-material/LinkedIn';
+import AvatarGroup from '@mui/material/AvatarGroup';
+import Avatar from '@mui/material/Avatar';
+import InputAdornment from '@mui/material/InputAdornment';
+import ImageList from '@mui/material/ImageList';
+import ImageListItem from '@mui/material/ImageListItem';
+import TramIcon from '@mui/icons-material/Tram';
+import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import { Link as RouterLink } from 'react-router-dom';
 
 export default function Contact() {
@@ -137,10 +150,39 @@ export default function Contact() {
                       WebkitBackgroundClip: 'text',
                       WebkitTextFillColor: 'transparent',
                       fontWeight: 700,
+                      position: 'relative',
+                      '&::after': {
+                        content: '""',
+                        position: 'absolute',
+                        bottom: -8,
+                        left: { xs: '50%', md: 0 },
+                        transform: { xs: 'translateX(-50%)', md: 'none' },
+                        width: '80px',
+                        height: '3px',
+                        background: '#ED2939',
+                        borderRadius: '2px',
+                      },
                     }}
                   >
                     Contact Us
                   </Typography>
+                  
+                  {/* We Speak Your Language Block */}
+                  <Box sx={{ mb: 3, textAlign: { xs: 'center', md: 'left' } }}>
+                    <Stack direction="row" spacing={1} sx={{ mb: 1, justifyContent: { xs: 'center', md: 'flex-start' }, flexWrap: 'wrap' }}>
+                      <Typography variant="body2" sx={{ fontWeight: 600, color: 'text.secondary', mr: 1 }}>
+                        Our team can support you in 5+ languages:
+                      </Typography>
+                      <Stack direction="row" spacing={0.5} sx={{ alignItems: 'center' }}>
+                        <Chip label="🇫🇷" size="small" sx={{ fontSize: '1.2rem', height: 28 }} />
+                        <Chip label="🇬🇧" size="small" sx={{ fontSize: '1.2rem', height: 28 }} />
+                        <Chip label="🇺🇦" size="small" sx={{ fontSize: '1.2rem', height: 28 }} />
+                        <Chip label="🇪🇸" size="small" sx={{ fontSize: '1.2rem', height: 28 }} />
+                        <Chip label="🇩🇪" size="small" sx={{ fontSize: '1.2rem', height: 28 }} />
+                      </Stack>
+                    </Stack>
+                  </Box>
+                  
                   <Typography
                     variant="h5"
                     sx={{
@@ -282,7 +324,7 @@ export default function Contact() {
               </Stack>
             </Grid>
 
-            {/* Right side: Hero image */}
+            {/* Right side: Emotional Background with Team Photo */}
             <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 sx={{
@@ -292,29 +334,46 @@ export default function Contact() {
                   borderRadius: 4,
                   overflow: 'hidden',
                   boxShadow: '0 8px 32px rgba(0, 35, 149, 0.15)',
-                  '&::before': {
-                    content: '""',
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
-                    zIndex: 1,
-                    pointerEvents: 'none',
-                  },
                 }}
               >
+                {/* Background Photo - Team or Communication Process */}
                 <Box
                   component="img"
-                  src="/illustrations/contact.jpg"
-                  alt="MITRA FRANCE Contact"
+                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  alt="MITRA FRANCE Team"
                   sx={{
                     width: '100%',
                     height: '100%',
                     objectFit: 'cover',
                     objectPosition: 'center',
                     display: 'block',
+                    filter: 'brightness(0.85) saturate(1.1)',
+                  }}
+                />
+                {/* Gradient Overlay - от прозрачного к белому слева */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(90deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.7) 30%, rgba(255, 255, 255, 0.3) 60%, transparent 100%)',
+                    zIndex: 1,
+                    pointerEvents: 'none',
+                  }}
+                />
+                {/* Subtle overlay for depth */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    right: 0,
+                    bottom: 0,
+                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(237, 41, 57, 0.05) 100%)',
+                    zIndex: 0,
+                    pointerEvents: 'none',
                   }}
                 />
               </Box>
@@ -365,16 +424,47 @@ export default function Contact() {
         <Grid size={{ xs: 12, md: 8 }}>
           <Card
             sx={{
+              position: 'relative',
               borderLeft: '4px solid',
-              borderLeftColor: 'primary.main',
+              borderLeftColor: '#002395',
               transition: 'transform 0.3s ease',
+              overflow: 'hidden',
               '&:hover': {
                 transform: 'translateY(-4px)',
                 boxShadow: '0 8px 25px rgba(0, 35, 149, 0.15)',
               },
             }}
           >
-            <CardContent sx={{ p: 4 }}>
+            {/* Background Image - Office/Work Process */}
+            <Box
+              component="img"
+              src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+              alt="MITRA FRANCE Office"
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                width: '100%',
+                height: '100%',
+                objectFit: 'cover',
+                opacity: 0.15,
+                filter: 'blur(3px) brightness(0.9)',
+                zIndex: 0,
+              }}
+            />
+            {/* Overlay for readability */}
+            <Box
+              sx={{
+                position: 'absolute',
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                background: 'linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.98) 100%)',
+                zIndex: 1,
+              }}
+            />
+            <CardContent sx={{ p: 4, position: 'relative', zIndex: 2 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 3, gap: 2 }}>
                 <Box
                   sx={{
@@ -409,6 +499,24 @@ export default function Contact() {
                     value={formData.name}
                     onChange={handleChange}
                     variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <PersonIcon sx={{ color: 'text.secondary' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        paddingLeft: '14px',
+                        '& fieldset': {
+                          borderWidth: 2,
+                        },
+                      },
+                      '& .MuiInputBase-input': {
+                        padding: '16px 14px',
+                      },
+                    }}
                   />
                   <TextField
                     required
@@ -419,6 +527,24 @@ export default function Contact() {
                     value={formData.email}
                     onChange={handleChange}
                     variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <EmailIcon sx={{ color: 'text.secondary' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        paddingLeft: '14px',
+                        '& fieldset': {
+                          borderWidth: 2,
+                        },
+                      },
+                      '& .MuiInputBase-input': {
+                        padding: '16px 14px',
+                      },
+                    }}
                   />
                   <TextField
                     required
@@ -428,6 +554,24 @@ export default function Contact() {
                     value={formData.subject}
                     onChange={handleChange}
                     variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start">
+                          <EditIcon sx={{ color: 'text.secondary' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        paddingLeft: '14px',
+                        '& fieldset': {
+                          borderWidth: 2,
+                        },
+                      },
+                      '& .MuiInputBase-input': {
+                        padding: '16px 14px',
+                      },
+                    }}
                   />
                   <TextField
                     required
@@ -439,24 +583,50 @@ export default function Contact() {
                     value={formData.message}
                     onChange={handleChange}
                     variant="outlined"
+                    InputProps={{
+                      startAdornment: (
+                        <InputAdornment position="start" sx={{ alignSelf: 'flex-start', mt: 1.5 }}>
+                          <EditIcon sx={{ color: 'text.secondary' }} />
+                        </InputAdornment>
+                      ),
+                    }}
+                    sx={{
+                      '& .MuiOutlinedInput-root': {
+                        paddingLeft: '14px',
+                        '& fieldset': {
+                          borderWidth: 2,
+                        },
+                      },
+                      '& .MuiInputBase-input': {
+                        padding: '16px 14px',
+                      },
+                    }}
                   />
                   <Button
                     type="submit"
                     variant="contained"
-                    color="primary"
                     size="large"
                     endIcon={<ArrowForwardIcon />}
                     sx={{
+                      backgroundColor: '#002395',
+                      color: 'white',
                       px: 4,
-                      py: 1.5,
-                      fontWeight: 600,
+                      py: 2,
+                      fontWeight: 700,
                       borderRadius: '25px',
                       boxShadow: '0 4px 12px rgba(0, 35, 149, 0.3)',
                       fontSize: '1rem',
                       transition: 'all 0.3s ease',
                       '&:hover': {
+                        backgroundColor: '#ED2939',
                         transform: 'translateY(-2px)',
-                        boxShadow: '0 6px 16px rgba(0, 35, 149, 0.4)',
+                        boxShadow: '0 6px 16px rgba(237, 41, 57, 0.4)',
+                        '& .MuiButton-endIcon': {
+                          transform: 'translateX(4px)',
+                        },
+                      },
+                      '& .MuiButton-endIcon': {
+                        transition: 'transform 0.3s ease',
                       },
                     }}
                   >
@@ -470,40 +640,360 @@ export default function Contact() {
 
         <Grid size={{ xs: 12, md: 4 }}>
           <Stack spacing={3}>
+            {/* Visit Our Office Card */}
             <Card
               sx={{
-                borderTop: '4px solid',
-                borderTopColor: 'primary.main',
-                transition: 'transform 0.3s ease',
+                position: 'relative',
+                height: 200,
+                overflow: 'hidden',
+                borderRadius: 3,
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
                 '&:hover': {
-                  transform: 'translateY(-4px)',
-                  boxShadow: '0 6px 20px rgba(0, 35, 149, 0.15)',
+                  transform: 'translateY(-6px)',
+                  boxShadow: '0 12px 32px rgba(0, 35, 149, 0.25)',
+                  '& .office-bg': {
+                    transform: 'scale(1.1)',
+                    filter: 'brightness(0.6) blur(0px)',
+                  },
+                },
+              }}
+              onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Nice+France', '_blank')}
+            >
+              {/* Background Photo */}
+              <Box
+                className="office-bg"
+                component="img"
+                src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                alt="Nice, France"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.5) blur(2px) saturate(1.1)',
+                  transition: 'all 0.4s ease',
+                }}
+              />
+              {/* Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.8) 0%, rgba(0, 35, 149, 0.6) 100%)',
+                }}
+              />
+              {/* Content */}
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: '100%',
+                  p: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  zIndex: 2,
+                }}
+              >
+                <Box sx={{ color: 'white', mb: 2, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}>
+                  <LocationOnIcon sx={{ fontSize: 32 }} />
+                </Box>
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    Visit Our Office
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'white', textShadow: '0 1px 3px rgba(0,0,0,0.5)', mb: 1 }}>
+                    Nice, France
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.5)', fontStyle: 'italic' }}>
+                    Click to open in Google Maps
+                  </Typography>
+                </Box>
+              </Box>
+            </Card>
+
+            {/* Social Media Connect Card */}
+            <Card
+              sx={{
+                position: 'relative',
+                height: 200,
+                overflow: 'hidden',
+                borderRadius: 3,
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  transform: 'translateY(-6px)',
+                  boxShadow: '0 12px 32px rgba(237, 41, 57, 0.25)',
+                  '& .social-bg': {
+                    transform: 'scale(1.1)',
+                    filter: 'brightness(0.6) blur(0px)',
+                  },
                 },
               }}
             >
-              <CardContent sx={{ p: 3 }}>
+              {/* Background Photo - Collage of avatars */}
+              <Box
+                className="social-bg"
+                component="img"
+                src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                alt="Community"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.5) blur(2px) saturate(1.1)',
+                  transition: 'all 0.4s ease',
+                }}
+              />
+              {/* Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.8) 0%, rgba(237, 41, 57, 0.6) 100%)',
+                }}
+              />
+              {/* Content */}
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: '100%',
+                  p: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  zIndex: 2,
+                }}
+              >
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 2, color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    Social Media Connect
+                  </Typography>
+                  <AvatarGroup max={4} sx={{ mb: 2 }}>
+                    <Avatar src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg" />
+                    <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" />
+                    <Avatar src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg" />
+                    <Avatar src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg" />
+                  </AvatarGroup>
+                </Box>
+                <Stack direction="row" spacing={1.5}>
+                  <Button
+                    component="a"
+                    href="https://www.instagram.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    sx={{
+                      backgroundColor: '#E4405F',
+                      color: 'white',
+                      minWidth: 40,
+                      '&:hover': { backgroundColor: '#C13584' },
+                    }}
+                  >
+                    <InstagramIcon />
+                  </Button>
+                  <Button
+                    component="a"
+                    href="https://www.linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    sx={{
+                      backgroundColor: '#0077B5',
+                      color: 'white',
+                      minWidth: 40,
+                      '&:hover': { backgroundColor: '#005885' },
+                    }}
+                  >
+                    <LinkedInIcon />
+                  </Button>
+                  <Button
+                    component="a"
+                    href="https://www.facebook.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    size="small"
+                    sx={{
+                      backgroundColor: '#1877F2',
+                      color: 'white',
+                      minWidth: 40,
+                      '&:hover': { backgroundColor: '#1565C0' },
+                    }}
+                  >
+                    <FacebookIcon />
+                  </Button>
+                </Stack>
+              </Box>
+            </Card>
+
+            {/* Partnership Inquiry Card */}
+            <Card
+              sx={{
+                position: 'relative',
+                height: 200,
+                overflow: 'hidden',
+                borderRadius: 3,
+                cursor: 'pointer',
+                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+                '&:hover': {
+                  transform: 'translateY(-6px)',
+                  boxShadow: '0 12px 32px rgba(0, 35, 149, 0.25)',
+                  '& .partnership-bg': {
+                    transform: 'scale(1.1)',
+                    filter: 'brightness(0.6) blur(0px)',
+                  },
+                },
+              }}
+              onClick={() => {
+                const formElement = document.getElementById('contact-form');
+                if (formElement) {
+                  formElement.scrollIntoView({ behavior: 'smooth' });
+                  setFormData((prev) => ({ ...prev, subject: 'Partnership Inquiry' }));
+                }
+              }}
+            >
+              {/* Background Photo */}
+              <Box
+                className="partnership-bg"
+                component="img"
+                src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                alt="Partnership"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.5) blur(2px) saturate(1.1)',
+                  transition: 'all 0.4s ease',
+                }}
+              />
+              {/* Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.8) 0%, rgba(0, 35, 149, 0.6) 100%)',
+                }}
+              />
+              {/* Content */}
+              <Box
+                sx={{
+                  position: 'relative',
+                  height: '100%',
+                  p: 3,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                  zIndex: 2,
+                }}
+              >
+                <Box sx={{ color: 'white', mb: 2, filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.3))' }}>
+                  <HandshakeIcon sx={{ fontSize: 32 }} />
+                </Box>
+                <Box>
+                  <Typography variant="h6" sx={{ fontWeight: 700, mb: 1, color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
+                    Partnership Inquiry
+                  </Typography>
+                  <Typography variant="body2" sx={{ color: 'white', textShadow: '0 1px 3px rgba(0,0,0,0.5)', mb: 1 }}>
+                    Interested in collaborating?
+                  </Typography>
+                  <Typography variant="caption" sx={{ color: 'white', textShadow: '0 1px 2px rgba(0,0,0,0.5)', fontStyle: 'italic' }}>
+                    Click to fill partnership form
+                  </Typography>
+                </Box>
+              </Box>
+            </Card>
+
+            <Divider />
+
+            {/* Email Card with Background */}
+            <Card
+              sx={{
+                position: 'relative',
+                overflow: 'hidden',
+                borderTop: '4px solid',
+                borderTopColor: '#002395',
+                transition: 'all 0.3s ease',
+                '&:hover': {
+                  transform: 'translateY(-4px)',
+                  boxShadow: '0 6px 20px rgba(0, 35, 149, 0.15)',
+                  '& .email-bg': {
+                    transform: 'scale(1.1)',
+                    filter: 'brightness(0.4) blur(0px)',
+                  },
+                },
+              }}
+            >
+              {/* Background Image - Team at computers */}
+              <Box
+                className="email-bg"
+                component="img"
+                src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                alt="Team working"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.5) blur(4px) saturate(1.1)',
+                  transition: 'all 0.4s ease',
+                  zIndex: 0,
+                }}
+              />
+              {/* Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.7) 0%, rgba(0, 35, 149, 0.5) 100%)',
+                  zIndex: 1,
+                }}
+              />
+              <CardContent sx={{ p: 3, position: 'relative', zIndex: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                   <Box
                     sx={{
                       width: 48,
                       height: 48,
                       borderRadius: '12px',
-                      backgroundColor: 'rgba(0, 35, 149, 0.1)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'primary.main',
+                      color: 'white',
                       mr: 2,
                     }}
                   >
                     <EmailIcon />
                   </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                       Email
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <a href="mailto:mitra.france@gmail.com" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <Typography variant="body2" sx={{ color: 'white', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                      <a href="mailto:mitra.france@gmail.com" style={{ color: 'white', textDecoration: 'none', fontWeight: 600 }}>
                         mitra.france@gmail.com
                       </a>
                     </Typography>
@@ -512,40 +1002,78 @@ export default function Contact() {
               </CardContent>
             </Card>
 
+            {/* Phone Card with Background */}
             <Card
               sx={{
+                position: 'relative',
+                overflow: 'hidden',
                 borderTop: '4px solid',
-                borderTopColor: 'error.main',
-                transition: 'transform 0.3s ease',
+                borderTopColor: '#ED2939',
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'translateY(-4px)',
                   boxShadow: '0 6px 20px rgba(237, 41, 57, 0.15)',
+                  '& .phone-bg': {
+                    transform: 'scale(1.1)',
+                    filter: 'brightness(0.4) blur(0px)',
+                  },
                 },
               }}
             >
-              <CardContent sx={{ p: 3 }}>
+              {/* Background Image - Office interior */}
+              <Box
+                className="phone-bg"
+                component="img"
+                src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                alt="Office interior"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  filter: 'brightness(0.5) blur(4px) saturate(1.1)',
+                  transition: 'all 0.4s ease',
+                  zIndex: 0,
+                }}
+              />
+              {/* Overlay */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  bottom: 0,
+                  background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.7) 0%, rgba(237, 41, 57, 0.5) 100%)',
+                  zIndex: 1,
+                }}
+              />
+              <CardContent sx={{ p: 3, position: 'relative', zIndex: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                   <Box
                     sx={{
                       width: 48,
                       height: 48,
                       borderRadius: '12px',
-                      backgroundColor: 'rgba(237, 41, 57, 0.1)',
+                      backgroundColor: 'rgba(255, 255, 255, 0.2)',
+                      backdropFilter: 'blur(10px)',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      color: 'error.main',
+                      color: 'white',
                       mr: 2,
                     }}
                   >
                     <PhoneIcon />
                   </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: 'white', textShadow: '0 2px 4px rgba(0,0,0,0.5)' }}>
                       Phone
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      <a href="tel:+33641092395" style={{ color: 'inherit', textDecoration: 'none' }}>
+                    <Typography variant="body2" sx={{ color: 'white', textShadow: '0 1px 3px rgba(0,0,0,0.5)' }}>
+                      <a href="tel:+33641092395" style={{ color: 'white', textDecoration: 'none', fontWeight: 600 }}>
                         +33 6 41 09 23 95
                       </a>
                     </Typography>
@@ -554,18 +1082,59 @@ export default function Contact() {
               </CardContent>
             </Card>
 
+            {/* Location Card with Map */}
             <Card
               sx={{
+                position: 'relative',
+                overflow: 'hidden',
                 borderTop: '4px solid',
-                borderTopColor: 'success.main',
-                transition: 'transform 0.3s ease',
+                borderTopColor: '#4CAF50',
+                transition: 'all 0.3s ease',
                 '&:hover': {
                   transform: 'translateY(-4px)',
                   boxShadow: '0 6px 20px rgba(76, 175, 80, 0.15)',
+                  '& .location-map': {
+                    opacity: 1,
+                  },
                 },
               }}
+              onClick={() => window.open('https://www.google.com/maps/search/?api=1&query=Nice+France', '_blank')}
             >
-              <CardContent sx={{ p: 3 }}>
+              {/* Static Map Placeholder */}
+              <Box
+                className="location-map"
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.1) 0%, rgba(76, 175, 80, 0.05) 100%)',
+                  backgroundImage: 'radial-gradient(circle at 50% 50%, rgba(76, 175, 80, 0.2) 2px, transparent 2px)',
+                  backgroundSize: '40px 40px',
+                  opacity: 0.5,
+                  transition: 'opacity 0.3s ease',
+                  zIndex: 0,
+                }}
+              />
+              {/* On hover - show real map preview */}
+              <Box
+                sx={{
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  width: '100%',
+                  height: '100%',
+                  backgroundImage: 'url(https://maps.googleapis.com/maps/api/staticmap?center=Nice,France&zoom=13&size=400x200&key=YOUR_API_KEY)',
+                  opacity: 0,
+                  transition: 'opacity 0.3s ease',
+                  zIndex: 1,
+                  '&:hover': {
+                    opacity: 0.3,
+                  },
+                }}
+              />
+              <CardContent sx={{ p: 3, position: 'relative', zIndex: 2 }}>
                 <Box sx={{ display: 'flex', alignItems: 'flex-start', mb: 2 }}>
                   <Box
                     sx={{
@@ -583,11 +1152,14 @@ export default function Contact() {
                     <LocationOnIcon />
                   </Box>
                   <Box>
-                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 600 }}>
+                    <Typography variant="h6" gutterBottom sx={{ fontWeight: 700, color: '#0b1b3a' }}>
                       Location
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
                       Nice, France
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary" sx={{ fontStyle: 'italic', display: 'block', mt: 0.5 }}>
+                      Click to open in Google Maps
                     </Typography>
                   </Box>
                 </Box>
@@ -610,51 +1182,704 @@ export default function Contact() {
               </CardContent>
             </Card>
 
+            {/* Follow Us Card - Modernized */}
             <Card>
               <CardContent>
-                <Typography variant="h6" gutterBottom>
+                <Typography variant="h6" gutterBottom sx={{ fontWeight: 700 }}>
                   Follow Us
                 </Typography>
-                <Stack direction="row" spacing={2} sx={{ mt: 2 }}>
+                <Stack direction="row" spacing={2} sx={{ mt: 2, mb: 3 }}>
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     startIcon={<FacebookIcon />}
                     href="https://www.facebook.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    size="small"
+                    size="medium"
+                    sx={{
+                      backgroundColor: '#1877F2',
+                      color: 'white',
+                      fontWeight: 600,
+                      '&:hover': {
+                        backgroundColor: '#1565C0',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 12px rgba(24, 119, 242, 0.4)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
                   >
                     Facebook
                   </Button>
                   <Button
-                    variant="outlined"
+                    variant="contained"
                     startIcon={<YouTubeIcon />}
                     href="https://www.youtube.com"
                     target="_blank"
                     rel="noopener noreferrer"
-                    size="small"
+                    size="medium"
+                    sx={{
+                      backgroundColor: '#FF0000',
+                      color: 'white',
+                      fontWeight: 600,
+                      '&:hover': {
+                        backgroundColor: '#CC0000',
+                        transform: 'translateY(-2px)',
+                        boxShadow: '0 4px 12px rgba(255, 0, 0, 0.4)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
                   >
                     YouTube
                   </Button>
                 </Stack>
-                <Box sx={{ mt: 2 }}>
+                <Box sx={{ mb: 3 }}>
                   <Button
                     variant="outlined"
                     startIcon={<RadioIcon />}
                     href="https://el-radio.fr"
                     target="_blank"
                     rel="noopener noreferrer"
-                    size="small"
+                    size="medium"
                     fullWidth
+                    sx={{
+                      borderColor: '#666',
+                      color: '#666',
+                      fontWeight: 600,
+                      '&:hover': {
+                        borderColor: '#333',
+                        backgroundColor: 'rgba(0, 0, 0, 0.05)',
+                        transform: 'translateY(-2px)',
+                      },
+                      transition: 'all 0.3s ease',
+                    }}
                   >
                     el-radio.fr webradio
                   </Button>
+                </Box>
+                
+                {/* Photo Strip from Instagram/Gallery */}
+                <Box>
+                  <Typography variant="caption" color="text.secondary" sx={{ mb: 1.5, display: 'block', fontWeight: 600 }}>
+                    Latest from our community
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      gap: 1.5,
+                      overflowX: 'auto',
+                      pb: 1,
+                      '&::-webkit-scrollbar': {
+                        height: 4,
+                      },
+                      '&::-webkit-scrollbar-track': {
+                        backgroundColor: 'rgba(0,0,0,0.05)',
+                        borderRadius: 2,
+                      },
+                      '&::-webkit-scrollbar-thumb': {
+                        backgroundColor: 'rgba(0, 35, 149, 0.3)',
+                        borderRadius: 2,
+                      },
+                    }}
+                  >
+                    {[
+                      '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                      '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                      '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                      '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    ].map((photo, idx) => (
+                      <Box
+                        key={idx}
+                        component="a"
+                        href="/gallery"
+                        sx={{
+                          minWidth: 80,
+                          height: 80,
+                          borderRadius: 2,
+                          overflow: 'hidden',
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            transform: 'scale(1.1)',
+                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
+                          },
+                        }}
+                      >
+                        <Box
+                          component="img"
+                          src={photo}
+                          alt={`Community photo ${idx + 1}`}
+                          sx={{
+                            width: '100%',
+                            height: '100%',
+                            objectFit: 'cover',
+                            filter: 'brightness(0.95) saturate(1.1)',
+                          }}
+                        />
+                      </Box>
+                    ))}
+                  </Box>
                 </Box>
               </CardContent>
             </Card>
           </Stack>
         </Grid>
       </Grid>
+
+      <Divider sx={{ my: 8 }} />
+
+      {/* Our Presence & Locations */}
+      <Box sx={{ mb: 8 }}>
+        <Container>
+          <Box sx={{ textAlign: 'center', mb: 6 }}>
+            <Chip
+              icon={<LocationOnIcon />}
+              label="Global Presence"
+              color="primary"
+              sx={{ mb: 2, fontWeight: 600 }}
+            />
+            <Typography 
+              variant="h2" 
+              sx={{ 
+                mb: 2, 
+                fontWeight: 800, 
+                color: '#0b1b3a',
+                position: 'relative',
+                '&::after': {
+                  content: '""',
+                  position: 'absolute',
+                  bottom: -8,
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  width: '80px',
+                  height: '3px',
+                  background: '#ED2939',
+                  borderRadius: '2px',
+                },
+              }}
+            >
+              Our Presence & Locations
+            </Typography>
+            <Typography variant="body1" color="text.secondary" sx={{ maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }}>
+              Discover our headquarters in Nice and our partner network across Europe
+            </Typography>
+          </Box>
+
+          {/* Interactive Map Section */}
+          <Box sx={{ mb: 8 }}>
+            <Card
+              sx={{
+                p: { xs: 3, md: 5 },
+                borderRadius: 4,
+                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.05) 0%, rgba(255, 255, 255, 1) 100%)',
+                border: '2px solid',
+                borderColor: 'primary.main',
+                position: 'relative',
+                overflow: 'hidden',
+              }}
+            >
+              <Typography variant="h4" sx={{ mb: 4, fontWeight: 700, color: '#0b1b3a', textAlign: 'center' }}>
+                Interactive Map of Our Presence
+              </Typography>
+              
+              {/* Simplified Europe Map with City Points */}
+              <Box
+                sx={{
+                  position: 'relative',
+                  width: '100%',
+                  height: { xs: 400, sm: 500, md: 600 },
+                  background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(0, 35, 149, 0.03) 100%)',
+                  borderRadius: 3,
+                  overflow: 'hidden',
+                  border: '2px solid',
+                  borderColor: '#002395',
+                  boxShadow: 'inset 0 2px 8px rgba(0, 35, 149, 0.1)',
+                }}
+              >
+                {/* Background Map Pattern - Enhanced */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundImage: 'radial-gradient(circle at 30% 40%, rgba(0, 35, 149, 0.15) 2px, transparent 2px)',
+                    backgroundSize: '60px 60px',
+                    opacity: 0.4,
+                  }}
+                />
+                {/* Additional subtle grid pattern */}
+                <Box
+                  sx={{
+                    position: 'absolute',
+                    inset: 0,
+                    backgroundImage: `
+                      linear-gradient(rgba(0, 35, 149, 0.03) 1px, transparent 1px),
+                      linear-gradient(90deg, rgba(0, 35, 149, 0.03) 1px, transparent 1px)
+                    `,
+                    backgroundSize: '40px 40px',
+                    opacity: 0.5,
+                  }}
+                />
+                
+                {/* City Points with Hover Photos */}
+                {[
+                  {
+                    city: 'Nice',
+                    country: 'France',
+                    x: 45,
+                    y: 60,
+                    isHeadquarters: true,
+                    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                    description: 'Our headquarters in the heart of the French Riviera',
+                  },
+                  {
+                    city: 'Berlin',
+                    country: 'Germany',
+                    x: 55,
+                    y: 35,
+                    isHeadquarters: false,
+                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    description: 'Erasmus+ project collaboration',
+                  },
+                  {
+                    city: 'Kyiv',
+                    country: 'Ukraine',
+                    x: 65,
+                    y: 30,
+                    isHeadquarters: false,
+                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    description: 'Digital literacy programs',
+                  },
+                  {
+                    city: 'Madrid',
+                    country: 'Spain',
+                    x: 25,
+                    y: 55,
+                    isHeadquarters: false,
+                    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    description: 'Cultural exchange initiatives',
+                  },
+                ].map((location, idx) => (
+                  <Tooltip
+                    key={idx}
+                    title={
+                      <Box sx={{ p: 1 }}>
+                        <Typography variant="subtitle2" sx={{ fontWeight: 700, mb: 1, color: 'white' }}>
+                          {location.city}, {location.country}
+                        </Typography>
+                        <Box
+                          component="img"
+                          src={location.photo}
+                          alt={location.city}
+                          sx={{
+                            width: 150,
+                            height: 100,
+                            objectFit: 'cover',
+                            borderRadius: 2,
+                            mb: 1,
+                            border: '2px solid white',
+                          }}
+                        />
+                        <Typography variant="caption" sx={{ color: 'white', display: 'block' }}>
+                          {location.description}
+                        </Typography>
+                      </Box>
+                    }
+                    arrow
+                    placement="top"
+                  >
+                    <Box
+                      sx={{
+                        position: 'absolute',
+                        left: `${location.x}%`,
+                        top: `${location.y}%`,
+                        transform: 'translate(-50%, -50%)',
+                        zIndex: 2,
+                      }}
+                    >
+                      {/* Pulsating ring effect */}
+                      <Box
+                        sx={{
+                          position: 'absolute',
+                          left: '50%',
+                          top: '50%',
+                          transform: 'translate(-50%, -50%)',
+                          width: location.isHeadquarters ? 40 : 32,
+                          height: location.isHeadquarters ? 40 : 32,
+                          borderRadius: '50%',
+                          backgroundColor: location.isHeadquarters ? 'rgba(237, 41, 57, 0.2)' : 'rgba(0, 35, 149, 0.2)',
+                          animation: 'pulse 2s infinite',
+                          '@keyframes pulse': {
+                            '0%': {
+                              transform: 'translate(-50%, -50%) scale(1)',
+                              opacity: 1,
+                            },
+                            '100%': {
+                              transform: 'translate(-50%, -50%) scale(2)',
+                              opacity: 0,
+                            },
+                          },
+                        }}
+                      />
+                      {/* Main point */}
+                      <Box
+                        sx={{
+                          position: 'relative',
+                          width: location.isHeadquarters ? 24 : 18,
+                          height: location.isHeadquarters ? 24 : 18,
+                          borderRadius: '50%',
+                          backgroundColor: location.isHeadquarters ? '#ED2939' : '#002395',
+                          border: '3px solid white',
+                          boxShadow: `0 4px 12px ${location.isHeadquarters ? 'rgba(237, 41, 57, 0.4)' : 'rgba(0, 35, 149, 0.4)'}`,
+                          cursor: 'pointer',
+                          transition: 'all 0.3s ease',
+                          '&:hover': {
+                            transform: 'scale(1.4)',
+                            boxShadow: `0 6px 20px ${location.isHeadquarters ? 'rgba(237, 41, 57, 0.6)' : 'rgba(0, 35, 149, 0.6)'}`,
+                          },
+                        }}
+                      >
+                        {/* Inner glow */}
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            inset: 2,
+                            borderRadius: '50%',
+                            background: `radial-gradient(circle, ${location.isHeadquarters ? 'rgba(255, 255, 255, 0.3)' : 'rgba(255, 255, 255, 0.2)'} 0%, transparent 70%)`,
+                          }}
+                        />
+                      </Box>
+                      {/* HQ Label */}
+                      {location.isHeadquarters && (
+                        <Box
+                          sx={{
+                            position: 'absolute',
+                            top: '100%',
+                            left: '50%',
+                            transform: 'translateX(-50%)',
+                            mt: 1,
+                            whiteSpace: 'nowrap',
+                            fontSize: '0.75rem',
+                            fontWeight: 700,
+                            color: '#002395',
+                            backgroundColor: 'rgba(255, 255, 255, 0.9)',
+                            px: 1,
+                            py: 0.5,
+                            borderRadius: 1,
+                            boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
+                            textShadow: 'none',
+                          }}
+                        >
+                          HQ
+                        </Box>
+                      )}
+                    </Box>
+                  </Tooltip>
+                ))}
+              </Box>
+            </Card>
+          </Box>
+
+          {/* Inside Our Hub - Office Gallery */}
+          <Box sx={{ mb: 8 }}>
+            <Typography variant="h4" sx={{ mb: 4, fontWeight: 700, color: '#0b1b3a', textAlign: 'center' }}>
+              Inside Our Hub
+            </Typography>
+            <ImageList
+              variant="quilted"
+              cols={4}
+              rowHeight={200}
+              gap={16}
+              sx={{ mb: 4 }}
+            >
+              {[
+                {
+                  img: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  title: 'Where the magic happens',
+                  rows: 2,
+                  cols: 2,
+                },
+                {
+                  img: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  title: 'Team collaboration space',
+                  rows: 1,
+                  cols: 1,
+                },
+                {
+                  img: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  title: 'Digital literacy workshops',
+                  rows: 1,
+                  cols: 1,
+                },
+                {
+                  img: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  title: 'Creative workspace',
+                  rows: 1,
+                  cols: 2,
+                },
+              ].map((item, idx) => (
+                <ImageListItem
+                  key={idx}
+                  cols={item.cols || 1}
+                  rows={item.rows || 1}
+                  sx={{
+                    borderRadius: 3,
+                    overflow: 'hidden',
+                    position: 'relative',
+                    cursor: 'pointer',
+                    transition: 'all 0.4s ease',
+                    '&:hover': {
+                      transform: 'scale(1.02)',
+                      boxShadow: '0 8px 24px rgba(0, 35, 149, 0.3)',
+                      '& .photo-overlay': {
+                        opacity: 1,
+                      },
+                    },
+                  }}
+                >
+                  <Box
+                    component="img"
+                    src={item.img}
+                    alt={item.title}
+                    sx={{
+                      width: '100%',
+                      height: '100%',
+                      objectFit: 'cover',
+                      filter: 'brightness(0.9) saturate(1.05)',
+                    }}
+                  />
+                  <Box
+                    className="photo-overlay"
+                    sx={{
+                      position: 'absolute',
+                      bottom: 0,
+                      left: 0,
+                      right: 0,
+                      background: 'linear-gradient(180deg, transparent 0%, rgba(0, 0, 0, 0.7) 100%)',
+                      p: 2,
+                      opacity: 0.8,
+                      transition: 'opacity 0.3s ease',
+                    }}
+                  >
+                    <Typography
+                      variant="body2"
+                      sx={{
+                        color: 'white',
+                        fontWeight: 600,
+                        fontStyle: 'italic',
+                        textShadow: '0 2px 4px rgba(0,0,0,0.5)',
+                      }}
+                    >
+                      {item.title}
+                    </Typography>
+                  </Box>
+                </ImageListItem>
+              ))}
+            </ImageList>
+          </Box>
+
+          {/* Key Contacts Cards */}
+          <Box sx={{ mb: 8 }}>
+            <Typography variant="h4" sx={{ mb: 4, fontWeight: 700, color: '#0b1b3a', textAlign: 'center' }}>
+              Key Contacts
+            </Typography>
+            <Grid container spacing={3}>
+              {[
+                {
+                  name: 'Anna',
+                  role: 'Project Coordinator',
+                  email: 'anna@mitra-france.org',
+                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  color: '#002395',
+                },
+                {
+                  name: 'Marie',
+                  role: 'Digital Literacy Lead',
+                  email: 'marie@mitra-france.org',
+                  photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  color: '#ED2939',
+                },
+                {
+                  name: 'Sophie',
+                  role: 'Partnership Manager',
+                  email: 'sophie@mitra-france.org',
+                  photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  color: '#002395',
+                },
+              ].map((contact, idx) => (
+                <Grid size={{ xs: 12, sm: 6, md: 4 }} key={idx}>
+                  <Card
+                    sx={{
+                      p: 3,
+                      borderRadius: 3,
+                      textAlign: 'center',
+                      border: '2px solid',
+                      borderColor: `${contact.color}30`,
+                      transition: 'all 0.3s ease',
+                      '&:hover': {
+                        transform: 'translateY(-6px)',
+                        boxShadow: `0 12px 32px ${contact.color}30`,
+                        borderColor: contact.color,
+                      },
+                    }}
+                  >
+                    <Avatar
+                      src={contact.photo}
+                      alt={contact.name}
+                      sx={{
+                        width: 120,
+                        height: 120,
+                        mx: 'auto',
+                        mb: 2,
+                        border: `4px solid ${contact.color}`,
+                        boxShadow: `0 4px 12px ${contact.color}30`,
+                      }}
+                    />
+                    <Typography variant="h6" sx={{ fontWeight: 700, mb: 0.5, color: '#0b1b3a' }}>
+                      {contact.name}
+                    </Typography>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+                      {contact.role}
+                    </Typography>
+                    <Button
+                      component="a"
+                      href={`mailto:${contact.email}?subject=Contact from MITRA FRANCE website`}
+                      variant="outlined"
+                      size="small"
+                      sx={{
+                        borderColor: contact.color,
+                        color: contact.color,
+                        fontWeight: 600,
+                        '&:hover': {
+                          borderColor: contact.color,
+                          backgroundColor: `${contact.color}10`,
+                        },
+                      }}
+                    >
+                      Write to {contact.name}
+                    </Button>
+                  </Card>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+
+          {/* How to Reach Us - Transportation */}
+          <Box>
+            <Typography variant="h4" sx={{ mb: 4, fontWeight: 700, color: '#0b1b3a', textAlign: 'center' }}>
+              How to Reach Us
+            </Typography>
+            <Grid container spacing={4}>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Card
+                  sx={{
+                    p: 3,
+                    borderRadius: 3,
+                    border: '2px solid',
+                    borderColor: '#ED293930',
+                    height: '100%',
+                    display: 'flex',
+                    gap: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 24px rgba(237, 41, 57, 0.2)',
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      minWidth: 120,
+                      height: 120,
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                      alt="Tram stop"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.9) saturate(1.1)',
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                      <TramIcon sx={{ color: '#ED2939', fontSize: 28 }} />
+                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#0b1b3a' }}>
+                        By Tram
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      Take tram line 1 to <strong>Garibaldi</strong> station
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Walk 5 minutes from the station
+                    </Typography>
+                  </Box>
+                </Card>
+              </Grid>
+              <Grid size={{ xs: 12, md: 6 }}>
+                <Card
+                  sx={{
+                    p: 3,
+                    borderRadius: 3,
+                    border: '2px solid',
+                    borderColor: '#ED293930',
+                    height: '100%',
+                    display: 'flex',
+                    gap: 3,
+                    transition: 'all 0.3s ease',
+                    '&:hover': {
+                      transform: 'translateY(-4px)',
+                      boxShadow: '0 8px 24px rgba(237, 41, 57, 0.2)',
+                    },
+                  }}
+                >
+                  <Box
+                    sx={{
+                      minWidth: 120,
+                      height: 120,
+                      borderRadius: 2,
+                      overflow: 'hidden',
+                      flexShrink: 0,
+                    }}
+                  >
+                    <Box
+                      component="img"
+                      src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                      alt="Bus stop"
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        objectFit: 'cover',
+                        filter: 'brightness(0.9) saturate(1.1)',
+                      }}
+                    />
+                  </Box>
+                  <Box sx={{ flexGrow: 1 }}>
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
+                      <DirectionsBusIcon sx={{ color: '#ED2939', fontSize: 28 }} />
+                      <Typography variant="h6" sx={{ fontWeight: 700, color: '#0b1b3a' }}>
+                        By Bus
+                      </Typography>
+                    </Box>
+                    <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+                      Bus lines <strong>12, 23, 38</strong> stop nearby
+                    </Typography>
+                    <Typography variant="caption" color="text.secondary">
+                      Check schedules at nice.fr
+                    </Typography>
+                  </Box>
+                </Card>
+              </Grid>
+            </Grid>
+          </Box>
+        </Container>
+      </Box>
 
       <Divider sx={{ my: 8 }} />
 
