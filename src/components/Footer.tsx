@@ -176,10 +176,10 @@ export default function Footer() {
                     },
                   }}
                 >
-                  <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" alt="Community" />
-                  <Avatar src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg" alt="Workshop" />
-                  <Avatar src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg" alt="Event" />
-                  <Avatar src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg" alt="Project" />
+                  <Avatar src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")} alt="Community" />
+                  <Avatar src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")} alt="Workshop" />
+                  <Avatar src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")} alt="Event" />
+                  <Avatar src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")} alt="Project" />
                 </AvatarGroup>
                 <Typography variant="body2" sx={{ color: 'text.secondary', lineHeight: 1.6 }}>
                   Join events, workshops, and exchange programs — and meet people like you.
