@@ -1428,7 +1428,7 @@ export default function Contact() {
                     x: 45,
                     y: 60,
                     isHeadquarters: true,
-                    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                    photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                     description: 'Our headquarters in the heart of the French Riviera',
                   },
                   {
@@ -1437,7 +1437,7 @@ export default function Contact() {
                     x: 55,
                     y: 35,
                     isHeadquarters: false,
-                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     description: 'Erasmus+ project collaboration',
                   },
                   {
@@ -1446,7 +1446,7 @@ export default function Contact() {
                     x: 65,
                     y: 30,
                     isHeadquarters: false,
-                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                     description: 'Digital literacy programs',
                   },
                   {
@@ -1455,7 +1455,7 @@ export default function Contact() {
                     x: 25,
                     y: 55,
                     isHeadquarters: false,
-                    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                     description: 'Cultural exchange initiatives',
                   },
                 ].map((location, idx) => (
@@ -1593,25 +1593,25 @@ export default function Contact() {
             >
               {[
                 {
-                  img: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  img: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                   title: 'Where the magic happens',
                   rows: 2,
                   cols: 2,
                 },
                 {
-                  img: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  img: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   title: 'Team collaboration space',
                   rows: 1,
                   cols: 1,
                 },
                 {
-                  img: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  img: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   title: 'Digital literacy workshops',
                   rows: 1,
                   cols: 1,
                 },
                 {
-                  img: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  img: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   title: 'Creative workspace',
                   rows: 1,
                   cols: 2,
@@ -1688,21 +1688,21 @@ export default function Contact() {
                   name: 'Anna',
                   role: 'Project Coordinator',
                   email: 'anna@mitra-france.org',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   color: '#002395',
                 },
                 {
                   name: 'Marie',
                   role: 'Digital Literacy Lead',
                   email: 'marie@mitra-france.org',
-                  photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                   color: '#ED2939',
                 },
                 {
                   name: 'Sophie',
                   role: 'Partnership Manager',
                   email: 'sophie@mitra-france.org',
-                  photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                   color: '#002395',
                 },
               ].map((contact, idx) => (
@@ -1797,7 +1797,7 @@ export default function Contact() {
                   >
                     <Box
                       component="img"
-                      src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                      src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                       alt="Tram stop"
                       sx={{
                         width: '100%',
@@ -1851,7 +1851,7 @@ export default function Contact() {
                   >
                     <Box
                       component="img"
-                      src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                      src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                       alt="Bus stop"
                       sx={{
                         width: '100%',
