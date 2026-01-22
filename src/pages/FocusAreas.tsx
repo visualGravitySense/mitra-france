@@ -43,6 +43,7 @@ import CodeIcon from '@mui/icons-material/Code';
 import ThumbUpIcon from '@mui/icons-material/ThumbUp';
 import LightbulbIcon from '@mui/icons-material/Lightbulb';
 import { cloneElement } from 'react';
+import { getImagePath } from '../utils/imagePath';
 
 const focusAreas = [
   {
@@ -167,11 +168,11 @@ export default function FocusAreas() {
 
   // Photo mapping for focus areas
   const areaPhotos = {
-    intercultural: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', // Cultural Exchange - people with flags
-    'media-arts': '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', // Creative Pursuits - creative process
-    digital: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg', // Education - student with tablet
-    volunteering: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', // Community Service - volunteers
-    'adult-education': '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', // Lifelong Learning - senior learning
+    intercultural: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), // Cultural Exchange - people with flags
+    'media-arts': getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), // Creative Pursuits - creative process
+    digital: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'), // Education - student with tablet
+    volunteering: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), // Community Service - volunteers
+    'adult-education': getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), // Lifelong Learning - senior learning
   };
 
   return (
@@ -502,35 +503,35 @@ export default function FocusAreas() {
                 {[
                   {
                     id: 'intercultural',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                     label: 'Cultural Exchange',
                     position: { top: '5%', left: '10%', width: '35%', height: '30%' },
                     color: '#002395',
                   },
                   {
                     id: 'media-arts',
-                    photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                    photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                     label: 'Creative Pursuits',
                     position: { top: '15%', right: '5%', width: '40%', height: '35%' },
                     color: '#ED2939',
                   },
                   {
                     id: 'volunteering',
-                    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                     label: 'Community Service',
                     position: { bottom: '25%', left: '5%', width: '38%', height: '32%' },
                     color: '#c91f2f',
                   },
                   {
                     id: 'digital',
-                    photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                    photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                     label: 'Education',
                     position: { top: '50%', right: '10%', width: '35%', height: '28%' },
                     color: '#0038d6',
                   },
                   {
                     id: 'adult-education',
-                    photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                    photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                     label: 'Lifelong Learning',
                     position: { bottom: '5%', right: '15%', width: '32%', height: '30%' },
                     color: '#001a70',
@@ -619,28 +620,28 @@ export default function FocusAreas() {
                 label: 'Total Participants',
                 value: '2200+',
                 color: '#002395',
-                bgPhoto: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', // Large group event
+                bgPhoto: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), // Large group event
               },
               {
                 icon: <EmojiEventsIcon />,
                 label: 'Active Projects',
                 value: '36+',
                 color: '#ED2939',
-                bgPhoto: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg', // Project activity
+                bgPhoto: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'), // Project activity
               },
               {
                 icon: <TrendingUpIcon />,
                 label: 'Success Rate',
                 value: '95%',
                 color: '#4caf50',
-                bgPhoto: '/photos/574604314_1146960820945256_3308026953512837589_n.jpg', // Success/achievement
+                bgPhoto: getImagePath('/photos/574604314_1146960820945256_3308026953512837589_n.jpg'), // Success/achievement
               },
               {
                 icon: <PublicIcon />,
                 label: 'Countries Reached',
                 value: '15+',
                 color: '#0038d6',
-                bgPhoto: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg', // International/Europe
+                bgPhoto: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'), // International/Europe
               },
             ].map((stat) => (
               <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
@@ -847,7 +848,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                              src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                               alt="Youth workshop"
                               sx={{
                                 width: '100%',
@@ -874,7 +875,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                              src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                               alt="Cultural discussion"
                               sx={{
                                 width: '100%',
@@ -901,7 +902,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                              src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")}
                               alt="Group cultural event"
                               sx={{
                                 width: '100%',
@@ -988,15 +989,15 @@ export default function FocusAreas() {
                         {[
                           {
                             subArea: area.subAreas[0],
-                            photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                            photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                           },
                           {
                             subArea: area.subAreas[1],
-                            photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                            photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                           },
                           {
                             subArea: area.subAreas[2],
-                            photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                            photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                           },
                         ].map((item, idx) => (
                           <Grid size={{ xs: 12, sm: 4 }} key={idx}>
@@ -1111,7 +1112,7 @@ export default function FocusAreas() {
                       {/* Background photo with parallax effect */}
                       <Box
                         component="img"
-                        src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                        src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                         alt="Community engagement"
                         sx={{
                           position: 'absolute',
@@ -1317,7 +1318,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                              src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                               alt="Creative workshop"
                               className="main-media-photo"
                               sx={{
@@ -1377,7 +1378,7 @@ export default function FocusAreas() {
                               >
                                 <Box
                                   component="img"
-                                  src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                                  src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                                   alt="Art exhibition"
                                   sx={{
                                     width: '100%',
@@ -1402,7 +1403,7 @@ export default function FocusAreas() {
                               >
                                 <Box
                                   component="img"
-                                  src="/photos/574604314_1146960820945256_3308026953512837589_n.jpg"
+                                  src={getImagePath("/photos/574604314_1146960820945256_3308026953512837589_n.jpg")}
                                   alt="Digital content creation"
                                   sx={{
                                     width: '100%',
@@ -1496,18 +1497,18 @@ export default function FocusAreas() {
                         {[
                           {
                             subArea: area.subAreas[0],
-                            photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
-                            hoverPhoto: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                            photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
+                            hoverPhoto: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                           },
                           {
                             subArea: area.subAreas[1],
-                            photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-                            hoverPhoto: '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
+                            photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                            hoverPhoto: getImagePath('/photos/574604314_1146960820945256_3308026953512837589_n.jpg'),
                           },
                           {
                             subArea: area.subAreas[2],
-                            photo: '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
-                            hoverPhoto: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                            photo: getImagePath('/photos/574604314_1146960820945256_3308026953512837589_n.jpg'),
+                            hoverPhoto: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                           },
                         ].map((item, idx) => (
                           <Grid size={{ xs: 12, sm: 4 }} key={idx}>
@@ -1815,7 +1816,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg"
+                              src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")}
                               alt="Seniors learning digital skills"
                               sx={{
                                 width: '100%',
@@ -1843,7 +1844,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                              src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
                               alt="Youth digital workshop"
                               sx={{
                                 width: '100%',
@@ -1939,22 +1940,22 @@ export default function FocusAreas() {
                         {[
                           {
                             subArea: area.subAreas[0],
-                            photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                            photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                             icon: <TabletIcon />,
                           },
                           {
                             subArea: area.subAreas[1],
-                            photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                            photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                             icon: <CodeIcon />,
                           },
                           {
                             subArea: area.subAreas[2],
-                            photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                            photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                             icon: <PublicIcon />,
                           },
                           {
                             subArea: area.subAreas[3],
-                            photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                            photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                             icon: <FavoriteIcon />,
                           },
                         ].map((item, idx) => (
@@ -2216,7 +2217,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                              src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")}
                               alt="Group of volunteers"
                               sx={{
                                 width: '100%',
@@ -2239,7 +2240,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg"
+                              src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")}
                               alt="Volunteer helping"
                               sx={{
                                 width: '100%',
@@ -2262,7 +2263,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                              src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                               alt="Team discussion"
                               sx={{
                                 width: '100%',
@@ -2358,17 +2359,17 @@ export default function FocusAreas() {
                         {[
                           {
                             subArea: area.subAreas[0],
-                            photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                            photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                             icon: <GroupsIcon />,
                           },
                           {
                             subArea: area.subAreas[1],
-                            photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                            photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                             icon: <LightbulbIcon />,
                           },
                           {
                             subArea: area.subAreas[2],
-                            photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                            photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                             icon: <FavoriteIcon />,
                           },
                         ].map((item, idx) => (
@@ -2484,7 +2485,7 @@ export default function FocusAreas() {
                       {/* Background photo with warm filter */}
                       <Box
                         component="img"
-                        src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                        src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                         alt="Happy volunteers"
                         sx={{
                           position: 'absolute',
@@ -2675,7 +2676,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                              src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
                               alt="Adult learners in class"
                               sx={{
                                 width: '100%',
@@ -2698,7 +2699,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                              src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                               alt="Language learning"
                               sx={{
                                 width: '100%',
@@ -2721,7 +2722,7 @@ export default function FocusAreas() {
                           >
                             <Box
                               component="img"
-                              src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg"
+                              src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")}
                               alt="Professional development"
                               sx={{
                                 width: '100%',
@@ -2817,17 +2818,17 @@ export default function FocusAreas() {
                         {[
                           {
                             subArea: area.subAreas[0],
-                            photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                            photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                             icon: <SchoolIcon />,
                           },
                           {
                             subArea: area.subAreas[1],
-                            photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                            photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                             icon: <LanguageIcon />,
                           },
                           {
                             subArea: area.subAreas[2],
-                            photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                            photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                             icon: <ComputerIcon />,
                           },
                         ].map((item, idx) => (
@@ -2943,7 +2944,7 @@ export default function FocusAreas() {
                       {/* Background photo */}
                       <Box
                         component="img"
-                        src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                        src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                         alt="Adult learners"
                         sx={{
                           position: 'absolute',
