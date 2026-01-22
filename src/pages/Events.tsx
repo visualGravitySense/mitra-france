@@ -23,6 +23,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
 import BoltIcon from '@mui/icons-material/Bolt';
@@ -314,7 +315,7 @@ export default function Events() {
               >
                 <Box
                   component="img"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                   alt="Next Event"
                   sx={{
                     position: 'absolute',
@@ -1002,7 +1003,7 @@ export default function Events() {
               >
                 <Box
                   component="img"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                   alt="Most Popular Event"
                   sx={{
                     width: '100%',
@@ -1643,7 +1644,7 @@ export default function Events() {
               >
                 <Box
                   component="img"
-                  src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                  src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                   alt="Most Popular Event"
                   sx={{
                     width: '100%',
@@ -1731,7 +1732,7 @@ export default function Events() {
           {/* Background Image - Atmosphere of Event */}
           <Box
             component="img"
-            src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+            src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
             alt="Event Atmosphere"
             sx={{
               position: 'absolute',

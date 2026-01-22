@@ -15,6 +15,7 @@ import Zoom from '@mui/material/Zoom';
 import Link from '@mui/material/Link';
 import { Link as RouterLink } from 'react-router-dom';
 import ParticleCTAButton from '../components/ParticleCTAButton';
+import { getImagePath } from '../utils/imagePath';
 import SchoolIcon from '@mui/icons-material/School';
 import PaletteIcon from '@mui/icons-material/Palette';
 import ComputerIcon from '@mui/icons-material/Computer';
@@ -670,13 +671,13 @@ export default function Home() {
                   {[
                     '/illustrations/mitra-image-5.png',
                     '/illustrations/mitra-image-10.jpg',
-                    '/illustrations/mitra-image-1.png',
+                    '/illustrations/mitra-image-6.png',
                     '/illustrations/mitra-image-9.jpg',
                   ].map((src, index) => (
                     <Grid key={src} size={{ xs: 6 }}>
                       <Box
                         component="img"
-                        src={src}
+                        src={getImagePath(src)}
                         alt="MITRA FRANCE activity"
                         loading="lazy"
                         sx={{
@@ -1034,7 +1035,7 @@ export default function Home() {
                           </Box>
                           <Box
                             component="img"
-                            src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                            src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                             alt="Community gathering"
                             loading="lazy"
                             sx={{
@@ -1083,7 +1084,7 @@ export default function Home() {
                           </Box>
                           <Box
                             component="img"
-                            src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                            src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
                             alt="Learning in action"
                             loading="lazy"
                             sx={{
@@ -1373,12 +1374,12 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(0, 35, 149, 0.03) 100%)',
                 hoverGradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.12) 0%, rgba(0, 35, 149, 0.06) 100%)',
                 badge: '50+ Programs',
-                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                 showAvatars: true,
                 avatars: [
-                  '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-                  '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-                  '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                  getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
+                  getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
+                  getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                 ],
               },
               {
@@ -1390,7 +1391,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.08) 0%, rgba(237, 41, 57, 0.03) 100%)',
                 hoverGradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.12) 0%, rgba(237, 41, 57, 0.06) 100%)',
                 badge: '20+ Events',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 showAvatars: true,
                 avatars: [
                   '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
@@ -1407,7 +1408,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.08) 0%, rgba(76, 175, 80, 0.03) 100%)',
                 hoverGradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.12) 0%, rgba(76, 175, 80, 0.06) 100%)',
                 badge: 'Join Now',
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                 showAvatars: false,
               },
               {
@@ -1419,7 +1420,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.08) 0%, rgba(255, 152, 0, 0.03) 100%)',
                 hoverGradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.12) 0%, rgba(255, 152, 0, 0.06) 100%)',
                 badge: '15+ Projects',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 showAvatars: false,
               },
             ].map((item, index) => (
@@ -2274,7 +2275,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                        src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
                         alt="Ready to Join"
                         className="card-image"
                         sx={{
@@ -2379,7 +2380,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                        src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                         alt="Want to Volunteer"
                         className="card-image"
                         sx={{
@@ -2488,7 +2489,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                        src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")}
                         alt="Learn About Us"
                         className="card-image"
                         sx={{
@@ -2593,7 +2594,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                        src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                         alt="Our Programs"
                         className="card-image"
                         sx={{
@@ -2698,7 +2699,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                        src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                         alt="Contact Us"
                         className="card-image"
                         sx={{
@@ -2807,7 +2808,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/574604314_1146960820945256_3308026953512837589_n.jpg"
+                        src={getImagePath("/photos/574604314_1146960820945256_3308026953512837589_n.jpg")}
                         alt="Browse Events"
                         className="card-image"
                         sx={{
@@ -2912,7 +2913,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg"
+                        src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")}
                         alt="View Gallery"
                         className="card-image"
                         sx={{
@@ -4618,7 +4619,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
                   progress: 100,
                   description: 'Key areas of impact',
-                  photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                   photoType: 'collage',
                 },
                 {
@@ -4629,7 +4630,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
                   progress: 85,
                   description: 'Ongoing initiatives',
-                  photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                   photoType: 'single',
                 },
                 {
@@ -4640,7 +4641,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
                   progress: 75,
                   description: 'Lives transformed',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   photoType: 'group',
                 },
                 {
@@ -4651,7 +4652,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
                   progress: 60,
                   description: 'European network',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   photoType: 'map',
                 },
               ].map((stat, index) => (
@@ -4859,7 +4860,7 @@ export default function Home() {
                 {/* Background Photo - Erasmus+ Project */}
                 <Box
                   component="img"
-                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                   alt="Erasmus+ European Project"
                   className="europe-photo"
                   sx={{
@@ -5704,25 +5705,25 @@ export default function Home() {
                     icon: <SchoolIcon />,
                     text: 'Educational Excellence',
                     count: '50+ Programs',
-                    photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                    photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                   },
                   {
                     icon: <PeopleIcon />,
                     text: 'Community Reach',
                     count: '1000+ Participants',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   },
                   {
                     icon: <PublicIcon />,
                     text: 'European Network',
                     count: '15+ Countries',
-                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   },
                   {
                     icon: <EmojiEventsIcon />,
                     text: 'Awards & Recognition',
                     count: 'Multiple Projects',
-                    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                    photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                   },
                 ].map((item, index) => (
                   <Grid size={{ xs: 6 }} key={index}>
@@ -5852,19 +5853,19 @@ export default function Home() {
                   { 
                     title: 'Next Digital Skills Workshop', 
                     subtitle: 'Starting in 2 weeks',
-                    photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                    photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                     color: '#002395',
                   },
                   { 
                     title: 'Cultural Exchange Event', 
                     subtitle: 'Registration open now',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                     color: '#ED2939',
                   },
                   { 
                     title: 'Erasmus+ Project', 
                     subtitle: 'Applications closing soon',
-                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     color: '#4caf50',
                   },
                 ].map((item, index) => (
@@ -6004,7 +6005,7 @@ export default function Home() {
                 >
                   <Box
                     component="img"
-                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                     alt="Join our community"
                     className="cta-photo"
                     sx={{
@@ -6139,7 +6140,7 @@ export default function Home() {
                 reward: 'Welcome Badge',
                 progress: userProgress.step >= 1 ? 100 : 0,
                 completed: userProgress.completed.includes(1),
-                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
               },
               {
                 step: 2,
@@ -6148,7 +6149,7 @@ export default function Home() {
                 reward: 'Profile Badge',
                 progress: userProgress.step >= 2 ? 100 : 0,
                 completed: userProgress.completed.includes(2),
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
               },
               {
                 step: 3,
@@ -6157,7 +6158,7 @@ export default function Home() {
                 reward: 'Active Member Badge',
                 progress: userProgress.step >= 3 ? 100 : 0,
                 completed: userProgress.completed.includes(3),
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
               },
               {
                 step: 4,
@@ -6166,7 +6167,7 @@ export default function Home() {
                 reward: 'Achievement Badge',
                 progress: userProgress.step >= 4 ? 100 : 0,
                 completed: userProgress.completed.includes(4),
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
               },
             ].map((milestone) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={milestone.step}>
@@ -6510,7 +6511,7 @@ export default function Home() {
                 >
                   <Avatar 
                     className="community-avatar"
-                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                     sx={{ 
                       transition: 'all 0.3s ease',
                       width: 56,
@@ -6519,7 +6520,7 @@ export default function Home() {
                   />
                   <Avatar 
                     className="community-avatar"
-                    src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                    src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                     sx={{ 
                       transition: 'all 0.3s ease',
                       width: 56,
@@ -6528,7 +6529,7 @@ export default function Home() {
                   />
                   <Avatar 
                     className="community-avatar"
-                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                     sx={{ 
                       transition: 'all 0.3s ease',
                       width: 56,
@@ -6537,7 +6538,7 @@ export default function Home() {
                   />
                   <Avatar 
                     className="community-avatar"
-                    src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                    src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                     sx={{ 
                       transition: 'all 0.3s ease',
                       width: 56,
@@ -6546,7 +6547,7 @@ export default function Home() {
                   />
                   <Avatar 
                     className="community-avatar"
-                    src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                    src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                     sx={{ 
                       transition: 'all 0.3s ease',
                       width: 56,
@@ -6827,7 +6828,7 @@ export default function Home() {
                   time: '2 minutes',
                   color: 'primary',
                   gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
-                  photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                 },
                 {
                   step: 2,
@@ -6837,7 +6838,7 @@ export default function Home() {
                   time: 'Immediate',
                   color: 'success',
                   gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 },
                 {
                   step: 3,
@@ -6847,7 +6848,7 @@ export default function Home() {
                   time: 'Same day',
                   color: 'info',
                   gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 },
               ].map((stepItem, index) => (
                 <Fragment key={stepItem.step}>
