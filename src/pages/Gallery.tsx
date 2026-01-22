@@ -44,6 +44,11 @@ import PersonIcon from '@mui/icons-material/Person';
 import PlaceIcon from '@mui/icons-material/Place';
 import CameraAltOutlinedIcon from '@mui/icons-material/CameraAltOutlined';
 import TagIcon from '@mui/icons-material/Tag';
+import Dialog from '@mui/material/Dialog';
+import DialogContent from '@mui/material/DialogContent';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+import ZoomInIcon from '@mui/icons-material/ZoomIn';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -70,6 +75,8 @@ function TabPanel(props: TabPanelProps) {
 export default function Gallery() {
   const [value, setValue] = React.useState(0);
   const [socialTab, setSocialTab] = React.useState(0);
+  const [zoomImage, setZoomImage] = React.useState<string | null>(null);
+  const [zoomOpen, setZoomOpen] = React.useState(false);
 
   const handleChange = (_event: React.SyntheticEvent, newValue: number) => {
     setValue(newValue);
@@ -77,6 +84,16 @@ export default function Gallery() {
 
   const handleSocialTabChange = (_event: React.SyntheticEvent, newValue: number) => {
     setSocialTab(newValue);
+  };
+
+  const handleViewImage = (imageUrl: string) => {
+    setZoomImage(imageUrl);
+    setZoomOpen(true);
+  };
+
+  const handleCloseZoom = () => {
+    setZoomOpen(false);
+    setZoomImage(null);
   };
 
   // Gallery albums data with categories
@@ -130,7 +147,7 @@ export default function Gallery() {
       {
         id: 6,
         title: 'Museum Visit - Le 109',
-        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photo: '/photos/72143301_1255865144620953_7821217256553054208_n.jpg',
         photosCount: 20,
         videosCount: 0,
         type: 'photo',
@@ -139,7 +156,7 @@ export default function Gallery() {
       {
         id: 7,
         title: 'Youth Workshop Series',
-        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photo: '/photos/72778896_1227391067468361_5854469268342571008_n.jpg',
         photosCount: 22,
         videosCount: 1,
         type: 'photo',
@@ -148,16 +165,232 @@ export default function Gallery() {
       {
         id: 8,
         title: 'International Networking Event',
-        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photo: '/photos/73208176_1255863554621112_5449277947649196032_n.jpg',
         photosCount: 19,
         videosCount: 4,
         type: 'video',
         category: 'Events',
       },
+      {
+        id: 9,
+        title: 'Certificate Ceremony 2024',
+        photo: '/photos/75220622_1263163760557758_1828565807827779584_n.jpg',
+        photosCount: 26,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 10,
+        title: 'Workshop in Estonia',
+        photo: '/photos/75354869_1255866784620789_5172593281107755008_n.jpg',
+        photosCount: 31,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 11,
+        title: 'Cultural Exchange Program',
+        photo: '/photos/75380514_1258785557662245_2665705434043645952_n.jpg',
+        photosCount: 23,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 12,
+        title: 'International Conference 2023',
+        photo: '/photos/84839024_1346442362229897_7481666728498298880_n.jpg',
+        photosCount: 35,
+        videosCount: 3,
+        type: 'video',
+        category: 'Events',
+      },
+      {
+        id: 13,
+        title: 'Community Gathering',
+        photo: '/photos/195938444_1716673385206791_5972386242218118423_n.jpg',
+        photosCount: 27,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Events',
+      },
+      {
+        id: 14,
+        title: 'Training Workshop Series',
+        photo: '/photos/201379691_1725109587696504_3657017033572797514_n.jpg',
+        photosCount: 29,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 15,
+        title: 'Art & Culture Exhibition',
+        photo: '/photos/472330785_2705641812976605_8147454895918841464_n.jpg',
+        photosCount: 33,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 16,
+        title: 'Erasmus+ Project Meeting',
+        photo: '/photos/474191144_922114450096562_1778427783441398275_n.jpg',
+        photosCount: 21,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Events',
+      },
+      {
+        id: 17,
+        title: 'Digital Skills Training',
+        photo: '/photos/474747613_925366876437986_3391021362464847354_n.jpg',
+        photosCount: 18,
+        videosCount: 3,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 18,
+        title: 'Cultural Heritage Day',
+        photo: '/photos/476121564_2731964927010960_1872202122797019235_n.jpg',
+        photosCount: 30,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 19,
+        title: 'Community Workshop',
+        photo: '/photos/487438531_2782168148657304_2855709124804435896_n.jpg',
+        photosCount: 25,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 20,
+        title: 'International Event 2024',
+        photo: '/photos/488707367_2782966415244144_4496557027079616535_n.jpg',
+        photosCount: 36,
+        videosCount: 4,
+        type: 'video',
+        category: 'Events',
+      },
+      {
+        id: 21,
+        title: 'Workshop Activities',
+        photo: '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
+        photosCount: 19,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 22,
+        title: 'Training Session',
+        photo: '/photos/534729196_1080814874226518_8430082551815755637_n.jpg',
+        photosCount: 22,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 23,
+        title: 'Cultural Activities',
+        photo: '/photos/547831429_1105455918429080_1339539868519472835_n.jpg',
+        photosCount: 28,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 24,
+        title: 'Community Event',
+        photo: '/photos/547832271_1105636951744310_5007643116898073064_n.jpg',
+        photosCount: 24,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Events',
+      },
+      {
+        id: 25,
+        title: 'Workshop Series 2024',
+        photo: '/photos/548309956_1105451331762872_8479958509514200962_n.jpg',
+        photosCount: 20,
+        videosCount: 3,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 26,
+        title: 'Cultural Exchange',
+        photo: '/photos/548398608_1105456358429036_8053119805662137426_n.jpg',
+        photosCount: 26,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 27,
+        title: 'Training Program',
+        photo: '/photos/548595318_1105455078429164_4623321124477129928_n.jpg',
+        photosCount: 23,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 28,
+        title: 'Community Gathering',
+        photo: '/photos/548877641_1105446995096639_7393077100571014764_n.jpg',
+        photosCount: 27,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Events',
+      },
+      {
+        id: 29,
+        title: 'Workshop Activities',
+        photo: '/photos/549131738_1105456155095723_6317443526696665132_n.jpg',
+        photosCount: 21,
+        videosCount: 1,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 30,
+        title: 'Cultural Program',
+        photo: '/photos/549606101_1105451861762819_8602403738246550219_n.jpg',
+        photosCount: 29,
+        videosCount: 0,
+        type: 'photo',
+        category: 'Culture',
+      },
+      {
+        id: 31,
+        title: 'Training Workshop',
+        photo: '/photos/550335458_1105452421762763_2396967666599670886_n.jpg',
+        photosCount: 18,
+        videosCount: 2,
+        type: 'photo',
+        category: 'Education',
+      },
+      {
+        id: 32,
+        title: 'Media Workshop 2024',
+        photo: '/photos/573853248_1142845508023454_8525599641591502954_n.jpg',
+        photosCount: 25,
+        videosCount: 3,
+        type: 'photo',
+        category: 'Education',
+      },
     ],
     events: [
       {
-        id: 1,
+        id: 2,
         title: 'Erasmus+ Conference, Nice',
         photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
         photosCount: 18,
@@ -165,7 +398,7 @@ export default function Gallery() {
         type: 'video',
       },
       {
-        id: 2,
+        id: 5,
         title: 'Community Festival, 2024',
         photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
         photosCount: 28,
@@ -173,12 +406,60 @@ export default function Gallery() {
         type: 'video',
       },
       {
-        id: 3,
+        id: 8,
         title: 'International Networking Event',
-        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+        photo: '/photos/73208176_1255863554621112_5449277947649196032_n.jpg',
         photosCount: 19,
         videosCount: 4,
         type: 'video',
+      },
+      {
+        id: 12,
+        title: 'International Conference 2023',
+        photo: '/photos/84839024_1346442362229897_7481666728498298880_n.jpg',
+        photosCount: 35,
+        videosCount: 3,
+        type: 'video',
+      },
+      {
+        id: 13,
+        title: 'Community Gathering',
+        photo: '/photos/195938444_1716673385206791_5972386242218118423_n.jpg',
+        photosCount: 27,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 16,
+        title: 'Erasmus+ Project Meeting',
+        photo: '/photos/474191144_922114450096562_1778427783441398275_n.jpg',
+        photosCount: 21,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 20,
+        title: 'International Event 2024',
+        photo: '/photos/488707367_2782966415244144_4496557027079616535_n.jpg',
+        photosCount: 36,
+        videosCount: 4,
+        type: 'video',
+      },
+      {
+        id: 24,
+        title: 'Community Event',
+        photo: '/photos/547832271_1105636951744310_5007643116898073064_n.jpg',
+        photosCount: 24,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 28,
+        title: 'Community Gathering',
+        photo: '/photos/548877641_1105446995096639_7393077100571014764_n.jpg',
+        photosCount: 27,
+        videosCount: 1,
+        type: 'photo',
       },
     ],
     education: [
@@ -191,7 +472,7 @@ export default function Gallery() {
         type: 'photo',
       },
       {
-        id: 2,
+        id: 4,
         title: 'Media Training Session',
         photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
         photosCount: 15,
@@ -199,17 +480,113 @@ export default function Gallery() {
         type: 'photo',
       },
       {
-        id: 3,
+        id: 7,
         title: 'Youth Workshop Series',
-        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        photo: '/photos/72778896_1227391067468361_5854469268342571008_n.jpg',
         photosCount: 22,
         videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 9,
+        title: 'Certificate Ceremony 2024',
+        photo: '/photos/75220622_1263163760557758_1828565807827779584_n.jpg',
+        photosCount: 26,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 10,
+        title: 'Workshop in Estonia',
+        photo: '/photos/75354869_1255866784620789_5172593281107755008_n.jpg',
+        photosCount: 31,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 14,
+        title: 'Training Workshop Series',
+        photo: '/photos/201379691_1725109587696504_3657017033572797514_n.jpg',
+        photosCount: 29,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 17,
+        title: 'Digital Skills Training',
+        photo: '/photos/474747613_925366876437986_3391021362464847354_n.jpg',
+        photosCount: 18,
+        videosCount: 3,
+        type: 'photo',
+      },
+      {
+        id: 19,
+        title: 'Community Workshop',
+        photo: '/photos/487438531_2782168148657304_2855709124804435896_n.jpg',
+        photosCount: 25,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 21,
+        title: 'Workshop Activities',
+        photo: '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
+        photosCount: 19,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 22,
+        title: 'Training Session',
+        photo: '/photos/534729196_1080814874226518_8430082551815755637_n.jpg',
+        photosCount: 22,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 25,
+        title: 'Workshop Series 2024',
+        photo: '/photos/548309956_1105451331762872_8479958509514200962_n.jpg',
+        photosCount: 20,
+        videosCount: 3,
+        type: 'photo',
+      },
+      {
+        id: 27,
+        title: 'Training Program',
+        photo: '/photos/548595318_1105455078429164_4623321124477129928_n.jpg',
+        photosCount: 23,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 29,
+        title: 'Workshop Activities',
+        photo: '/photos/549131738_1105456155095723_6317443526696665132_n.jpg',
+        photosCount: 21,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 31,
+        title: 'Training Workshop',
+        photo: '/photos/550335458_1105452421762763_2396967666599670886_n.jpg',
+        photosCount: 18,
+        videosCount: 2,
+        type: 'photo',
+      },
+      {
+        id: 32,
+        title: 'Media Workshop 2024',
+        photo: '/photos/573853248_1142845508023454_8525599641591502954_n.jpg',
+        photosCount: 25,
+        videosCount: 3,
         type: 'photo',
       },
     ],
     culture: [
       {
-        id: 1,
+        id: 3,
         title: 'Cultural Heritage Exhibition',
         photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
         photosCount: 32,
@@ -217,10 +594,58 @@ export default function Gallery() {
         type: 'photo',
       },
       {
-        id: 2,
+        id: 6,
         title: 'Museum Visit - Le 109',
-        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+        photo: '/photos/72143301_1255865144620953_7821217256553054208_n.jpg',
         photosCount: 20,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 11,
+        title: 'Cultural Exchange Program',
+        photo: '/photos/75380514_1258785557662245_2665705434043645952_n.jpg',
+        photosCount: 23,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 15,
+        title: 'Art & Culture Exhibition',
+        photo: '/photos/472330785_2705641812976605_8147454895918841464_n.jpg',
+        photosCount: 33,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 18,
+        title: 'Cultural Heritage Day',
+        photo: '/photos/476121564_2731964927010960_1872202122797019235_n.jpg',
+        photosCount: 30,
+        videosCount: 1,
+        type: 'photo',
+      },
+      {
+        id: 23,
+        title: 'Cultural Activities',
+        photo: '/photos/547831429_1105455918429080_1339539868519472835_n.jpg',
+        photosCount: 28,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 26,
+        title: 'Cultural Exchange',
+        photo: '/photos/548398608_1105456358429036_8053119805662137426_n.jpg',
+        photosCount: 26,
+        videosCount: 0,
+        type: 'photo',
+      },
+      {
+        id: 30,
+        title: 'Cultural Program',
+        photo: '/photos/549606101_1105451861762819_8602403738246550219_n.jpg',
+        photosCount: 29,
         videosCount: 0,
         type: 'photo',
       },
@@ -274,16 +699,16 @@ export default function Gallery() {
           {[
             { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 2', sm: '1 / 2', md: '1 / 2' }, row: { xs: '1 / 3', sm: '1 / 3', md: '1 / 3' } },
             { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '2 / 3', md: '2 / 4' }, row: { xs: '1 / 2', sm: '1 / 2', md: '1 / 2' } },
-            { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '4 / 5' }, row: { xs: '2 / 4', sm: '1 / 3', md: '1 / 3' } },
-            { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '5 / 7' }, row: { xs: '3 / 4', sm: '2 / 3', md: '1 / 2' } },
-            { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', span: { xs: '1 / 3', sm: '2 / 3', md: '1 / 2' }, row: { xs: '4 / 5', sm: '3 / 4', md: '2 / 4' } },
-            { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '2 / 3' }, row: { xs: '5 / 6', sm: '4 / 5', md: '3 / 4' } },
-            { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '3 / 5' }, row: { xs: '6 / 7', sm: '5 / 6', md: '4 / 5' } },
-            { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', span: { xs: '1 / 3', sm: '2 / 4', md: '5 / 7' }, row: { xs: '7 / 8', sm: '6 / 7', md: '2 / 3' } },
-            { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '1 / 2' }, row: { xs: '8 / 9', sm: '7 / 8', md: '3 / 5' } },
-            { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', span: { xs: '2 / 4', sm: '1 / 3', md: '2 / 4' }, row: { xs: '9 / 10', sm: '8 / 9', md: '4 / 6' } },
-            { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', span: { xs: '1 / 3', sm: '3 / 4', md: '4 / 6' }, row: { xs: '10 / 11', sm: '9 / 10', md: '5 / 6' } },
-            { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '6 / 7' }, row: { xs: '11 / 12', sm: '10 / 11', md: '3 / 4' } },
+            { photo: '/photos/72143301_1255865144620953_7821217256553054208_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '4 / 5' }, row: { xs: '2 / 4', sm: '1 / 3', md: '1 / 3' } },
+            { photo: '/photos/72778896_1227391067468361_5854469268342571008_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '5 / 7' }, row: { xs: '3 / 4', sm: '2 / 3', md: '1 / 2' } },
+            { photo: '/photos/73208176_1255863554621112_5449277947649196032_n.jpg', span: { xs: '1 / 3', sm: '2 / 3', md: '1 / 2' }, row: { xs: '4 / 5', sm: '3 / 4', md: '2 / 4' } },
+            { photo: '/photos/75220622_1263163760557758_1828565807827779584_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '2 / 3' }, row: { xs: '5 / 6', sm: '4 / 5', md: '3 / 4' } },
+            { photo: '/photos/75354869_1255866784620789_5172593281107755008_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '3 / 5' }, row: { xs: '6 / 7', sm: '5 / 6', md: '4 / 5' } },
+            { photo: '/photos/75380514_1258785557662245_2665705434043645952_n.jpg', span: { xs: '1 / 3', sm: '2 / 4', md: '5 / 7' }, row: { xs: '7 / 8', sm: '6 / 7', md: '2 / 3' } },
+            { photo: '/photos/84839024_1346442362229897_7481666728498298880_n.jpg', span: { xs: '1 / 2', sm: '3 / 4', md: '1 / 2' }, row: { xs: '8 / 9', sm: '7 / 8', md: '3 / 5' } },
+            { photo: '/photos/195938444_1716673385206791_5972386242218118423_n.jpg', span: { xs: '2 / 4', sm: '1 / 3', md: '2 / 4' }, row: { xs: '9 / 10', sm: '8 / 9', md: '4 / 6' } },
+            { photo: '/photos/201379691_1725109587696504_3657017033572797514_n.jpg', span: { xs: '1 / 3', sm: '3 / 4', md: '4 / 6' }, row: { xs: '10 / 11', sm: '9 / 10', md: '5 / 6' } },
+            { photo: '/photos/472330785_2705641812976605_8147454895918841464_n.jpg', span: { xs: '2 / 4', sm: '1 / 2', md: '6 / 7' }, row: { xs: '11 / 12', sm: '10 / 11', md: '3 / 4' } },
           ].map((item, idx) => (
             <Box
               key={idx}
@@ -442,7 +867,7 @@ export default function Gallery() {
                   <Box
                     className="featured-photo"
                     component="img"
-                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    src="/illustrations/mitra-images-8.jpg"
                     alt="Latest Event"
                     sx={{
                       width: '100%',
@@ -579,14 +1004,14 @@ export default function Gallery() {
                 label: 'All Moments',
                 icon: <AllInclusiveIcon />,
                 photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                count: '12 Albums',
+                count: '32 Albums',
                 color: '#002395',
               },
               {
                 label: 'Events',
                 icon: <EventIcon />,
                 photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                count: '8 Albums',
+                count: '9 Albums',
                 color: '#ED2939',
               },
               {
@@ -600,7 +1025,7 @@ export default function Gallery() {
                 label: 'Culture',
                 icon: <PaletteIcon />,
                 photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-                count: '6 Albums',
+                count: '8 Albums',
                 color: '#ED2939',
               },
             ].map((tab, index) => (
@@ -776,7 +1201,7 @@ export default function Gallery() {
                       overflow: 'hidden',
                       borderRadius: '24px',
                       border: '2px solid',
-                      borderColor: album.type === 'video' ? '#ED2939' : 'transparent',
+                      borderColor: 'transparent',
                     }}
                   >
                     <Box
@@ -840,7 +1265,8 @@ export default function Gallery() {
                       <Button
                         variant="contained"
                         size="small"
-                        startIcon={<VisibilityIcon />}
+                        startIcon={<ZoomInIcon />}
+                        onClick={() => handleViewImage(album.photo)}
                         sx={{
                           backgroundColor: '#002395',
                           color: 'white',
@@ -854,47 +1280,9 @@ export default function Gallery() {
                           },
                         }}
                       >
-                        View Album
+                        View Image
                       </Button>
                     </Box>
-                    {/* Video Play Icon Overlay */}
-                    {album.type === 'video' && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          zIndex: 1,
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: '50%',
-                            backgroundColor: 'rgba(237, 41, 57, 0.9)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                            animation: 'pulse 2s infinite',
-                            '@keyframes pulse': {
-                              '0%, 100%': {
-                                transform: 'translate(-50%, -50%) scale(1)',
-                                boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                              },
-                              '50%': {
-                                transform: 'translate(-50%, -50%) scale(1.1)',
-                                boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
-                              },
-                            },
-                          }}
-                        >
-                          <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
-                        </Box>
-                      </Box>
-                    )}
                   </Card>
                 </ImageListItem>
               ))}
@@ -923,7 +1311,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src="/photos/75220622_1263163760557758_1828565807827779584_n.jpg"
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -988,7 +1376,8 @@ export default function Gallery() {
                 <Button
                   variant="contained"
                   fullWidth
-                  startIcon={<VisibilityIcon />}
+                  startIcon={<ZoomInIcon />}
+                  onClick={() => handleViewImage('/photos/75220622_1263163760557758_1828565807827779584_n.jpg')}
                   sx={{
                     backgroundColor: '#ED2939',
                     color: 'white',
@@ -1004,7 +1393,7 @@ export default function Gallery() {
                     },
                   }}
                 >
-                  View Album
+                  View Image
                 </Button>
               </CardContent>
             </Card>
@@ -1061,7 +1450,8 @@ export default function Gallery() {
                       position: 'relative',
                       overflow: 'hidden',
                       borderRadius: '24px',
-                      border: '3px solid #ED2939',
+                      border: '2px solid',
+                      borderColor: 'transparent',
                     }}
                   >
                     <Box
@@ -1141,42 +1531,6 @@ export default function Gallery() {
                         Watch Video
                       </Button>
                     </Box>
-                    {/* Video Play Icon Overlay - Always Visible */}
-                    <Box
-                      sx={{
-                        position: 'absolute',
-                        top: '50%',
-                        left: '50%',
-                        transform: 'translate(-50%, -50%)',
-                        zIndex: 1,
-                      }}
-                    >
-                      <Box
-                        sx={{
-                          width: 80,
-                          height: 80,
-                          borderRadius: '50%',
-                          backgroundColor: 'rgba(237, 41, 57, 0.9)',
-                          display: 'flex',
-                          alignItems: 'center',
-                          justifyContent: 'center',
-                          boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                          animation: 'pulse 2s infinite',
-                          '@keyframes pulse': {
-                            '0%, 100%': {
-                              transform: 'translate(-50%, -50%) scale(1)',
-                              boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                            },
-                            '50%': {
-                              transform: 'translate(-50%, -50%) scale(1.1)',
-                              boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
-                            },
-                          },
-                        }}
-                      >
-                        <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
-                      </Box>
-                    </Box>
                   </Card>
                 </ImageListItem>
               ))}
@@ -1205,7 +1559,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  src="/photos/84839024_1346442362229897_7481666728498298880_n.jpg"
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -1408,7 +1762,7 @@ export default function Gallery() {
                       overflow: 'hidden',
                       borderRadius: '24px',
                       border: '2px solid',
-                      borderColor: album.type === 'video' ? '#ED2939' : 'transparent',
+                      borderColor: 'transparent',
                     }}
                   >
                     <Box
@@ -1471,7 +1825,8 @@ export default function Gallery() {
                       <Button
                         variant="contained"
                         size="small"
-                        startIcon={<VisibilityIcon />}
+                        startIcon={<ZoomInIcon />}
+                        onClick={() => handleViewImage(album.photo)}
                         sx={{
                           backgroundColor: '#002395',
                           color: 'white',
@@ -1485,46 +1840,9 @@ export default function Gallery() {
                           },
                         }}
                       >
-                        View Album
+                        View Image
                       </Button>
                     </Box>
-                    {album.type === 'video' && (
-                      <Box
-                        sx={{
-                          position: 'absolute',
-                          top: '50%',
-                          left: '50%',
-                          transform: 'translate(-50%, -50%)',
-                          zIndex: 1,
-                        }}
-                      >
-                        <Box
-                          sx={{
-                            width: 80,
-                            height: 80,
-                            borderRadius: '50%',
-                            backgroundColor: 'rgba(237, 41, 57, 0.9)',
-                            display: 'flex',
-                            alignItems: 'center',
-                            justifyContent: 'center',
-                            boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                            animation: 'pulse 2s infinite',
-                            '@keyframes pulse': {
-                              '0%, 100%': {
-                                transform: 'translate(-50%, -50%) scale(1)',
-                                boxShadow: '0 8px 24px rgba(237, 41, 57, 0.5)',
-                              },
-                              '50%': {
-                                transform: 'translate(-50%, -50%) scale(1.1)',
-                                boxShadow: '0 12px 32px rgba(237, 41, 57, 0.7)',
-                              },
-                            },
-                          }}
-                        >
-                          <PlayArrowIcon sx={{ fontSize: 40, color: 'white', ml: 0.5 }} />
-                        </Box>
-                      </Box>
-                    )}
                   </Card>
                 </ImageListItem>
               ))}
@@ -1553,7 +1871,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src="/photos/75220622_1263163760557758_1828565807827779584_n.jpg"
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -1618,7 +1936,8 @@ export default function Gallery() {
                 <Button
                   variant="contained"
                   fullWidth
-                  startIcon={<VisibilityIcon />}
+                  startIcon={<ZoomInIcon />}
+                  onClick={() => handleViewImage('/photos/75220622_1263163760557758_1828565807827779584_n.jpg')}
                   sx={{
                     backgroundColor: '#002395',
                     color: 'white',
@@ -1634,7 +1953,7 @@ export default function Gallery() {
                     },
                   }}
                 >
-                  View Album
+                  View Image
                 </Button>
               </CardContent>
             </Card>
@@ -1755,7 +2074,8 @@ export default function Gallery() {
                       <Button
                         variant="contained"
                         size="small"
-                        startIcon={<VisibilityIcon />}
+                        startIcon={<ZoomInIcon />}
+                        onClick={() => handleViewImage(album.photo)}
                         sx={{
                           backgroundColor: '#ED2939',
                           color: 'white',
@@ -1769,7 +2089,7 @@ export default function Gallery() {
                           },
                         }}
                       >
-                        View Album
+                        View Image
                       </Button>
                     </Box>
                   </Card>
@@ -1800,7 +2120,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                  src="/photos/472330785_2705641812976605_8147454895918841464_n.jpg"
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -1985,37 +2305,44 @@ export default function Gallery() {
                 {[
                   // Faces Tab Content
                   ...(socialTab === 0 ? [
-                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 127, comments: 23, isStory: false },
-                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'facebook', likes: 89, comments: 15, isStory: false },
-                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'video', social: 'instagram', likes: 203, comments: 42, isStory: true },
-                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'photo', social: 'instagram', likes: 156, comments: 28, isStory: false },
-                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'photo', social: 'facebook', likes: 94, comments: 19, isStory: false },
-                    { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'video', social: 'instagram', likes: 178, comments: 35, isStory: true },
-                    { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'instagram', likes: 145, comments: 31, isStory: false },
-                    { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 112, comments: 22, isStory: false },
-                    { id: 9, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'video', social: 'instagram', likes: 234, comments: 48, isStory: true },
+                    { id: 1, photo: '/photos/72143301_1255865144620953_7821217256553054208_n.jpg', type: 'photo', social: 'instagram', likes: 127, comments: 23, isStory: false },
+                    { id: 2, photo: '/photos/72778896_1227391067468361_5854469268342571008_n.jpg', type: 'photo', social: 'facebook', likes: 89, comments: 15, isStory: false },
+                    { id: 3, photo: '/photos/73208176_1255863554621112_5449277947649196032_n.jpg', type: 'video', social: 'instagram', likes: 203, comments: 42, isStory: true },
+                    { id: 4, photo: '/photos/75220622_1263163760557758_1828565807827779584_n.jpg', type: 'photo', social: 'instagram', likes: 156, comments: 28, isStory: false },
+                    { id: 5, photo: '/photos/75354869_1255866784620789_5172593281107755008_n.jpg', type: 'photo', social: 'facebook', likes: 94, comments: 19, isStory: false },
+                    { id: 6, photo: '/photos/75380514_1258785557662245_2665705434043645952_n.jpg', type: 'video', social: 'instagram', likes: 178, comments: 35, isStory: true },
+                    { id: 7, photo: '/photos/84839024_1346442362229897_7481666728498298880_n.jpg', type: 'photo', social: 'instagram', likes: 145, comments: 31, isStory: false },
+                    { id: 8, photo: '/photos/195938444_1716673385206791_5972386242218118423_n.jpg', type: 'photo', social: 'facebook', likes: 112, comments: 22, isStory: false },
+                    { id: 9, photo: '/photos/201379691_1725109587696504_3657017033572797514_n.jpg', type: 'video', social: 'instagram', likes: 234, comments: 48, isStory: true },
+                    { id: 10, photo: '/photos/472330785_2705641812976605_8147454895918841464_n.jpg', type: 'photo', social: 'instagram', likes: 167, comments: 29, isStory: false },
+                    { id: 11, photo: '/photos/474191144_922114450096562_1778427783441398275_n.jpg', type: 'photo', social: 'facebook', likes: 134, comments: 24, isStory: false },
+                    { id: 12, photo: '/photos/474747613_925366876437986_3391021362464847354_n.jpg', type: 'video', social: 'instagram', likes: 221, comments: 45, isStory: true },
                   ] : []),
                   // Places Tab Content
                   ...(socialTab === 1 ? [
-                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 198, comments: 37, isStory: false },
-                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'instagram', likes: 167, comments: 29, isStory: false },
-                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 143, comments: 26, isStory: false },
-                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'video', social: 'instagram', likes: 256, comments: 51, isStory: true },
-                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'photo', social: 'instagram', likes: 189, comments: 34, isStory: false },
-                    { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'facebook', likes: 134, comments: 24, isStory: false },
-                    { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'video', social: 'instagram', likes: 221, comments: 45, isStory: true },
-                    { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'instagram', likes: 175, comments: 32, isStory: false },
+                    { id: 1, photo: '/photos/476121564_2731964927010960_1872202122797019235_n.jpg', type: 'photo', social: 'instagram', likes: 198, comments: 37, isStory: false },
+                    { id: 2, photo: '/photos/487438531_2782168148657304_2855709124804435896_n.jpg', type: 'photo', social: 'instagram', likes: 167, comments: 29, isStory: false },
+                    { id: 3, photo: '/photos/488707367_2782966415244144_4496557027079616535_n.jpg', type: 'photo', social: 'facebook', likes: 143, comments: 26, isStory: false },
+                    { id: 4, photo: '/photos/518407574_1080814327559906_7301251356704742628_n.jpg', type: 'video', social: 'instagram', likes: 256, comments: 51, isStory: true },
+                    { id: 5, photo: '/photos/534729196_1080814874226518_8430082551815755637_n.jpg', type: 'photo', social: 'instagram', likes: 189, comments: 34, isStory: false },
+                    { id: 6, photo: '/photos/547831429_1105455918429080_1339539868519472835_n.jpg', type: 'photo', social: 'facebook', likes: 134, comments: 24, isStory: false },
+                    { id: 7, photo: '/photos/547832271_1105636951744310_5007643116898073064_n.jpg', type: 'video', social: 'instagram', likes: 221, comments: 45, isStory: true },
+                    { id: 8, photo: '/photos/548309956_1105451331762872_8479958509514200962_n.jpg', type: 'photo', social: 'instagram', likes: 175, comments: 32, isStory: false },
+                    { id: 9, photo: '/photos/548398608_1105456358429036_8053119805662137426_n.jpg', type: 'photo', social: 'facebook', likes: 156, comments: 28, isStory: false },
+                    { id: 10, photo: '/photos/548595318_1105455078429164_4623321124477129928_n.jpg', type: 'video', social: 'instagram', likes: 245, comments: 49, isStory: true },
                   ] : []),
                   // Behind the Scenes Tab Content
                   ...(socialTab === 2 ? [
-                    { id: 1, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 142, comments: 27, isStory: false },
-                    { id: 2, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'video', social: 'instagram', likes: 267, comments: 54, isStory: true },
-                    { id: 3, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'photo', social: 'facebook', likes: 118, comments: 21, isStory: false },
-                    { id: 4, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'photo', social: 'instagram', likes: 163, comments: 30, isStory: false },
-                    { id: 5, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'video', social: 'instagram', likes: 289, comments: 58, isStory: true },
+                    { id: 1, photo: '/photos/548877641_1105446995096639_7393077100571014764_n.jpg', type: 'photo', social: 'instagram', likes: 142, comments: 27, isStory: false },
+                    { id: 2, photo: '/photos/549131738_1105456155095723_6317443526696665132_n.jpg', type: 'video', social: 'instagram', likes: 267, comments: 54, isStory: true },
+                    { id: 3, photo: '/photos/549606101_1105451861762819_8602403738246550219_n.jpg', type: 'photo', social: 'facebook', likes: 118, comments: 21, isStory: false },
+                    { id: 4, photo: '/photos/550335458_1105452421762763_2396967666599670886_n.jpg', type: 'photo', social: 'instagram', likes: 163, comments: 30, isStory: false },
+                    { id: 5, photo: '/photos/573853248_1142845508023454_8525599641591502954_n.jpg', type: 'video', social: 'instagram', likes: 289, comments: 58, isStory: true },
                     { id: 6, photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'photo', social: 'instagram', likes: 151, comments: 28, isStory: false },
                     { id: 7, photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'photo', social: 'facebook', likes: 129, comments: 23, isStory: false },
                     { id: 8, photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'video', social: 'instagram', likes: 245, comments: 49, isStory: true },
+                    { id: 9, photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'photo', social: 'instagram', likes: 178, comments: 33, isStory: false },
+                    { id: 10, photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'photo', social: 'facebook', likes: 147, comments: 26, isStory: false },
                   ] : []),
                 ].map((post, index) => (
                   <ImageListItem
@@ -2121,33 +2448,6 @@ export default function Gallery() {
                           }}
                         />
                       )}
-                      {/* Video Play Icon for Stories */}
-                      {post.isStory && post.type === 'video' && (
-                        <Box
-                          sx={{
-                            position: 'absolute',
-                            top: '50%',
-                            left: '50%',
-                            transform: 'translate(-50%, -50%)',
-                            zIndex: 2,
-                          }}
-                        >
-                          <Box
-                            sx={{
-                              width: 60,
-                              height: 60,
-                              borderRadius: '50%',
-                              backgroundColor: 'rgba(237, 41, 57, 0.9)',
-                              display: 'flex',
-                              alignItems: 'center',
-                              justifyContent: 'center',
-                              boxShadow: '0 4px 16px rgba(237, 41, 57, 0.6)',
-                            }}
-                          >
-                            <PlayArrowIcon sx={{ fontSize: 30, color: 'white', ml: 0.5 }} />
-                          </Box>
-                        </Box>
-                      )}
                       {/* Hover Overlay with Likes/Comments */}
                       <Box
                         className="post-overlay"
@@ -2211,7 +2511,7 @@ export default function Gallery() {
                 >
                   <Box
                     component="img"
-                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    src="/photos/547831429_1105455918429080_1339539868519472835_n.jpg"
                     alt="Share Your Moment"
                     sx={{
                       width: '100%',
@@ -2307,6 +2607,65 @@ export default function Gallery() {
         </Container>
       </Box>
       </Container>
+
+      {/* Image Zoom Modal */}
+      <Dialog
+        open={zoomOpen}
+        onClose={handleCloseZoom}
+        maxWidth="lg"
+        fullWidth
+        PaperProps={{
+          sx: {
+            backgroundColor: 'rgba(0, 0, 0, 0.95)',
+            borderRadius: '16px',
+            overflow: 'hidden',
+          },
+        }}
+      >
+        <DialogContent
+          sx={{
+            p: 0,
+            position: 'relative',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            minHeight: '80vh',
+          }}
+        >
+          <IconButton
+            onClick={handleCloseZoom}
+            sx={{
+              position: 'absolute',
+              top: 16,
+              right: 16,
+              zIndex: 3,
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              backdropFilter: 'blur(10px)',
+              color: 'white',
+              '&:hover': {
+                backgroundColor: 'rgba(255, 255, 255, 0.3)',
+              },
+            }}
+          >
+            <CloseIcon />
+          </IconButton>
+          {zoomImage && (
+            <Box
+              component="img"
+              src={zoomImage}
+              alt="Zoomed Image"
+              sx={{
+                maxWidth: '100%',
+                maxHeight: '90vh',
+                width: 'auto',
+                height: 'auto',
+                objectFit: 'contain',
+                borderRadius: '8px',
+              }}
+            />
+          )}
+        </DialogContent>
+      </Dialog>
     </Box>
   );
 }
