@@ -1147,7 +1147,7 @@ export default function Home() {
                               <Box
                                 key={src}
                                 component="img"
-                                src={src}
+                                src={getImagePath(src)}
                                 alt="Event preview"
                                 loading="lazy"
                                 sx={{
@@ -1261,7 +1261,7 @@ export default function Home() {
           >
             <CardMedia
               component="img"
-              image="/illustrations/mitra-image-4.png"
+              image={getImagePath("/illustrations/mitra-image-4.png")}
               alt="Placeholder"
               sx={{
                 width: '100%',
@@ -1394,9 +1394,9 @@ export default function Home() {
                 photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 showAvatars: true,
                 avatars: [
-                  '/photos/574604314_1146960820945256_3308026953512837589_n.jpg',
-                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
-                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  getImagePath('/photos/574604314_1146960820945256_3308026953512837589_n.jpg'),
+                  getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
+                  getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                 ],
               },
               {
@@ -1733,7 +1733,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(66, 135, 245, 0.85) 0%, transparent 100%)',
                 stats: { members: 156, programs: 12 },
                 features: ['💻 Digital Literacy', '🎨 Art Classes', '☕ Social Meetups'],
-                image: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                image: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
               },
               {
                 role: 'youth',
@@ -1744,7 +1744,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.85) 0%, transparent 100%)',
                 stats: { members: 340, placement: '89%' },
                 features: ['💻 Coding Bootcamp', '🎬 Media Production', '🗣️ Public Speaking', '🌍 EU Opportunities'],
-                image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                image: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
               },
               {
                 role: 'migrant',
@@ -1755,7 +1755,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, transparent 100%)',
                 stats: { languages: 15, success: '95%' },
                 features: ['🇫🇷 French Classes', '📄 Document Help', '🏠 Housing Support', '👔 Job Training'],
-                image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                image: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
               },
               {
                 role: 'organization',
@@ -1766,7 +1766,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(67, 160, 71, 0.85) 0%, transparent 100%)',
                 stats: { partners: 23, countries: 8 },
                 features: ['💰 Funding Access', '📊 Project Collaboration', '🎓 Training Programs', '📱 Resource Sharing'],
-                image: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                image: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
               },
             ].map((roleOption) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={roleOption.role}>
@@ -3560,7 +3560,7 @@ export default function Home() {
                 action: 'Explore our programs',
                 color: '#0288d1',
                 gradient: 'linear-gradient(135deg, rgba(2, 136, 209, 0.85) 0%, rgba(2, 136, 209, 0.6) 100%)',
-                image: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                image: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
               },
               {
                 emotion: 'interested',
@@ -3570,7 +3570,7 @@ export default function Home() {
                 action: 'See how to get started',
                 color: '#002395',
                 gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 100%)',
-                image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                image: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
               },
               {
                 emotion: 'committed',
@@ -3580,7 +3580,7 @@ export default function Home() {
                 action: 'Register now',
                 color: '#4caf50',
                 gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, rgba(76, 175, 80, 0.6) 100%)',
-                image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                image: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
               },
             ].map((emotionOption) => (
               <Grid size={{ xs: 12, md: 4 }} key={emotionOption.emotion}>
@@ -3796,9 +3796,9 @@ export default function Home() {
                 imagePlaceholder: '🌍',
                 screenshot: false,
                 photos: [
-                  '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
-                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
-                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
+                  getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
+                  getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                 ],
               },
               {
@@ -4367,7 +4367,9 @@ export default function Home() {
                   '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
                   '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
                   '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                ].slice(0, 8).map((photo, idx) => (
+                ].slice(0, 8).map((photo, idx) => {
+                  const photoPath = getImagePath(photo);
+                  return (
                   <Box
                     key={idx}
                     sx={{
@@ -4404,11 +4406,12 @@ export default function Home() {
                           zIndex: 2,
                         },
                       }}
-                      src={photo}
+                      src={photoPath}
                       alt={`Recent joiner ${idx + 1}`}
                     />
                   </Box>
-                ))}
+                  );
+                })}
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mt: 3 }}>
                 <Box
@@ -5085,7 +5088,7 @@ export default function Home() {
                 {[
                   {
                     name: 'MATRA France',
-                    logo: '/matra-france-logo.png',
+                    logo: getImagePath('/matra-france-logo.png'),
                     caption: 'STEM Workshops • Paris',
                   },
                   {
@@ -5147,19 +5150,19 @@ export default function Home() {
                     title: 'Erasmus+ Media Lab',
                     result: '120 youth trained',
                     location: 'Berlin • 2024',
-                    img: '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
+                    img: getImagePath('/photos/518407574_1080814327559906_7301251356704742628_n.jpg'),
                   },
                   {
                     title: 'Intercultural Festival',
                     result: '15 countries represented',
                     location: 'Marseille • 2023',
-                    img: '/photos/557776852_1117802063861132_509746235238804573_n.jpg',
+                    img: getImagePath('/photos/557776852_1117802063861132_509746235238804573_n.jpg'),
                   },
                   {
                     title: 'Digital Inclusion Sprint',
                     result: '300 seniors upskilled',
                     location: 'Paris • 2024',
-                    img: '/photos/559033237_1124004446574227_6921470462676666260_n.jpg',
+                    img: getImagePath('/photos/559033237_1124004446574227_6921470462676666260_n.jpg'),
                   },
                 ].map((caseItem, index) => (
                   <Grid size={{ xs: 12, md: 4 }} key={index}>
@@ -5316,15 +5319,15 @@ export default function Home() {
 
               const photoMap = [
                 // Intercultural Education
-                '/photos/557776852_1117802063861132_509746235238804573_n.jpg',
+                getImagePath('/photos/557776852_1117802063861132_509746235238804573_n.jpg'),
                 // Media & Arts
-                '/photos/518407574_1080814327559906_7301251356704742628_n.jpg',
+                getImagePath('/photos/518407574_1080814327559906_7301251356704742628_n.jpg'),
                 // Digital Literacy
-                '/photos/559033237_1124004446574227_6921470462676666260_n.jpg',
+                getImagePath('/photos/559033237_1124004446574227_6921470462676666260_n.jpg'),
                 // Volunteering
-                '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 // Adult Education
-                '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
               ];
               const areaPhoto = photoMap[index % photoMap.length];
               
@@ -7537,7 +7540,7 @@ export default function Home() {
             content: '""',
             position: 'absolute',
             inset: 0,
-            backgroundImage: 'url(/photos/571419367_1143811194593552_6930038688628840775_n.jpg)',
+            backgroundImage: `url(${getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg')})`,
             backgroundSize: 'cover',
             backgroundPosition: 'center',
             opacity: 0.08,

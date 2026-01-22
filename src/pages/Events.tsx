@@ -160,7 +160,7 @@ export default function Events() {
             <Box
               key={idx}
               component="img"
-              src={photo}
+              src={getImagePath(photo)}
               alt={`Event ${idx + 1}`}
               sx={{
                 width: '100%',
@@ -386,28 +386,28 @@ export default function Events() {
                 label: 'Upcoming Events',
                 value: '20+',
                 color: '#002395',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
               },
               {
                 icon: <SchoolIcon />,
                 label: 'Training Courses',
                 value: '15+',
                 color: '#ED2939',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
               },
               {
                 icon: <PeopleIcon />,
                 label: 'Participants',
                 value: '500+',
                 color: '#4CAF50',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
               },
               {
                 icon: <NotificationsActiveIcon />,
                 label: 'Events This Month',
                 value: '8+',
                 color: '#ED2939',
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
               },
             ].map((stat) => (
               <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
@@ -439,7 +439,7 @@ export default function Events() {
                   <Box
                     className="stat-photo"
                     component="img"
-                    src={stat.photo}
+                    src={getImagePath(stat.photo)}
                     alt={stat.label}
                     sx={{
                       position: 'absolute',
@@ -671,25 +671,25 @@ export default function Events() {
               {
                 label: 'Workshops',
                 icon: <LightbulbIcon />,
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 color: '#002395',
               },
               {
                 label: 'Training Courses',
                 icon: <SchoolIcon />,
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 color: '#ED2939',
               },
               {
                 label: 'Cultural Activities',
                 icon: <MuseumIcon />,
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 color: '#002395',
               },
               {
                 label: 'Calendar',
                 icon: <CalendarTodayIcon />,
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 color: '#4CAF50',
               },
             ].map((tab, index) => (
@@ -738,7 +738,7 @@ export default function Events() {
                     left: 0,
                     width: '100%',
                     height: '100%',
-                    backgroundImage: `url(${tab.photo})`,
+                    backgroundImage: `url(${getImagePath(tab.photo)})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: value === index ? 0.2 : 0.1,
@@ -817,7 +817,7 @@ export default function Events() {
                       <Box
                         className="event-photo"
                         component="img"
-                        src={workshop.photo}
+                        src={getImagePath(workshop.photo)}
                         alt={workshop.title}
                         sx={{
                           width: '100%',
@@ -962,7 +962,7 @@ export default function Events() {
                   <ImageListItem key={idx}>
                     <Box
                       component="img"
-                      src={photo}
+                      src={getImagePath(photo)}
                       alt={`Event moment ${idx + 1}`}
                       sx={{
                         width: '100%',
@@ -1085,45 +1085,45 @@ export default function Events() {
                 {
                   title: 'Multimedia Literacy & Production',
                   description: 'Comprehensive training in multimedia production, video editing, and digital storytelling.',
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   date: 'March 5, 2024',
                   time: '9:00 AM - 5:00 PM',
                   location: 'Le 109, Nice',
                   status: 'upcoming',
-                  instructorPhoto: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  instructorPhoto: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   instructorName: 'Alex Smulski',
                 },
                 {
                   title: 'Digital Skills for Educators',
                   description: 'Learn how to integrate digital tools into your teaching practice and engage students effectively.',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   date: 'March 12, 2024',
                   time: '9:00 AM - 5:00 PM',
                   location: 'Villa Ephrussi, Nice',
                   status: 'upcoming',
-                  instructorPhoto: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  instructorPhoto: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   instructorName: 'Karina Tronche',
                 },
                 {
                   title: 'Intercultural Communication',
                   description: 'Develop skills to work effectively across cultures and build inclusive communities.',
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   date: 'February 8, 2024',
                   time: '10:00 AM - 4:00 PM',
                   location: 'Le HUBLOT, Nice',
                   status: 'past',
-                  instructorPhoto: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  instructorPhoto: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   instructorName: 'Louise Papadoperakis',
                 },
                 {
                   title: 'Project Management for Non-Profits',
                   description: 'Master project management techniques tailored for non-profit organizations.',
-                  photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                   date: 'January 25, 2024',
                   time: '9:00 AM - 5:00 PM',
                   location: 'Le 109, Nice',
                   status: 'past',
-                  instructorPhoto: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  instructorPhoto: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   instructorName: 'Pavel Smulski',
                 },
               ].map((course, index) => (
@@ -1156,7 +1156,7 @@ export default function Events() {
                       <Box
                         className="event-photo"
                         component="img"
-                        src={course.photo}
+                        src={getImagePath(course.photo)}
                         alt={course.title}
                         sx={{
                           width: '100%',
@@ -1305,7 +1305,7 @@ export default function Events() {
                   <ImageListItem key={idx}>
                     <Box
                       component="img"
-                      src={photo}
+                      src={getImagePath(photo)}
                       alt={`Event moment ${idx + 1}`}
                       sx={{
                         width: '100%',
@@ -1345,10 +1345,10 @@ export default function Events() {
               </Typography>
               <Grid container spacing={2}>
                 {[
-                  { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', label: 'Certificate Ceremony' },
-                  { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', label: 'Learning Process' },
-                  { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', label: 'Group Training' },
-                  { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', label: 'Skills Development' },
+                  { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), label: 'Certificate Ceremony' },
+                  { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), label: 'Learning Process' },
+                  { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), label: 'Group Training' },
+                  { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), label: 'Skills Development' },
                 ].map((item, idx) => (
                   <Grid size={{ xs: 6 }} key={idx}>
                     <Box
@@ -1367,7 +1367,7 @@ export default function Events() {
                     >
                       <Box
                         component="img"
-                        src={item.photo}
+                        src={getImagePath(item.photo)}
                         alt={item.label}
                         sx={{
                           width: '100%',
@@ -1414,7 +1414,7 @@ export default function Events() {
                 {
                   title: 'Cultural Exhibitions',
                   description: 'Showcasing artwork and cultural expressions from diverse communities',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   date: 'March 15, 2024',
                   time: '2:00 PM - 6:00 PM',
                   location: 'Villa Ephrussi, Nice',
@@ -1423,7 +1423,7 @@ export default function Events() {
                 {
                   title: 'Film Screenings',
                   description: 'Educational film screenings followed by discussions',
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   date: 'March 20, 2024',
                   time: '7:00 PM - 9:00 PM',
                   location: 'Le 109, Nice',
@@ -1432,7 +1432,7 @@ export default function Events() {
                 {
                   title: 'Cultural Festivals',
                   description: 'Community festivals celebrating different cultures and traditions',
-                  photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                  photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                   date: 'February 10, 2024',
                   time: '10:00 AM - 6:00 PM',
                   location: 'Le HUBLOT, Nice',
@@ -1441,7 +1441,7 @@ export default function Events() {
                 {
                   title: 'Art Workshops',
                   description: 'Hands-on art workshops exploring different artistic traditions',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   date: 'January 30, 2024',
                   time: '3:00 PM - 5:00 PM',
                   location: 'Le 109, Nice',
@@ -1471,7 +1471,7 @@ export default function Events() {
                     <Box
                       className="activity-photo"
                       component="img"
-                      src={activity.photo}
+                      src={getImagePath(activity.photo)}
                       alt={activity.title}
                       sx={{
                         position: 'absolute',
@@ -1603,7 +1603,7 @@ export default function Events() {
                   <ImageListItem key={idx}>
                     <Box
                       component="img"
-                      src={photo}
+                      src={getImagePath(photo)}
                       alt={`Event moment ${idx + 1}`}
                       sx={{
                         width: '100%',
