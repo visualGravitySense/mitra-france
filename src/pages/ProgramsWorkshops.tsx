@@ -571,62 +571,62 @@ export default function ProgramsWorkshops() {
                   icon: <SchoolIcon />,
                   title: 'Expert-Led Learning',
                   description: 'Learn from industry professionals and experienced educators. 89% of participants rate our instructors as excellent.',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   color: '#002395',
                   borderColor: '#002395',
                   number: '01',
                   height: { xs: 'auto', md: 420 },
                   offset: { xs: 0, md: 0 },
                   testimonials: [
-                    { name: 'Anna', country: 'Poland', photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg' },
-                    { name: 'Leo', country: 'France', photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg' },
-                    { name: 'Maria', country: 'Spain', photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg' },
+                    { name: 'Anna', country: 'Poland', photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg') },
+                    { name: 'Leo', country: 'France', photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg') },
+                    { name: 'Maria', country: 'Spain', photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg') },
                   ],
                 },
                 {
                   icon: <PeopleIcon />,
                   title: 'Community Building',
                   description: 'Connect with like-minded learners, build your network, and grow together in a supportive environment.',
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   color: '#4CAF50',
                   borderColor: '#4CAF50',
                   number: '02',
                   height: { xs: 'auto', md: 380 },
                   offset: { xs: 0, md: 20 },
                   testimonials: [
-                    { name: 'Sophie', country: 'France', photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg' },
-                    { name: 'David', country: 'Germany', photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg' },
+                    { name: 'Sophie', country: 'France', photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg') },
+                    { name: 'David', country: 'Germany', photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg') },
                   ],
                 },
                 {
                   icon: <AccessTimeIcon />,
                   title: 'Flexible Schedule',
                   description: 'Choose from various time slots and formats. Learn at your own pace with both live and self-paced options.',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   color: '#2196F3',
                   borderColor: '#2196F3',
                   number: '03',
                   height: { xs: 'auto', md: 400 },
                   offset: { xs: 0, md: -15 },
                   testimonials: [
-                    { name: 'Emma', country: 'UK', photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg' },
-                    { name: 'Lucas', country: 'Italy', photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg' },
-                    { name: 'Nina', country: 'Netherlands', photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg' },
+                    { name: 'Emma', country: 'UK', photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg') },
+                    { name: 'Lucas', country: 'Italy', photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg') },
+                    { name: 'Nina', country: 'Netherlands', photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg') },
                   ],
                 },
                 {
                   icon: <StarIcon />,
                   title: 'Practical Skills',
                   description: 'Gain hands-on experience and real-world skills that you can apply immediately in your career or personal projects.',
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   color: '#FF9800',
                   borderColor: '#FF9800',
                   number: '04',
                   height: { xs: 'auto', md: 360 },
                   offset: { xs: 0, md: 10 },
                   testimonials: [
-                    { name: 'Tom', country: 'Belgium', photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg' },
-                    { name: 'Sara', country: 'Sweden', photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg' },
+                    { name: 'Tom', country: 'Belgium', photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg') },
+                    { name: 'Sara', country: 'Sweden', photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg') },
                   ],
                 },
               ].map((benefit, index) => (
@@ -875,7 +875,7 @@ export default function ProgramsWorkshops() {
                   description: 'Browse our programs and workshops. Pick one that matches your interests. Takes less than 2 minutes.',
                   icon: <SchoolIcon />,
                   color: '#002395',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 },
                 {
                   step: '2',
@@ -883,7 +883,7 @@ export default function ProgramsWorkshops() {
                   description: 'Simple sign-up process. Just your name and email - that\'s it! No credit card required.',
                   icon: <CheckCircleIcon />,
                   color: '#4CAF50',
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 },
                 {
                   step: '3',
@@ -891,7 +891,7 @@ export default function ProgramsWorkshops() {
                   description: 'Access your program immediately. Learn at your own pace, whenever you want.',
                   icon: <PlayArrowIcon />,
                   color: '#2196F3',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 },
               ].map((item, index) => (
                 <Grid size={{ xs: 12, md: 4 }} key={index}>
@@ -1065,11 +1065,11 @@ export default function ProgramsWorkshops() {
               }}
             >
               {[
-                '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-                '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
+                getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
               ].map((photo, idx) => (
                 <Avatar key={idx} src={photo} alt={`Participant ${idx + 1}`} />
               ))}
@@ -1135,7 +1135,7 @@ export default function ProgramsWorkshops() {
                 <Box
                   className="card-photo"
                   component="img"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                   alt="Identify Goals"
                   sx={{
                     position: 'absolute',
@@ -1261,7 +1261,7 @@ export default function ProgramsWorkshops() {
                 <Box
                   className="card-photo"
                   component="img"
-                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                   alt="Utilize Triggers"
                   sx={{
                     position: 'absolute',
@@ -1397,7 +1397,7 @@ export default function ProgramsWorkshops() {
                 <Box
                   className="card-photo"
                   component="img"
-                  src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                  src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                   alt="Simplify the Process"
                   sx={{
                     position: 'absolute',
@@ -1696,7 +1696,7 @@ export default function ProgramsWorkshops() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                        src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                         alt="Student with Certificate"
                         sx={{
                           width: '100%',
@@ -1843,7 +1843,7 @@ export default function ProgramsWorkshops() {
                     >
                       <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
                         <Avatar
-                          src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                          src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                           alt={socialInfluence.topPerformer}
                           sx={{
                             width: 64,
@@ -2010,7 +2010,7 @@ export default function ProgramsWorkshops() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                        src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                         alt="Learning Platform"
                         sx={{
                           position: 'absolute',
