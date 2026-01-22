@@ -22,10 +22,13 @@ import MediaArtsEducation from './pages/MediaArtsEducation.tsx';
 import NotFound from './pages/NotFound.tsx';
 
 function App() {
+  // Get base path from environment or use default
+  const basePath = import.meta.env.BASE_URL || '/';
+  
   return (
     <AppTheme>
       <CssBaseline enableColorScheme />
-      <BrowserRouter>
+      <BrowserRouter basename={basePath}>
         <ScrollToTop />
         <Navigation />
         <Routes>
