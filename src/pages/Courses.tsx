@@ -52,6 +52,7 @@ import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import BrushIcon from '@mui/icons-material/Brush';
 import CelebrationIcon from '@mui/icons-material/Celebration';
 import MicIcon from '@mui/icons-material/Mic';
+import { getImagePath } from '../utils/imagePath';
 
 export default function Courses() {
   const [actionFeedback, setActionFeedback] = useState<{ open: boolean; message: string; type: 'success' | 'info' | 'warning' }>({
@@ -195,28 +196,28 @@ export default function Courses() {
                   icon: <SchoolIcon />,
                   label: 'Digital Literacy',
                   count: '25+ courses',
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.7) 0%, rgba(0, 35, 149, 0.5) 100%)',
                 },
                 {
                   icon: <LanguageIcon />,
                   label: 'Language Learning',
                   count: '30+ courses',
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   gradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.7) 0%, rgba(237, 41, 57, 0.5) 100%)',
                 },
                 {
                   icon: <ComputerIcon />,
                   label: 'Media Literacy',
                   count: '20+ courses',
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.7) 0%, rgba(0, 35, 149, 0.5) 100%)',
                 },
                 {
                   icon: <PaletteIcon />,
                   label: 'Arts & Culture',
                   count: '25+ courses',
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   gradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.7) 0%, rgba(237, 41, 57, 0.5) 100%)',
                 },
               ].map((category) => (
@@ -320,10 +321,10 @@ export default function Courses() {
                 value: '5000+',
                 color: '#002395',
                 avatars: [
-                  '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                  '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                  '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                  '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                  getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                  getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                  getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 ],
               },
               {
@@ -342,7 +343,7 @@ export default function Courses() {
                 label: 'Expert Instructors',
                 value: '50+',
                 color: '#002395',
-                instructorPhoto: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                instructorPhoto: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
               },
             ].map((stat) => (
               <Grid size={{ xs: 6, sm: 3 }} key={stat.label}>
@@ -428,7 +429,7 @@ export default function Courses() {
             {/* Background Photo */}
             <Box
               component="img"
-              src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+              src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
               alt="Learning Environment"
               sx={{
                 position: 'absolute',
@@ -600,20 +601,20 @@ export default function Courses() {
                 }}
               >
                 {[
-                  { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', title: 'Digital Skills Certificate' },
-                  { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', title: 'Erasmus+ Completion' },
-                  { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', title: 'Media Literacy Diploma' },
-                  { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', title: 'Language Learning Certificate' },
-                  { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', title: 'Cultural Exchange Award' },
-                  { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', title: 'Community Engagement' },
+                  { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), title: 'Digital Skills Certificate' },
+                  { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), title: 'Erasmus+ Completion' },
+                  { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), title: 'Media Literacy Diploma' },
+                  { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), title: 'Language Learning Certificate' },
+                  { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), title: 'Cultural Exchange Award' },
+                  { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), title: 'Community Engagement' },
                 ]
                   .concat([
-                    { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', title: 'Digital Skills Certificate' },
-                    { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', title: 'Erasmus+ Completion' },
-                    { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', title: 'Media Literacy Diploma' },
-                    { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', title: 'Language Learning Certificate' },
-                    { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', title: 'Cultural Exchange Award' },
-                    { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', title: 'Community Engagement' },
+                    { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), title: 'Digital Skills Certificate' },
+                    { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), title: 'Erasmus+ Completion' },
+                    { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), title: 'Media Literacy Diploma' },
+                    { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), title: 'Language Learning Certificate' },
+                    { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), title: 'Cultural Exchange Award' },
+                    { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), title: 'Community Engagement' },
                   ])
                   .map((cert, idx) => (
                     <Card
@@ -961,21 +962,21 @@ export default function Courses() {
                   {
                     title: 'Quick Start',
                     subtitle: 'For Beginners',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                     description: 'Perfect for those just starting their learning journey',
                     icon: <PlayArrowIcon />,
                   },
                   {
                     title: 'Career Boost',
                     subtitle: 'For Professionals',
-                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     description: 'Advance your skills and accelerate your career',
                     icon: <TrendingUpIcon />,
                   },
                   {
                     title: 'Deep Dive',
                     subtitle: 'For Advanced',
-                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                     description: 'Comprehensive programs for in-depth learning',
                     icon: <SchoolIcon />,
                   },
@@ -1308,7 +1309,7 @@ export default function Courses() {
             {
               title: 'Digital Literacy',
               description: 'Essential digital skills for everyday life. Master the tools and knowledge needed to thrive in the digital age, from basic computer operations to advanced online safety.',
-              photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+              photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
               curriculum: [
                 { icon: <ComputerIcon />, label: 'AI Basics' },
                 { icon: <SecurityIcon />, label: 'Cyber Security' },
@@ -1319,7 +1320,7 @@ export default function Courses() {
               ],
               instructor: {
                 name: 'Karina Tronche',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 role: 'Lead Instructor',
               },
               badges: ['Beginner Friendly', 'Certification Included', 'Free Access'],
@@ -1331,7 +1332,7 @@ export default function Courses() {
             {
               title: 'Media Literacy',
               description: 'Critical thinking and information analysis. Learn to navigate the modern media landscape, identify misinformation, and create meaningful digital content.',
-              photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+              photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
               curriculum: [
                 { icon: <VideoLibraryIcon />, label: 'Video Production' },
                 { icon: <MicIcon />, label: 'Podcast Creation' },
@@ -1342,7 +1343,7 @@ export default function Courses() {
               ],
               instructor: {
                 name: 'Alex Smulski',
-                photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                 role: 'Lead Instructor',
               },
               badges: ['Certification Included', 'Portfolio Building'],
@@ -1354,7 +1355,7 @@ export default function Courses() {
             {
               title: 'Language Learning',
               description: 'French language courses for integration. Build confidence in speaking, writing, and understanding French through immersive, practical lessons.',
-              photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+              photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
               curriculum: [
                 { icon: <ChatIcon />, label: 'Conversation' },
                 { icon: <MenuBookIcon />, label: 'Grammar' },
@@ -1365,7 +1366,7 @@ export default function Courses() {
               ],
               instructor: {
                 name: 'Louise Papadoperakis',
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                 role: 'Lead Instructor',
               },
               badges: ['Beginner Friendly', 'All Levels', 'Free Access'],
@@ -1377,7 +1378,7 @@ export default function Courses() {
             {
               title: 'Arts & Culture',
               description: 'Creative expression and cultural heritage. Explore the rich cultural landscape of France and Europe through hands-on workshops and cultural exchanges.',
-              photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+              photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
               curriculum: [
                 { icon: <PaletteIcon />, label: 'Visual Arts' },
                 { icon: <TheaterComedyIcon />, label: 'Theater' },
@@ -1388,7 +1389,7 @@ export default function Courses() {
               ],
               instructor: {
                 name: 'Louise Papadoperakis',
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                 role: 'Lead Instructor',
               },
               badges: ['All Levels', 'Free Access', 'Cultural Immersion'],
@@ -1898,22 +1899,22 @@ export default function Courses() {
             <Grid container spacing={3}>
               {[
                 {
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   title: 'Graduate with Certificate',
                   description: 'Celebrating achievement at our office',
                 },
                 {
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   title: 'Workshop Completion',
                   description: 'Group photo after successful workshop in Nice',
                 },
                 {
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   title: 'LinkedIn Success',
                   description: 'Graduate sharing achievement on LinkedIn',
                 },
                 {
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   title: 'Career Advancement',
                   description: 'Using certificate for job applications',
                 },
@@ -2001,21 +2002,21 @@ export default function Courses() {
                   title: 'CV Boost',
                   description: 'Stand out from other candidates with a recognized European certificate',
                   icon: <StarIcon />,
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   color: '#FF9800',
                 },
                 {
                   title: 'International Recognition',
                   description: 'Valued by employers and institutions across 15+ European countries',
                   icon: <PublicIcon />,
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   color: '#002395',
                 },
                 {
                   title: 'Career Growth',
                   description: 'Open doors to new opportunities and professional advancement',
                   icon: <TrendingUpIcon />,
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   color: '#ED2939',
                 },
               ].map((benefit, idx) => (
@@ -2126,7 +2127,7 @@ export default function Courses() {
           >
             <Box
               component="img"
-              src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+              src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
               alt="Students Learning"
               sx={{
                 position: 'absolute',
