@@ -75,7 +75,7 @@ const ParticleCTAButton: React.FC<ParticleCTAButtonProps> = ({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const [isAnimating, setIsAnimating] = useState(false);
   const particles = useRef<Particle[]>([]);
-  const animationId = useRef<number>();
+  const animationId = useRef<number | undefined>(undefined);
   const buttonRef = useRef<HTMLButtonElement>(null);
 
   useEffect(() => {
@@ -164,7 +164,7 @@ const ParticleCTAButton: React.FC<ParticleCTAButtonProps> = ({
     }
   };
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleClick = (_e: React.MouseEvent<HTMLButtonElement>) => {
     if (isAnimating || disabled) return;
 
     setIsAnimating(true);

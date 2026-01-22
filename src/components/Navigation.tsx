@@ -15,21 +15,24 @@ import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown.tsx';
 
-const StyledToolbar = styled(Toolbar)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'space-between',
-  flexShrink: 0,
-  borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
-  backdropFilter: 'blur(24px)',
-  border: '1px solid',
-  borderColor: (theme.vars || theme).palette.divider,
-  backgroundColor: theme.vars
-    ? `rgba(${theme.vars.palette.background.defaultChannel} / 0.4)`
-    : alpha(theme.palette.background.default, 0.4),
-  boxShadow: (theme.vars || theme).shadows[1],
-  padding: '8px 12px',
-}));
+const StyledToolbar = styled(Toolbar)(({ theme }) => {
+  const themeWithVars = theme as any;
+  return {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexShrink: 0,
+    borderRadius: `calc(${theme.shape.borderRadius}px + 8px)`,
+    backdropFilter: 'blur(24px)',
+    border: '1px solid',
+    borderColor: (themeWithVars.vars || theme).palette.divider,
+    backgroundColor: themeWithVars.vars
+      ? `rgba(${themeWithVars.vars.palette.background.defaultChannel} / 0.4)`
+      : alpha(theme.palette.background.default, 0.4),
+    boxShadow: (themeWithVars.vars || theme).shadows[1],
+    padding: '8px 12px',
+  };
+});
 
 const StyledButton = styled(Button)(({ theme }) => ({
   textTransform: 'none',
@@ -49,18 +52,21 @@ const DropdownButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-const StyledMenu = styled(Menu)(({ theme }) => ({
-  '& .MuiPaper-root': {
-    borderRadius: theme.shape.borderRadius * 2,
-    marginTop: theme.spacing(1),
-    minWidth: 200,
-    boxShadow: theme.shadows[8],
-    border: '1px solid',
-    borderColor: (theme.vars || theme).palette.divider,
-    backdropFilter: 'blur(24px)',
-    backgroundColor: theme.vars
-      ? `rgba(${theme.vars.palette.background.paperChannel} / 0.95)`
-      : alpha(theme.palette.background.paper, 0.95),
+const StyledMenu = styled(Menu)(({ theme }) => {
+  const themeWithVars = theme as any;
+  return {
+    '& .MuiPaper-root': {
+      borderRadius: theme.shape.borderRadius * 2,
+      marginTop: theme.spacing(1),
+      minWidth: 200,
+      boxShadow: theme.shadows[8],
+      border: '1px solid',
+      borderColor: (themeWithVars.vars || theme).palette.divider,
+      backdropFilter: 'blur(24px)',
+      backgroundColor: themeWithVars.vars
+        ? `rgba(${themeWithVars.vars.palette.background.paperChannel} / 0.95)`
+        : alpha(theme.palette.background.paper, 0.95),
+    },
     '& .MuiMenuItem-root': {
       padding: theme.spacing(1, 2),
       borderRadius: theme.shape.borderRadius,
@@ -75,8 +81,8 @@ const StyledMenu = styled(Menu)(({ theme }) => ({
         },
       },
     },
-  },
-}));
+  };
+});
 
 interface NavGroup {
   label: string;
@@ -220,7 +226,7 @@ export default function Navigation() {
                         {group.items.map((item) => (
                           <MenuItem
                             key={item.path}
-                            component={Link}
+                            component={Link as any}
                             to={item.path}
                             onClick={handleMenuClose(group.label)}
                             selected={location.pathname === item.path}
@@ -236,7 +242,7 @@ export default function Navigation() {
                   return (
                     <StyledButton
                       key={group.label}
-                      component={Link}
+                      component={Link as any}
                       to={group.path!}
                       variant={isActive ? 'outlined' : 'text'}
                       color="info"
@@ -303,10 +309,10 @@ export default function Navigation() {
                 </Box>
 
                 {allNavItems.map((item) => (
-                  <MenuItem
-                    key={item.path}
-                    component={Link}
-                    to={item.path}
+                    <MenuItem
+                      key={item.path}
+                      component={Link as any}
+                      to={item.path}
                     onClick={toggleDrawer(false)}
                     selected={location.pathname === item.path}
                     sx={{

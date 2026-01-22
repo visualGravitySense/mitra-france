@@ -228,7 +228,7 @@ export default function Home() {
   // Nudge: Social proof - simulate live activity
   const [liveActivity, setLiveActivity] = useState({ count: 1247, recent: 3 });
   // Persuasive: Track user progress and commitments
-  const [userProgress, setUserProgress] = useState({ step: 0, completed: [] });
+  const [userProgress, setUserProgress] = useState<{ step: number; completed: number[] }>({ step: 0, completed: [] });
   // Persuasive: Track scarcity elements
   const [scarcityData, setScarcityData] = useState({ spotsLeft: 12, timeLeft: '2 days' });
   // Behavioral: Track emotional engagement
