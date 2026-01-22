@@ -34,13 +34,14 @@ import Tooltip from '@mui/material/Tooltip';
 import WorkspacePremiumIcon from '@mui/icons-material/WorkspacePremium';
 import AccountBalanceIcon from '@mui/icons-material/AccountBalance';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 
 const localPartners = [
   {
     name: 'Le 109: Pôle de cultures',
     type: 'Cultural Center',
     icon: <LocationOnIcon />,
-    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+    photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
     color: '#ED2939',
     achievement: 'Digital literacy workshops & cultural events',
     mapLocation: 'Nice, France',
@@ -49,7 +50,7 @@ const localPartners = [
     name: 'Le HUBLOT Theater',
     type: 'Theater',
     icon: <TheaterComedyIcon />,
-    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
     color: '#ED2939',
     achievement: 'Youth theater productions & media workshops',
     mapLocation: 'Nice, France',
@@ -58,7 +59,7 @@ const localPartners = [
     name: 'Espace Associations',
     type: 'Community Space',
     icon: <LocationOnIcon />,
-    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
     color: '#002395',
     achievement: 'Community conferences & networking events',
     mapLocation: 'Nice, France',
@@ -67,7 +68,7 @@ const localPartners = [
     name: 'SCREB',
     type: 'Organization',
     icon: <LocationOnIcon />,
-    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
     color: '#ED2939',
     achievement: 'Cultural exchange programs',
     mapLocation: 'Nice, France',
@@ -76,7 +77,7 @@ const localPartners = [
     name: 'Médiathèque Louis Nucéra',
     type: 'Library',
     icon: <LibraryBooksIcon />,
-    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
     color: '#002395',
     achievement: 'Media literacy workshops & reading programs',
     mapLocation: 'Nice, France',
@@ -85,7 +86,7 @@ const localPartners = [
     name: 'Villa Ephrussi de Rothschild',
     type: 'Museum',
     icon: <CastleIcon />,
-    photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+    photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
     color: '#ED2939',
     achievement: 'Heritage education & cultural tours',
     mapLocation: 'Saint-Jean-Cap-Ferrat, France',
@@ -222,12 +223,12 @@ export default function Partners() {
               >
                 {/* Country Points on Map */}
                 {[
-                  { x: 50, y: 45, country: 'France', photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg' },
-                  { x: 60, y: 35, country: 'Germany', photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg' },
-                  { x: 65, y: 30, country: 'Ukraine', photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg' },
-                  { x: 25, y: 55, country: 'Spain', photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg' },
-                  { x: 55, y: 25, country: 'Poland', photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg' },
-                  { x: 70, y: 40, country: 'Romania', photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg' },
+                  { x: 50, y: 45, country: 'France', photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg') },
+                  { x: 60, y: 35, country: 'Germany', photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg') },
+                  { x: 65, y: 30, country: 'Ukraine', photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg') },
+                  { x: 25, y: 55, country: 'Spain', photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg') },
+                  { x: 55, y: 25, country: 'Poland', photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg') },
+                  { x: 70, y: 40, country: 'Romania', photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg') },
                 ].map((point, idx) => (
                   <Tooltip
                     key={idx}
@@ -326,7 +327,7 @@ export default function Partners() {
                 label: 'Local Partners',
                 value: '9+',
                 color: '#002395',
-                photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                 description: 'Office in Nice',
               },
               {
@@ -334,7 +335,7 @@ export default function Partners() {
                 label: 'Educational Institutions',
                 value: '3+',
                 color: '#ED2939',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 description: 'Classrooms & Certificates',
               },
               {
@@ -342,7 +343,7 @@ export default function Partners() {
                 label: 'European Network',
                 value: '15+',
                 color: '#4CAF50',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 description: 'International Forum',
               },
               {
@@ -350,7 +351,7 @@ export default function Partners() {
                 label: 'Active Collaborations',
                 value: '50+',
                 color: '#002395',
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 description: 'Partnership Agreements',
               },
             ].map((stat) => (
@@ -880,22 +881,22 @@ export default function Partners() {
           <Grid container spacing={3}>
             {[
               {
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 title: 'Workshop at Médiathèque Louis Nucéra',
                 description: 'Digital literacy training session',
               },
               {
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 title: 'Theater Performance at Le HUBLOT',
                 description: 'Youth media production showcase',
               },
               {
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 title: 'Conference at Espace Associations',
                 description: 'Community networking event',
               },
               {
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 title: 'Cultural Event at Le 109',
                 description: 'Intercultural dialogue workshop',
               },
@@ -1126,28 +1127,28 @@ export default function Partners() {
           <Grid container spacing={2}>
             {[
               {
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 title: 'Erasmus+ Group',
                 description: 'Participants from 10+ countries',
                 cols: 2,
                 rows: 2,
               },
               {
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 title: 'Partnership Agreement',
                 description: 'Signing ceremony',
                 cols: 1,
                 rows: 1,
               },
               {
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 title: 'Online Conference',
                 description: 'International collaboration',
                 cols: 1,
                 rows: 1,
               },
               {
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 title: 'Certificate Ceremony',
                 description: 'Award presentation',
                 cols: 2,
@@ -1221,7 +1222,7 @@ export default function Partners() {
                 country: '🇩🇪',
                 countryName: 'Germany',
                 logo: '🌍',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 project: 'Media Workshop',
               },
               {
@@ -1229,7 +1230,7 @@ export default function Partners() {
                 country: '🇪🇺',
                 countryName: 'EU Network',
                 logo: '⭐',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 project: 'Digital Inclusion',
               },
               {
@@ -1237,7 +1238,7 @@ export default function Partners() {
                 country: '🇵🇱',
                 countryName: 'Poland',
                 logo: '🎓',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 project: 'Education Exchange',
               },
               {
@@ -1245,7 +1246,7 @@ export default function Partners() {
                 country: '🇪🇸',
                 countryName: 'Spain',
                 logo: '🏛️',
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 project: 'Heritage Programs',
               },
               {
@@ -1253,7 +1254,7 @@ export default function Partners() {
                 country: '🇫🇷',
                 countryName: 'France',
                 logo: '📱',
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                 project: 'Media Training',
               },
               {
@@ -1261,7 +1262,7 @@ export default function Partners() {
                 country: '🇺🇦',
                 countryName: 'Ukraine',
                 logo: '🤝',
-                photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                 project: 'Community Support',
               },
             ].map((partner, idx) => (
@@ -1414,25 +1415,25 @@ export default function Partners() {
           >
             {[
               {
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 title: 'Media Workshop with Youth4Media',
                 location: 'Germany',
                 flag: '🇩🇪',
               },
               {
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 title: 'Digital Inclusion Seminar',
                 location: 'Poland',
                 flag: '🇵🇱',
               },
               {
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 title: 'Cultural Exchange Program',
                 location: 'Spain',
                 flag: '🇪🇸',
               },
               {
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 title: 'Erasmus+ Training Session',
                 location: 'France',
                 flag: '🇫🇷',
@@ -1574,7 +1575,7 @@ export default function Partners() {
         {/* Background Image - European Flag/Office */}
         <Box
           component="img"
-          src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+          src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
           alt="European Partnership"
           sx={{
             position: 'absolute',
@@ -1630,21 +1631,21 @@ export default function Partners() {
                       step: '1',
                       title: 'Inquiry',
                       icon: <EmailIcon />,
-                      photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                      photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                       description: 'Contact us about partnership',
                     },
                     {
                       step: '2',
                       title: 'Strategy',
                       icon: <SettingsIcon />,
-                      photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                      photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                       description: 'Develop project roadmap',
                     },
                     {
                       step: '3',
                       title: 'Impact',
                       icon: <RocketLaunchIcon />,
-                      photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                      photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                       description: 'Create meaningful change',
                     },
                   ].map((step, idx) => (
@@ -1914,19 +1915,19 @@ export default function Partners() {
                 {[
                   {
                     title: 'Networking',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                     description: 'Access to European network',
                     icon: <GroupsIcon />,
                   },
                   {
                     title: 'Visibility',
-                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     description: 'Brand recognition at forums',
                     icon: <VisibilityIcon />,
                   },
                   {
                     title: 'Innovation',
-                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                     description: 'Cutting-edge media workshops',
                     icon: <LightbulbIcon />,
                   },
@@ -2353,7 +2354,7 @@ export default function Partners() {
                   {
                     name: 'ALDA',
                     fullName: 'Association of Local Democracy Agencies',
-                    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                    photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                     logo: '🌍',
                     role: 'Full Member since 2012',
                     description: 'Promoting local democracy and citizen participation across Europe',
@@ -2361,7 +2362,7 @@ export default function Partners() {
                   {
                     name: 'Youth4Media',
                     fullName: 'Youth4Media Network',
-                    photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     logo: '📱',
                     role: 'Strategic Partner',
                     description: 'Media literacy and youth empowerment initiatives',
@@ -2369,7 +2370,7 @@ export default function Partners() {
                   {
                     name: 'Anna Lindh',
                     fullName: 'Anna Lindh Foundation',
-                    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                     logo: '🤝',
                     role: 'Full Member',
                     description: 'Intercultural dialogue and Mediterranean cooperation',
@@ -2377,7 +2378,7 @@ export default function Partners() {
                   {
                     name: 'Erasmus+',
                     fullName: 'Erasmus+ Network',
-                    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                     logo: '⭐',
                     role: 'Active Partner',
                     description: 'European education and training programs',
@@ -2385,7 +2386,7 @@ export default function Partners() {
                   {
                     name: 'EU Network',
                     fullName: 'European Union Networks',
-                    photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                    photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                     logo: '🇪🇺',
                     role: 'Strategic Partner',
                     description: 'Cross-border collaboration and policy development',
@@ -2552,13 +2553,13 @@ export default function Partners() {
               }}
             >
               {[
-                { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', title: 'Erasmus+ Certificate' },
-                { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', title: 'ALDA Conference' },
-                { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', title: 'Youth4Media Publication' },
-                { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', title: 'Anna Lindh Award' },
-                { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', title: 'EU Project Certificate' },
-                { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', title: 'Network Partnership' },
-                { photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg', title: 'International Collaboration' },
+                { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), title: 'Erasmus+ Certificate' },
+                { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), title: 'ALDA Conference' },
+                { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), title: 'Youth4Media Publication' },
+                { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), title: 'Anna Lindh Award' },
+                { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), title: 'EU Project Certificate' },
+                { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), title: 'Network Partnership' },
+                { photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'), title: 'International Collaboration' },
               ].map((project, idx) => (
                 <Card
                   key={idx}
