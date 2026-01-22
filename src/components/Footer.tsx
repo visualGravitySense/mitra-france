@@ -13,6 +13,7 @@ import YouTubeIcon from '@mui/icons-material/YouTube';
 import RadioIcon from '@mui/icons-material/Radio';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 
 function Copyright() {
   return (
@@ -53,7 +54,7 @@ export default function Footer() {
           content: '""',
           position: 'absolute',
           inset: 0,
-          backgroundImage: 'url(/photos/571419367_1143811194593552_6930038688628840775_n.jpg)',
+          backgroundImage: `url(${getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg')})`,
           backgroundSize: 'cover',
           backgroundPosition: 'center',
           opacity: 0.06,

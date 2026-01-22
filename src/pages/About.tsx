@@ -480,7 +480,7 @@ export default function About() {
                 >
                   <Box
                     component="img"
-                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    src="/illustrations/mitra-image-3.png"
                     alt="MITRA FRANCE community"
                     sx={{
                       width: '100%',

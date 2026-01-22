@@ -22,6 +22,7 @@ import PublicIcon from '@mui/icons-material/Public';
 import CollectionsIcon from '@mui/icons-material/Collections';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -867,7 +868,7 @@ export default function Gallery() {
                   <Box
                     className="featured-photo"
                     component="img"
-                    src="/illustrations/mitra-images-8.jpg"
+                    src={getImagePath("/illustrations/mitra-images-8.jpg")}
                     alt="Latest Event"
                     sx={{
                       width: '100%',
@@ -1311,7 +1312,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/75220622_1263163760557758_1828565807827779584_n.jpg"
+                  src={getImagePath("/photos/75220622_1263163760557758_1828565807827779584_n.jpg")}
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -1559,7 +1560,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/84839024_1346442362229897_7481666728498298880_n.jpg"
+                  src={getImagePath("/photos/84839024_1346442362229897_7481666728498298880_n.jpg")}
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -1871,7 +1872,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/75220622_1263163760557758_1828565807827779584_n.jpg"
+                  src={getImagePath("/photos/75220622_1263163760557758_1828565807827779584_n.jpg")}
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -2120,7 +2121,7 @@ export default function Gallery() {
               >
                 <Box
                   component="img"
-                  src="/photos/472330785_2705641812976605_8147454895918841464_n.jpg"
+                  src={getImagePath("/photos/472330785_2705641812976605_8147454895918841464_n.jpg")}
                   alt="Highlight of the Month"
                   sx={{
                     width: '100%',
@@ -2511,7 +2512,7 @@ export default function Gallery() {
                 >
                   <Box
                     component="img"
-                    src="/photos/547831429_1105455918429080_1339539868519472835_n.jpg"
+                    src={getImagePath("/photos/547831429_1105455918429080_1339539868519472835_n.jpg")}
                     alt="Share Your Moment"
                     sx={{
                       width: '100%',
