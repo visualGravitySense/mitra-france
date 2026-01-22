@@ -218,7 +218,11 @@ export default function Footer() {
                 ],
                 extra: <Typography variant="body2" color="text.secondary">Nice, France</Typography>,
               },
-            ] as const
+            ] as Array<{
+              title: string;
+              links: Array<{ to?: string; href?: string; label: string }>;
+              extra?: React.ReactNode;
+            }>
           ).map((col) => (
             <Box
               key={col.title}

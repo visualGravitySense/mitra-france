@@ -730,6 +730,21 @@ export default function Events() {
                     background: '#ED2939',
                     transition: 'height 0.3s ease',
                   },
+                  '&::after': {
+                    content: '""',
+                    position: 'absolute',
+                    top: 0,
+                    left: 0,
+                    width: '100%',
+                    height: '100%',
+                    backgroundImage: `url(${tab.photo})`,
+                    backgroundSize: 'cover',
+                    backgroundPosition: 'center',
+                    opacity: value === index ? 0.2 : 0.1,
+                    filter: value === index ? 'blur(4px) saturate(1.2)' : 'blur(8px) grayscale(0.8)',
+                    zIndex: 0,
+                    transition: 'all 0.4s ease',
+                  },
                   '& .MuiTab-iconWrapper': {
                     position: 'relative',
                     zIndex: 2,
@@ -744,39 +759,7 @@ export default function Events() {
                     transition: 'all 0.3s ease',
                   },
                 }}
-              >
-                <Box
-                  component="img"
-                  src={tab.photo}
-                  alt={tab.label}
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    width: '100%',
-                    height: '100%',
-                    objectFit: 'cover',
-                    opacity: value === index ? 0.2 : 0.1,
-                    filter: value === index ? 'blur(4px) saturate(1.2)' : 'blur(8px) grayscale(0.8)',
-                    zIndex: 0,
-                    transition: 'all 0.4s ease',
-                  }}
-                />
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    background: value === index
-                      ? `linear-gradient(135deg, ${tab.color}10 0%, transparent 100%)`
-                      : 'transparent',
-                    zIndex: 1,
-                    transition: 'all 0.4s ease',
-                  }}
-                />
-              </Tab>
+              />
             ))}
           </Tabs>
           
