@@ -41,6 +41,7 @@ import ImageList from '@mui/material/ImageList';
 import ImageListItem from '@mui/material/ImageListItem';
 import Tooltip from '@mui/material/Tooltip';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 
 const teamMembers = [
   {
@@ -51,8 +52,8 @@ const teamMembers = [
     years: '10+',
     projects: '20+',
     achievement: 'Erasmus+ Expert',
-    portraitPhoto: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-    actionPhoto: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+    portraitPhoto: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+    actionPhoto: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
     backgroundIcon: <PublicIcon />,
     skillBadges: ['Erasmus+ Guru', 'Strategic Planning'],
     linkedInQuote: 'I believe in the power of digital education to transform communities across Europe.',
@@ -65,8 +66,8 @@ const teamMembers = [
     years: '5+',
     projects: '12+',
     achievement: 'Education Specialist',
-    portraitPhoto: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-    actionPhoto: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    portraitPhoto: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+    actionPhoto: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
     backgroundIcon: <SchoolIcon />,
     skillBadges: ['Media Literacy', 'Adult Education'],
     linkedInQuote: 'Education is the bridge that connects diverse communities and empowers individuals.',
@@ -79,8 +80,8 @@ const teamMembers = [
     years: '4+',
     projects: '8+',
     achievement: 'Community Builder',
-    portraitPhoto: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-    actionPhoto: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+    portraitPhoto: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
+    actionPhoto: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
     backgroundIcon: <FlagIcon />,
     skillBadges: ['Community Engagement', 'Cultural Programs'],
     linkedInQuote: 'Building bridges between cultures is the foundation of a stronger Europe.',
@@ -93,8 +94,8 @@ const teamMembers = [
     years: '3+',
     projects: '10+',
     achievement: 'Digital Innovation',
-    portraitPhoto: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
-    actionPhoto: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    portraitPhoto: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
+    actionPhoto: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
     backgroundIcon: <CameraAltIcon />,
     skillBadges: ['Media Literacy', 'Digital Innovation'],
     linkedInQuote: 'Technology opens doors to learning that were never possible before.',
@@ -249,7 +250,7 @@ export default function Team() {
                 icon: <PeopleIcon sx={{ fontSize: 48, color: '#002395' }} />,
                 value: '4',
                 label: 'Core Team Members',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 borderColor: '#002395',
                 bgColor: 'rgba(0, 35, 149, 0.08)',
                 hoverColor: 'rgba(0, 35, 149, 0.3)',
@@ -258,7 +259,7 @@ export default function Team() {
                 icon: <EmojiEventsIcon sx={{ fontSize: 48, color: '#ED2939' }} />,
                 value: '50+',
                 label: 'Combined Projects',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 borderColor: '#ED2939',
                 bgColor: 'rgba(237, 41, 57, 0.08)',
                 hoverColor: 'rgba(237, 41, 57, 0.3)',
@@ -267,7 +268,7 @@ export default function Team() {
                 icon: <TrendingUpIcon sx={{ fontSize: 48, color: '#002395' }} />,
                 value: '22+',
                 label: 'Years Experience',
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 borderColor: '#002395',
                 bgColor: 'rgba(0, 35, 149, 0.08)',
                 hoverColor: 'rgba(0, 35, 149, 0.3)',
@@ -276,7 +277,7 @@ export default function Team() {
                 icon: <PublicIcon sx={{ fontSize: 48, color: '#ED2939' }} />,
                 value: '15+',
                 label: 'Countries Reached',
-                photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                 borderColor: '#ED2939',
                 bgColor: 'rgba(237, 41, 57, 0.08)',
                 hoverColor: 'rgba(237, 41, 57, 0.3)',
@@ -365,12 +366,12 @@ export default function Team() {
               }}
             >
               {[
-                { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', title: 'Workshop' },
-                { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', title: 'Team Meeting' },
-                { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', title: 'Conference' },
-                { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', title: 'Training' },
-                { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', title: 'Event' },
-                { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', title: 'Community' },
+                { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), title: 'Workshop' },
+                { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), title: 'Team Meeting' },
+                { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), title: 'Conference' },
+                { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), title: 'Training' },
+                { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), title: 'Event' },
+                { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), title: 'Community' },
               ].map((item, idx) => (
                 <Card
                   key={idx}
@@ -454,7 +455,7 @@ export default function Team() {
             {/* Background Photo */}
             <Box
               component="img"
-              src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+              src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
               alt="Team Office"
               sx={{
                 position: 'absolute',
@@ -500,7 +501,7 @@ export default function Team() {
             >
               <Box
                 component="img"
-                src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                 alt="Team Member"
                 sx={{
                   width: 120,
@@ -972,10 +973,10 @@ export default function Team() {
                         }}
                       >
                         {[
-                          '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                          '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                          '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                          '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                          getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                          getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                          getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                          getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                         ].map((photo, photoIdx) => (
                           <Box
                             key={photoIdx}
@@ -1131,19 +1132,19 @@ export default function Team() {
             >
               {[
                 // 70% Portraits
-                { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'portrait', country: '🇫🇷', city: 'France', quote: 'My internship in Nice was a life-changing experience!' },
-                { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'portrait', country: '🇩🇪', city: 'Germany', quote: 'Working with MITRA FRANCE opened new horizons for me!' },
-                { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'portrait', country: '🇪🇸', city: 'Spain', quote: 'The best learning experience I\'ve ever had!' },
-                { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'portrait', country: '🇵🇱', city: 'Poland', quote: 'Amazing team and meaningful projects!' },
-                { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'portrait', country: '🇺🇦', city: 'Ukraine', quote: 'I found my passion for community work here!' },
-                { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', type: 'portrait', country: '🇷🇴', city: 'Romania', quote: 'Professional growth and cultural exchange!' },
-                { photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg', type: 'portrait', country: '🇮🇹', city: 'Italy', quote: 'Incredible opportunity to make a difference!' },
-                { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', type: 'portrait', country: '🇬🇧', city: 'UK', quote: 'The team became my second family!' },
+                { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), type: 'portrait', country: '🇫🇷', city: 'France', quote: 'My internship in Nice was a life-changing experience!' },
+                { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), type: 'portrait', country: '🇩🇪', city: 'Germany', quote: 'Working with MITRA FRANCE opened new horizons for me!' },
+                { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), type: 'portrait', country: '🇪🇸', city: 'Spain', quote: 'The best learning experience I\'ve ever had!' },
+                { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), type: 'portrait', country: '🇵🇱', city: 'Poland', quote: 'Amazing team and meaningful projects!' },
+                { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), type: 'portrait', country: '🇺🇦', city: 'Ukraine', quote: 'I found my passion for community work here!' },
+                { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), type: 'portrait', country: '🇷🇴', city: 'Romania', quote: 'Professional growth and cultural exchange!' },
+                { photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'), type: 'portrait', country: '🇮🇹', city: 'Italy', quote: 'Incredible opportunity to make a difference!' },
+                { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), type: 'portrait', country: '🇬🇧', city: 'UK', quote: 'The team became my second family!' },
                 // 30% Activity photos
-                { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', type: 'activity', title: 'Working on Project' },
-                { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', type: 'activity', title: 'Team Workshop' },
-                { photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', type: 'activity', title: 'Field Work' },
-                { photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', type: 'activity', title: 'Video Production' },
+                { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), type: 'activity', title: 'Working on Project' },
+                { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), type: 'activity', title: 'Team Workshop' },
+                { photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'), type: 'activity', title: 'Field Work' },
+                { photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'), type: 'activity', title: 'Video Production' },
               ].map((item, idx) => (
                 <ImageListItem key={idx} cols={item.type === 'activity' ? 2 : 1} rows={item.type === 'activity' ? 2 : 1}>
                   <Box
@@ -1278,10 +1279,10 @@ export default function Team() {
               </Box>
               <Grid container spacing={3} sx={{ position: 'relative', zIndex: 1 }}>
                 {[
-                  { city: 'Berlin', country: '🇩🇪', photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg' },
-                  { city: 'Kyiv', country: '🇺🇦', photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg' },
-                  { city: 'Madrid', country: '🇪🇸', photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg' },
-                  { city: 'Warsaw', country: '🇵🇱', photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg' },
+                  { city: 'Berlin', country: '🇩🇪', photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg') },
+                  { city: 'Kyiv', country: '🇺🇦', photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg') },
+                  { city: 'Madrid', country: '🇪🇸', photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg') },
+                  { city: 'Warsaw', country: '🇵🇱', photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg') },
                 ].map((location, idx) => (
                   <Grid size={{ xs: 6, sm: 3 }} key={idx}>
                     <Box sx={{ textAlign: 'center' }}>
@@ -1341,25 +1342,25 @@ export default function Team() {
             >
               {[
                 {
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   title: 'Office Vibe',
                   sticker: '☕',
                   location: 'Nice, France',
                 },
                 {
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   title: 'Field Work',
                   sticker: '🌍',
                   location: 'Erasmus+ Project',
                 },
                 {
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   title: 'Cultural Exchange',
                   sticker: '🇪🇺',
                   location: 'Nice, France',
                 },
                 {
-                  photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                  photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   title: 'Team Building',
                   sticker: '🤝',
                   location: 'Workshop',
@@ -1588,7 +1589,7 @@ export default function Team() {
             {/* Background Photo */}
             <Box
               component="img"
-              src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+              src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
               alt="Team waving"
               sx={{
                 position: 'absolute',
