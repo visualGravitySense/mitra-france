@@ -281,7 +281,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                    src="/illustrations/mitra-image-2.png"
                     alt="Live learning workshop - Active participants"
                     sx={{
                       width: '100%',
@@ -595,7 +595,7 @@ export default function Projects() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundImage: 'url(/photos/583924019_1157903166517688_8756873269993443102_n.jpg)',
+                    backgroundImage: 'url(/photos/mitra-image-2.png)',
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: 0.12,

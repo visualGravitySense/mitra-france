@@ -339,7 +339,7 @@ export default function Contact() {
                 {/* Background Photo - Team or Communication Process */}
                 <Box
                   component="img"
-                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  src="/illustrations/mitra-image-5.png"
                   alt="MITRA FRANCE Team"
                   sx={{
                     width: '100%',

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { styled, alpha } from '@mui/material/styles';
+import { styled, alpha, useTheme } from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import AppBar from '@mui/material/AppBar';
 import Toolbar from '@mui/material/Toolbar';
@@ -85,9 +85,17 @@ interface NavGroup {
 }
 
 export default function Navigation() {
+  const theme = useTheme();
   const [open, setOpen] = React.useState(false);
   const [anchorEls, setAnchorEls] = React.useState<{ [key: string]: HTMLElement | null }>({});
   const location = useLocation();
+  
+  // Select logo based on theme mode
+  // Dark mode uses light logo (light logo on dark background)
+  // Light mode uses dark logo (dark logo on light background)
+  const logoPath = theme.palette.mode === 'dark' 
+    ? '/mit-fr-light-1.svg' 
+    : '/mit-fr-dark-1.svg';
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -161,7 +169,7 @@ export default function Navigation() {
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
               <Box
                 component="img"
-                src="/mitra-fr-logo-menu-1.svg"
+                src={logoPath}
                 alt="MITRA FRANCE"
                 sx={{
                   height: { xs: 18, md: 23 },

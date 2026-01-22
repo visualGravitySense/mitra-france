@@ -7,6 +7,7 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
+import { useTheme } from '@mui/material/styles';
 import FacebookIcon from '@mui/icons-material/Facebook';
 import YouTubeIcon from '@mui/icons-material/YouTube';
 import RadioIcon from '@mui/icons-material/Radio';
@@ -27,6 +28,15 @@ function Copyright() {
 }
 
 export default function Footer() {
+  const theme = useTheme();
+  
+  // Select logo based on theme mode
+  // Dark mode uses light logo (light logo on dark background)
+  // Light mode uses dark logo (dark logo on light background)
+  const logoPath = theme.palette.mode === 'dark' 
+    ? '/mit-fr-light-1.svg' 
+    : '/mit-fr-dark-1.svg';
+  
   return (
     <Box
       component="footer"
@@ -85,7 +95,7 @@ export default function Footer() {
             <Box sx={{ width: { xs: '100%', sm: '92%', md: '80%' } }}>
               <Box
                 component="img"
-                src="/mitra-fr-logo-menu-1.svg"
+                src={logoPath}
                 alt="MITRA FRANCE"
                 sx={{
                   height: { xs: 22, sm: 26 },

@@ -413,7 +413,7 @@ export default function About() {
             </Grid>
 
             {/* Right side: Hero image */}
-            <Grid size={{ xs: 12, md: 6 }}>
+            {/* <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 sx={{
                   position: 'relative',
@@ -437,7 +437,7 @@ export default function About() {
               >
                 <Box
                   component="img"
-                  src="/about-us.jpg"
+                  src="/illustrations/mitra-image-6.png"
                   alt="MITRA FRANCE About Us"
                   sx={{
                     width: '100%',
@@ -448,7 +448,7 @@ export default function About() {
                   }}
                 />
               </Box>
-            </Grid>
+            </Grid> */}
 
             {/* Right side: visual collage (replaces line art) */}
             <Grid size={{ xs: 12, md: 6 }}>
@@ -1208,10 +1208,10 @@ export default function About() {
                     }}
                   >
                     <Typography variant="body2" sx={{ fontStyle: 'italic', color: 'text.primary', lineHeight: 1.6 }}>
-                      "Теперь я на связи с внуками"
+                      "Now i'm in touch with my grandchildren"
                     </Typography>
                     <Typography variant="caption" color="text.secondary" sx={{ mt: 0.5, display: 'block' }}>
-                      — Участник программы Digital Literacy, 2023
+                      — Program participant : Digital Literacy, 2023
                     </Typography>
                   </Box>
                 </Box>

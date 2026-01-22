@@ -668,10 +668,10 @@ export default function Home() {
                   }}
                 >
                   {[
-                    '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-                    '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-                    '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
-                    '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                    '/illustrations/mitra-image-5.png',
+                    '/illustrations/mitra-image-10.jpg',
+                    '/illustrations/mitra-image-1.png',
+                    '/illustrations/mitra-image-9.jpg',
                   ].map((src, index) => (
                     <Grid key={src} size={{ xs: 6 }}>
                       <Box
@@ -1260,7 +1260,7 @@ export default function Home() {
           >
             <CardMedia
               component="img"
-              image="https://via.placeholder.com/1200x400/002395/ffffff?text=Placeholder+Image"
+              image="/illustrations/mitra-image-4.png"
               alt="Placeholder"
               sx={{
                 width: '100%',
