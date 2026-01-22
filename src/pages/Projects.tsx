@@ -28,6 +28,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import Fab from '@mui/material/Fab';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 
 const erasmusKA2Projects = [
   {
@@ -281,7 +282,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/illustrations/mitra-image-2.png"
+                    src={getImagePath("/illustrations/mitra-image-2.png")}
                     alt="Live learning workshop - Active participants"
                     sx={{
                       width: '100%',
@@ -323,7 +324,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                    src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                     alt="Digital Skills - People working on computers"
                     sx={{
                       width: '100%',
@@ -379,7 +380,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                    src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                     alt="Certificates - Erasmus+ diploma ceremony"
                     sx={{
                       width: '100%',
@@ -435,7 +436,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/photos/573284472_1142846254690046_5985051112828208939_n.jpg"
+                    src={getImagePath("/photos/573284472_1142846254690046_5985051112828208939_n.jpg")}
                     alt="Media & Arts - Creative process or filming"
                     sx={{
                       width: '100%',
@@ -491,7 +492,7 @@ export default function Projects() {
                 >
                   <Box
                     component="img"
-                    src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                    src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                     alt="Community - Group photo in Nice, France"
                     sx={{
                       width: '100%',
@@ -553,7 +554,7 @@ export default function Projects() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundImage: 'url(/photos/583943471_1157911509850187_2575083228465038744_n.jpg)',
+                    backgroundImage: `url(${getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg')})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: 0.12,
@@ -595,7 +596,7 @@ export default function Projects() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundImage: 'url(/photos/mitra-image-2.png)',
+                    backgroundImage: `url(${getImagePath('/illustrations/mitra-image-2.png')})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: 0.12,
@@ -686,7 +687,7 @@ export default function Projects() {
                     left: 0,
                     right: 0,
                     bottom: 0,
-                    backgroundImage: 'url(/photos/584326681_1157904053184266_2071216266526493174_n.jpg)',
+                    backgroundImage: `url(${getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg')})`,
                     backgroundSize: 'cover',
                     backgroundPosition: 'center',
                     opacity: 0.12,

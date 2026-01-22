@@ -37,6 +37,7 @@ import MicIcon from '@mui/icons-material/Mic';
 import CameraAltIcon from '@mui/icons-material/CameraAlt';
 import Avatar from '@mui/material/Avatar';
 import AvatarGroup from '@mui/material/AvatarGroup';
+import { getImagePath } from '../utils/imagePath';
 
 export default function ProgramsWorkshops() {
   const [actionFeedback, setActionFeedback] = useState<{ open: boolean; message: string; type: 'success' | 'info' | 'warning' }>({
@@ -125,28 +126,28 @@ export default function ProgramsWorkshops() {
                         id: 'digital',
                         label: 'Digital',
                         icon: <ComputerIcon />,
-                        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                        photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                         badge: null,
                       },
                       {
                         id: 'media',
                         label: 'Media',
                         icon: <VideoLibraryIcon />,
-                        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                        photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                         badge: 'LIVE NOW',
                       },
                       {
                         id: 'inclusion',
                         label: 'Inclusion',
                         icon: <Diversity3Icon />,
-                        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                        photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                         badge: null,
                       },
                       {
                         id: 'language',
                         label: 'Language',
                         icon: <LanguageIcon />,
-                        photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                        photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                         badge: 'NEW',
                       },
                     ].map((category) => (
@@ -294,19 +295,19 @@ export default function ProgramsWorkshops() {
                 >
                   {[
                     {
-                      photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                      photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                       title: 'Workshop',
                       icon: <MicIcon />,
                       position: { gridColumn: '1', gridRow: '1' },
                     },
                     {
-                      photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                      photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                       title: 'Discussion',
                       icon: <GroupsIcon />,
                       position: { gridColumn: '2', gridRow: '1 / 3' },
                     },
                     {
-                      photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                      photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                       title: 'Field Trip',
                       icon: <CameraAltIcon />,
                       position: { gridColumn: '1', gridRow: '2' },
