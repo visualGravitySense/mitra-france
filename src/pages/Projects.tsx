@@ -973,7 +973,7 @@ export default function Projects() {
             >
               <Box
                 component="img"
-                src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                 alt="Erasmus+ KA2 - Large group with EU flags"
                 sx={{
                   width: '100%',
@@ -1021,11 +1021,11 @@ export default function Projects() {
             <Grid container spacing={3}>
               {erasmusKA2Projects.map((project, idx) => {
                 const projectPhotos = [
-                  '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                  '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-                  '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                  '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                  '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                  getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                  getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                  getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                  getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                  getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                 ];
                 return (
                   <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.title}>
@@ -1202,7 +1202,7 @@ export default function Projects() {
             >
               <Box
                 component="img"
-                src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                 alt="Erasmus+ KA1 - Large group with EU flags"
                 sx={{
                   width: '100%',
@@ -1250,10 +1250,10 @@ export default function Projects() {
             <Grid container spacing={3}>
               {erasmusKA1Projects.map((project, idx) => {
                 const projectPhotos = [
-                  '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                  '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-                  '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                  '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                  getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                  getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                  getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 ];
                 return (
                   <Grid size={{ xs: 12, sm: 6, lg: 4 }} key={project.title}>
@@ -1478,13 +1478,13 @@ export default function Projects() {
             <Grid container spacing={3}>
               {partnershipProjects.map((project, index) => {
                 const partnershipPhotos = [
-                  '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-                  '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-                  '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-                  '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-                  '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
-                  '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
-                  '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                  getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                  getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                  getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                  getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                  getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
+                  getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
+                  getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
                 ];
                 const borderColor = index % 2 === 0 ? '#002395' : '#ED2939';
                 return (
