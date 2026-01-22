@@ -36,6 +36,12 @@ jobs:
         env:
           BASE_URL: /${{ github.event.repository.name }}/
 
+      - name: Create 404.html for GitHub Pages
+        run: |
+          cp dist/index.html dist/404.html
+          echo "Created 404.html for GitHub Pages routing"
+          ls -la dist/ | head -20
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
