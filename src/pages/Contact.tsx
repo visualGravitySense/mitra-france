@@ -56,6 +56,7 @@ import ImageListItem from '@mui/material/ImageListItem';
 import TramIcon from '@mui/icons-material/Tram';
 import DirectionsBusIcon from '@mui/icons-material/DirectionsBus';
 import { Link as RouterLink } from 'react-router-dom';
+import { getImagePath } from '../utils/imagePath';
 
 export default function Contact() {
   const [formData, setFormData] = React.useState({
@@ -339,7 +340,7 @@ export default function Contact() {
                 {/* Background Photo - Team or Communication Process */}
                 <Box
                   component="img"
-                  src="/illustrations/mitra-image-5.png"
+                  src={getImagePath("/illustrations/mitra-image-5.png")}
                   alt="MITRA FRANCE Team"
                   sx={{
                     width: '100%',
@@ -438,7 +439,7 @@ export default function Contact() {
             {/* Background Image - Office/Work Process */}
             <Box
               component="img"
-              src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+              src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
               alt="MITRA FRANCE Office"
               sx={{
                 position: 'absolute',
@@ -664,7 +665,7 @@ export default function Contact() {
               <Box
                 className="office-bg"
                 component="img"
-                src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                 alt="Nice, France"
                 sx={{
                   position: 'absolute',
@@ -740,7 +741,7 @@ export default function Contact() {
               <Box
                 className="social-bg"
                 component="img"
-                src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                 alt="Community"
                 sx={{
                   position: 'absolute',
@@ -781,10 +782,10 @@ export default function Contact() {
                     Social Media Connect
                   </Typography>
                   <AvatarGroup max={4} sx={{ mb: 2 }}>
-                    <Avatar src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg" />
-                    <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" />
-                    <Avatar src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg" />
-                    <Avatar src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg" />
+                    <Avatar src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")} />
+                    <Avatar src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")} />
+                    <Avatar src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")} />
+                    <Avatar src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")} />
                   </AvatarGroup>
                 </Box>
                 <Stack direction="row" spacing={1.5}>
@@ -867,7 +868,7 @@ export default function Contact() {
               <Box
                 className="partnership-bg"
                 component="img"
-                src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg"
+                src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")}
                 alt="Partnership"
                 sx={{
                   position: 'absolute',
@@ -944,7 +945,7 @@ export default function Contact() {
               <Box
                 className="email-bg"
                 component="img"
-                src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                 alt="Team working"
                 sx={{
                   position: 'absolute',
@@ -1024,7 +1025,7 @@ export default function Contact() {
               <Box
                 className="phone-bg"
                 component="img"
-                src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg"
+                src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
                 alt="Office interior"
                 sx={{
                   position: 'absolute',

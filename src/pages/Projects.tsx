@@ -1430,7 +1430,7 @@ export default function Projects() {
             >
               <Box
                 component="img"
-                src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                 alt="Partnership Projects - Collaborative work processes"
                 sx={{
                   width: '100%',
@@ -1781,12 +1781,12 @@ export default function Projects() {
             }}
           >
             {[
-              '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-              '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-              '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-              '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-              '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
-              '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+              getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+              getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+              getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+              getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+              getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
+              getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
             ].map((photo, idx) => (
               <Box
                 key={idx}
@@ -1830,7 +1830,7 @@ export default function Projects() {
                 description: 'Reached over 200 seniors, improving their digital skills and quality of life.',
                 icon: <TrendingUpIcon sx={{ fontSize: 40 }} />,
                 color: '#002395',
-                photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                 quote: 'This project changed my perspective on technology',
                 stats: '200+ seniors helped',
                 statsIcon: <PeopleIcon />,
@@ -1841,7 +1841,7 @@ export default function Projects() {
                 description: 'Recognized for innovative approach to engaging youth with cultural heritage.',
                 icon: <EmojiEventsIcon sx={{ fontSize: 40 }} />,
                 color: '#ED2939',
-                photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                 quote: 'We discovered our cultural identity through creative expression',
                 stats: '100+ youth engaged',
                 statsIcon: <PeopleIcon />,
