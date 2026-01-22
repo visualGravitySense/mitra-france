@@ -54,6 +54,7 @@ import NavigationIcon from '@mui/icons-material/Navigation';
 import Avatar from '@mui/material/Avatar';
 import Rating from '@mui/material/Rating';
 import AvatarGroup from '@mui/material/AvatarGroup';
+import { getImagePath } from '../utils/imagePath';
 
 export default function About() {
   // State for goal progress (used in User Journey component)
@@ -145,19 +146,19 @@ export default function About() {
                       {
                         label: '10+ Years of Impact',
                         color: 'success',
-                        photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                        photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                         icon: <CheckCircleIcon />,
                       },
                       {
                         label: '1000+ Lives Changed',
                         color: 'primary',
-                        photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+                        photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
                         icon: <PeopleIcon />,
                       },
                       {
                         label: '15+ European Countries',
                         color: 'error',
-                        photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                        photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                         icon: <PublicIcon />,
                       },
                     ].map((b) => (
@@ -235,7 +236,7 @@ export default function About() {
                       {
                         href: '#mission',
                         label: 'Our Mission',
-                        photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                        photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                         icon: <FavoriteIcon />,
                         tint: 'rgba(237, 41, 57, 0.12)',
                         hover: 'rgba(237, 41, 57, 0.16)',
@@ -243,7 +244,7 @@ export default function About() {
                       {
                         href: '#history',
                         label: 'Our History',
-                        photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                        photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                         icon: <HistoryIcon />,
                         tint: 'rgba(0, 35, 149, 0.10)',
                         hover: 'rgba(0, 35, 149, 0.14)',
@@ -251,7 +252,7 @@ export default function About() {
                       {
                         href: '#achievements',
                         label: 'Achievements',
-                        photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                        photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                         icon: <EmojiEventsIcon />,
                         tint: 'rgba(46, 125, 50, 0.10)',
                         hover: 'rgba(46, 125, 50, 0.14)',
@@ -437,7 +438,7 @@ export default function About() {
               >
                 <Box
                   component="img"
-                  src="/illustrations/mitra-image-6.png"
+                  src={getImagePath("/illustrations/mitra-image-6.png")}
                   alt="MITRA FRANCE About Us"
                   sx={{
                     width: '100%',
@@ -480,7 +481,7 @@ export default function About() {
                 >
                   <Box
                     component="img"
-                    src="/illustrations/mitra-image-3.png"
+                    src={getImagePath("/illustrations/mitra-image-3.png")}
                     alt="MITRA FRANCE community"
                     sx={{
                       width: '100%',
@@ -507,7 +508,7 @@ export default function About() {
                     right: { xs: 16, sm: 18 },
                     w: { xs: 140, sm: 170 },
                     h: { xs: 96, sm: 112 },
-                    src: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                    src: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                     label: 'Digital Skills',
                     tint: 'rgba(0, 35, 149, 0.85)',
                   },
@@ -516,7 +517,7 @@ export default function About() {
                     left: { xs: 16, sm: 18 },
                     w: { xs: 150, sm: 190 },
                     h: { xs: 100, sm: 120 },
-                    src: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                    src: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                     label: 'Workshops',
                     tint: 'rgba(237, 41, 57, 0.85)',
                   },
@@ -525,7 +526,7 @@ export default function About() {
                     right: { xs: 18, sm: 20 },
                     w: { xs: 130, sm: 160 },
                     h: { xs: 92, sm: 106 },
-                    src: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                    src: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                     label: 'Certificates',
                     tint: 'rgba(46, 125, 50, 0.85)',
                   },
@@ -590,10 +591,10 @@ export default function About() {
                       },
                     }}
                   >
-                    <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" alt="Participant" />
-                    <Avatar src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg" alt="Participant" />
-                    <Avatar src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg" alt="Participant" />
-                    <Avatar src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg" alt="Participant" />
+                    <Avatar src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")} alt="Participant" />
+                    <Avatar src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")} alt="Participant" />
+                    <Avatar src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")} alt="Participant" />
+                    <Avatar src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")} alt="Participant" />
                   </AvatarGroup>
                   <Box sx={{ textAlign: 'right' }}>
                     <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', fontWeight: 700 }}>
@@ -683,9 +684,9 @@ export default function About() {
                         },
                       }}
                     >
-                      <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" alt="Participant" />
-                      <Avatar src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg" alt="Participant" />
-                      <Avatar src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg" alt="Participant" />
+                      <Avatar src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")} alt="Participant" />
+                      <Avatar src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")} alt="Participant" />
+                      <Avatar src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")} alt="Participant" />
                     </AvatarGroup>
                     <Typography variant="body2" sx={{ fontWeight: 600, color: 'primary.main' }}>
                       ✨ Why We Matter
@@ -783,7 +784,7 @@ export default function About() {
                         <Box
                           component="img"
                           className="achievement-photo"
-                          src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                          src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                           alt="Educational program"
                           sx={{
                             width: '100%',
@@ -849,12 +850,12 @@ export default function About() {
                         }}
                       >
                         {[
-                          { photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg', label: 'Nice' },
-                          { photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', label: 'Berlin' },
-                          { photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg', label: 'Rome' },
-                          { photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg', label: 'Madrid' },
-                          { photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', label: 'Warsaw' },
-                          { photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', label: 'Athens' },
+                          { photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'), label: 'Nice' },
+                          { photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'), label: 'Berlin' },
+                          { photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'), label: 'Rome' },
+                          { photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'), label: 'Madrid' },
+                          { photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'), label: 'Warsaw' },
+                          { photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'), label: 'Athens' },
                         ].map((city, idx) => (
                           <Box
                             key={idx}
@@ -937,7 +938,7 @@ export default function About() {
                         <Box
                           component="img"
                           className="achievement-photo"
-                          src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                          src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                           alt="Happy participants"
                           sx={{
                             width: '100%',
@@ -999,21 +1000,21 @@ export default function About() {
                       year: '2015',
                       title: 'The Beginning',
                       description: 'Founded in Nice, France',
-                      photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                      photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                       stats: { label: 'Founded', value: '2015' },
                     },
                     {
                       year: '2016-2018',
                       title: 'Growth',
                       description: 'First Erasmus+ Projects',
-                      photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                      photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                       stats: { label: 'Projects', value: '20+' },
                     },
                     {
                       year: 'Today',
                       title: 'Impact',
                       description: '1000+ Lives Changed',
-                      photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                      photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                       stats: { label: 'Lives Changed', value: '1000+' },
                     },
                   ].map((stage, idx) => (
@@ -1179,7 +1180,7 @@ export default function About() {
                 <Box
                   component="img"
                   className="mission-photo"
-                  src="/photos/572890197_1142845724690099_2859850866106109617_n.jpg"
+                  src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
                   alt="Digital Inclusion - Volunteer helping senior with tablet"
                   sx={{
                     width: '100%',
@@ -1289,7 +1290,7 @@ export default function About() {
                 <Box
                   component="img"
                   className="mission-photo"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                   alt="Intercultural Dialogue - Diverse group working together"
                   sx={{
                     width: '100%',
@@ -1373,7 +1374,7 @@ export default function About() {
                 <Box
                   component="img"
                   className="mission-photo"
-                  src="/photos/584326681_1157904053184266_2071216266526493174_n.jpg"
+                  src={getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg")}
                   alt="European Connectivity - Erasmus+ project meeting"
                   sx={{
                     width: '100%',
@@ -1457,7 +1458,7 @@ export default function About() {
                   >
                     <Box
                       component="img"
-                      src="/photos/573284472_1142846254690046_5985051112828208939_n.jpg"
+                      src={getImagePath("/photos/573284472_1142846254690046_5985051112828208939_n.jpg")}
                       alt="First project 2015"
                       sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -1473,7 +1474,7 @@ export default function About() {
                   >
                     <Box
                       component="img"
-                      src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                      src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                       alt="Current project 2024"
                       sx={{ width: '100%', height: '100%', objectFit: 'cover' }}
                     />
@@ -1508,7 +1509,7 @@ export default function About() {
                   ].map((src, idx) => (
                     <Avatar
                       key={idx}
-                      src={src}
+                      src={getImagePath(src)}
                       alt="Partner"
                       sx={{
                         width: 56,
@@ -1595,7 +1596,7 @@ export default function About() {
               {
                 name: 'Project Coordinator',
                 role: 'Erasmus+ Programs',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 bio: 'My personal Why: I believe education has the power to transform lives. Every workshop we organize creates new opportunities for people who thought they were left behind.',
                 action: 'Speaking at International Forum',
                 location: 'Berlin, Germany • 2023',
@@ -1603,7 +1604,7 @@ export default function About() {
               {
                 name: 'Founder & Director',
                 role: 'Digital Inclusion',
-                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                 bio: 'My personal Why: I started MITRA because I saw how technology could bridge gaps between generations and cultures. Seeing seniors connect with their grandchildren online is my greatest reward.',
                 action: 'Field Work with Community',
                 location: 'Nice, France • 2024',
@@ -1611,7 +1612,7 @@ export default function About() {
               {
                 name: 'Cultural Programs Lead',
                 role: 'Intercultural Dialogue',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 bio: 'My personal Why: Growing up in a multicultural environment, I learned that understanding different cultures enriches everyone. Our programs create spaces where diversity is celebrated.',
                 action: 'Leading Workshop',
                 location: 'Nice, France • 2023',
@@ -1808,7 +1809,7 @@ export default function About() {
                 description: 'MITRA FRANCE was established in Nice, France, with a vision to promote intercultural education and digital inclusion.',
                 icon: <PublicIcon />,
                 color: '#002395',
-                photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                 photoAlt: 'First office in Nice, France - Team founders',
                 location: 'Nice, France',
               },
@@ -1818,7 +1819,7 @@ export default function About() {
                 description: 'Began participating in European Union Erasmus+ programs, focusing on adult education and digital literacy.',
                 icon: <SchoolIcon />,
                 color: '#0038d6',
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 photoAlt: 'Erasmus+ project - Participants working together',
                 location: 'European Union',
               },
@@ -1828,7 +1829,7 @@ export default function About() {
                 description: 'Expanded programs to include media literacy, cultural activities, and specialized programs for seniors and youth across Europe.',
                 icon: <TrendingUpIcon />,
                 color: '#ED2939',
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 photoAlt: 'Large group event - 1000+ Lives Changed',
                 location: 'Across Europe',
               },
@@ -1987,7 +1988,7 @@ export default function About() {
               title: 'Erasmus+ Projects',
               description: 'Successfully implemented numerous KA1 and KA2 projects focusing on adult education, digital literacy, and cultural heritage.',
               color: '#002395',
-              photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+              photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
               photoAlt: 'Erasmus+ project - Youth group with EU flags',
               linkText: 'View Case Study',
               linkHref: '/projects',
@@ -1998,15 +1999,15 @@ export default function About() {
               title: 'Community Impact',
               description: 'Reached thousands of participants including seniors, youth, migrants, and refugees through our workshops and training programs.',
               color: '#ED2939',
-              photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+              photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
               photoAlt: 'Community workshop - Active participants interaction',
               linkText: 'See Gallery',
               linkHref: '/projects',
               avatars: [
-                '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-                '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-                '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
-                '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+                getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
+                getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
+                getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
+                getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
               ],
             },
             {
@@ -2015,7 +2016,7 @@ export default function About() {
               title: 'Partnership Network',
               description: 'Established strong partnerships with local institutions, European organizations, and educational institutions across France and Europe.',
               color: '#0038d6',
-              photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+              photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
               photoAlt: 'Partnership meeting - European network',
               linkText: 'View Partners',
               linkHref: '/partners',
@@ -2266,37 +2267,37 @@ export default function About() {
           <Grid container spacing={2}>
             {[
               {
-                photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                 alt: 'Certificate ceremony - Participant receiving certificate',
                 title: 'Certificate Ceremony',
                 height: { xs: 250, sm: 300, md: 350 },
               },
               {
-                photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                 alt: 'Volunteer group selfie',
                 title: 'Volunteer Team',
                 height: { xs: 200, sm: 250, md: 280 },
               },
               {
-                photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                 alt: 'Digital literacy training - Learning digital skills',
                 title: 'Digital Skills Training',
                 height: { xs: 250, sm: 300, md: 350 },
               },
               {
-                photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                 alt: 'Cultural festival - Intercultural education event',
                 title: 'Cultural Festival',
                 height: { xs: 200, sm: 250, md: 280 },
               },
               {
-                photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                 alt: 'Workshop session - Active learning',
                 title: 'Workshop Session',
                 height: { xs: 250, sm: 300, md: 350 },
               },
               {
-                photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                 alt: 'Community gathering - Participants together',
                 title: 'Community Gathering',
                 height: { xs: 200, sm: 250, md: 280 },
@@ -2441,7 +2442,7 @@ export default function About() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                        src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                         alt="European participants"
                         sx={{
                           width: '100%',
@@ -2466,7 +2467,7 @@ export default function About() {
                     >
                       <Box
                         component="img"
-                        src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg"
+                        src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
                         alt="Media collaboration"
                         sx={{
                           width: '100%',
@@ -2491,7 +2492,7 @@ export default function About() {
                     >
                       <Box
                         component="img"
-                        src="/photos/583114332_1157911793183492_7408427246397976881_n.jpg"
+                        src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
                         alt="Online workshop"
                         sx={{
                           width: '100%',
@@ -2580,17 +2581,17 @@ export default function About() {
                   {
                     title: 'Access to European best practices',
                     icon: <StarIcon />,
-                    photo: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
+                    photo: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
                   },
                   {
                     title: 'Collaborative project opportunities',
                     icon: <HandshakeIcon />,
-                    photo: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+                    photo: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
                   },
                   {
                     title: 'Professional development',
                     icon: <TrendingUpIcon />,
-                    photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                    photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                   },
                 ].map((benefit, idx) => (
                   <Grid size={{ xs: 12 }} key={idx}>
@@ -2821,7 +2822,7 @@ export default function About() {
                 <Box
                   component="img"
                   className="path-photo"
-                  src="/photos/583943471_1157911509850187_2575083228465038744_n.jpg"
+                  src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
                   alt="Become a Learner - Participant receiving certificate"
                   sx={{
                     position: 'absolute',
@@ -2902,7 +2903,7 @@ export default function About() {
                 <Box
                   component="img"
                   className="path-photo"
-                  src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg"
+                  src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
                   alt="Join as a Volunteer - Volunteer helping at event"
                   sx={{
                     position: 'absolute',
@@ -3033,11 +3034,11 @@ export default function About() {
                   },
                 }}
               >
-                <Avatar src="/photos/571419367_1143811194593552_6930038688628840775_n.jpg" alt="Member" />
-                <Avatar src="/photos/572851437_1143811217926883_7725194936764095335_n.jpg" alt="Member" />
-                <Avatar src="/photos/583489432_1157911303183541_1292926580526900497_n.jpg" alt="Member" />
-                <Avatar src="/photos/583741041_1157902773184394_5619801435922057517_n.jpg" alt="Member" />
-                <Avatar src="/photos/583924019_1157903166517688_8756873269993443102_n.jpg" alt="Member" />
+                <Avatar src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")} alt="Member" />
+                <Avatar src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")} alt="Member" />
+                <Avatar src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")} alt="Member" />
+                <Avatar src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")} alt="Member" />
+                <Avatar src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")} alt="Member" />
               </AvatarGroup>
               <Typography variant="body1" sx={{ fontWeight: 600, color: 'text.primary' }}>
                 Join <strong style={{ color: '#002395' }}>1,276</strong> active members already creating change
@@ -3053,27 +3054,27 @@ export default function About() {
             <Grid container spacing={1} sx={{ justifyContent: 'center' }}>
               {[
                 {
-                  photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
                   alt: 'Award ceremony - Recognition event',
                 },
                 {
-                  photo: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+                  photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
                   alt: 'Youth4Media Network - Collaboration',
                 },
                 {
-                  photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
                   alt: 'Cultural exchange - Nice, France',
                 },
                 {
-                  photo: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+                  photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
                   alt: 'Workshop session - Learning together',
                 },
                 {
-                  photo: '/photos/573284472_1142846254690046_5985051112828208939_n.jpg',
+                  photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
                   alt: 'Community gathering - Participants',
                 },
                 {
-                  photo: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+                  photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
                   alt: 'Event celebration - Success moment',
                 },
               ].map((item, idx) => (
