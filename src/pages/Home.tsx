@@ -5090,12 +5090,12 @@ export default function Home() {
                   },
                   {
                     name: 'MITRA FR',
-                    logo: '/mitra-fr-logo.svg',
+                    logo: getImagePath('/mitra-fr-logo.svg'),
                     caption: 'Digital Literacy • Lyon',
                   },
                   {
                     name: 'MITRA Menu',
-                    logo: '/mitra-fr-logo-menu-1.svg',
+                    logo: getImagePath('/mitra-fr-logo-menu-1.svg'),
                     caption: 'Youth Media Lab • Marseille',
                   },
                 ].map((partner) => (
