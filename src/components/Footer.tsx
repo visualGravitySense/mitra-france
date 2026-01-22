@@ -35,8 +35,8 @@ export default function Footer() {
   // Dark mode uses light logo (light logo on dark background)
   // Light mode uses dark logo (dark logo on light background)
   const logoPath = theme.palette.mode === 'dark' 
-    ? '/mit-fr-light-1.svg' 
-    : '/mit-fr-dark-1.svg';
+    ? getImagePath('/mit-fr-light-1.svg')
+    : getImagePath('/mit-fr-dark-1.svg');
   
   return (
     <Box

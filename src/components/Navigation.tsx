@@ -14,6 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown.tsx';
+import { getImagePath } from '../utils/imagePath';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => {
   const themeWithVars = theme as any;
@@ -100,8 +101,8 @@ export default function Navigation() {
   // Dark mode uses light logo (light logo on dark background)
   // Light mode uses dark logo (dark logo on light background)
   const logoPath = theme.palette.mode === 'dark' 
-    ? '/mit-fr-light-1.svg' 
-    : '/mit-fr-dark-1.svg';
+    ? getImagePath('/mit-fr-light-1.svg')
+    : getImagePath('/mit-fr-dark-1.svg');
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -296,7 +297,7 @@ export default function Navigation() {
                 >
                   <Box
                     component="img"
-                    src="/mitra-fr-logo-menu-1.svg"
+                    src={getImagePath("/mitra-fr-logo-menu-1.svg")}
                     alt="MITRA FRANCE"
                     sx={{
                       height: 18,
