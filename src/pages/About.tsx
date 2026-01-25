@@ -784,7 +784,7 @@ export default function About() {
                         <Box
                           component="img"
                           className="achievement-photo"
-                          src={getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg")}
+                          src={getImagePath("/illustrations/about-programs.jpg")}
                           alt="Educational program"
                           sx={{
                             width: '100%',
@@ -938,7 +938,7 @@ export default function About() {
                         <Box
                           component="img"
                           className="achievement-photo"
-                          src={getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg")}
+                          src={getImagePath("/illustrations/about-participants.jpg")}
                           alt="Happy participants"
                           sx={{
                             width: '100%',
@@ -1809,7 +1809,7 @@ export default function About() {
                 description: 'MITRA FRANCE was established in Nice, France, with a vision to promote intercultural education and digital inclusion.',
                 icon: <PublicIcon />,
                 color: '#002395',
-                photo: getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
+                photo: getImagePath('/illustrations/foundation.jpg'),
                 photoAlt: 'First office in Nice, France - Team founders',
                 location: 'Nice, France',
               },
@@ -1819,7 +1819,7 @@ export default function About() {
                 description: 'Began participating in European Union Erasmus+ programs, focusing on adult education and digital literacy.',
                 icon: <SchoolIcon />,
                 color: '#0038d6',
-                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                photo: getImagePath('/illustrations/first-erasmus.jpg'),
                 photoAlt: 'Erasmus+ project - Participants working together',
                 location: 'European Union',
               },
@@ -1829,7 +1829,7 @@ export default function About() {
                 description: 'Expanded programs to include media literacy, cultural activities, and specialized programs for seniors and youth across Europe.',
                 icon: <TrendingUpIcon />,
                 color: '#ED2939',
-                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                photo: getImagePath('/illustrations/expansion-growth.jpg'),
                 photoAlt: 'Large group event - 1000+ Lives Changed',
                 location: 'Across Europe',
               },

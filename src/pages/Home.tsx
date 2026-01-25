@@ -1035,7 +1035,7 @@ export default function Home() {
                           </Box>
                           <Box
                             component="img"
-                            src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
+                            src={getImagePath("/illustrations/join-our-community.jpg")}
                             alt="Community gathering"
                             loading="lazy"
                             sx={{
@@ -1084,7 +1084,7 @@ export default function Home() {
                           </Box>
                           <Box
                             component="img"
-                            src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
+                            src={getImagePath("/illustrations/learn-more.jpg")}
                             alt="Learning in action"
                             loading="lazy"
                             sx={{
@@ -1733,7 +1733,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(66, 135, 245, 0.85) 0%, transparent 100%)',
                 stats: { members: 156, programs: 12 },
                 features: ['💻 Digital Literacy', '🎨 Art Classes', '☕ Social Meetups'],
-                image: getImagePath('/photos/583114332_1157911793183492_7408427246397976881_n.jpg'),
+                image: getImagePath('/illustrations/senior.jpg'),
               },
               {
                 role: 'youth',
@@ -1744,7 +1744,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(255, 152, 0, 0.85) 0%, transparent 100%)',
                 stats: { members: 340, placement: '89%' },
                 features: ['💻 Coding Bootcamp', '🎬 Media Production', '🗣️ Public Speaking', '🌍 EU Opportunities'],
-                image: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
+                image: getImagePath('/illustrations/youth.jpg'),
               },
               {
                 role: 'migrant',
@@ -1755,7 +1755,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, transparent 100%)',
                 stats: { languages: 15, success: '95%' },
                 features: ['🇫🇷 French Classes', '📄 Document Help', '🏠 Housing Support', '👔 Job Training'],
-                image: getImagePath('/photos/572851437_1143811217926883_7725194936764095335_n.jpg'),
+                image: getImagePath('/illustrations/migrant.jpg'),
               },
               {
                 role: 'organization',
@@ -1766,7 +1766,7 @@ export default function Home() {
                 gradient: 'linear-gradient(135deg, rgba(67, 160, 71, 0.85) 0%, transparent 100%)',
                 stats: { partners: 23, countries: 8 },
                 features: ['💰 Funding Access', '📊 Project Collaboration', '🎓 Training Programs', '📱 Resource Sharing'],
-                image: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
+                image: getImagePath('/illustrations/organization.jpg'),
               },
             ].map((roleOption) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={roleOption.role}>
@@ -2275,7 +2275,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/583114332_1157911793183492_7408427246397976881_n.jpg")}
+                        src={getImagePath("/illustrations/ready-join.jpg")}
                         alt="Ready to Join"
                         className="card-image"
                         sx={{
@@ -2380,7 +2380,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/571419367_1143811194593552_6930038688628840775_n.jpg")}
+                        src={getImagePath("/illustrations/volunteer.jpg")}
                         alt="Want to Volunteer"
                         className="card-image"
                         sx={{
@@ -2489,7 +2489,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/572851437_1143811217926883_7725194936764095335_n.jpg")}
+                        src={getImagePath("/illustrations/learn.jpg")}
                         alt="Learn About Us"
                         className="card-image"
                         sx={{
@@ -2594,7 +2594,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/583741041_1157902773184394_5619801435922057517_n.jpg")}
+                        src={getImagePath("/illustrations/programs.jpg")}
                         alt="Our Programs"
                         className="card-image"
                         sx={{
@@ -2699,7 +2699,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg")}
+                        src={getImagePath("/illustrations/contact-us.jpg")}
                         alt="Contact Us"
                         className="card-image"
                         sx={{
@@ -2808,7 +2808,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/574604314_1146960820945256_3308026953512837589_n.jpg")}
+                        src={getImagePath("/illustrations/events.jpg")}
                         alt="Browse Events"
                         className="card-image"
                         sx={{
@@ -2913,7 +2913,7 @@ export default function Home() {
                     >
                       <Box
                         component="img"
-                        src={getImagePath("/photos/583489432_1157911303183541_1292926580526900497_n.jpg")}
+                        src={getImagePath("/illustrations/gallery.jpg")}
                         alt="View Gallery"
                         className="card-image"
                         sx={{
@@ -3560,7 +3560,7 @@ export default function Home() {
                 action: 'Explore our programs',
                 color: '#0288d1',
                 gradient: 'linear-gradient(135deg, rgba(2, 136, 209, 0.85) 0%, rgba(2, 136, 209, 0.6) 100%)',
-                image: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                image: getImagePath('/illustrations/curious.jpg'),
               },
               {
                 emotion: 'interested',
@@ -3570,7 +3570,7 @@ export default function Home() {
                 action: 'See how to get started',
                 color: '#002395',
                 gradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.85) 0%, rgba(0, 35, 149, 0.6) 100%)',
-                image: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                image: getImagePath('/illustrations/interested.jpg'),
               },
               {
                 emotion: 'committed',
@@ -3580,7 +3580,7 @@ export default function Home() {
                 action: 'Register now',
                 color: '#4caf50',
                 gradient: 'linear-gradient(135deg, rgba(76, 175, 80, 0.85) 0%, rgba(76, 175, 80, 0.6) 100%)',
-                image: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                image: getImagePath('/illustrations/ready.jpg'),
               },
             ].map((emotionOption) => (
               <Grid size={{ xs: 12, md: 4 }} key={emotionOption.emotion}>
@@ -4142,7 +4142,7 @@ export default function Home() {
                 backgroundGradient: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(30, 136, 229, 0.05) 100%)',
                 initials: 'MC',
                 rating: 5,
-                photoUrl: 'https://i.pravatar.cc/300?img=68', // Placeholder photo - replace with: /images/testimonials/marie-claire.jpg
+                photoUrl: 'https://i.pravatar.cc/300?img=47', // Placeholder photo - replace with: /images/testimonials/marie-claire.jpg
               },
               {
                 name: 'Ahmed',
@@ -4154,7 +4154,7 @@ export default function Home() {
                 backgroundGradient: 'linear-gradient(135deg, rgba(46, 125, 50, 0.1) 0%, rgba(102, 187, 106, 0.05) 100%)',
                 initials: 'AH',
                 rating: 5,
-                photoUrl: 'https://i.pravatar.cc/300?img=47', // Placeholder photo - replace with: /images/testimonials/ahmed.jpg
+                photoUrl: 'https://i.pravatar.cc/300?img=68', // Placeholder photo - replace with: /images/testimonials/ahmed.jpg
               },
               {
                 name: 'Sophie',
@@ -4166,7 +4166,7 @@ export default function Home() {
                 backgroundGradient: 'linear-gradient(135deg, rgba(237, 41, 57, 0.1) 0%, rgba(255, 107, 107, 0.05) 100%)',
                 initials: 'SO',
                 rating: 5,
-                photoUrl: 'https://i.pravatar.cc/300?img=12', // Placeholder photo - replace with: /images/testimonials/sophie.jpg
+                photoUrl: 'https://i.pravatar.cc/300?img=44', // Placeholder photo - replace with: /images/testimonials/sophie.jpg
               },
             ].map((testimonial, index) => (
               <Grid size={{ xs: 12, md: 4 }} key={index}>
@@ -4622,7 +4622,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
                   progress: 100,
                   description: 'Key areas of impact',
-                  photo: getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
+                  photo: getImagePath('/illustrations/focus.jpg'),
                   photoType: 'collage',
                 },
                 {
@@ -4633,7 +4633,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #2e7d32 0%, #66bb6a 100%)',
                   progress: 85,
                   description: 'Ongoing initiatives',
-                  photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                  photo: getImagePath('/illustrations/active-programs.jpg'),
                   photoType: 'single',
                 },
                 {
@@ -4644,7 +4644,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #ED2939 0%, #ff6b6b 100%)',
                   progress: 75,
                   description: 'Lives transformed',
-                  photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                  photo: getImagePath('/illustrations/participants.jpg'),
                   photoType: 'group',
                 },
                 {
@@ -4655,7 +4655,7 @@ export default function Home() {
                   gradient: 'linear-gradient(135deg, #0277bd 0%, #29b6f6 100%)',
                   progress: 60,
                   description: 'European network',
-                  photo: getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
+                  photo: getImagePath('/illustrations/countries.jpg'),
                   photoType: 'map',
                 },
               ].map((stat, index) => (
@@ -5098,7 +5098,7 @@ export default function Home() {
                   },
                   {
                     name: 'MITRA Menu',
-                    logo: getImagePath('/mitra-fr-logo-menu-1.svg'),
+                    logo: getImagePath('/illustrations/mitra-brand.jpg'),
                     caption: 'Youth Media Lab • Marseille',
                   },
                 ].map((partner) => (
@@ -5300,7 +5300,7 @@ export default function Home() {
               }}
             >
               <FlashOnIcon sx={{ fontSize: 20, color: 'warning.main' }} />
-              <ArrowForwardIcon sx={{ fontSize: 18, transform: 'rotate(-90deg)', color: 'primary.main' }} />
+              <ArrowForwardIcon sx={{ fontSize: 18, transform: 'rotate(90deg)', color: 'primary.main' }} />
               <Typography variant="body2" sx={{ fontWeight: 700, color: 'primary.main' }}>
                 Click any area to learn more
               </Typography>
@@ -5319,15 +5319,15 @@ export default function Home() {
 
               const photoMap = [
                 // Intercultural Education
-                getImagePath('/photos/557776852_1117802063861132_509746235238804573_n.jpg'),
+                getImagePath('/illustrations/intercultural.jpg'),
                 // Media & Arts
-                getImagePath('/photos/518407574_1080814327559906_7301251356704742628_n.jpg'),
+                getImagePath('/illustrations/media-arts.jpg'),
                 // Digital Literacy
-                getImagePath('/photos/559033237_1124004446574227_6921470462676666260_n.jpg'),
+                getImagePath('/illustrations/digital-literacy.jpg'),
                 // Volunteering
-                getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                getImagePath('/illustrations/voluntering-area.jpg'),
                 // Adult Education
-                getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
+                getImagePath('/illustrations/adult-education.jpg'),
               ];
               const areaPhoto = photoMap[index % photoMap.length];
               
@@ -6143,7 +6143,7 @@ export default function Home() {
                 reward: 'Welcome Badge',
                 progress: userProgress.step >= 1 ? 100 : 0,
                 completed: userProgress.completed.includes(1),
-                photo: getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
+                photo: getImagePath('/illustrations/register-yourney.jpg'),
               },
               {
                 step: 2,
@@ -6152,7 +6152,7 @@ export default function Home() {
                 reward: 'Profile Badge',
                 progress: userProgress.step >= 2 ? 100 : 0,
                 completed: userProgress.completed.includes(2),
-                photo: getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
+                photo: getImagePath('/illustrations/compete-profile.jpg'),
               },
               {
                 step: 3,
@@ -6161,7 +6161,7 @@ export default function Home() {
                 reward: 'Active Member Badge',
                 progress: userProgress.step >= 3 ? 100 : 0,
                 completed: userProgress.completed.includes(3),
-                photo: getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
+                photo: getImagePath('/illustrations/join-event.jpg'),
               },
               {
                 step: 4,
@@ -6170,7 +6170,7 @@ export default function Home() {
                 reward: 'Achievement Badge',
                 progress: userProgress.step >= 4 ? 100 : 0,
                 completed: userProgress.completed.includes(4),
-                photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
+                photo: getImagePath('/illustrations/complete-program.jpg'),
               },
             ].map((milestone) => (
               <Grid size={{ xs: 12, sm: 6, md: 3 }} key={milestone.step}>
@@ -7540,8 +7540,9 @@ export default function Home() {
             content: '""',
             position: 'absolute',
             inset: 0,
-            backgroundImage: `url(${getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg')})`,
-            backgroundSize: 'cover',
+            backgroundImage: `url(${getImagePath('/illustrations/pattern-1-2.jpg')})`,
+            backgroundSize: '368px 208px', // Adjust size as needed
+            backgroundRepeat: 'repeat',
             backgroundPosition: 'center',
             opacity: 0.08,
             filter: 'saturate(1.1) brightness(1.1)',
