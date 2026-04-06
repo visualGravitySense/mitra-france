@@ -1,6 +1,7 @@
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
 import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 import IconButton from '@mui/material/IconButton';
 import Link from '@mui/material/Link';
 import Stack from '@mui/material/Stack';
@@ -14,6 +15,7 @@ import RadioIcon from '@mui/icons-material/Radio';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link as RouterLink } from 'react-router-dom';
 import { getImagePath } from '../utils/imagePath';
+import { getMitraLogoSrc, mitraLogoThemeFilter } from '../utils/mitraLogo';
 
 function Copyright() {
   return (
@@ -30,14 +32,8 @@ function Copyright() {
 
 export default function Footer() {
   const theme = useTheme();
-  
-  // Select logo based on theme mode
-  // Dark mode uses light logo (light logo on dark background)
-  // Light mode uses dark logo (dark logo on light background)
-  const logoPath = theme.palette.mode === 'dark' 
-    ? getImagePath('/mit-fr-light-1.svg')
-    : getImagePath('/mit-fr-dark-1.svg');
-  
+  const logoSrc = getMitraLogoSrc();
+
   return (
     <Box
       component="footer"
@@ -74,35 +70,32 @@ export default function Footer() {
           textAlign: { xs: 'left', md: 'left' },
         }}
       >
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            width: '100%',
-            justifyContent: 'space-between',
-            gap: { xs: 4, sm: 3, md: 4 },
-          }}
-        >
+        <Grid container spacing={{ xs: 4, sm: 3, md: 4 }} sx={{ width: '100%' }}>
           {/* Brand / trust */}
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: 2.5,
-              minWidth: { xs: '100%', sm: '44%' },
-              pr: { md: 2 },
-            }}
-          >
-            <Box sx={{ width: { xs: '100%', sm: '92%', md: '80%' } }}>
+          <Grid size={{ xs: 12, md: 5, lg: 5 }}>
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 2.5,
+                height: '100%',
+                pr: { md: 1 },
+              }}
+            >
+            <Box sx={{ width: '100%', maxWidth: '100%' }}>
               <Box
                 component="img"
-                src={logoPath}
+                src={logoSrc}
                 alt="MITRA FRANCE"
                 sx={{
-                  height: { xs: 22, sm: 26 },
+                  display: 'block',
+                  height: { xs: 28, sm: 34 },
                   width: 'auto',
+                  maxWidth: { xs: 'min(300px, 100%)', sm: 320 },
                   mb: 1.5,
-                  maxWidth: '100%',
+                  objectFit: 'contain',
+                  objectPosition: 'left center',
+                  ...mitraLogoThemeFilter(theme),
                 }}
               />
               <Typography
@@ -160,7 +153,7 @@ export default function Footer() {
                 borderColor: 'divider',
                 backgroundColor: 'rgba(255, 255, 255, 0.7)',
                 backdropFilter: 'blur(10px)',
-                maxWidth: { xs: '100%', sm: '92%', md: '80%' },
+                maxWidth: '100%',
               }}
             >
               <Typography variant="caption" sx={{ fontWeight: 700, color: 'text.secondary', display: 'block', mb: 1 }}>
@@ -186,101 +179,112 @@ export default function Footer() {
                 </Typography>
               </Stack>
             </Box>
-          </Box>
-
-          {/* Link columns */}
-          {(
-            [
-              {
-                title: 'Pages',
-                links: [
-                  { to: '/about', label: 'About Us' },
-                  { to: '/focus-areas', label: 'Focus Areas' },
-                  { to: '/intercultural-education', label: 'Intercultural Education' },
-                  { to: '/courses', label: 'Courses' },
-                  { to: '/projects', label: 'Projects' },
-                  { to: '/team', label: 'Team' },
-                ],
-              },
-              {
-                title: 'Resources',
-                links: [
-                  { to: '/partners', label: 'Partners' },
-                  { to: '/events', label: 'Events' },
-                  { to: '/gallery', label: 'Gallery' },
-                  { to: '/contact', label: 'Contact' },
-                ],
-              },
-              {
-                title: 'Contact',
-                links: [
-                  { href: 'mailto:mitra.france@gmail.com', label: 'Email' },
-                  { href: 'tel:+33641092395', label: 'Phone' },
-                ],
-                extra: <Typography variant="body2" color="text.secondary">Nice, France</Typography>,
-              },
-            ] as Array<{
-              title: string;
-              links: Array<{ to?: string; href?: string; label: string }>;
-              extra?: React.ReactNode;
-            }>
-          ).map((col) => (
-            <Box
-              key={col.title}
-              sx={{
-                display: { xs: 'none', sm: 'flex' },
-                flexDirection: 'column',
-                gap: 1,
-                minWidth: { sm: '140px', md: '180px' },
-              }}
-            >
-              <Typography variant="body2" sx={{ fontWeight: 800, mb: 0.5 }}>
-                {col.title}
-              </Typography>
-              {col.links.map((l) =>
-                'to' in l ? (
-                  <Link
-                    key={l.label}
-                    component={RouterLink}
-                    to={l.to}
-                    color="text.secondary"
-                    variant="body2"
-                    sx={{
-                      textDecoration: 'none',
-                      width: 'fit-content',
-                      transition: 'all 0.25s ease',
-                      '&:hover': {
-                        color: 'primary.main',
-                        transform: 'translateX(2px)',
-                      },
-                    }}
-                  >
-                    {l.label}
-                  </Link>
-                ) : (
-                  <Link
-                    key={l.label}
-                    href={l.href}
-                    color="text.secondary"
-                    variant="body2"
-                    sx={{
-                      textDecoration: 'none',
-                      width: 'fit-content',
-                      transition: 'all 0.25s ease',
-                      '&:hover': {
-                        color: 'primary.main',
-                        transform: 'translateX(2px)',
-                      },
-                    }}
-                  >
-                    {l.label}
-                  </Link>
-                ),
-              )}
-              {col.extra ?? null}
             </Box>
-          ))}
-        </Box>
+          </Grid>
+
+          <Grid size={{ xs: 12, sm: 7, md: 7, lg: 7 }} sx={{ display: { xs: 'none', sm: 'block' } }}>
+            <Grid container spacing={2} columns={12}>
+              {(
+                [
+                  {
+                    title: 'Pages',
+                    links: [
+                      { to: '/about', label: 'About Us' },
+                      { to: '/focus-areas', label: 'Focus Areas' },
+                      { to: '/intercultural-education', label: 'Intercultural Education' },
+                      { to: '/courses', label: 'Courses' },
+                      { to: '/projects', label: 'Projects' },
+                      { to: '/team', label: 'Team' },
+                    ],
+                  },
+                  {
+                    title: 'Resources',
+                    links: [
+                      { to: '/partners', label: 'Partners' },
+                      { to: '/events', label: 'Events' },
+                      { to: '/gallery', label: 'Gallery' },
+                      { to: '/contact', label: 'Contact' },
+                    ],
+                  },
+                  {
+                    title: 'Contact',
+                    links: [
+                      { href: 'mailto:mitra.france@gmail.com', label: 'Email' },
+                      { href: 'tel:+33641092395', label: 'Phone' },
+                    ],
+                    extra: (
+                      <Typography variant="body2" color="text.secondary" sx={{ wordBreak: 'break-word' }}>
+                        Nice, France
+                      </Typography>
+                    ),
+                  },
+                ] as Array<{
+                  title: string;
+                  links: Array<{ to?: string; href?: string; label: string }>;
+                  extra?: React.ReactNode;
+                }>
+              ).map((col) => (
+                <Grid size={{ xs: 12, sm: 4, md: 4 }} key={col.title}>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      gap: 1,
+                      minWidth: 0,
+                    }}
+                  >
+                    <Typography variant="body2" sx={{ fontWeight: 800, mb: 0.5 }}>
+                      {col.title}
+                    </Typography>
+                    {col.links.map((l) =>
+                      'to' in l ? (
+                        <Link
+                          key={l.label}
+                          component={RouterLink}
+                          to={l.to}
+                          color="text.secondary"
+                          variant="body2"
+                          sx={{
+                            textDecoration: 'none',
+                            width: 'fit-content',
+                            maxWidth: '100%',
+                            transition: 'all 0.25s ease',
+                            '&:hover': {
+                              color: 'primary.main',
+                              transform: 'translateX(2px)',
+                            },
+                          }}
+                        >
+                          {l.label}
+                        </Link>
+                      ) : (
+                        <Link
+                          key={l.label}
+                          href={l.href}
+                          color="text.secondary"
+                          variant="body2"
+                          sx={{
+                            textDecoration: 'none',
+                            width: 'fit-content',
+                            maxWidth: '100%',
+                            transition: 'all 0.25s ease',
+                            '&:hover': {
+                              color: 'primary.main',
+                              transform: 'translateX(2px)',
+                            },
+                          }}
+                        >
+                          {l.label}
+                        </Link>
+                      ),
+                    )}
+                    {col.extra ?? null}
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Grid>
+        </Grid>
 
         <Box
           sx={{
