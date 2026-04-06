@@ -192,9 +192,7 @@ export default function Footer() {
                       { to: '/about', label: 'About Us' },
                       { to: '/focus-areas', label: 'Focus Areas' },
                       { to: '/intercultural-education', label: 'Intercultural Education' },
-                      { to: '/courses', label: 'Courses' },
-                      { to: '/projects', label: 'Projects' },
-                      { to: '/team', label: 'Team' },
+                      { to: '/programs-workshops', label: 'Programs & workshops' },
                     ],
                   },
                   {

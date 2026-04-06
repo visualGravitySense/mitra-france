@@ -51,7 +51,7 @@ const CTASection: React.FC = () => {
               variant="contained"
               color="primary"
               size="large"
-              onClick={() => navigate('/courses')}
+              onClick={() => navigate('/programs-workshops')}
               sx={{
                 background: 'linear-gradient(135deg, #002395 0%, #6B8DE3 100%)',
                 color: 'white',
@@ -60,7 +60,7 @@ const CTASection: React.FC = () => {
                 },
               }}
             >
-              Explore Courses
+              Programs & workshops
             </ParticleCTAButton>
 
             <ParticleCTAButton
@@ -86,7 +86,7 @@ const CTASection: React.FC = () => {
               variant="contained"
               color="secondary"
               size="large"
-              onClick={() => navigate('/projects')}
+              onClick={() => navigate('/programs-workshops')}
               sx={{
                 background: 'linear-gradient(135deg, #ED2939 0%, #FF6B7A 100%)',
                 color: 'white',
@@ -96,7 +96,7 @@ const CTASection: React.FC = () => {
               }}
               colors={['#ED2939', '#FF6B7A', '#FFB3BA', '#FFFFFF']}
             >
-              View Projects
+              Programs & workshops
             </ParticleCTAButton>
           </Stack>
         </Stack>

@@ -334,8 +334,8 @@ export default function NotFound() {
               {[
                 { label: 'About Us', path: '/about', icon: '👥' },
                 { label: 'Focus Areas', path: '/focus-areas', icon: '🎯' },
-                { label: 'Courses', path: '/courses', icon: '📚' },
-                { label: 'Projects', path: '/projects', icon: '🚀' },
+                { label: 'Programs & workshops', path: '/programs-workshops', icon: '📚' },
+                { label: 'Programs & workshops', path: '/programs-workshops', icon: '🚀' },
                 { label: 'Events', path: '/events', icon: '📅' },
                 { label: 'Contact', path: '/contact', icon: '✉️' },
               ].map((link) => (

@@ -11,7 +11,6 @@ import Grid from '@mui/material/Grid';
 import Chip from '@mui/material/Chip';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
-import Avatar from '@mui/material/Avatar';
 import { Link as RouterLink } from 'react-router-dom';
 import ParticleCTAButton from '../components/ParticleCTAButton';
 import { getImagePath } from '../utils/imagePath';
@@ -57,7 +56,7 @@ const focusAreas = [
     icon: <MenuBookIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
     title: 'Adult Education',
     description: 'Lifelong learning for personal and professional growth.',
-    path: '/courses',
+    path: '/programs-workshops',
   },
 ];
 
@@ -83,21 +82,21 @@ const featuredActivities: HomeActivityItem[] = [
     title: 'Media literacy in adult education',
     description: 'Innovative teaching methods for adult learners across Europe.',
     meta: 'Erasmus+ KA2 · 2016–2018',
-    link: '/projects',
+    link: '/programs-workshops',
   },
   {
     kind: 'project',
     title: 'Digital Senior Citizen',
     description: 'Essential digital skills for everyday life for older adults.',
     meta: 'Erasmus+ KA2 · 2018–2020',
-    link: '/projects',
+    link: '/programs-workshops',
   },
   {
     kind: 'project',
     title: 'Cultural Heritage for Youth',
     description: 'Heritage engagement through media, arts, and community.',
     meta: 'Erasmus+ KA2 · 2020–2022',
-    link: '/projects',
+    link: '/programs-workshops',
   },
   {
     kind: 'event',
@@ -123,35 +122,11 @@ const featuredActivities: HomeActivityItem[] = [
 ];
 
 const partnerNames = [
-  "Université Côte d'Azur",
-  'Le 109: Pôle de cultures',
-  'Villa Ephrussi de Rothschild',
-  'Médiathèque Louis Nucéra',
-  'Le HUBLOT Theater',
-  'Espace Associations',
-];
-
-const teamPreview = [
-  {
-    name: 'Pavel Smulski',
-    role: 'Leader & Founder',
-    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-  },
-  {
-    name: 'Karina Tronche',
-    role: 'Core Team',
-    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-  },
-  {
-    name: 'Louise Papadoperakis',
-    role: 'Core Team',
-    photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-  },
-  {
-    name: 'Alex Smulski',
-    role: 'Core Team',
-    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
-  },
+  'Université Côte d’Azur',
+  'Le 109 · Pôle de cultures contemporaines',
+  'Le HUBLOT · SCREB · Lycée Pasteur',
+  'La Médiathèque Louis Nucéra',
+  'Espace Associations Nice',
 ];
 
 function ActivityTabPanel({
@@ -328,15 +303,34 @@ export default function Home() {
         </Container>
       </Box>
 
-      {/* Mission — one short block */}
+      {/* Intercultural education & inclusion */}
       <Container sx={{ py: { xs: 6, md: 8 } }}>
         <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700, mb: 2 }}>
-          Our mission
+          Intercultural Education & Inclusion
         </Typography>
-        <Typography color="text.secondary" sx={{ maxWidth: 720, lineHeight: 1.8, fontSize: '1.05rem' }}>
-          We connect people through learning: inclusive education, creative media, and cultural participation — with a
-          strong focus on Europe and our home region on the French Riviera.
-        </Typography>
+        <Box
+          sx={{
+            maxWidth: 800,
+            borderTop: '3px solid',
+            borderColor: 'error.main',
+            pt: 2,
+          }}
+        >
+          <Stack spacing={2}>
+            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+              MITRA FRANCE fosters intercultural understanding and responsiveness to social, ethnic, linguistic, and
+              cultural diversity through non-formal educational approaches.
+            </Typography>
+            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+              Its mission is to create awareness among individuals about their societal roles and to instill skills
+              enabling positive and constructive action.
+            </Typography>
+            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+              The organisation aims to develop innovative educational methods that address diversity and promote
+              inclusive education.
+            </Typography>
+          </Stack>
+        </Box>
       </Container>
 
       {/* Focus areas + single stats row */}
@@ -447,8 +441,8 @@ export default function Home() {
           <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700 }}>
             Our activities
           </Typography>
-          <Button component={RouterLink} to="/projects" size="small" endIcon={<ArrowForwardIcon />}>
-            Full catalogue
+          <Button component={RouterLink} to="/programs-workshops" size="small" endIcon={<ArrowForwardIcon />}>
+            Programs & workshops
           </Button>
         </Stack>
         <Typography color="text.secondary" sx={{ mb: 2, maxWidth: 640 }}>
@@ -488,7 +482,7 @@ export default function Home() {
                         {item.meta}
                       </Typography>
                       <Button component={RouterLink} to={item.link} size="small" endIcon={<ArrowForwardIcon />}>
-                        {item.kind === 'project' ? 'See projects' : 'See events'}
+                        {item.kind === 'project' ? 'See programmes' : 'See events'}
                       </Button>
                     </CardContent>
                   </Card>
@@ -540,34 +534,6 @@ export default function Home() {
           </Grid>
         </Container>
       </Box>
-
-      {/* Team preview */}
-      <Container sx={{ py: { xs: 6, md: 8 } }}>
-        <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700, mb: 1 }}>
-          People behind MITRA
-        </Typography>
-        <Typography color="text.secondary" sx={{ mb: 4, maxWidth: 560 }}>
-          A small core team and many collaborators. Meet everyone on the team page.
-        </Typography>
-        <Grid container spacing={3}>
-          {teamPreview.map((member) => (
-            <Grid key={member.name} size={{ xs: 6, md: 3 }}>
-              <Stack spacing={1.5} alignItems="center" textAlign="center">
-                <Avatar src={getImagePath(member.photo)} alt={member.name} sx={{ width: 96, height: 96 }} />
-                <Typography fontWeight={700}>{member.name}</Typography>
-                <Typography variant="body2" color="text.secondary">
-                  {member.role}
-                </Typography>
-              </Stack>
-            </Grid>
-          ))}
-        </Grid>
-        <Box sx={{ textAlign: 'center', mt: 4 }}>
-          <Button component={RouterLink} to="/team" variant="outlined" size="large" endIcon={<ArrowForwardIcon />}>
-            Full team & stories
-          </Button>
-        </Box>
-      </Container>
 
       {/* Single final CTA */}
       <Box

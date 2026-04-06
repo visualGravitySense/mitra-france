@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import CssBaseline from '@mui/material/CssBaseline';
 import AppTheme from './components/shared-theme/AppTheme.tsx';
 import Navigation from './components/Navigation.tsx';
@@ -7,9 +7,8 @@ import ScrollToTop from './components/ScrollToTop.tsx';
 import Home from './pages/Home.tsx';
 import About from './pages/About.tsx';
 import FocusAreas from './pages/FocusAreas.tsx';
-import Projects from './pages/Projects.tsx';
-import ProjectDetail from './pages/ProjectDetail.tsx';
-import Courses from './pages/Courses.tsx';
+// import Projects from './pages/Projects.tsx'; // restore route below when catalogue is public again
+// import Courses from './pages/Courses.tsx'; // restore `<Route path="/courses" element={<Courses />} />` when ready
 import ProgramsWorkshops from './pages/ProgramsWorkshops.tsx';
 import Team from './pages/Team.tsx';
 import Partners from './pages/Partners.tsx';
@@ -35,11 +34,12 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/focus-areas" element={<FocusAreas />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/project-detail" element={<ProjectDetail />} />
-          <Route path="/courses" element={<Courses />} />
+          {/* Temporarily hide project catalogue — old URLs redirect */}
+          <Route path="/projects" element={<Navigate to="/programs-workshops" replace />} />
+          <Route path="/project-detail" element={<Navigate to="/programs-workshops" replace />} />
+          <Route path="/courses" element={<Navigate to="/programs-workshops" replace />} />
           <Route path="/programs-workshops" element={<ProgramsWorkshops />} />
-          <Route path="/team" element={<Team />} />
+          <Route path="/team" element={<Navigate to="/about" replace />} />
           <Route path="/partners" element={<Partners />} />
           <Route path="/events" element={<Events />} />
           <Route path="/gallery" element={<Gallery />} />
