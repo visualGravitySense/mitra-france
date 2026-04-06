@@ -14,7 +14,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown.tsx';
-import { getImagePath } from '../utils/imagePath';
+import { getMitraLogoSrc, mitraLogoThemeFilter } from '../utils/mitraLogo';
 
 const StyledToolbar = styled(Toolbar)(({ theme }) => {
   const themeWithVars = theme as any;
@@ -96,13 +96,7 @@ export default function Navigation() {
   const [open, setOpen] = React.useState(false);
   const [anchorEls, setAnchorEls] = React.useState<{ [key: string]: HTMLElement | null }>({});
   const location = useLocation();
-  
-  // Select logo based on theme mode
-  // Dark mode uses light logo (light logo on dark background)
-  // Light mode uses dark logo (dark logo on light background)
-  const logoPath = theme.palette.mode === 'dark' 
-    ? getImagePath('/mit-fr-light-1.svg')
-    : getImagePath('/mit-fr-dark-1.svg');
+  const logoSrc = getMitraLogoSrc();
 
   const toggleDrawer = (newOpen: boolean) => () => {
     setOpen(newOpen);
@@ -176,15 +170,16 @@ export default function Navigation() {
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }}>
               <Box
                 component="img"
-                src={logoPath}
+                src={logoSrc}
                 alt="MITRA FRANCE"
                 sx={{
-                  height: { xs: 18, md: 23 },
+                  height: { xs: 18, md: 22 },
                   width: 'auto',
-                  mr: 3,
+                  mr: 2.5,
                   transition: 'opacity 0.3s ease',
+                  ...mitraLogoThemeFilter(theme),
                   '&:hover': {
-                    opacity: 0.8,
+                    opacity: 0.85,
                   },
                 }}
               />
@@ -297,11 +292,12 @@ export default function Navigation() {
                 >
                   <Box
                     component="img"
-                    src={getImagePath("/mitra-fr-logo-menu-1.svg")}
+                    src={logoSrc}
                     alt="MITRA FRANCE"
                     sx={{
                       height: 18,
                       width: 'auto',
+                      ...mitraLogoThemeFilter(theme),
                     }}
                   />
                   <IconButton onClick={toggleDrawer(false)}>
