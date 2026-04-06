@@ -22,6 +22,11 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { getImagePath } from '../utils/imagePath';
 
+/** Illustrative Notion-style faces (DiceBear). Swap for real photos when you have consent and assets. */
+function notionStyleAvatarUrl(seed: string): string {
+  return `https://api.dicebear.com/9.x/notionists/svg?seed=${encodeURIComponent(seed)}`;
+}
+
 const values = [
   {
     icon: <PublicIcon sx={{ fontSize: 32, color: 'primary.main' }} />,
@@ -52,35 +57,18 @@ const milestones = [
 ];
 
 const teamPreview = [
-  {
-    name: 'Pavel Smulski',
-    role: 'Leader & Founder',
-    photo: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-  },
-  {
-    name: 'Karina Tronche',
-    role: 'Core Team',
-    photo: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-  },
-  {
-    name: 'Louise Papadoperakis',
-    role: 'Core Team',
-    photo: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-  },
-  {
-    name: 'Alex Smulski',
-    role: 'Core Team',
-    photo: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
-  },
-];
+  { name: 'Pavel Smulski', role: 'Leader & Founder' },
+  { name: 'Karina Tronche', role: 'Core Team' },
+  { name: 'Louise Papadoperakis', role: 'Core Team' },
+  { name: 'Alex Smulski', role: 'Core Team' },
+] as const;
 
 const partnerNames = [
-  "Université Côte d'Azur",
-  'Le 109: Pôle de cultures',
-  'Villa Ephrussi de Rothschild',
-  'Médiathèque Louis Nucéra',
-  'Le HUBLOT Theater',
-  'Espace Associations',
+  'Université Côte d’Azur',
+  'Le 109 · Pôle de cultures contemporaines',
+  'Le HUBLOT · SCREB · Lycée Pasteur',
+  'La Médiathèque Louis Nucéra',
+  'Espace Associations Nice',
 ];
 
 const faqItems = [
@@ -106,12 +94,8 @@ const faqItems = [
   },
 ];
 
-const galleryImages = [
-  '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
-  '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-  '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-  '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-];
+/** Single image in "Our story" — indoor session / workshop */
+const storyMomentImage = '/photos/583924019_1157903166517688_8756873269993443102_n.jpg';
 
 export default function About() {
   return (
@@ -136,16 +120,17 @@ export default function About() {
               <Typography variant="h1" sx={{ fontSize: { xs: '2rem', md: '2.75rem' }, fontWeight: 800, mt: 1, mb: 2 }}>
                 MITRA France connects people through education, media, and culture — from Nice across Europe.
               </Typography>
-              <Typography color="text.secondary" sx={{ lineHeight: 1.75, maxWidth: 520 }}>
-                We are a non-profit team of educators and project leaders. Our work strengthens inclusion, digital skills,
-                and intercultural dialogue — in classrooms, cultural spaces, and international projects.
+              <Typography color="text.secondary" sx={{ lineHeight: 1.75, maxWidth: 560 }}>
+                MITRA FRANCE is a non-governmental, non-profit organisation founded in 2015 in Nice, France. It is
+                dedicated to promoting inclusive education, media and digital literacy, intercultural understanding, and
+                lifelong learning through non-formal educational initiatives.
               </Typography>
             </Grid>
             <Grid size={{ xs: 12, md: 6 }}>
               <Box
                 component="img"
-                src={getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg')}
-                alt="MITRA France community activity"
+                src={getImagePath('/illustrations/mitra-image-4.png')}
+                alt="MITRA France community on the French Riviera"
                 sx={{
                   width: '100%',
                   borderRadius: 2,
@@ -223,18 +208,19 @@ export default function About() {
               <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 2 }}>
                 Moments from our work
               </Typography>
-              <Grid container spacing={1.5}>
-                {galleryImages.map((src) => (
-                  <Grid key={src} size={{ xs: 6 }}>
-                    <Box
-                      component="img"
-                      src={getImagePath(src)}
-                      alt=""
-                      sx={{ width: '100%', height: 140, objectFit: 'cover', borderRadius: 1.5 }}
-                    />
-                  </Grid>
-                ))}
-              </Grid>
+              <Box
+                component="img"
+                src={getImagePath(storyMomentImage)}
+                alt="Indoor workshop and presentation with participants"
+                sx={{
+                  width: '100%',
+                  maxWidth: { md: 560 },
+                  height: { xs: 220, md: 260 },
+                  objectFit: 'cover',
+                  borderRadius: 1.5,
+                  display: 'block',
+                }}
+              />
             </Grid>
           </Grid>
         </Container>
@@ -246,13 +232,25 @@ export default function About() {
           Core team
         </Typography>
         <Typography color="text.secondary" sx={{ mb: 4, maxWidth: 560 }}>
-          The people steering programmes day to day. More profiles and roles are on the full team page.
+          The people steering programmes day to day. Portraits are illustrative placeholders; use Contact to reach a
+          coordinator.
         </Typography>
         <Grid container spacing={3}>
           {teamPreview.map((member) => (
             <Grid key={member.name} size={{ xs: 6, md: 3 }}>
               <Stack spacing={1.5} alignItems="center" textAlign="center">
-                <Avatar src={getImagePath(member.photo)} alt={member.name} sx={{ width: 88, height: 88 }} />
+                <Avatar
+                  src={notionStyleAvatarUrl(member.name)}
+                  alt={`${member.name} (illustrative avatar)`}
+                  variant="circular"
+                  sx={{
+                    width: 88,
+                    height: 88,
+                    bgcolor: 'grey.100',
+                    border: '1px solid',
+                    borderColor: 'divider',
+                  }}
+                />
                 <Typography fontWeight={700}>{member.name}</Typography>
                 <Typography variant="body2" color="text.secondary">
                   {member.role}
@@ -262,8 +260,8 @@ export default function About() {
           ))}
         </Grid>
         <Box sx={{ textAlign: 'center', mt: 3 }}>
-          <Button component={RouterLink} to="/team" variant="text" endIcon={<ArrowForwardIcon />}>
-            Meet the full team
+          <Button component={RouterLink} to="/contact" variant="text" endIcon={<ArrowForwardIcon />}>
+            Contact the team
           </Button>
         </Box>
       </Container>

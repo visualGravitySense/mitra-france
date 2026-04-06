@@ -82,7 +82,7 @@ const panels: FocusPanel[] = [
       'Pathways toward jobs, studies, and active citizenship online',
     ],
     image: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
-    learnMoreHref: '/courses',
+    learnMoreHref: '/programs-workshops',
   },
 ];
 

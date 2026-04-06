@@ -7,6 +7,7 @@ import CardContent from '@mui/material/CardContent';
 import Grid from '@mui/material/Grid';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
+import Chip from '@mui/material/Chip';
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import Accordion from '@mui/material/Accordion';
@@ -17,7 +18,10 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import { Link as RouterLink } from 'react-router-dom';
 import { getImagePath } from '../utils/imagePath';
 
-type CourseCategory = 'all' | 'digital' | 'media' | 'languages' | 'arts';
+const ORG_PIC = '921950857';
+const ORG_OID = 'E10155908';
+
+type CourseCategory = 'all' | 'intercultural' | 'media' | 'inclusion';
 
 interface CourseItem {
   id: string;
@@ -31,78 +35,87 @@ interface CourseItem {
 const courses: CourseItem[] = [
   {
     id: '1',
-    title: 'Digital Literacy',
-    category: 'digital',
-    blurb: 'Essential digital skills for everyday life — devices, safety, and confident online use.',
-    image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-    meta: '8 weeks · Beginner · Certificate of completion',
+    title: 'Intercultural dialogue & inclusion labs',
+    category: 'intercultural',
+    blurb:
+      'Non-formal sessions on identity, dialogue, and social inclusion — building skills for constructive action in diverse communities.',
+    image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+    meta: 'Adults & youth · Groups · Nice area',
   },
   {
     id: '2',
-    title: 'Media Literacy',
-    category: 'media',
-    blurb: 'Critical viewing, content creation, and spotting misinformation in a crowded media landscape.',
-    image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-    meta: '6 weeks · Intermediate · Certificate of completion',
+    title: 'Participatory citizenship workshops',
+    category: 'intercultural',
+    blurb:
+      'Short programmes on rights, participation, and collective problem-solving, aligned with European values and local civic life.',
+    image: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+    meta: 'Non-formal education · Social inclusion',
   },
   {
     id: '3',
-    title: 'Language Learning (French)',
-    category: 'languages',
-    blurb: 'Practical French for integration — conversation, reading, and confidence in daily situations.',
-    image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
-    meta: '12 weeks · All levels · Free access',
+    title: 'Media literacy & critical storytelling',
+    category: 'media',
+    blurb:
+      'Critical reading of news and social media, ethical content creation, and arts-based expression for learners and educators.',
+    image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+    meta: 'Media & arts education',
   },
   {
     id: '4',
-    title: 'Arts & Culture',
-    category: 'arts',
-    blurb: 'Workshops in visual arts, heritage, and creative expression tied to local and European culture.',
-    image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-    meta: '10 weeks · All levels · Cultural immersion',
+    title: 'Digital tools, IT practice & AI awareness',
+    category: 'media',
+    blurb:
+      'Practical IT skills with a responsible lens: privacy, verification, and introductory use of AI in learning — always in non-formal formats.',
+    image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    meta: 'Inclusive groups · Hands-on',
   },
   {
     id: '5',
-    title: 'Digital skills for seniors',
-    category: 'digital',
-    blurb: 'Patient, step-by-step support for smartphones, messaging, and safe browsing.',
+    title: 'Digital inclusion for seniors (60+)',
+    category: 'inclusion',
+    blurb:
+      'Patient, step-by-step support for devices, messaging, e-services, and safe browsing — reducing isolation and building confidence.',
     image: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
-    meta: 'Flexible · Groups · Nice region',
+    meta: 'Seniors 60+ · Small groups',
   },
   {
     id: '6',
-    title: 'Creative media lab',
-    category: 'media',
-    blurb: 'Short projects in photo, audio, and simple video for community and youth groups.',
-    image: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
-    meta: 'Workshop series · Project-based',
+    title: 'Youth & unemployed — digital pathways',
+    category: 'inclusion',
+    blurb:
+      'Skills for job search, online communication, and essential productivity tools — tied to coaching and peer support where available.',
+    image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    meta: 'Youth & unemployed adults · Nice region',
   },
 ];
 
 const filterOptions: { value: CourseCategory; label: string }[] = [
   { value: 'all', label: 'All' },
-  { value: 'digital', label: 'Digital' },
-  { value: 'media', label: 'Media' },
-  { value: 'languages', label: 'Languages' },
-  { value: 'arts', label: 'Arts' },
+  { value: 'intercultural', label: 'Intercultural & inclusion' },
+  { value: 'media', label: 'Media & arts (IT / AI)' },
+  { value: 'inclusion', label: 'Digital inclusion' },
 ];
 
 const faqItems = [
   {
-    q: 'Are courses free?',
-    a: 'Many MITRA programmes are funded or donation-based; we confirm costs and options when you register for a specific cohort.',
+    q: 'What does MITRA France offer?',
+    a: 'Founded in 2015 in Nice, we deliver non-formal education in intercultural understanding, media and digital literacy, and inclusion — PIC ' +
+      ORG_PIC +
+      ', OID ' +
+      ORG_OID +
+      '. Offerings change with funded projects and local partners; contact us for the current open cohort.',
   },
   {
-    q: 'Who can join?',
-    a: 'Adults, youth, seniors, and newcomers — each course page or announcement lists prerequisites and language level.',
+    q: 'Are activities free?',
+    a: 'Many programmes are supported by Erasmus+, public partners, or local institutions. We confirm any contribution or eligibility when you register for a specific activity.',
   },
   {
-    q: 'Do I get a certificate?',
-    a: 'Where a course runs with attendance and outcomes, we issue a certificate of completion you can use for CV or further study.',
+    q: 'Who is prioritised for digital inclusion?',
+    a: 'We focus on youth, people aged 60 and over, and unemployed adults, alongside other groups facing barriers — each announcement lists who the session is for.',
   },
   {
     q: 'How do I sign up?',
-    a: 'Contact us with the course name; we will send dates, location (often Nice area), and any forms you need.',
+    a: 'Write via Contact with the theme you are interested in; we reply with dates, venue (often Nice or neighbouring municipalities), and any forms required.',
   },
 ];
 
@@ -120,9 +133,8 @@ export default function Courses() {
 
   return (
     <Box component="main">
-      {/* Короткий hero — один баннер */}
-          <Box
-            sx={{
+      <Box
+        sx={{
           pt: { xs: 12, sm: 14, md: 16 },
           pb: { xs: 6, md: 8 },
           background: 'linear-gradient(180deg, rgba(0, 35, 149, 0.07) 0%, transparent 100%)',
@@ -131,38 +143,44 @@ export default function Courses() {
         <Container maxWidth="md">
           <Stack spacing={2} alignItems="center" textAlign="center">
             <Typography variant="h1" sx={{ fontSize: { xs: '1.75rem', md: '2.25rem' }, fontWeight: 800 }}>
-              Ready to start learning?
-              </Typography>
-            <Typography color="text.secondary" sx={{ maxWidth: 560, lineHeight: 1.75 }}>
-              Browse our course catalogue — filter by topic, then open a path that fits you. Lifelong learning for
-              personal and professional growth, mostly in and around Nice.
-              </Typography>
-                <Button
+              Learning with MITRA France
+            </Typography>
+            <Typography color="text.secondary" sx={{ maxWidth: 640, lineHeight: 1.75 }}>
+              Established in <strong>2015</strong> in <strong>Nice</strong>, we advance <strong>inclusive education</strong>
+              , <strong>media and digital literacy</strong>, and <strong>intercultural understanding</strong> through{' '}
+              <strong>non-formal education</strong> and <strong>social inclusion</strong>. Below is a thematic catalogue —
+              concrete dates and venues are shared when you get in touch.
+            </Typography>
+            <Stack direction="row" spacing={1} flexWrap="wrap" justifyContent="center" useFlexGap>
+              <Chip label={`PIC ${ORG_PIC}`} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
+              <Chip label={`OID ${ORG_OID}`} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
+            </Stack>
+            <Button
               component="a"
               href="#course-grid"
-                  variant="contained"
-                  size="large"
-                  endIcon={<ArrowForwardIcon />}
+              variant="contained"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
               sx={{ fontWeight: 700, borderRadius: 2, px: 3 }}
             >
-              Browse courses
-                </Button>
-              </Stack>
+              Browse catalogue
+            </Button>
+          </Stack>
         </Container>
       </Box>
 
       <Container maxWidth="lg" sx={{ pb: 2 }} id="course-grid">
         <Typography variant="h2" sx={{ fontSize: { xs: '1.35rem', md: '1.5rem' }, fontWeight: 700, mb: 2 }}>
-          Catalogue
-              </Typography>
+          Thematic catalogue
+        </Typography>
         <Box sx={{ mb: 3, overflowX: 'auto' }}>
           <ToggleButtonGroup
             value={category}
             exclusive
             onChange={handleFilter}
-                          size="small"
-            aria-label="Filter by category"
-                          sx={{
+            size="small"
+            aria-label="Filter by pillar"
+            sx={{
               flexWrap: 'wrap',
               gap: 0.5,
               '& .MuiToggleButton-root': { textTransform: 'none', borderRadius: '8px !important', px: 1.5 },
@@ -174,85 +192,90 @@ export default function Courses() {
               </ToggleButton>
             ))}
           </ToggleButtonGroup>
-          </Box>
+        </Box>
 
         <Grid container spacing={2}>
           {visible.map((course) => (
             <Grid key={course.id} size={{ xs: 12, sm: 6, md: 4 }}>
-            <Card
+              <Card
                 variant="outlined"
-              sx={{
-                      height: '100%',
-                        borderRadius: 2,
-                        display: 'flex',
+                sx={{
+                  height: '100%',
+                  borderRadius: 2,
+                  display: 'flex',
                   flexDirection: 'column',
                   transition: 'box-shadow 0.2s, border-color 0.2s',
                   '&:hover': { boxShadow: 2, borderColor: 'primary.main' },
-                    }}
-                  >
-                    <Box
-                      component="img"
+                }}
+              >
+                <Box
+                  component="img"
                   src={getImagePath(course.image)}
                   alt=""
                   sx={{ width: '100%', height: 160, objectFit: 'cover' }}
                 />
                 <CardContent sx={{ flexGrow: 1, display: 'flex', flexDirection: 'column', p: 2 }}>
                   <Typography variant="subtitle1" fontWeight={700} gutterBottom>
-                      {course.title}
-                    </Typography>
+                    {course.title}
+                  </Typography>
                   <Typography
                     variant="body2"
                     color="text.secondary"
-                              sx={{
+                    sx={{
                       flexGrow: 1,
                       mb: 1.5,
                       display: '-webkit-box',
-                      WebkitLineClamp: 2,
+                      WebkitLineClamp: 3,
                       WebkitBoxOrient: 'vertical',
                       overflow: 'hidden',
                       lineHeight: 1.55,
                     }}
                   >
                     {course.blurb}
-                              </Typography>
+                  </Typography>
                   <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1.5 }}>
                     {course.meta}
                   </Typography>
-                    <Button
-                      component={RouterLink}
-                      to="/contact"
+                  <Button
+                    component={RouterLink}
+                    to="/contact"
                     size="small"
                     variant="outlined"
-                      endIcon={<ArrowForwardIcon />}
+                    endIcon={<ArrowForwardIcon />}
                     sx={{ alignSelf: 'flex-start' }}
                   >
-                    Learn more
-                    </Button>
+                    Ask about this theme
+                  </Button>
                 </CardContent>
-                  </Card>
-              </Grid>
+              </Card>
+            </Grid>
           ))}
-              </Grid>
+        </Grid>
 
         {visible.length === 0 && (
           <Typography color="text.secondary" sx={{ py: 4 }}>
-            No courses in this filter — choose “All” or another topic.
-            </Typography>
+            No themes in this filter — choose “All” or another pillar.
+          </Typography>
         )}
       </Container>
 
-      {/* FAQ */}
       <Box sx={{ bgcolor: 'action.hover', py: { xs: 5, md: 6 } }}>
         <Container maxWidth="md">
           <Typography variant="h2" sx={{ fontSize: { xs: '1.25rem', md: '1.4rem' }, fontWeight: 700, mb: 2 }}>
             Frequently asked
-            </Typography>
+          </Typography>
           {faqItems.map((item) => (
             <Accordion
               key={item.q}
               disableGutters
               elevation={0}
-              sx={{ border: '1px solid', borderColor: 'divider', borderRadius: 1, mb: 1, '&:before': { display: 'none' } }}
+              sx={{
+                border: '1px solid',
+                borderColor: 'divider',
+                borderRadius: 1,
+                mb: 1,
+                '&:before': { display: 'none' },
+              }}
             >
               <AccordionSummary expandIcon={<ExpandMoreIcon />}>
                 <Typography fontWeight={600}>{item.q}</Typography>
@@ -260,27 +283,27 @@ export default function Courses() {
               <AccordionDetails>
                 <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.75 }}>
                   {item.a}
-                      </Typography>
+                </Typography>
               </AccordionDetails>
             </Accordion>
           ))}
         </Container>
-          </Box>
+      </Box>
 
-      {/* Финальный CTA */}
       <Container maxWidth="md" sx={{ py: { xs: 6, md: 8 } }}>
         <Card variant="outlined" sx={{ borderRadius: 2, p: { xs: 3, md: 4 }, textAlign: 'center' }}>
           <Typography variant="h6" fontWeight={800} gutterBottom>
-            Don’t see the right course?
-              </Typography>
-          <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 480, mx: 'auto' }}>
-            Tell us your goals — we often run custom workshops or can point you to the next open call.
-              </Typography>
+            Don’t see what you need?
+          </Typography>
+          <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 520, mx: 'auto' }}>
+            We often tailor non-formal modules with schools, libraries, and European partners — describe your group and we
+            will propose a route (including Erasmus+ where relevant).
+          </Typography>
           <Button component={RouterLink} to="/contact" variant="contained" size="large" endIcon={<ArrowForwardIcon />}>
             Write to us
-              </Button>
+          </Button>
         </Card>
-        </Container>
+      </Container>
     </Box>
   );
 }

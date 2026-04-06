@@ -115,7 +115,6 @@ export default function Navigation() {
       label: 'About Us',
       items: [
         { label: 'About Us', path: '/about' },
-        { label: 'Team', path: '/team' },
         { label: 'Partners', path: '/partners' },
       ],
     },
@@ -123,14 +122,12 @@ export default function Navigation() {
       label: 'Education',
       items: [
         { label: 'Focus Areas', path: '/focus-areas' },
-        { label: 'Courses', path: '/courses' },
         { label: 'Programs & Workshops', path: '/programs-workshops' },
       ],
     },
     {
       label: 'Activities',
       items: [
-        { label: 'Projects', path: '/projects' },
         { label: 'Events', path: '/events' },
         { label: 'Gallery', path: '/gallery' },
       ],

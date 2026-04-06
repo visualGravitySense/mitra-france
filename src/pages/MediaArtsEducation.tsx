@@ -98,7 +98,7 @@ export default function MediaArtsEducation() {
             >
               <Button
                 component={Link}
-                to="/courses"
+                to="/programs-workshops"
                 variant="contained"
                 size="large"
                 startIcon={<SchoolIcon />}
@@ -275,7 +275,7 @@ export default function MediaArtsEducation() {
           <Box sx={{ textAlign: 'center', mt: 6 }}>
             <Button
               component={Link}
-              to="/courses"
+              to="/programs-workshops"
               variant="contained"
               size="large"
               startIcon={<CheckCircleIcon />}
@@ -619,7 +619,7 @@ export default function MediaArtsEducation() {
                       {/* FOGG MODEL: Prompt - Easy action button */}
                       <Button
                         component={Link}
-                        to="/courses"
+                        to="/programs-workshops"
                         variant="outlined"
                         size="small"
                         startIcon={<SchoolIcon />}
