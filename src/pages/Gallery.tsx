@@ -32,19 +32,19 @@ const galleryItems: GalleryItem[] = [
   { id: '2', path: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', tag: 'projects', alt: 'Project event' },
   { id: '3', path: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', tag: 'team', alt: 'Team' },
   { id: '4', path: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', tag: 'workshops', alt: 'Group activity' },
-  { id: '5', path: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', tag: 'projects', alt: 'Cultural programme', featured: true },
+  
   { id: '6', path: '/photos/72143301_1255865144620953_7821217256553054208_n.jpg', tag: 'projects', alt: 'Visit' },
   { id: '7', path: '/photos/72778896_1227391067468361_5854469268342571008_n.jpg', tag: 'workshops', alt: 'Youth workshop' },
   { id: '8', path: '/photos/73208176_1255863554621112_5449277947649196032_n.jpg', tag: 'projects', alt: 'Networking' },
   { id: '9', path: '/photos/75220622_1263163760557758_1828565807827779584_n.jpg', tag: 'team', alt: 'Ceremony' },
   { id: '10', path: '/photos/75354869_1255866784620789_5172593281107755008_n.jpg', tag: 'projects', alt: 'Mobility' },
   { id: '11', path: '/photos/75380514_1258785557662245_2665705434043645952_n.jpg', tag: 'projects', alt: 'Exchange' },
-  { id: '12', path: '/photos/84839024_1346442362229897_7481666728498298880_n.jpg', tag: 'workshops', alt: 'Session' },
+  
   { id: '13', path: '/photos/195938444_1716673385206791_5972386242218118423_n.jpg', tag: 'team', alt: 'Community' },
   { id: '14', path: '/photos/201379691_1725109587696504_3657017033572797514_n.jpg', tag: 'projects', alt: 'Conference' },
   { id: '15', path: '/photos/472330785_2705641812976605_8147454895918841464_n.jpg', tag: 'workshops', alt: 'Training' },
   { id: '16', path: '/photos/474191144_922114450096562_1778427783441398275_n.jpg', tag: 'projects', alt: 'Partners' },
-  { id: '17', path: '/photos/474747613_925366876437986_3391021362464847354_n.jpg', tag: 'team', alt: 'Volunteers' },
+  
   { id: '18', path: '/photos/476121564_2731964927010960_1872202122797019235_n.jpg', tag: 'projects', alt: 'Field work' },
   { id: '19', path: '/photos/487438531_2782168148657304_2855709124804435896_n.jpg', tag: 'workshops', alt: 'Lab' },
   { id: '20', path: '/photos/488707367_2782966415244144_4496557027079616535_n.jpg', tag: 'projects', alt: 'Summit' },

@@ -1,196 +1,331 @@
-import { useState } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Grid from '@mui/material/Grid';
-import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Chip from '@mui/material/Chip';
-import Dialog from '@mui/material/Dialog';
-import DialogTitle from '@mui/material/DialogTitle';
-import DialogContent from '@mui/material/DialogContent';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import Link from '@mui/material/Link';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import { Link as RouterLink } from 'react-router-dom';
-import { getImagePath } from '../utils/imagePath';
+import type { LucideIcon } from 'lucide-react';
+import { Camera, GraduationCap, Languages, Radio, Users } from 'lucide-react';
+import { notionStyleAvatarUrl } from '../utils/notionAvatarUrl';
 
-type TeamMember = {
+const fontStack = '"Inter", system-ui, -apple-system, sans-serif';
+
+/** Outer ring and inner illustration — identical for all four profiles */
+const AVATAR_RING_PX = 120;
+const AVATAR_IMG_PX = 96;
+
+function SectionIcon({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <Box
+      sx={{
+        color: 'primary.main',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: 44,
+        height: 44,
+        borderRadius: 1.5,
+        bgcolor: 'rgba(0, 35, 149, 0.06)',
+        flexShrink: 0,
+      }}
+      aria-hidden
+    >
+      <Icon size={22} strokeWidth={1.75} />
+    </Box>
+  );
+}
+
+const impactAreas = [
+  'Workshops for Seniors',
+  'Youth Training',
+  'Media Activism',
+  'Digital Literacy',
+  'Cultural Outings',
+] as const;
+
+type CoreMember = {
   name: string;
   role: string;
-  /** Short intro: 2–3 sentences on the page */
-  teaser: string;
-  /** Full bio inside dialog */
   bio: string;
-  quote: string;
-  expertise: string[];
-  portraitPath: string;
-  leadership?: boolean;
+  accent?: 'radio' | 'camera';
 };
 
-const teamMembers: TeamMember[] = [
+const coreTeam: CoreMember[] = [
   {
     name: 'Pavel Smulski',
-    role: 'Leader & Founder',
-    leadership: true,
-    teaser:
-      'Founder of MITRA France with 10+ years in youth work and European education projects. He steers our strategy and Erasmus+ partnerships.',
-    bio: 'Founder and leader of MITRA FRANCE, driving our mission and vision forward with over 10 years of experience in youth work and education.',
-    quote: 'I believe in the power of digital education to transform communities across Europe.',
-    expertise: ['Leadership', 'Strategic Planning', 'Erasmus+ Projects'],
-    portraitPath: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    role: 'Leader & Coordinator',
+    bio:
+      'Holds a Master’s from Université Côte d’Azur (Nice). A media literacy expert since 2010, he connects research-informed practice with action on the ground as an international project coordinator—steering Erasmus+ and cooperation initiatives across multiple regions.',
   },
   {
     name: 'Karina Tronche',
-    role: 'Core Team',
-    leadership: true,
-    teaser:
-      'Coordinates educational programmes and projects, with a focus on adult education and digital skills.',
-    bio: 'Key contributor to our educational programs and project management, specializing in adult education and digital skills training.',
-    quote: 'Education is the bridge that connects diverse communities and empowers individuals.',
-    expertise: ['Project Management', 'Adult Education', 'Digital Skills'],
-    portraitPath: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+    role: 'Digital Communication Expert',
+    bio:
+      'Holds a linguistics degree in Nice. She is expert in bridging language, message, and audience—shaping clear narratives for diverse publics—and leads digital communication outputs from planning through publication.',
   },
   {
     name: 'Louise Papadoperakis',
-    role: 'Core Team',
-    teaser: 'Intercultural education and community engagement — building bridges between diverse groups.',
-    bio: 'Specialist in intercultural education and community engagement, passionate about building bridges between diverse communities.',
-    quote: 'Building bridges between cultures is the foundation of a stronger Europe.',
-    expertise: ['Intercultural Education', 'Community Engagement', 'Cultural Programs'],
-    portraitPath: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+    role: 'Communications & Content Manager',
+    bio:
+      'Brings 15 years of professional experience and deep familiarity with European Union projects—funding cycles, reporting, and partner alignment. She stewards MITRA’s voice and channels, including ongoing work with the webradio el-radio.fr.',
+    accent: 'radio',
   },
   {
     name: 'Alex Smulski',
-    role: 'Core Team',
-    teaser: 'Digital literacy and media education — designing hands-on learning with technology.',
-    bio: 'Expert in digital literacy and media education programs, developing innovative approaches to technology-based learning.',
-    quote: 'Technology opens doors to learning that were never possible before.',
-    expertise: ['Digital Literacy', 'Media Education', 'Technology Training'],
-    portraitPath: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+    role: 'Methodology Consultant',
+    bio:
+      'Holds a Master’s from Exeter College (University of Oxford). A professional photographer, he strengthens methodology, documentation, and learning design—particularly alongside migrants, refugees, and other at-risk groups—so impact is visible, ethical, and shared.',
+    accent: 'camera',
   },
 ];
 
-const atmospherePhotos = [
-  { src: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg', caption: 'Workshop' },
-  { src: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg', caption: 'Training' },
-  { src: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg', caption: 'Team session' },
-  { src: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg', caption: 'Community' },
-  { src: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg', caption: 'Project work' },
-];
+/** Same Notion-style avatars as the About page (`notionStyleAvatarUrl` + full name as seed). */
+function TeamAvatarIllustration({ name }: { name: string }) {
+  return (
+    <Box
+      sx={{
+        width: AVATAR_RING_PX,
+        height: AVATAR_RING_PX,
+        borderRadius: '50%',
+        bgcolor: 'rgba(0, 35, 149, 0.07)',
+        backgroundImage: 'linear-gradient(180deg, rgba(255,255,255,0.5) 0%, rgba(255,255,255,0) 40%)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        flexShrink: 0,
+        border: '1px solid',
+        borderColor: 'rgba(0, 35, 149, 0.12)',
+        boxSizing: 'border-box',
+      }}
+    >
+      <Box
+        component="img"
+        src={notionStyleAvatarUrl(name)}
+        alt=""
+        loading="lazy"
+        decoding="async"
+        referrerPolicy="no-referrer"
+        sx={{ width: AVATAR_IMG_PX, height: AVATAR_IMG_PX, objectFit: 'contain', display: 'block' }}
+      />
+    </Box>
+  );
+}
+
+function MemberAccent({ accent }: { accent: 'radio' | 'camera' }) {
+  if (accent === 'radio') {
+    return (
+      <Stack direction="row" spacing={1} alignItems="center" sx={{ mt: 1.25 }}>
+        <Box sx={{ color: 'primary.main', display: 'flex', flexShrink: 0 }} aria-hidden>
+          <Radio size={18} strokeWidth={1.75} />
+        </Box>
+        <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+          Webradio:{' '}
+          <Link href="https://el-radio.fr" target="_blank" rel="noopener noreferrer" color="primary" fontWeight={600}>
+            el-radio.fr
+          </Link>
+        </Typography>
+      </Stack>
+    );
+  }
+  return (
+    <Stack direction="row" spacing={1} alignItems="flex-start" sx={{ mt: 1.25 }}>
+      <Box sx={{ color: 'primary.main', display: 'flex', flexShrink: 0, mt: 0.25 }} aria-hidden>
+        <Camera size={18} strokeWidth={1.75} />
+      </Box>
+      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.5 }}>
+        Photography and visual documentation for programmes, inclusion work, and outreach.
+      </Typography>
+    </Stack>
+  );
+}
 
 export default function Team() {
-  const [dialogMember, setDialogMember] = useState<TeamMember | null>(null);
-  const [carouselIndex, setCarouselIndex] = useState(0);
-
-  const leaders = teamMembers.filter((m) => m.leadership);
-  const carouselLen = atmospherePhotos.length;
-
-  const goCarousel = (delta: number) => {
-    setCarouselIndex((i) => (i + delta + carouselLen) % carouselLen);
-  };
-
   return (
-    <Box component="main">
-      {/* Header — no stat blocks, no photo strip */}
-      <Box sx={{ pt: { xs: 12, sm: 14, md: 16 }, pb: { xs: 4, md: 6 } }}>
+    <Box
+      component="main"
+      sx={{
+        fontFamily: fontStack,
+        bgcolor: '#ffffff',
+        color: 'text.primary',
+      }}
+    >
+      {/* Leadership & community */}
+      <Box
+        component="section"
+        aria-labelledby="team-hero-title"
+        sx={{ pt: { xs: 11, sm: 13, md: 15 }, pb: { xs: 5, md: 7 } }}
+      >
         <Container maxWidth="md">
-          <Typography
-            variant="h1"
-            sx={{
-              fontSize: { xs: '1.85rem', md: '2.35rem' },
-              fontWeight: 800,
-              textAlign: 'center',
-              mb: 2,
-            }}
-          >
-            The people behind MITRA France
-          </Typography>
-          <Typography color="text.secondary" sx={{ textAlign: 'center', lineHeight: 1.75, maxWidth: 560, mx: 'auto' }}>
-            A small core team and many collaborators in Nice and across Europe. Tap a photo to read more.
-          </Typography>
+          <Stack spacing={3}>
+            <Stack direction="row" alignItems="center" justifyContent="center" spacing={1.5} flexWrap="wrap" useFlexGap>
+              <SectionIcon icon={Users} />
+              <Typography
+                id="team-hero-title"
+                variant="h1"
+                sx={{
+                  fontFamily: fontStack,
+                  fontSize: { xs: '1.65rem', sm: '1.9rem', md: '2.15rem' },
+                  fontWeight: 700,
+                  letterSpacing: '-0.02em',
+                  lineHeight: 1.2,
+                  textAlign: { xs: 'center', sm: 'left' },
+                }}
+              >
+                Our Team &amp; Network
+              </Typography>
+            </Stack>
+
+            <Typography
+              sx={{
+                fontFamily: fontStack,
+                fontSize: { xs: '1.02rem', md: '1.06rem' },
+                lineHeight: 1.75,
+                color: 'text.secondary',
+                textAlign: { xs: 'center', md: 'left' },
+                maxWidth: 720,
+                mx: { xs: 'auto', md: 0 },
+              }}
+            >
+              MITRA FRANCE is led by a three-member board and supported by over 50 active volunteers. We bring together
+              professionals from diverse backgrounds: artists, journalists, programmers, and educators.
+            </Typography>
+
+            <Divider sx={{ borderColor: 'rgba(0,0,0,0.08)' }} />
+
+            <Typography
+              sx={{
+                fontFamily: fontStack,
+                fontSize: { xs: '0.98rem', md: '1.02rem' },
+                lineHeight: 1.75,
+                color: 'text.secondary',
+              }}
+            >
+              In Nice we work alongside Chechen-, Russian-, and Arabic-speaking community leaders to strengthen inclusion,
+              mutual understanding, and access to learning and cultural life.
+            </Typography>
+
+            <Box
+              sx={{
+                borderRadius: 2,
+                border: '1px solid',
+                borderColor: 'divider',
+                bgcolor: 'grey.50',
+                px: { xs: 2, sm: 2.5 },
+                py: { xs: 2, sm: 2.25 },
+              }}
+            >
+              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={1.5} alignItems={{ xs: 'flex-start', sm: 'center' }}>
+                <SectionIcon icon={Languages} />
+                <Box>
+                  <Typography fontWeight={700} sx={{ fontFamily: fontStack, mb: 0.5 }}>
+                    Languages &amp; reach
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.7, fontFamily: fontStack }}>
+                    Our team works routinely in French and English, with Russian, Arabic, Hebrew, and additional languages
+                    in the mix—so we can accompany diverse communities with clarity and respect, locally and internationally.
+                  </Typography>
+                </Box>
+              </Stack>
+            </Box>
+          </Stack>
         </Container>
       </Box>
 
-      {/* Leadership — 1–2 compact rows */}
-      <Container sx={{ pb: { xs: 5, md: 7 } }}>
-        <Typography variant="overline" sx={{ color: 'primary.main', fontWeight: 700, letterSpacing: 1, display: 'block', mb: 2 }}>
-          Leadership
-        </Typography>
-        <Grid container spacing={3}>
-          {leaders.map((member) => (
-            <Grid key={member.name} size={{ xs: 12, md: 6 }}>
-              <Card variant="outlined" sx={{ borderRadius: 2, height: '100%' }}>
-                <CardContent sx={{ p: { xs: 2, sm: 3 } }}>
-                  <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2.5} alignItems={{ xs: 'center', sm: 'flex-start' }}>
-                    <Avatar
-                      src={getImagePath(member.portraitPath)}
-                      alt={member.name}
-                      sx={{ width: 96, height: 96 }}
-                    />
-                    <Stack spacing={1} sx={{ flex: 1, textAlign: { xs: 'center', sm: 'left' } }}>
-                      <Box>
-                        <Typography variant="subtitle1" fontWeight={800}>
+      {/* Core team */}
+      <Box component="section" aria-labelledby="core-team-title" sx={{ py: { xs: 6, md: 8 }, bgcolor: '#fafafa' }}>
+        <Container maxWidth="lg">
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            alignItems={{ xs: 'flex-start', sm: 'center' }}
+            sx={{ mb: 1 }}
+          >
+            <SectionIcon icon={GraduationCap} />
+            <Box>
+              <Typography
+                id="core-team-title"
+                variant="h2"
+                sx={{
+                  fontFamily: fontStack,
+                  fontSize: { xs: '1.35rem', md: '1.55rem' },
+                  fontWeight: 700,
+                  letterSpacing: '-0.01em',
+                }}
+              >
+                Core team — the experts
+              </Typography>
+              <Typography variant="body2" color="text.secondary" sx={{ fontFamily: fontStack, mt: 0.5, maxWidth: 640 }}>
+                Expert-led NGO with a strong local footprint in Nice and trusted partnerships across Europe and beyond.
+              </Typography>
+            </Box>
+          </Stack>
+
+          <Divider sx={{ my: 3, borderColor: 'rgba(0,0,0,0.08)' }} />
+
+          <Grid container spacing={{ xs: 2.5, md: 3 }}>
+            {coreTeam.map((member) => (
+              <Grid key={member.name} size={{ xs: 12, sm: 6, md: 3 }}>
+                <Card
+                  elevation={0}
+                  sx={{
+                    height: '100%',
+                    borderRadius: 2,
+                    border: '1px solid',
+                    borderColor: 'divider',
+                    bgcolor: '#fff',
+                    boxShadow: 'none',
+                    transition: 'box-shadow 0.22s ease, border-color 0.22s ease, transform 0.22s ease',
+                    '&:hover': {
+                      borderColor: 'rgba(0, 35, 149, 0.28)',
+                      boxShadow: '0 10px 28px rgba(0, 35, 149, 0.1)',
+                      transform: 'translateY(-3px)',
+                    },
+                  }}
+                >
+                  <CardContent sx={{ p: { xs: 2.25, sm: 2.5 } }}>
+                    <Stack spacing={2} alignItems="center">
+                      <TeamAvatarIllustration name={member.name} />
+                      <Box sx={{ width: '100%', textAlign: 'center' }}>
+                        <Typography
+                          component="h3"
+                          sx={{ fontFamily: fontStack, fontWeight: 700, fontSize: '1.05rem', mb: 0.35 }}
+                        >
                           {member.name}
                         </Typography>
-                        <Typography variant="body2" color="primary.main" fontWeight={600}>
+                        <Typography
+                          variant="body2"
+                          color="primary"
+                          fontWeight={600}
+                          sx={{ fontFamily: fontStack, mb: 1.25 }}
+                        >
                           {member.role}
                         </Typography>
+                        <Divider sx={{ borderColor: 'rgba(0,0,0,0.06)', mb: 1.25 }} />
+                        <Typography
+                          variant="body2"
+                          color="text.secondary"
+                          sx={{
+                            fontFamily: fontStack,
+                            lineHeight: 1.72,
+                            textAlign: 'left',
+                          }}
+                        >
+                          {member.bio}
+                        </Typography>
+                        {member.accent ? (
+                          <Box sx={{ mt: 0.5, '& .MuiTypography-root': { textAlign: 'left' } }}>
+                            <MemberAccent accent={member.accent} />
+                          </Box>
+                        ) : null}
                       </Box>
-                      <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', lineHeight: 1.6 }}>
-                        “{member.quote}”
-                      </Typography>
-                      <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.65 }}>
-                        {member.teaser}
-                      </Typography>
-                      <Button size="small" variant="text" onClick={() => setDialogMember(member)} sx={{ alignSelf: { xs: 'center', sm: 'flex-start' } }}>
-                        Read full bio
-                      </Button>
                     </Stack>
-                  </Stack>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))}
-        </Grid>
-      </Container>
-
-      {/* Full team grid — avatars only */}
-      <Box sx={{ bgcolor: 'action.hover', py: { xs: 6, md: 8 } }}>
-        <Container>
-          <Typography variant="h2" sx={{ fontSize: { xs: '1.4rem', md: '1.6rem' }, fontWeight: 700, mb: 3 }}>
-            Core team
-          </Typography>
-          <Grid container spacing={2}>
-            {teamMembers.map((member) => (
-              <Grid key={member.name} size={{ xs: 6, sm: 4, md: 3 }}>
-                <Card
-                  variant="outlined"
-                  sx={{
-                    borderRadius: 2,
-                    cursor: 'pointer',
-                    transition: 'box-shadow 0.2s, border-color 0.2s',
-                    '&:hover': { boxShadow: 2, borderColor: 'primary.main' },
-                  }}
-                  onClick={() => setDialogMember(member)}
-                >
-                  <CardContent sx={{ py: 2.5, px: 2, textAlign: 'center' }}>
-                    <Avatar
-                      src={getImagePath(member.portraitPath)}
-                      alt={member.name}
-                      sx={{ width: 72, height: 72, mx: 'auto', mb: 1.5 }}
-                    />
-                    <Typography variant="body2" fontWeight={700}>
-                      {member.name}
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary" display="block">
-                      {member.role}
-                    </Typography>
                   </CardContent>
                 </Card>
               </Grid>
@@ -199,118 +334,72 @@ export default function Team() {
         </Container>
       </Box>
 
-      {/* Atmosphere carousel */}
-      <Container sx={{ py: { xs: 6, md: 8 } }}>
-        <Typography variant="h2" sx={{ fontSize: { xs: '1.4rem', md: '1.6rem' }, fontWeight: 700, mb: 0.5 }}>
-          Moments from our work
-        </Typography>
-        <Typography variant="body2" color="text.secondary" sx={{ mb: 3 }}>
-          A few snapshots — not a full gallery.
-        </Typography>
-        <Box sx={{ position: 'relative', borderRadius: 2, overflow: 'hidden', maxWidth: 720, mx: 'auto' }}>
-          <Box
-            component="img"
-            src={getImagePath(atmospherePhotos[carouselIndex].src)}
-            alt={atmospherePhotos[carouselIndex].caption}
-            sx={{ width: '100%', height: { xs: 220, sm: 320 }, objectFit: 'cover', display: 'block' }}
-          />
-          <Stack
-            direction="row"
-            alignItems="center"
-            justifyContent="space-between"
+      {/* Impact areas */}
+      <Box component="section" aria-labelledby="impact-areas-title" sx={{ py: { xs: 5, md: 6 } }}>
+        <Container maxWidth="lg">
+          <Typography
+            id="impact-areas-title"
+            variant="h2"
             sx={{
-              position: 'absolute',
-              left: 0,
-              right: 0,
-              top: '50%',
-              transform: 'translateY(-50%)',
-              px: 0.5,
-              pointerEvents: 'none',
-              '& .MuiIconButton-root': { pointerEvents: 'auto' },
+              fontFamily: fontStack,
+              fontSize: { xs: '1.15rem', md: '1.3rem' },
+              fontWeight: 700,
+              mb: 2,
             }}
           >
-            <IconButton onClick={() => goCarousel(-1)} aria-label="Previous photo" sx={{ bgcolor: 'background.paper', opacity: 0.92 }}>
-              <ChevronLeftIcon />
-            </IconButton>
-            <IconButton onClick={() => goCarousel(1)} aria-label="Next photo" sx={{ bgcolor: 'background.paper', opacity: 0.92 }}>
-              <ChevronRightIcon />
-            </IconButton>
-          </Stack>
-          <Box sx={{ py: 1.5, textAlign: 'center', bgcolor: 'background.paper' }}>
-            <Typography variant="body2" color="text.secondary">
-              {atmospherePhotos[carouselIndex].caption} ({carouselIndex + 1} / {carouselLen})
-            </Typography>
-            <Stack direction="row" spacing={0.75} justifyContent="center" sx={{ mt: 1 }}>
-              {atmospherePhotos.map((_, i) => (
-                <Box
-                  key={i}
-                  onClick={() => setCarouselIndex(i)}
+            Our impact areas
+          </Typography>
+          <Typography variant="body2" color="text.secondary" sx={{ fontFamily: fontStack, mb: 2, maxWidth: 560 }}>
+            What our staff and volunteers deliver week to week — concrete formats that translate values into practice.
+          </Typography>
+          <Stack
+            direction="row"
+            component="ul"
+            flexWrap="wrap"
+            useFlexGap
+            spacing={1}
+            sx={{ listStyle: 'none', p: 0, m: 0, gap: 1 }}
+          >
+            {impactAreas.map((label) => (
+              <Box component="li" key={label}>
+                <Chip
+                  label={label}
+                  size="small"
+                  variant="outlined"
                   sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    bgcolor: i === carouselIndex ? 'primary.main' : 'action.disabledBackground',
-                    cursor: 'pointer',
+                    fontFamily: fontStack,
+                    fontWeight: 600,
+                    fontSize: '0.8125rem',
+                    height: 32,
+                    borderRadius: 1.5,
+                    borderColor: 'rgba(0, 35, 149, 0.2)',
+                    bgcolor: 'rgba(0, 35, 149, 0.03)',
                   }}
                 />
-              ))}
-            </Stack>
-          </Box>
-        </Box>
-      </Container>
+              </Box>
+            ))}
+          </Stack>
+        </Container>
+      </Box>
 
-      {/* Bio dialog */}
-      <Dialog open={dialogMember !== null} onClose={() => setDialogMember(null)} maxWidth="sm" fullWidth scroll="body">
-        {dialogMember && (
-          <>
-            <DialogTitle sx={{ pr: 6 }}>
-              <Typography component="span" variant="h6" fontWeight={800}>
-                {dialogMember.name}
-              </Typography>
-              <Typography variant="body2" color="primary" fontWeight={600}>
-                {dialogMember.role}
-              </Typography>
-              <IconButton aria-label="Close" onClick={() => setDialogMember(null)} sx={{ position: 'absolute', right: 8, top: 8 }}>
-                <CloseIcon />
-              </IconButton>
-            </DialogTitle>
-            <DialogContent dividers>
-              <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ mb: 2 }}>
-                <Avatar src={getImagePath(dialogMember.portraitPath)} alt="" sx={{ width: 100, height: 100 }} />
-                <Typography variant="body2" color="text.secondary" sx={{ fontStyle: 'italic', lineHeight: 1.7 }}>
-                  “{dialogMember.quote}”
-                </Typography>
-              </Stack>
-              <Typography variant="body2" sx={{ lineHeight: 1.8, mb: 2 }}>
-                {dialogMember.bio}
-              </Typography>
-              <Typography variant="caption" color="text.secondary" display="block" sx={{ mb: 1 }}>
-                Focus areas
-              </Typography>
-              <Stack direction="row" flexWrap="wrap" gap={0.75}>
-                {dialogMember.expertise.map((tag) => (
-                  <Chip key={tag} label={tag} size="small" variant="outlined" />
-                ))}
-              </Stack>
-            </DialogContent>
-          </>
-        )}
-      </Dialog>
-
-      {/* Single CTA */}
+      {/* CTA */}
       <Box
+        component="aside"
         sx={{
-          py: { xs: 8, md: 10 },
-          background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.06) 100%)',
+          py: { xs: 6, md: 8 },
+          borderTop: '1px solid',
+          borderColor: 'divider',
+          bgcolor: '#fafafa',
         }}
       >
         <Container maxWidth="sm">
           <Stack spacing={2} alignItems="center" textAlign="center">
-            <Typography variant="h5" fontWeight={800}>
-              Want to work or volunteer with us?
+            <Typography variant="h5" fontWeight={700} sx={{ fontFamily: fontStack }}>
+              Volunteer or collaborate
             </Typography>
-            <Typography variant="body2" color="text.secondary">
-              Tell us what you do and how you can contribute — we will follow up from Nice.
+            <Typography variant="body2" color="text.secondary" sx={{ fontFamily: fontStack, lineHeight: 1.7 }}>
+              Tell us how you would like to contribute — from workshops to communications or field support — and we will
+              connect you from Nice.
             </Typography>
             <Button
               component={RouterLink}
@@ -318,9 +407,9 @@ export default function Team() {
               variant="contained"
               size="large"
               endIcon={<ArrowForwardIcon />}
-              sx={{ px: 4, py: 1.35, fontWeight: 700, borderRadius: 2 }}
+              sx={{ px: 3.5, py: 1.25, fontWeight: 700, borderRadius: 2, fontFamily: fontStack, textTransform: 'none' }}
             >
-              Become part of the team
+              Contact the team
             </Button>
           </Stack>
         </Container>

@@ -98,7 +98,7 @@ export default function MediaArtsEducation() {
             >
               <Button
                 component={Link}
-                to="/programs-workshops"
+                to="/focus-areas"
                 variant="contained"
                 size="large"
                 startIcon={<SchoolIcon />}
@@ -125,7 +125,7 @@ export default function MediaArtsEducation() {
               </Button>
               <Button
                 component={Link}
-                to="/programs-workshops"
+                to="/focus-areas"
                 variant="outlined"
                 size="large"
                 startIcon={<PlayArrowIcon />}
@@ -275,7 +275,7 @@ export default function MediaArtsEducation() {
           <Box sx={{ textAlign: 'center', mt: 6 }}>
             <Button
               component={Link}
-              to="/programs-workshops"
+              to="/focus-areas"
               variant="contained"
               size="large"
               startIcon={<CheckCircleIcon />}
@@ -413,7 +413,7 @@ export default function MediaArtsEducation() {
           <Box sx={{ textAlign: 'center' }}>
             <Button
               component={Link}
-              to="/programs-workshops"
+              to="/focus-areas"
               variant="contained"
               size="large"
               startIcon={<ArrowForwardIcon />}
@@ -619,7 +619,7 @@ export default function MediaArtsEducation() {
                       {/* FOGG MODEL: Prompt - Easy action button */}
                       <Button
                         component={Link}
-                        to="/programs-workshops"
+                        to="/focus-areas"
                         variant="outlined"
                         size="small"
                         startIcon={<SchoolIcon />}
@@ -650,7 +650,7 @@ export default function MediaArtsEducation() {
                       {/* FOGG MODEL: Prompt - Easy action button */}
                       <Button
                         component={Link}
-                        to="/programs-workshops"
+                        to="/focus-areas"
                         variant="outlined"
                         size="small"
                         startIcon={<PeopleIcon />}
@@ -681,7 +681,7 @@ export default function MediaArtsEducation() {
                       {/* FOGG MODEL: Prompt - Easy action button */}
                       <Button
                         component={Link}
-                        to="/intercultural-education"
+                        to="/focus-areas#intercultural"
                         variant="outlined"
                         size="small"
                         startIcon={<SchoolIcon />}
@@ -996,7 +996,7 @@ export default function MediaArtsEducation() {
                     <Grid size={{ xs: 12, sm: 6 }}>
                       <Button
                         component={Link}
-                        to="/events"
+                        to="/focus-areas"
                         variant="outlined"
                         color="error"
                         fullWidth
@@ -1021,7 +1021,7 @@ export default function MediaArtsEducation() {
                           transition: 'all 0.3s ease',
                         }}
                       >
-                        Join Events
+                        Focus areas
                       </Button>
                     </Grid>
                   </Grid>

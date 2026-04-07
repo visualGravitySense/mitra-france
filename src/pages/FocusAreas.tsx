@@ -13,6 +13,7 @@ import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
 import { Link as RouterLink } from 'react-router-dom';
 import { getImagePath } from '../utils/imagePath';
+import { topicIllustrations } from '../utils/topicIllustrations';
 
 type PanelKey = 'education' | 'media' | 'culture' | 'youth';
 
@@ -39,8 +40,8 @@ const panels: FocusPanel[] = [
       'Languages, citizenship, and dialogue formats that reduce prejudice',
       'Adult pathways: skills, employability, and confidence for everyday life',
     ],
-    image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
-    learnMoreHref: '/intercultural-education',
+    image: topicIllustrations.interculturalInclusion,
+    learnMoreHref: '/focus-areas#intercultural',
   },
   {
     key: 'media',
@@ -53,7 +54,7 @@ const panels: FocusPanel[] = [
       'Workshops in image, sound, and storytelling',
       'Creative tech used as expression, not only consumption',
     ],
-    image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+    image: topicIllustrations.mediaArts,
     learnMoreHref: '/media-arts-education',
   },
   {
@@ -67,7 +68,7 @@ const panels: FocusPanel[] = [
       'Community events co-loaded with local partners',
       'Room for newcomers, seniors, and mixed-age teams',
     ],
-    image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    image: topicIllustrations.volunteer,
     learnMoreHref: '/focus-areas#culture',
   },
   {
@@ -81,8 +82,8 @@ const panels: FocusPanel[] = [
       'Tracks for youth / NEETs alongside seniors and families',
       'Pathways toward jobs, studies, and active citizenship online',
     ],
-    image: '/photos/583114332_1157911793183492_7408427246397976881_n.jpg',
-    learnMoreHref: '/programs-workshops',
+    image: topicIllustrations.digitalInclusion,
+    learnMoreHref: '/contact',
   },
 ];
 
@@ -184,17 +185,36 @@ export default function FocusAreas() {
               <Grid container spacing={3} alignItems="flex-start">
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Box
-                    component="img"
-                    src={getImagePath(panels[tab].image)}
-                    alt=""
                     sx={{
                       width: '100%',
                       borderRadius: 2,
                       maxHeight: 320,
-                      objectFit: 'cover',
-                      display: 'block',
+                      minHeight: { xs: 200, md: 240 },
+                      bgcolor: 'rgba(0, 35, 149, 0.06)',
+                      border: '1px solid',
+                      borderColor: 'divider',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      overflow: 'hidden',
+                      p: { xs: 1, sm: 1.5 },
+                      boxSizing: 'border-box',
                     }}
-                  />
+                  >
+                    <Box
+                      component="img"
+                      src={getImagePath(panels[tab].image)}
+                      alt={`Illustration — ${panels[tab].label} focus area`}
+                      sx={{
+                        width: '100%',
+                        height: '100%',
+                        maxHeight: 300,
+                        objectFit: 'contain',
+                        objectPosition: 'center',
+                        display: 'block',
+                      }}
+                    />
+                  </Box>
                 </Grid>
                 <Grid size={{ xs: 12, md: 6 }}>
                   <Typography variant="overline" color="primary" sx={{ fontWeight: 700, letterSpacing: 0.5 }}>

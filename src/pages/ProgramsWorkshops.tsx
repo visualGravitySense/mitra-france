@@ -323,8 +323,8 @@ export default function ProgramsWorkshops() {
                     </Box>
                   ))}
                 </Stack>
-                <Button component={RouterLink} to="/events" size="small" sx={{ mt: 2 }} endIcon={<ArrowForwardIcon />}>
-                  Full events page
+                <Button component={RouterLink} to="/focus-areas" size="small" sx={{ mt: 2 }} endIcon={<ArrowForwardIcon />}>
+                  Focus areas
                 </Button>
               </CardContent>
             </Card>

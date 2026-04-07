@@ -190,16 +190,15 @@ export default function Footer() {
                     title: 'Pages',
                     links: [
                       { to: '/about', label: 'About Us' },
+                      { to: '/team', label: 'Team & Volunteers' },
                       { to: '/focus-areas', label: 'Focus Areas' },
-                      { to: '/intercultural-education', label: 'Intercultural Education' },
-                      { to: '/programs-workshops', label: 'Programs & workshops' },
+                      { to: '/projects', label: 'Projects & Experience' },
                     ],
                   },
                   {
                     title: 'Resources',
                     links: [
                       { to: '/partners', label: 'Partners' },
-                      { to: '/events', label: 'Events' },
                       { to: '/gallery', label: 'Gallery' },
                       { to: '/contact', label: 'Contact' },
                     ],

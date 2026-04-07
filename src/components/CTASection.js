@@ -18,13 +18,13 @@ const CTASection = () => {
                             WebkitBackgroundClip: 'text',
                             WebkitTextFillColor: 'transparent',
                             mb: 2,
-                        }, children: "Join Our Mission" }), _jsx(Typography, { variant: "h5", color: "text.secondary", sx: { maxWidth: '600px', mb: 4 }, children: "Empowering communities through education, culture, and digital inclusion" }), _jsxs(Stack, { direction: { xs: 'column', sm: 'row' }, spacing: 3, sx: { flexWrap: 'wrap', justifyContent: 'center' }, children: [_jsx(ParticleCTAButton, { variant: "contained", color: "primary", size: "large", onClick: () => navigate('/courses'), sx: {
+                        }, children: "Join Our Mission" }), _jsx(Typography, { variant: "h5", color: "text.secondary", sx: { maxWidth: '600px', mb: 4 }, children: "Empowering communities through education, culture, and digital inclusion" }), _jsxs(Stack, { direction: { xs: 'column', sm: 'row' }, spacing: 3, sx: { flexWrap: 'wrap', justifyContent: 'center' }, children: [_jsx(ParticleCTAButton, { variant: "contained", color: "primary", size: "large", onClick: () => navigate('/programs-workshops'), sx: {
                                     background: 'linear-gradient(135deg, #002395 0%, #6B8DE3 100%)',
                                     color: 'white',
                                     '&:hover': {
                                         background: 'linear-gradient(135deg, #001a7a 0%, #5a7dd8 100%)',
                                     },
-                                }, children: "Explore Courses" }), _jsx(ParticleCTAButton, { variant: "outlined", color: "primary", size: "large", onClick: () => navigate('/contact'), sx: {
+                                }, children: "Programs & workshops" }), _jsx(ParticleCTAButton, { variant: "outlined", color: "primary", size: "large", onClick: () => navigate('/contact'), sx: {
                                     borderWidth: 2,
                                     borderColor: 'primary.main',
                                     color: 'primary.main',
@@ -33,12 +33,12 @@ const CTASection = () => {
                                         backgroundColor: 'primary.main',
                                         color: 'white',
                                     },
-                                }, children: "Get in Touch" }), _jsx(ParticleCTAButton, { variant: "contained", color: "secondary", size: "large", onClick: () => navigate('/projects'), sx: {
+                                }, children: "Get in Touch" }), _jsx(ParticleCTAButton, { variant: "contained", color: "secondary", size: "large", onClick: () => navigate('/programs-workshops'), sx: {
                                     background: 'linear-gradient(135deg, #ED2939 0%, #FF6B7A 100%)',
                                     color: 'white',
                                     '&:hover': {
                                         background: 'linear-gradient(135deg, #d41e2e 0%, #ff5a6a 100%)',
                                     },
-                                }, colors: ['#ED2939', '#FF6B7A', '#FFB3BA', '#FFFFFF'], children: "View Projects" })] })] }) }) }));
+                                }, colors: ['#ED2939', '#FF6B7A', '#FFB3BA', '#FFFFFF'], children: "Programs & workshops" })] })] }) }) }));
 };
 export default CTASection;

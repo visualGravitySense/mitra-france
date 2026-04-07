@@ -334,13 +334,12 @@ export default function NotFound() {
               {[
                 { label: 'About Us', path: '/about', icon: '👥' },
                 { label: 'Focus Areas', path: '/focus-areas', icon: '🎯' },
-                { label: 'Programs & workshops', path: '/programs-workshops', icon: '📚' },
-                { label: 'Programs & workshops', path: '/programs-workshops', icon: '🚀' },
-                { label: 'Events', path: '/events', icon: '📅' },
+                { label: 'Focus areas', path: '/focus-areas', icon: '📚' },
+                { label: 'Gallery', path: '/gallery', icon: '🖼️' },
                 { label: 'Contact', path: '/contact', icon: '✉️' },
               ].map((link) => (
                 <Button
-                  key={link.path}
+                  key={`${link.path}-${link.label}`}
                   component={RouterLink}
                   to={link.path}
                   variant="contained"

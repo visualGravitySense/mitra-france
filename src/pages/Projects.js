@@ -1,1185 +1,207 @@
 import { jsx as _jsx, jsxs as _jsxs } from "react/jsx-runtime";
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 import Card from '@mui/material/Card';
 import CardContent from '@mui/material/CardContent';
-import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
-import Chip from '@mui/material/Chip';
+import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
-import Divider from '@mui/material/Divider';
-import SchoolIcon from '@mui/icons-material/School';
-import LanguageIcon from '@mui/icons-material/Language';
-import CheckCircleIcon from '@mui/icons-material/CheckCircle';
+import Chip from '@mui/material/Chip';
+import ToggleButton from '@mui/material/ToggleButton';
+import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import TrendingUpIcon from '@mui/icons-material/TrendingUp';
-import PeopleIcon from '@mui/icons-material/People';
-import PublicIcon from '@mui/icons-material/Public';
-import InfoIcon from '@mui/icons-material/Info';
-import FormatQuoteIcon from '@mui/icons-material/FormatQuote';
-import Fab from '@mui/material/Fab';
 import { Link as RouterLink } from 'react-router-dom';
 import { getImagePath } from '../utils/imagePath';
-const erasmusKA2Projects = [
-    {
-        title: 'Media literacy in adult education',
-        period: '2016-2018',
-        status: 'Completed',
-        description: 'Promoting media literacy skills among adult learners through innovative teaching methods.',
-        participants: '150+',
-        impact: 'High',
-        focus: 'Adult Education, Media Literacy',
-    },
-    {
-        title: 'Digital Senior Citizen',
-        period: '2018-2020',
-        status: 'Completed',
-        description: 'Empowering senior citizens with essential digital skills for everyday life.',
-        participants: '200+',
-        impact: 'High',
-        focus: 'Digital Literacy, Seniors',
-    },
-    {
-        title: 'Cultural regeneration',
-        period: '2018-2020',
-        status: 'Completed',
-        description: 'Revitalizing cultural heritage through community engagement and education.',
-        participants: '120+',
-        impact: 'Medium',
-        focus: 'Cultural Heritage, Community',
-    },
-    {
-        title: 'Media and information literacy',
-        period: '2018-2020',
-        status: 'Completed',
-        description: 'Developing critical thinking skills to navigate the information landscape.',
-        participants: '180+',
-        impact: 'High',
-        focus: 'Media Literacy, Critical Thinking',
-    },
-    {
-        title: 'Cultural Heritage for Youth',
-        period: '2020-2022',
-        status: 'Completed',
-        description: 'Engaging young people with cultural heritage through modern media and arts.',
-        participants: '100+',
-        impact: 'High',
-        focus: 'Youth, Cultural Heritage, Media',
-    },
+const ka2Images = [
+    '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+    '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+    '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
 ];
-const erasmusKA1Projects = [
+const ka1Images = [
+    '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+    '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+    '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+    '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+];
+const partnershipImages = '/photos/584326681_1157904053184266_2071216266526493174_n.jpg';
+const projectEntries = [
     {
+        id: 'k2-1',
+        title: 'Media literacy in adult education',
+        period: '2016–2018',
+        status: 'Completed',
+        summary: 'Media literacy with adult learners through new teaching formats and peer exchange.',
+        category: 'ka2',
+        focus: 'Adult education, media',
+        image: ka2Images[0],
+    },
+    {
+        id: 'k2-2',
+        title: 'Digital Senior Citizen',
+        period: '2018–2020',
+        status: 'Completed',
+        summary: 'Digital everyday skills for older adults — devices, safety, and confidence online.',
+        category: 'ka2',
+        focus: 'Digital literacy, seniors',
+        image: ka2Images[1],
+    },
+    {
+        id: 'k2-3',
+        title: 'Cultural regeneration',
+        period: '2018–2020',
+        status: 'Completed',
+        summary: 'Heritage and neighbourhoods: communities reclaiming local culture together.',
+        category: 'ka2',
+        focus: 'Culture, community',
+        image: ka2Images[2],
+    },
+    {
+        id: 'k2-4',
+        title: 'Media and information literacy',
+        period: '2018–2020',
+        status: 'Completed',
+        summary: 'Critical thinking for the information landscape — classrooms, workshops, toolkits.',
+        category: 'ka2',
+        focus: 'Media literacy',
+        image: ka2Images[3],
+    },
+    {
+        id: 'k2-5',
+        title: 'Cultural Heritage for Youth',
+        period: '2020–2022',
+        status: 'Completed',
+        summary: 'Young people meet heritage through media, storytelling, and European partners.',
+        category: 'ka2',
+        focus: 'Youth, heritage, media',
+        image: ka2Images[4],
+    },
+    {
+        id: 'k1-1',
         title: 'Multimedia literacy',
         period: '2017',
         status: 'Completed',
-        description: 'Training courses on multimedia production and digital storytelling.',
-        participants: '50+',
-        impact: 'Medium',
-        focus: 'Multimedia, Training',
+        summary: 'Training in multimedia production and digital storytelling for educators.',
+        category: 'ka1',
+        focus: 'Multimedia',
+        image: ka1Images[0],
     },
     {
+        id: 'k1-2',
         title: 'Look Sharp: fake news',
         period: '2018',
         status: 'Completed',
-        description: 'Addressing the challenge of fake news through media literacy education.',
-        participants: '80+',
-        impact: 'High',
-        focus: 'Media Literacy, Fake News',
+        summary: 'Fake news and propaganda unpacked for youth and adult groups.',
+        category: 'ka1',
+        focus: 'Media literacy',
+        image: ka1Images[1],
     },
     {
+        id: 'k1-3',
         title: 'YouthPass 4 Future',
         period: '2018',
         status: 'Completed',
-        description: 'Supporting youth mobility and recognition of non-formal learning.',
-        participants: '60+',
-        impact: 'Medium',
-        focus: 'Youth Mobility, Recognition',
+        summary: 'Youth mobility and recognition of non-formal learning pathways.',
+        category: 'ka1',
+        focus: 'Youth mobility',
+        image: ka1Images[2],
     },
     {
+        id: 'k1-4',
         title: 'Look Sharp: media literacy',
         period: '2022',
         status: 'Completed',
-        description: 'Advanced training on media literacy and critical information analysis.',
-        participants: '90+',
-        impact: 'High',
-        focus: 'Advanced Media Literacy',
+        summary: 'Advanced training on analysis of media and online sources.',
+        category: 'ka1',
+        focus: 'Advanced media literacy',
+        image: ka1Images[3],
+    },
+    ...[
+        'Positive emotional life',
+        'Legends and fairy tales',
+        'Slow food – long life',
+        'Critical thinking for seniors',
+        'Tell your story',
+        'Creative reading and writing',
+        'Ethno-design in fashion',
+    ].map((title, i) => ({
+        id: `p-${i}`,
+        title,
+        period: 'Partnership',
+        status: 'Completed',
+        summary: 'Cooperation project with European partners — workshops, exchanges, and shared outputs.',
+        category: 'partnership',
+        focus: 'Partnership',
+        image: partnershipImages,
+    })),
+];
+const filterOptions = [
+    { value: 'all', label: 'All' },
+    { value: 'ka2', label: 'Erasmus+ KA2' },
+    { value: 'ka1', label: 'Erasmus+ KA1' },
+    { value: 'partnership', label: 'Partnerships' },
+];
+const featuredStories = [
+    {
+        title: 'Digital Senior Citizen',
+        body: 'Seniors in Nice and partner countries learned practical digital skills in mixed groups — from messaging family to spotting scams. The project showed that patience and peer support matter as much as the curriculum.',
+        image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
+        tag: 'Inclusion · 200+ participants',
+    },
+    {
+        title: 'Cultural Heritage for Youth',
+        body: 'Young participants connected with heritage through film, social content, and site visits. Partners co-created short formats that made history feel relevant rather than “museum-only”.',
+        image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
+        tag: 'Youth · Heritage · Media',
     },
 ];
-const partnershipProjects = [
-    'Positive emotional life',
-    'Legends and fairy tales',
-    'Slow food – long life',
-    'Critical thinking for seniors',
-    'Tell your story',
-    'Creative reading and writing',
-    'Ethno-design in fashion',
-];
+const INITIAL = 3;
+const STEP = 3;
+function categoryLabel(c) {
+    if (c === 'ka2')
+        return 'KA2';
+    if (c === 'ka1')
+        return 'KA1';
+    return 'Partnership';
+}
 export default function Projects() {
-    const [tabValue, setTabValue] = useState(0);
-    const handleTabChange = (_event, newValue) => {
-        setTabValue(newValue);
+    const [filter, setFilter] = useState('all');
+    const [visibleCount, setVisibleCount] = useState(INITIAL);
+    const filtered = useMemo(() => (filter === 'all' ? projectEntries : projectEntries.filter((p) => p.category === filter)), [filter]);
+    const visible = filtered.slice(0, visibleCount);
+    const canLoadMore = visibleCount < filtered.length;
+    const handleFilter = (_, value) => {
+        if (value == null)
+            return;
+        setFilter(value);
+        setVisibleCount(INITIAL);
     };
-    return (_jsxs(Box, { children: [_jsx(Box, { sx: {
-                    background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 50%, rgba(0, 35, 149, 0.05) 100%)',
-                    pt: { xs: 10, sm: 12, md: 14 }, // Отступ сверху, чтобы контент не скрывался под Header
-                    pb: { xs: 6, sm: 8 },
-                    mb: { xs: 6, sm: 8 },
-                    position: 'relative',
-                    overflow: 'hidden',
-                    '&::before': {
-                        content: '""',
-                        position: 'absolute',
-                        top: 0,
-                        left: 0,
-                        right: 0,
-                        height: '4px',
-                        background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
-                    },
-                }, children: _jsxs(Container, { children: [_jsxs(Grid, { container: true, spacing: 4, alignItems: "center", sx: { mb: 4 }, children: [_jsx(Grid, { size: { xs: 12, md: 6 }, children: _jsxs(Box, { sx: { textAlign: { xs: 'center', md: 'left' } }, children: [_jsx(Chip, { icon: _jsx(EmojiEventsIcon, { sx: { color: 'white' } }), label: "European Projects", sx: {
-                                                    mb: 2,
-                                                    fontWeight: 700,
-                                                    fontSize: '0.95rem',
-                                                    py: 2,
-                                                    backgroundColor: '#002395',
-                                                    color: 'white',
-                                                    '& .MuiChip-icon': {
-                                                        color: 'white',
-                                                    },
-                                                } }), _jsx(Typography, { variant: "h2", sx: {
-                                                    mb: 2,
-                                                    textAlign: { xs: 'center', md: 'left' },
-                                                    background: 'linear-gradient(135deg, #002395 0%, #ED2939 100%)',
-                                                    backgroundClip: 'text',
-                                                    WebkitBackgroundClip: 'text',
-                                                    WebkitTextFillColor: 'transparent',
-                                                    fontWeight: 900,
-                                                    textShadow: '0 2px 8px rgba(0, 35, 149, 0.1)',
-                                                    fontSize: { xs: '2.5rem', sm: '3rem', md: '3.5rem' },
-                                                }, children: "Our Projects" }), _jsx(Typography, { variant: "h5", sx: {
-                                                    textAlign: { xs: 'center', md: 'left' },
-                                                    mb: 3,
-                                                    color: 'text.secondary',
-                                                    fontWeight: 400,
-                                                }, children: "Discover our European and local projects promoting education, digital literacy, and cultural exchange. Each project creates real impact and positive change in our communities." }), _jsxs(Box, { sx: {
-                                                    display: 'flex',
-                                                    justifyContent: { xs: 'center', md: 'flex-start' },
-                                                    alignItems: 'center',
-                                                    gap: 2,
-                                                    flexWrap: 'wrap',
-                                                    mb: 4,
-                                                }, children: [_jsx(Chip, { icon: _jsx(CheckCircleIcon, { sx: { color: 'white' } }), label: "100% Success Rate", sx: {
-                                                            backgroundColor: '#4caf50',
-                                                            color: 'white',
-                                                            fontWeight: 700,
-                                                            '& .MuiChip-icon': {
-                                                                color: 'white',
-                                                            },
-                                                        } }), _jsx(Chip, { icon: _jsx(PeopleIcon, { sx: { color: 'white' } }), label: "1000+ Participants", sx: {
-                                                            backgroundColor: '#002395',
-                                                            color: 'white',
-                                                            fontWeight: 700,
-                                                            '& .MuiChip-icon': {
-                                                                color: 'white',
-                                                            },
-                                                        } }), _jsx(Chip, { icon: _jsx(PublicIcon, { sx: { color: 'white' } }), label: "15+ Countries", sx: {
-                                                            backgroundColor: '#ED2939',
-                                                            color: 'white',
-                                                            fontWeight: 700,
-                                                            '& .MuiChip-icon': {
-                                                                color: 'white',
-                                                            },
-                                                        } })] })] }) }), _jsx(Grid, { size: { xs: 12, md: 6 }, children: _jsxs(Box, { sx: {
-                                            position: 'relative',
-                                            width: '100%',
-                                            maxWidth: { xs: '100%', md: 560 },
-                                            mx: { xs: 'auto', md: 0 },
-                                            borderRadius: 4,
-                                            overflow: 'hidden',
-                                            boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
-                                        }, children: [_jsxs(Box, { sx: {
-                                                    position: 'relative',
-                                                    width: '100%',
-                                                    height: { xs: 300, sm: 400, md: 450 },
-                                                    borderRadius: 4,
-                                                    overflow: 'hidden',
-                                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/illustrations/mitra-image-2.png"), alt: "Live learning workshop - Active participants", sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.95) saturate(1.1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            inset: 0,
-                                                            background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.08) 60%, rgba(255,255,255,0) 100%)',
-                                                            pointerEvents: 'none',
-                                                        } })] }), _jsxs(Box, { sx: {
-                                                    position: 'absolute',
-                                                    top: { xs: 16, sm: 24 },
-                                                    left: { xs: 16, sm: 24 },
-                                                    width: { xs: 100, sm: 140 },
-                                                    height: { xs: 80, sm: 110 },
-                                                    borderRadius: 3,
-                                                    overflow: 'hidden',
-                                                    border: '3px solid white',
-                                                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-                                                    zIndex: 2,
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.1) translateY(-4px)',
-                                                        boxShadow: '0 12px 32px rgba(0, 35, 149, 0.3)',
-                                                        zIndex: 10,
-                                                    },
-                                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg"), alt: "Digital Skills - People working on computers", sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.9) saturate(1.1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            bottom: 0,
-                                                            left: 0,
-                                                            right: 0,
-                                                            background: 'linear-gradient(180deg, transparent 0%, rgba(0, 35, 149, 0.9) 100%)',
-                                                            p: 1,
-                                                        }, children: _jsx(Typography, { variant: "caption", sx: {
-                                                                color: 'white',
-                                                                fontWeight: 700,
-                                                                fontSize: { xs: '0.65rem', sm: '0.75rem' },
-                                                                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                                                            }, children: "Digital Skills" }) })] }), _jsxs(Box, { sx: {
-                                                    position: 'absolute',
-                                                    top: { xs: 16, sm: 24 },
-                                                    right: { xs: 16, sm: 24 },
-                                                    width: { xs: 100, sm: 140 },
-                                                    height: { xs: 80, sm: 110 },
-                                                    borderRadius: 3,
-                                                    overflow: 'hidden',
-                                                    border: '3px solid white',
-                                                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-                                                    zIndex: 2,
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.1) translateY(-4px)',
-                                                        boxShadow: '0 12px 32px rgba(237, 41, 57, 0.3)',
-                                                        zIndex: 10,
-                                                    },
-                                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/583943471_1157911509850187_2575083228465038744_n.jpg"), alt: "Certificates - Erasmus+ diploma ceremony", sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.9) saturate(1.1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            bottom: 0,
-                                                            left: 0,
-                                                            right: 0,
-                                                            background: 'linear-gradient(180deg, transparent 0%, rgba(237, 41, 57, 0.9) 100%)',
-                                                            p: 1,
-                                                        }, children: _jsx(Typography, { variant: "caption", sx: {
-                                                                color: 'white',
-                                                                fontWeight: 700,
-                                                                fontSize: { xs: '0.65rem', sm: '0.75rem' },
-                                                                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                                                            }, children: "Certificates" }) })] }), _jsxs(Box, { sx: {
-                                                    position: 'absolute',
-                                                    bottom: { xs: 16, sm: 24 },
-                                                    left: { xs: 16, sm: 24 },
-                                                    width: { xs: 100, sm: 140 },
-                                                    height: { xs: 80, sm: 110 },
-                                                    borderRadius: 3,
-                                                    overflow: 'hidden',
-                                                    border: '3px solid white',
-                                                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-                                                    zIndex: 2,
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.1) translateY(-4px)',
-                                                        boxShadow: '0 12px 32px rgba(237, 41, 57, 0.3)',
-                                                        zIndex: 10,
-                                                    },
-                                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/573284472_1142846254690046_5985051112828208939_n.jpg"), alt: "Media & Arts - Creative process or filming", sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.9) saturate(1.1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            bottom: 0,
-                                                            left: 0,
-                                                            right: 0,
-                                                            background: 'linear-gradient(180deg, transparent 0%, rgba(237, 41, 57, 0.9) 100%)',
-                                                            p: 1,
-                                                        }, children: _jsx(Typography, { variant: "caption", sx: {
-                                                                color: 'white',
-                                                                fontWeight: 700,
-                                                                fontSize: { xs: '0.65rem', sm: '0.75rem' },
-                                                                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                                                            }, children: "Media & Arts" }) })] }), _jsxs(Box, { sx: {
-                                                    position: 'absolute',
-                                                    bottom: { xs: 16, sm: 24 },
-                                                    right: { xs: 16, sm: 24 },
-                                                    width: { xs: 120, sm: 160 },
-                                                    height: { xs: 90, sm: 120 },
-                                                    borderRadius: 3,
-                                                    overflow: 'hidden',
-                                                    border: '3px solid white',
-                                                    boxShadow: '0 8px 24px rgba(0, 0, 0, 0.2)',
-                                                    zIndex: 2,
-                                                    transition: 'all 0.3s ease',
-                                                    '&:hover': {
-                                                        transform: 'scale(1.1) translateY(-4px)',
-                                                        boxShadow: '0 12px 32px rgba(0, 35, 149, 0.3)',
-                                                        zIndex: 10,
-                                                    },
-                                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg"), alt: "Community - Group photo in Nice, France", sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.9) saturate(1.1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            bottom: 0,
-                                                            left: 0,
-                                                            right: 0,
-                                                            background: 'linear-gradient(180deg, transparent 0%, rgba(0, 35, 149, 0.9) 100%)',
-                                                            p: 1.5,
-                                                        }, children: _jsx(Typography, { variant: "caption", sx: {
-                                                                color: 'white',
-                                                                fontWeight: 700,
-                                                                fontSize: { xs: '0.65rem', sm: '0.7rem' },
-                                                                textShadow: '0 2px 4px rgba(0, 0, 0, 0.3)',
-                                                                lineHeight: 1.2,
-                                                                display: 'block',
-                                                            }, children: "Community" }) })] })] }) })] }), _jsxs(Grid, { container: true, spacing: 3, sx: { mt: 2, mb: 4 }, children: [_jsx(Grid, { size: { xs: 6, sm: 3 }, children: _jsx(Card, { sx: {
-                                            position: 'relative',
-                                            textAlign: 'center',
-                                            p: 3,
-                                            border: '2px solid',
-                                            borderColor: 'primary.main',
-                                            backgroundColor: 'rgba(0, 35, 149, 0.08)',
-                                            overflow: 'hidden',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'translateY(-4px)',
-                                                boxShadow: '0 6px 20px rgba(0, 35, 149, 0.3)',
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                backgroundImage: `url(${getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg')})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center',
-                                                opacity: 0.12,
-                                                filter: 'blur(8px)',
-                                                zIndex: 0,
-                                            },
-                                        }, children: _jsxs(Box, { sx: { position: 'relative', zIndex: 1 }, children: [_jsx(EmojiEventsIcon, { sx: { fontSize: 32, color: 'primary.main', mb: 1 } }), _jsx(Typography, { variant: "h4", sx: { color: 'primary.main', fontWeight: 700, mb: 0.5 }, children: erasmusKA2Projects.length + erasmusKA1Projects.length }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { fontWeight: 500 }, children: "Total Projects" })] }) }) }), _jsx(Grid, { size: { xs: 6, sm: 3 }, children: _jsx(Card, { sx: {
-                                            position: 'relative',
-                                            textAlign: 'center',
-                                            p: 3,
-                                            border: '2px solid',
-                                            borderColor: 'success.main',
-                                            backgroundColor: 'rgba(76, 175, 80, 0.08)',
-                                            overflow: 'hidden',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'translateY(-4px)',
-                                                boxShadow: '0 6px 20px rgba(76, 175, 80, 0.3)',
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                backgroundImage: `url(${getImagePath('/illustrations/mitra-image-2.png')})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center',
-                                                opacity: 0.12,
-                                                filter: 'blur(8px)',
-                                                zIndex: 0,
-                                            },
-                                        }, children: _jsxs(Box, { sx: { position: 'relative', zIndex: 1 }, children: [_jsx(TrendingUpIcon, { sx: { fontSize: 32, color: 'success.main', mb: 1 } }), _jsx(Typography, { variant: "h4", sx: { color: 'success.main', fontWeight: 700, mb: 0.5 }, children: "100%" }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { fontWeight: 500 }, children: "Success Rate" })] }) }) }), _jsx(Grid, { size: { xs: 6, sm: 3 }, children: _jsx(Card, { sx: {
-                                            position: 'relative',
-                                            textAlign: 'center',
-                                            p: 3,
-                                            border: '2px solid',
-                                            borderColor: 'info.main',
-                                            backgroundColor: 'rgba(0, 56, 214, 0.08)',
-                                            overflow: 'hidden',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'translateY(-4px)',
-                                                boxShadow: '0 6px 20px rgba(0, 56, 214, 0.3)',
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                background: 'radial-gradient(circle, rgba(0, 35, 149, 0.15) 0%, transparent 70%)',
-                                                zIndex: 0,
-                                            },
-                                            '&::after': {
-                                                content: '"🇫🇷🇩🇪🇮🇹🇪🇸🇵🇱🇬🇷"',
-                                                position: 'absolute',
-                                                top: '50%',
-                                                left: '50%',
-                                                transform: 'translate(-50%, -50%)',
-                                                fontSize: '3rem',
-                                                opacity: 0.08,
-                                                zIndex: 0,
-                                                pointerEvents: 'none',
-                                            },
-                                        }, children: _jsxs(Box, { sx: { position: 'relative', zIndex: 1 }, children: [_jsx(PublicIcon, { sx: { fontSize: 32, color: 'info.main', mb: 1 } }), _jsx(Typography, { variant: "h4", sx: { color: 'info.main', fontWeight: 700, mb: 0.5 }, children: "15+" }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { fontWeight: 500 }, children: "Partner Countries" })] }) }) }), _jsx(Grid, { size: { xs: 6, sm: 3 }, children: _jsx(Card, { sx: {
-                                            position: 'relative',
-                                            textAlign: 'center',
-                                            p: 3,
-                                            border: '2px solid',
-                                            borderColor: 'error.main',
-                                            backgroundColor: 'rgba(237, 41, 57, 0.08)',
-                                            overflow: 'hidden',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'translateY(-4px)',
-                                                boxShadow: '0 6px 20px rgba(237, 41, 57, 0.3)',
-                                            },
-                                            '&::before': {
-                                                content: '""',
-                                                position: 'absolute',
-                                                top: 0,
-                                                left: 0,
-                                                right: 0,
-                                                bottom: 0,
-                                                backgroundImage: `url(${getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg')})`,
-                                                backgroundSize: 'cover',
-                                                backgroundPosition: 'center',
-                                                opacity: 0.12,
-                                                filter: 'blur(8px)',
-                                                zIndex: 0,
-                                            },
-                                        }, children: _jsxs(Box, { sx: { position: 'relative', zIndex: 1 }, children: [_jsx(PeopleIcon, { sx: { fontSize: 32, color: 'error.main', mb: 1 } }), _jsx(Typography, { variant: "h4", sx: { color: 'error.main', fontWeight: 700, mb: 0.5 }, children: "1000+" }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { fontWeight: 500 }, children: "Participants Reached" })] }) }) })] }), _jsxs(Box, { sx: {
-                                textAlign: 'center',
-                                p: 4,
-                                borderRadius: 4,
-                                background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.1) 0%, rgba(237, 41, 57, 0.1) 100%)',
-                                border: '2px solid',
-                                borderColor: 'primary.main',
-                                maxWidth: '700px',
-                                mx: 'auto',
-                                mt: 2,
-                                position: 'relative',
-                                overflow: 'hidden',
-                                '&::before': {
-                                    content: '""',
-                                    position: 'absolute',
-                                    top: 0,
-                                    left: 0,
-                                    right: 0,
-                                    height: '3px',
-                                    background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
-                                },
-                                '&::after': {
-                                    content: '""',
-                                    position: 'absolute',
-                                    top: -20,
-                                    right: -20,
-                                    width: 200,
-                                    height: 200,
-                                    background: 'radial-gradient(circle, rgba(0, 35, 149, 0.05) 0%, transparent 70%)',
-                                    zIndex: 0,
-                                },
-                            }, children: [_jsxs(Box, { sx: {
-                                        position: 'absolute',
-                                        inset: 0,
-                                        display: 'flex',
-                                        alignItems: 'center',
-                                        justifyContent: 'center',
-                                        gap: 4,
-                                        opacity: 0.08,
-                                        zIndex: 0,
-                                        pointerEvents: 'none',
-                                    }, children: [_jsx(SchoolIcon, { sx: { fontSize: 48, color: 'primary.main' } }), _jsx(LanguageIcon, { sx: { fontSize: 48, color: 'primary.main' } }), _jsx(EmojiEventsIcon, { sx: { fontSize: 48, color: 'error.main' } })] }), _jsxs(Box, { sx: { position: 'relative', zIndex: 1 }, children: [_jsx(Typography, { variant: "h4", sx: { mb: 2, fontWeight: 700, color: 'primary.main' }, children: "Ready to Explore?" }), _jsx(Typography, { variant: "body1", color: "text.secondary", sx: { mb: 3, fontSize: '1.05rem', lineHeight: 1.7 }, children: "Use the tabs below to filter projects by type, or scroll down to see all projects. Each project tells a story of impact and positive change." }), _jsxs(Stack, { direction: { xs: 'column', sm: 'row' }, spacing: 2, sx: { justifyContent: 'center' }, children: [_jsx(Button, { component: RouterLink, to: "/contact", variant: "contained", color: "primary", size: "large", endIcon: _jsx(ArrowForwardIcon, {}), sx: {
-                                                        px: 5,
-                                                        py: 1.5,
-                                                        fontWeight: 700,
-                                                        borderRadius: 3,
-                                                        background: 'linear-gradient(135deg, #002395 0%, #1e88e5 100%)',
-                                                        boxShadow: '0 6px 20px rgba(0, 35, 149, 0.4)',
-                                                        fontSize: '1rem',
-                                                        transition: 'all 0.3s ease',
-                                                        '&:hover': {
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 8px 24px rgba(0, 35, 149, 0.5)',
-                                                            background: 'linear-gradient(135deg, #001a7a 0%, #1565c0 100%)',
-                                                        },
-                                                    }, children: "Contact Us" }), _jsx(Button, { component: RouterLink, to: "/partners", variant: "outlined", size: "large", sx: {
-                                                        px: 5,
-                                                        py: 1.5,
-                                                        fontWeight: 700,
-                                                        borderRadius: 3,
-                                                        borderWidth: 2,
-                                                        borderColor: '#ED2939',
-                                                        color: '#ED2939',
-                                                        fontSize: '1rem',
-                                                        transition: 'all 0.3s ease',
-                                                        '&:hover': {
-                                                            borderWidth: 2,
-                                                            borderColor: '#c91f2f',
-                                                            backgroundColor: 'rgba(237, 41, 57, 0.08)',
-                                                            transform: 'translateY(-2px)',
-                                                            boxShadow: '0 6px 20px rgba(237, 41, 57, 0.3)',
-                                                        },
-                                                    }, children: "View Partners" })] })] })] }), _jsxs(Typography, { variant: "caption", sx: {
-                                textAlign: 'center',
-                                color: 'text.secondary',
-                                mt: 3,
-                                display: 'flex',
-                                alignItems: 'center',
-                                justifyContent: 'center',
+    return (_jsxs(Box, { component: "main", children: [_jsx(Box, { sx: {
+                    pt: { xs: 12, sm: 14, md: 16 },
+                    pb: { xs: 4, md: 5 },
+                    borderBottom: '1px solid',
+                    borderColor: 'divider',
+                }, children: _jsxs(Container, { maxWidth: "lg", children: [_jsx(Typography, { variant: "h1", sx: { fontSize: { xs: '1.85rem', md: '2.35rem' }, fontWeight: 800, mb: 1.5 }, children: "Our projects" }), _jsx(Typography, { color: "text.secondary", sx: { maxWidth: 640, lineHeight: 1.75 }, children: "A selection of Erasmus+ and partnership work \u2014 deep cases first, more below when you need them." })] }) }), _jsxs(Container, { maxWidth: "lg", sx: { py: { xs: 4, md: 5 } }, children: [_jsx(Box, { sx: { mb: 2, overflowX: 'auto' }, children: _jsx(ToggleButtonGroup, { value: filter, exclusive: true, onChange: handleFilter, size: "small", "aria-label": "Project category", sx: {
+                                flexWrap: 'wrap',
                                 gap: 0.5,
-                            }, children: [_jsx(CheckCircleIcon, { sx: { fontSize: 16, color: 'success.main' } }), "Easy to browse \u2022 Filter by type \u2022 Detailed information available"] })] }) }), _jsxs(Container, { children: [_jsxs(Box, { sx: { mb: 6, mt: 4 }, children: [_jsx(Typography, { variant: "h5", sx: {
-                                    mb: 3,
-                                    color: 'text.primary',
-                                    fontWeight: 600,
-                                    textAlign: 'center',
-                                }, children: "Choose project type:" }), _jsx(Box, { sx: {
+                                '& .MuiToggleButton-root': { textTransform: 'none', borderRadius: '8px !important', px: 1.25, py: 0.5 },
+                            }, children: filterOptions.map((opt) => (_jsx(ToggleButton, { value: opt.value, children: opt.label }, opt.value))) }) }), _jsx(Grid, { container: true, spacing: 2, children: visible.map((p) => (_jsx(Grid, { size: { xs: 12, sm: 6, md: 4 }, children: _jsxs(Card, { variant: "outlined", sx: {
+                                    height: '100%',
+                                    borderRadius: 2,
                                     display: 'flex',
-                                    gap: 2,
-                                    justifyContent: 'center',
-                                    flexWrap: 'wrap',
-                                    mb: 6,
-                                }, children: [
-                                    {
-                                        label: 'Erasmus+ KA2',
-                                        sublabel: 'Cooperation',
-                                        icon: _jsx(SchoolIcon, {}),
-                                        color: '#002395',
-                                        value: 0,
-                                    },
-                                    {
-                                        label: 'Erasmus+ KA1',
-                                        sublabel: 'Mobility',
-                                        icon: _jsx(LanguageIcon, {}),
-                                        color: '#ED2939',
-                                        value: 1,
-                                    },
-                                    {
-                                        label: 'Partnership',
-                                        sublabel: 'Projects',
-                                        icon: _jsx(PublicIcon, {}),
-                                        color: '#4caf50',
-                                        value: 2,
-                                    },
-                                ].map((tab) => (_jsx(Button, { onClick: () => handleTabChange(null, tab.value), sx: {
-                                        flex: { xs: '1 1 100%', sm: '1 1 calc(33.333% - 16px)', md: '0 1 auto' },
-                                        minWidth: { xs: '100%', sm: 200, md: 220 },
-                                        p: 3,
-                                        borderRadius: 3,
-                                        textTransform: 'none',
-                                        display: 'flex',
-                                        flexDirection: 'column',
-                                        alignItems: 'center',
-                                        gap: 1,
-                                        backgroundColor: tabValue === tab.value ? tab.color : 'rgba(0, 0, 0, 0.02)',
-                                        color: tabValue === tab.value ? 'white' : 'text.primary',
-                                        border: `2px solid ${tabValue === tab.value ? tab.color : 'transparent'}`,
-                                        fontWeight: tabValue === tab.value ? 700 : 600,
-                                        transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                                        boxShadow: tabValue === tab.value ? `0 8px 24px ${tab.color}40` : 'none',
-                                        '&:hover': {
-                                            backgroundColor: tabValue === tab.value ? tab.color : `${tab.color}15`,
-                                            transform: 'translateY(-4px)',
-                                            boxShadow: `0 12px 32px ${tab.color}30`,
-                                            borderColor: tab.color,
-                                        },
-                                        '& .MuiButton-startIcon': {
-                                            margin: 0,
-                                            '& svg': {
-                                                fontSize: 32,
-                                                color: tabValue === tab.value ? 'white' : tab.color,
-                                            },
-                                        },
-                                    }, startIcon: tab.icon, children: _jsxs(Box, { sx: { textAlign: 'center' }, children: [_jsx(Typography, { variant: "h6", sx: { fontWeight: 'inherit', mb: 0.5 }, children: tab.label }), _jsx(Typography, { variant: "caption", sx: { opacity: tabValue === tab.value ? 0.95 : 0.7 }, children: tab.sublabel })] }) }, tab.value))) }), _jsxs(Typography, { variant: "caption", sx: {
-                                    textAlign: 'center',
-                                    color: 'text.secondary',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: 0.5,
-                                    mb: 2,
-                                }, children: [_jsx(CheckCircleIcon, { sx: { fontSize: 16, color: 'success.main' } }), "Easy navigation \u2022 Filter by type \u2022 Detailed information available"] })] }), tabValue === 0 && (_jsxs(Box, { sx: { mb: 6 }, children: [_jsxs(Box, { sx: {
-                                    position: 'relative',
-                                    mb: 6,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
-                                    height: { xs: 200, sm: 280, md: 320 },
-                                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
-                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/584326681_1157904053184266_2071216266526493174_n.jpg"), alt: "Erasmus+ KA2 - Large group with EU flags", sx: {
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            filter: 'brightness(0.85) saturate(1.1)',
-                                        } }), _jsxs(Box, { sx: {
-                                            position: 'absolute',
-                                            inset: 0,
-                                            background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.7) 0%, rgba(0, 35, 149, 0.5) 100%)',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            flexDirection: 'column',
-                                            color: 'white',
-                                            p: 4,
-                                        }, children: [_jsx(Box, { sx: {
-                                                    width: 64,
-                                                    height: 64,
-                                                    borderRadius: 2,
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                    backdropFilter: 'blur(10px)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    mb: 2,
-                                                }, children: _jsx(SchoolIcon, { sx: { fontSize: 36, color: 'white' } }) }), _jsx(Typography, { variant: "h3", sx: { fontWeight: 800, mb: 1, textAlign: 'center' }, children: "Erasmus+ KA2 Projects" }), _jsx(Typography, { variant: "h6", sx: { opacity: 0.95, textAlign: 'center' }, children: "Cooperation Partnerships for Innovation" })] })] }), _jsx(Grid, { container: true, spacing: 3, children: erasmusKA2Projects.map((project, idx) => {
-                                    const projectPhotos = [
-                                        getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
-                                        getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
-                                        getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
-                                        getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
-                                        getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
-                                    ];
-                                    return (_jsx(Grid, { size: { xs: 12, sm: 6, lg: 4 }, children: _jsxs(Card, { sx: {
-                                                height: '100%',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                borderRadius: '20px',
-                                                overflow: 'hidden',
-                                                borderTop: '4px solid',
-                                                borderTopColor: 'primary.main',
-                                                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                '&:hover': {
-                                                    transform: 'translateY(-8px)',
-                                                    boxShadow: '0 16px 40px rgba(0, 35, 149, 0.25)',
-                                                    '& .project-photo': {
-                                                        transform: 'scale(1.1)',
-                                                    },
-                                                },
-                                            }, children: [_jsxs(Box, { sx: {
-                                                        position: 'relative',
-                                                        height: 200,
-                                                        overflow: 'hidden',
-                                                    }, children: [_jsx(Box, { component: "img", className: "project-photo", src: projectPhotos[idx % projectPhotos.length], alt: `${project.title} - Project event`, sx: {
-                                                                width: '100%',
-                                                                height: '100%',
-                                                                objectFit: 'cover',
-                                                                transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                                filter: 'brightness(0.9) saturate(1.1)',
-                                                            } }), _jsx(Box, { sx: {
-                                                                position: 'absolute',
-                                                                inset: 0,
-                                                                background: 'linear-gradient(180deg, rgba(0, 35, 149, 0.6) 0%, rgba(0, 35, 149, 0.3) 50%, transparent 100%)',
-                                                            } }), _jsxs(Stack, { direction: "row", spacing: 1, sx: { position: 'absolute', top: 12, left: 12, flexWrap: 'wrap', gap: 1 }, children: [_jsx(Chip, { label: project.status, size: "small", icon: _jsx(CheckCircleIcon, { sx: { color: 'white !important' } }), sx: {
-                                                                        backgroundColor: '#4caf50',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsx(Chip, { label: project.period, size: "small", sx: {
-                                                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                                                        color: 'text.primary',
-                                                                        fontWeight: 600,
-                                                                    } })] }), _jsx(Typography, { variant: "h6", sx: {
-                                                                position: 'absolute',
-                                                                bottom: 16,
-                                                                left: 16,
-                                                                right: 16,
-                                                                color: 'white',
-                                                                fontWeight: 800,
-                                                                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-                                                                lineHeight: 1.3,
-                                                            }, children: project.title })] }), _jsxs(CardContent, { sx: { flexGrow: 1, p: 3 }, children: [_jsx(Typography, { variant: "body2", color: "text.secondary", paragraph: true, sx: { mb: 2, minHeight: '3em', lineHeight: 1.7 }, children: project.description }), _jsx(Divider, { sx: { my: 2 } }), _jsxs(Stack, { spacing: 1.5, sx: { mb: 2 }, children: [_jsx(Chip, { icon: _jsx(PeopleIcon, { sx: { color: 'white' } }), label: `${project.participants} participants`, size: "small", sx: {
-                                                                        backgroundColor: '#002395',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        width: 'fit-content',
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsx(Chip, { icon: _jsx(TrendingUpIcon, { sx: { color: 'white' } }), label: `Impact: ${project.impact}`, size: "small", sx: {
-                                                                        backgroundColor: project.impact === 'High' ? '#ED2939' : '#ff9800',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        width: 'fit-content',
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'flex-start', gap: 1 }, children: [_jsx(InfoIcon, { sx: { fontSize: 18, color: 'text.secondary', mt: 0.25 } }), _jsx(Typography, { variant: "caption", color: "text.secondary", sx: { fontSize: '0.85rem' }, children: project.focus })] })] }), _jsx(Box, { sx: { display: 'flex', justifyContent: 'center', mt: 'auto' }, children: _jsx(Fab, { component: RouterLink, to: "/project-detail", size: "medium", sx: {
-                                                                    backgroundColor: '#002395',
-                                                                    color: 'white',
-                                                                    '&:hover': {
-                                                                        backgroundColor: '#001a7a',
-                                                                        transform: 'scale(1.1)',
-                                                                    },
-                                                                }, children: _jsx(ArrowForwardIcon, {}) }) })] })] }) }, project.title));
-                                }) })] })), tabValue === 1 && (_jsxs(Box, { sx: { mb: 6 }, children: [_jsxs(Box, { sx: {
-                                    position: 'relative',
-                                    mb: 6,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
-                                    height: { xs: 200, sm: 280, md: 320 },
-                                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
-                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/583924019_1157903166517688_8756873269993443102_n.jpg"), alt: "Erasmus+ KA1 - Large group with EU flags", sx: {
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            filter: 'brightness(0.85) saturate(1.1)',
-                                        } }), _jsxs(Box, { sx: {
-                                            position: 'absolute',
-                                            inset: 0,
-                                            background: 'linear-gradient(135deg, rgba(237, 41, 57, 0.7) 0%, rgba(237, 41, 57, 0.5) 100%)',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            flexDirection: 'column',
-                                            color: 'white',
-                                            p: 4,
-                                        }, children: [_jsx(Box, { sx: {
-                                                    width: 64,
-                                                    height: 64,
-                                                    borderRadius: 2,
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                    backdropFilter: 'blur(10px)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    mb: 2,
-                                                }, children: _jsx(LanguageIcon, { sx: { fontSize: 36, color: 'white' } }) }), _jsx(Typography, { variant: "h3", sx: { fontWeight: 800, mb: 1, textAlign: 'center' }, children: "Erasmus+ KA1 Projects" }), _jsx(Typography, { variant: "h6", sx: { opacity: 0.95, textAlign: 'center' }, children: "Mobility Projects for Learning and Development" })] })] }), _jsx(Grid, { container: true, spacing: 3, children: erasmusKA1Projects.map((project, idx) => {
-                                    const projectPhotos = [
-                                        getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
-                                        getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
-                                        getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
-                                        getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
-                                    ];
-                                    return (_jsx(Grid, { size: { xs: 12, sm: 6, lg: 4 }, children: _jsxs(Card, { sx: {
-                                                height: '100%',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                borderRadius: '20px',
-                                                overflow: 'hidden',
-                                                borderTop: '4px solid',
-                                                borderTopColor: 'error.main',
-                                                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                '&:hover': {
-                                                    transform: 'translateY(-8px)',
-                                                    boxShadow: '0 16px 40px rgba(237, 41, 57, 0.25)',
-                                                    '& .project-photo': {
-                                                        transform: 'scale(1.1)',
-                                                    },
-                                                },
-                                            }, children: [_jsxs(Box, { sx: {
-                                                        position: 'relative',
-                                                        height: 200,
-                                                        overflow: 'hidden',
-                                                    }, children: [_jsx(Box, { component: "img", className: "project-photo", src: projectPhotos[idx % projectPhotos.length], alt: `${project.title} - Project event`, sx: {
-                                                                width: '100%',
-                                                                height: '100%',
-                                                                objectFit: 'cover',
-                                                                transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                                filter: 'brightness(0.9) saturate(1.1)',
-                                                            } }), _jsx(Box, { sx: {
-                                                                position: 'absolute',
-                                                                inset: 0,
-                                                                background: 'linear-gradient(180deg, rgba(237, 41, 57, 0.6) 0%, rgba(237, 41, 57, 0.3) 50%, transparent 100%)',
-                                                            } }), _jsxs(Stack, { direction: "row", spacing: 1, sx: { position: 'absolute', top: 12, left: 12, flexWrap: 'wrap', gap: 1 }, children: [_jsx(Chip, { label: project.status, size: "small", icon: _jsx(CheckCircleIcon, { sx: { color: 'white !important' } }), sx: {
-                                                                        backgroundColor: '#4caf50',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsx(Chip, { label: project.period, size: "small", sx: {
-                                                                        backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                                                        color: 'text.primary',
-                                                                        fontWeight: 600,
-                                                                    } })] }), _jsx(Typography, { variant: "h6", sx: {
-                                                                position: 'absolute',
-                                                                bottom: 16,
-                                                                left: 16,
-                                                                right: 16,
-                                                                color: 'white',
-                                                                fontWeight: 800,
-                                                                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-                                                                lineHeight: 1.3,
-                                                            }, children: project.title })] }), _jsxs(CardContent, { sx: { flexGrow: 1, p: 3 }, children: [_jsx(Typography, { variant: "body2", color: "text.secondary", paragraph: true, sx: { mb: 2, minHeight: '3em', lineHeight: 1.7 }, children: project.description }), _jsx(Divider, { sx: { my: 2 } }), _jsxs(Stack, { spacing: 1.5, sx: { mb: 2 }, children: [_jsx(Chip, { icon: _jsx(PeopleIcon, { sx: { color: 'white' } }), label: `${project.participants} participants`, size: "small", sx: {
-                                                                        backgroundColor: '#ED2939',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        width: 'fit-content',
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsx(Chip, { icon: _jsx(TrendingUpIcon, { sx: { color: 'white' } }), label: `Impact: ${project.impact}`, size: "small", sx: {
-                                                                        backgroundColor: project.impact === 'High' ? '#ED2939' : '#ff9800',
-                                                                        color: 'white',
-                                                                        fontWeight: 700,
-                                                                        width: 'fit-content',
-                                                                        '& .MuiChip-icon': {
-                                                                            color: 'white',
-                                                                        },
-                                                                    } }), _jsxs(Box, { sx: { display: 'flex', alignItems: 'flex-start', gap: 1 }, children: [_jsx(InfoIcon, { sx: { fontSize: 18, color: 'text.secondary', mt: 0.25 } }), _jsx(Typography, { variant: "caption", color: "text.secondary", sx: { fontSize: '0.85rem' }, children: project.focus })] })] }), _jsx(Box, { sx: { display: 'flex', justifyContent: 'center', mt: 'auto' }, children: _jsx(Fab, { component: RouterLink, to: "/project-detail", size: "medium", sx: {
-                                                                    backgroundColor: '#ED2939',
-                                                                    color: 'white',
-                                                                    '&:hover': {
-                                                                        backgroundColor: '#c91f2f',
-                                                                        transform: 'scale(1.1)',
-                                                                    },
-                                                                }, children: _jsx(ArrowForwardIcon, {}) }) })] })] }) }, project.title));
-                                }) })] })), tabValue === 2 && (_jsxs(Box, { sx: { mb: 6 }, children: [_jsxs(Box, { sx: {
-                                    position: 'relative',
-                                    mb: 6,
-                                    borderRadius: 4,
-                                    overflow: 'hidden',
-                                    height: { xs: 200, sm: 280, md: 320 },
-                                    boxShadow: '0 12px 40px rgba(0, 0, 0, 0.15)',
-                                }, children: [_jsx(Box, { component: "img", src: getImagePath("/photos/572890197_1142845724690099_2859850866106109617_n.jpg"), alt: "Partnership Projects - Collaborative work processes", sx: {
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                            filter: 'brightness(0.85) saturate(1.1)',
-                                        } }), _jsxs(Box, { sx: {
-                                            position: 'absolute',
-                                            inset: 0,
-                                            background: 'linear-gradient(135deg, rgba(76, 175, 80, 0.7) 0%, rgba(76, 175, 80, 0.5) 100%)',
-                                            display: 'flex',
-                                            alignItems: 'center',
-                                            justifyContent: 'center',
-                                            flexDirection: 'column',
-                                            color: 'white',
-                                            p: 4,
-                                        }, children: [_jsx(Box, { sx: {
-                                                    width: 64,
-                                                    height: 64,
-                                                    borderRadius: 2,
-                                                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                    backdropFilter: 'blur(10px)',
-                                                    display: 'flex',
-                                                    alignItems: 'center',
-                                                    justifyContent: 'center',
-                                                    mb: 2,
-                                                }, children: _jsx(PublicIcon, { sx: { fontSize: 36, color: 'white' } }) }), _jsx(Typography, { variant: "h3", sx: { fontWeight: 800, mb: 1, textAlign: 'center' }, children: "Partnership Projects" }), _jsx(Typography, { variant: "h6", sx: { opacity: 0.95, textAlign: 'center' }, children: "Collaborative Initiatives with Local and European Partners" })] })] }), _jsx(Grid, { container: true, spacing: 3, children: partnershipProjects.map((project, index) => {
-                                    const partnershipPhotos = [
-                                        getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
-                                        getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
-                                        getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
-                                        getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
-                                        getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
-                                        getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
-                                        getImagePath('/photos/583741041_1157902773184394_5619801435922057517_n.jpg'),
-                                    ];
-                                    const borderColor = index % 2 === 0 ? '#002395' : '#ED2939';
-                                    return (_jsx(Grid, { size: { xs: 12, sm: 6, md: 4 }, children: _jsxs(Card, { sx: {
-                                                height: '100%',
-                                                display: 'flex',
-                                                flexDirection: 'column',
-                                                borderRadius: '20px',
-                                                overflow: 'hidden',
-                                                borderLeft: '4px solid',
-                                                borderLeftColor: borderColor,
-                                                transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                '&:hover': {
-                                                    transform: 'translateY(-6px)',
-                                                    boxShadow: `0 12px 32px ${borderColor}30`,
-                                                    '& .partnership-photo': {
-                                                        transform: 'scale(1.1)',
-                                                    },
-                                                },
-                                            }, children: [_jsxs(Box, { sx: {
-                                                        position: 'relative',
-                                                        height: 180,
-                                                        overflow: 'hidden',
-                                                    }, children: [_jsx(Box, { component: "img", className: "partnership-photo", src: partnershipPhotos[index % partnershipPhotos.length], alt: `${project} - Partnership project`, sx: {
-                                                                width: '100%',
-                                                                height: '100%',
-                                                                objectFit: 'cover',
-                                                                transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                                filter: 'brightness(0.9) saturate(1.1)',
-                                                            } }), _jsx(Box, { sx: {
-                                                                position: 'absolute',
-                                                                inset: 0,
-                                                                background: `linear-gradient(180deg, ${borderColor}CC 0%, ${borderColor}99 50%, transparent 100%)`,
-                                                            } }), _jsx(Box, { sx: {
-                                                                position: 'absolute',
-                                                                top: 12,
-                                                                right: 12,
-                                                            }, children: _jsx(Chip, { label: "Active Partnership", size: "small", sx: {
-                                                                    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                                                    color: borderColor,
-                                                                    fontWeight: 700,
-                                                                } }) }), _jsx(Typography, { variant: "h6", sx: {
-                                                                position: 'absolute',
-                                                                bottom: 16,
-                                                                left: 16,
-                                                                right: 16,
-                                                                color: 'white',
-                                                                fontWeight: 800,
-                                                                textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-                                                                lineHeight: 1.3,
-                                                            }, children: project })] }), _jsx(CardContent, { sx: { flexGrow: 1, p: 3 }, children: _jsx(Box, { sx: { display: 'flex', justifyContent: 'center', mt: 2 }, children: _jsx(Fab, { component: RouterLink, to: "/project-detail", size: "medium", sx: {
-                                                                backgroundColor: borderColor,
-                                                                color: 'white',
-                                                                '&:hover': {
-                                                                    backgroundColor: borderColor === '#002395' ? '#001a7a' : '#c91f2f',
-                                                                    transform: 'scale(1.1)',
-                                                                },
-                                                            }, children: _jsx(ArrowForwardIcon, {}) }) }) })] }) }, project));
-                                }) })] })), _jsxs(Box, { sx: {
-                            background: 'linear-gradient(135deg, rgba(0, 35, 149, 0.08) 0%, rgba(237, 41, 57, 0.08) 100%)',
-                            borderRadius: '16px',
-                            p: 6,
-                            textAlign: 'center',
-                            mt: 6,
-                            mb: 4,
-                            border: '2px solid',
-                            borderColor: 'primary.main',
-                            position: 'relative',
-                            overflow: 'hidden',
-                            '&::before': {
-                                content: '""',
-                                position: 'absolute',
-                                top: 0,
-                                left: 0,
-                                right: 0,
-                                height: '4px',
-                                background: 'linear-gradient(90deg, #002395 0%, #ED2939 100%)',
-                            },
-                        }, children: [_jsx(Chip, { icon: _jsx(EmojiEventsIcon, {}), label: "Join Our Network", color: "primary", sx: { mb: 2, fontWeight: 600, fontSize: '0.95rem', py: 2 } }), _jsx(Box, { sx: {
-                                    width: 80,
-                                    height: 80,
-                                    borderRadius: '50%',
-                                    backgroundColor: 'rgba(0, 35, 149, 0.1)',
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    mx: 'auto',
-                                    mb: 3,
-                                }, children: _jsx(PublicIcon, { sx: { fontSize: 40, color: 'primary.main' } }) }), _jsx(Typography, { variant: "h3", gutterBottom: true, sx: { fontWeight: 700, mb: 2 }, children: "Interested in Collaborating?" }), _jsx(Typography, { variant: "body1", color: "text.secondary", paragraph: true, sx: { mb: 3, maxWidth: '700px', mx: 'auto', fontSize: '1.1rem' }, children: "We are always open to new partnerships and project collaborations. Join us in creating innovative educational projects that make a real difference across Europe." }), _jsxs(Box, { sx: {
-                                    display: 'flex',
-                                    justifyContent: 'center',
-                                    gap: 3,
-                                    mb: 4,
-                                    flexWrap: 'wrap',
-                                }, children: [_jsxs(Box, { sx: { textAlign: 'center' }, children: [_jsx(CheckCircleIcon, { sx: { fontSize: 32, color: 'success.main', mb: 0.5 } }), _jsx(Typography, { variant: "body2", sx: { fontWeight: 600 }, children: "Proven Track Record" })] }), _jsxs(Box, { sx: { textAlign: 'center' }, children: [_jsx(PeopleIcon, { sx: { fontSize: 32, color: 'primary.main', mb: 0.5 } }), _jsx(Typography, { variant: "body2", sx: { fontWeight: 600 }, children: "European Network" })] }), _jsxs(Box, { sx: { textAlign: 'center' }, children: [_jsx(TrendingUpIcon, { sx: { fontSize: 32, color: 'error.main', mb: 0.5 } }), _jsx(Typography, { variant: "body2", sx: { fontWeight: 600 }, children: "Real Impact" })] })] }), _jsxs(Stack, { direction: { xs: 'column', sm: 'row' }, spacing: 2, sx: { justifyContent: 'center' }, children: [_jsx(Button, { component: RouterLink, to: "/contact", variant: "contained", color: "primary", size: "large", endIcon: _jsx(ArrowForwardIcon, {}), sx: {
-                                            px: 5,
-                                            py: 1.5,
-                                            fontSize: '1.1rem',
-                                            fontWeight: 700,
-                                            borderRadius: '25px',
-                                            boxShadow: '0 4px 14px rgba(0, 35, 149, 0.3)',
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                transform: 'translateY(-2px)',
-                                                boxShadow: '0 6px 18px rgba(0, 35, 149, 0.4)',
-                                            },
-                                        }, children: "Start Collaboration" }), _jsx(Button, { component: RouterLink, to: "/partners", variant: "outlined", color: "primary", size: "large", sx: {
-                                            px: 5,
-                                            py: 1.5,
-                                            fontSize: '1.1rem',
-                                            fontWeight: 600,
-                                            borderRadius: '25px',
-                                            borderWidth: 2,
-                                            transition: 'all 0.3s ease',
-                                            '&:hover': {
-                                                borderWidth: 2,
-                                                transform: 'translateY(-2px)',
-                                            },
-                                        }, children: "View Our Partners" })] }), _jsxs(Typography, { variant: "caption", sx: {
-                                    display: 'flex',
-                                    alignItems: 'center',
-                                    justifyContent: 'center',
-                                    gap: 0.5,
-                                    mt: 3,
-                                    color: 'text.secondary',
-                                }, children: [_jsx(CheckCircleIcon, { sx: { fontSize: 16, color: 'success.main' } }), "Free consultation \u2022 Easy process \u2022 Quick response"] })] }), _jsxs(Box, { sx: { mt: 8 }, children: [_jsx(Typography, { variant: "h3", sx: { textAlign: 'center', mb: 4, fontWeight: 800, color: '#0b1b3a' }, children: "Featured Success Stories" }), _jsx(Box, { sx: {
-                                    mb: 6,
-                                    display: 'flex',
-                                    gap: 2,
-                                    overflowX: 'auto',
-                                    pb: 2,
-                                    '&::-webkit-scrollbar': {
-                                        height: 6,
-                                    },
-                                    '&::-webkit-scrollbar-track': {
-                                        backgroundColor: 'rgba(0,0,0,0.05)',
-                                        borderRadius: 3,
-                                    },
-                                    '&::-webkit-scrollbar-thumb': {
-                                        backgroundColor: 'rgba(0, 35, 149, 0.3)',
-                                        borderRadius: 3,
-                                        '&:hover': {
-                                            backgroundColor: 'rgba(0, 35, 149, 0.5)',
-                                        },
-                                    },
-                                }, children: [
-                                    getImagePath('/photos/583924019_1157903166517688_8756873269993443102_n.jpg'),
-                                    getImagePath('/photos/572890197_1142845724690099_2859850866106109617_n.jpg'),
-                                    getImagePath('/photos/584326681_1157904053184266_2071216266526493174_n.jpg'),
-                                    getImagePath('/photos/583943471_1157911509850187_2575083228465038744_n.jpg'),
-                                    getImagePath('/photos/573284472_1142846254690046_5985051112828208939_n.jpg'),
-                                    getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
-                                ].map((photo, idx) => (_jsx(Box, { sx: {
-                                        position: 'relative',
-                                        minWidth: { xs: 120, sm: 150, md: 180 },
-                                        height: { xs: 80, sm: 100, md: 120 },
-                                        borderRadius: 2,
-                                        overflow: 'hidden',
-                                        flexShrink: 0,
-                                        cursor: 'pointer',
-                                        transition: 'all 0.4s ease',
-                                        filter: 'blur(2px) brightness(0.7)',
-                                        '&:hover': {
-                                            filter: 'blur(0px) brightness(1)',
-                                            transform: 'scale(1.1)',
-                                            zIndex: 2,
-                                            boxShadow: '0 8px 24px rgba(0,0,0,0.3)',
-                                        },
-                                    }, children: _jsx(Box, { component: "img", src: photo, alt: `Project success ${idx + 1}`, sx: {
-                                            width: '100%',
-                                            height: '100%',
-                                            objectFit: 'cover',
-                                        } }) }, idx))) }), _jsx(Grid, { container: true, spacing: 4, children: [
-                                    {
-                                        title: 'Digital Senior Citizen',
-                                        highlight: 'Most Successful Project',
-                                        description: 'Reached over 200 seniors, improving their digital skills and quality of life.',
-                                        icon: _jsx(TrendingUpIcon, { sx: { fontSize: 40 } }),
-                                        color: '#002395',
-                                        photo: getImagePath('/photos/583489432_1157911303183541_1292926580526900497_n.jpg'),
-                                        quote: 'This project changed my perspective on technology',
-                                        stats: '200+ seniors helped',
-                                        statsIcon: _jsx(PeopleIcon, {}),
-                                    },
-                                    {
-                                        title: 'Cultural Heritage for Youth',
-                                        highlight: 'Innovation Award',
-                                        description: 'Recognized for innovative approach to engaging youth with cultural heritage.',
-                                        icon: _jsx(EmojiEventsIcon, { sx: { fontSize: 40 } }),
-                                        color: '#ED2939',
-                                        photo: getImagePath('/photos/571419367_1143811194593552_6930038688628840775_n.jpg'),
-                                        quote: 'We discovered our cultural identity through creative expression',
-                                        stats: '100+ youth engaged',
-                                        statsIcon: _jsx(PeopleIcon, {}),
-                                    },
-                                ].map((story) => (_jsx(Grid, { size: { xs: 12, md: 6 }, children: _jsxs(Card, { sx: {
-                                            height: '100%',
-                                            display: 'flex',
-                                            flexDirection: 'column',
-                                            borderRadius: '20px',
-                                            overflow: 'hidden',
-                                            boxShadow: '0 4px 16px rgba(0,0,0,0.1)',
-                                            transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-                                            '&:hover': {
-                                                transform: 'translateY(-8px)',
-                                                boxShadow: `0 12px 40px ${story.color}30`,
-                                                '& .story-photo': {
-                                                    transform: 'scale(1.1)',
-                                                },
-                                            },
-                                        }, children: [_jsxs(Box, { sx: {
-                                                    position: 'relative',
-                                                    height: { xs: 240, md: 280 },
-                                                    overflow: 'hidden',
-                                                }, children: [_jsx(Box, { component: "img", className: "story-photo", src: story.photo, alt: story.title, sx: {
-                                                            width: '100%',
-                                                            height: '100%',
-                                                            objectFit: 'cover',
-                                                            filter: 'brightness(0.9) saturate(1.1)',
-                                                            transition: 'transform 0.6s cubic-bezier(0.4, 0, 0.2, 1)',
-                                                        } }), _jsx(Box, { sx: {
-                                                            position: 'absolute',
-                                                            inset: 0,
-                                                            background: `linear-gradient(180deg, ${story.color}80 0%, ${story.color}40 50%, transparent 100%)`,
-                                                        } }), _jsxs(Box, { sx: { position: 'absolute', top: 16, left: 16, display: 'flex', alignItems: 'center', gap: 1.5 }, children: [_jsx(Box, { sx: {
-                                                                    width: 48,
-                                                                    height: 48,
-                                                                    borderRadius: 2,
-                                                                    backgroundColor: 'rgba(255, 255, 255, 0.2)',
-                                                                    backdropFilter: 'blur(10px)',
-                                                                    display: 'flex',
-                                                                    alignItems: 'center',
-                                                                    justifyContent: 'center',
-                                                                    color: 'white',
-                                                                }, children: story.icon }), _jsx(Chip, { label: story.highlight, size: "small", sx: {
-                                                                    backgroundColor: story.color,
-                                                                    color: 'white',
-                                                                    fontWeight: 700,
-                                                                    fontSize: '0.75rem',
-                                                                    boxShadow: '0 4px 12px rgba(0,0,0,0.3)',
-                                                                } })] }), _jsxs(Box, { sx: {
-                                                            position: 'absolute',
-                                                            bottom: 16,
-                                                            right: 16,
-                                                            display: 'flex',
-                                                            alignItems: 'center',
-                                                            gap: 1,
-                                                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
-                                                            backdropFilter: 'blur(10px)',
-                                                            px: 2,
-                                                            py: 1,
-                                                            borderRadius: 3,
-                                                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                                                        }, children: [_jsx(Box, { sx: { color: story.color }, children: story.statsIcon }), _jsx(Typography, { variant: "caption", sx: { fontWeight: 700, color: story.color, fontSize: '0.8rem' }, children: story.stats })] }), _jsx(Typography, { variant: "h5", sx: {
-                                                            position: 'absolute',
-                                                            bottom: 16,
-                                                            left: 16,
-                                                            right: 120,
-                                                            color: 'white',
-                                                            fontWeight: 800,
-                                                            textShadow: '0 2px 8px rgba(0, 0, 0, 0.5)',
-                                                            lineHeight: 1.2,
-                                                        }, children: story.title })] }), _jsxs(Box, { sx: {
+                                    flexDirection: 'column',
+                                    transition: 'box-shadow 0.2s, border-color 0.2s',
+                                    '&:hover': { boxShadow: 2, borderColor: 'primary.main' },
+                                }, children: [_jsx(Box, { component: "img", src: getImagePath(p.image), alt: "", sx: { width: '100%', height: 160, objectFit: 'cover' } }), _jsxs(CardContent, { sx: { flexGrow: 1, display: 'flex', flexDirection: 'column', p: 2 }, children: [_jsxs(Stack, { direction: "row", spacing: 0.5, flexWrap: "wrap", useFlexGap: true, sx: { mb: 1 }, children: [_jsx(Chip, { size: "small", label: categoryLabel(p.category), color: "primary", variant: "outlined" }), _jsx(Chip, { size: "small", label: p.status, variant: "outlined" })] }), _jsx(Typography, { variant: "subtitle1", fontWeight: 700, gutterBottom: true, children: p.title }), _jsxs(Typography, { variant: "caption", color: "text.secondary", display: "block", sx: { mb: 1 }, children: [p.period, " \u00B7 ", p.focus] }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: {
                                                     flexGrow: 1,
-                                                    backgroundColor: story.color,
-                                                    p: 3,
-                                                    display: 'flex',
-                                                    flexDirection: 'column',
-                                                }, children: [_jsx(Typography, { variant: "body1", sx: { color: 'white', mb: 3, lineHeight: 1.7 }, children: story.description }), _jsx(Box, { sx: {
-                                                            backgroundColor: 'rgba(255, 255, 255, 0.15)',
-                                                            backdropFilter: 'blur(10px)',
-                                                            p: 2,
-                                                            borderRadius: 2,
-                                                            mb: 3,
-                                                            borderLeft: '3px solid white',
-                                                        }, children: _jsxs(Box, { sx: { display: 'flex', alignItems: 'flex-start', gap: 1 }, children: [_jsx(FormatQuoteIcon, { sx: { color: 'white', fontSize: 24, opacity: 0.8, mt: 0.5 } }), _jsxs(Typography, { variant: "body2", sx: {
-                                                                        color: 'white',
-                                                                        fontStyle: 'italic',
-                                                                        lineHeight: 1.6,
-                                                                        flex: 1,
-                                                                    }, children: ["\"", story.quote, "\""] })] }) }), _jsx(Button, { component: RouterLink, to: "/project-detail", variant: "contained", size: "medium", endIcon: _jsx(ArrowForwardIcon, {}), sx: {
-                                                            backgroundColor: 'white',
-                                                            color: story.color,
-                                                            fontWeight: 700,
-                                                            '&:hover': {
-                                                                backgroundColor: 'rgba(255, 255, 255, 0.9)',
-                                                                transform: 'translateX(4px)',
-                                                                '& .MuiButton-endIcon': {
-                                                                    transform: 'translateX(4px)',
-                                                                },
-                                                            },
-                                                            '& .MuiButton-endIcon': {
-                                                                transition: 'transform 0.3s ease',
-                                                            },
-                                                            transition: 'all 0.3s ease',
-                                                            boxShadow: '0 4px 12px rgba(0,0,0,0.2)',
-                                                        }, children: "View Project Details" })] })] }) }, story.title))) })] })] })] }));
+                                                    display: '-webkit-box',
+                                                    WebkitLineClamp: 3,
+                                                    WebkitBoxOrient: 'vertical',
+                                                    overflow: 'hidden',
+                                                    lineHeight: 1.55,
+                                                    mb: 2,
+                                                }, children: p.summary }), _jsx(Button, { component: RouterLink, to: "/project-detail", size: "small", variant: "outlined", endIcon: _jsx(ArrowForwardIcon, {}), sx: { alignSelf: 'flex-start' }, children: "Detail" })] })] }) }, p.id))) }), filtered.length === 0 && (_jsx(Typography, { color: "text.secondary", sx: { py: 4 }, children: "No projects in this filter." })), canLoadMore && (_jsx(Box, { sx: { textAlign: 'center', mt: 3 }, children: _jsx(Button, { variant: "outlined", onClick: () => setVisibleCount((n) => Math.min(n + STEP, filtered.length)), children: "Show more" }) }))] }), _jsx(Box, { sx: { bgcolor: 'action.hover', py: { xs: 5, md: 6 } }, children: _jsxs(Container, { maxWidth: "lg", children: [_jsx(Typography, { variant: "h2", sx: { fontSize: { xs: '1.35rem', md: '1.5rem' }, fontWeight: 700, mb: 3 }, children: "Featured success stories" }), _jsx(Grid, { container: true, spacing: 2, children: featuredStories.map((s) => (_jsx(Grid, { size: { xs: 12, md: 6 }, children: _jsx(Card, { variant: "outlined", sx: { borderRadius: 2, height: '100%', overflow: 'hidden' }, children: _jsxs(Grid, { container: true, children: [_jsx(Grid, { size: { xs: 12, sm: 5 }, children: _jsx(Box, { component: "img", src: getImagePath(s.image), alt: "", sx: { width: '100%', height: { xs: 200, sm: '100%' }, minHeight: 200, objectFit: 'cover' } }) }), _jsx(Grid, { size: { xs: 12, sm: 7 }, children: _jsxs(CardContent, { sx: { py: 2.5 }, children: [_jsx(Chip, { size: "small", label: s.tag, sx: { mb: 1 } }), _jsx(Typography, { variant: "h6", fontWeight: 700, gutterBottom: true, children: s.title }), _jsx(Typography, { variant: "body2", color: "text.secondary", sx: { lineHeight: 1.7 }, children: s.body })] }) })] }) }) }, s.title))) })] }) }), _jsx(Container, { maxWidth: "sm", sx: { py: { xs: 6, md: 8 } }, children: _jsxs(Stack, { spacing: 2, alignItems: "center", textAlign: "center", children: [_jsx(Typography, { variant: "h6", fontWeight: 800, children: "Want to start a project with us?" }), _jsx(Typography, { variant: "body2", color: "text.secondary", children: "Share your idea or funding window \u2014 we\u2019ll see how it fits Erasmus+ or local cooperation." }), _jsx(Button, { component: RouterLink, to: "/contact", variant: "contained", size: "large", endIcon: _jsx(ArrowForwardIcon, {}), children: "Get in touch" })] }) })] }));
 }
