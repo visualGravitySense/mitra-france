@@ -115,20 +115,18 @@ export default function Navigation() {
       label: 'About Us',
       items: [
         { label: 'About Us', path: '/about' },
+        { label: 'Team & Volunteers', path: '/team' },
         { label: 'Partners', path: '/partners' },
       ],
     },
     {
-      label: 'Education',
-      items: [
-        { label: 'Focus Areas', path: '/focus-areas' },
-        { label: 'Programs & Workshops', path: '/programs-workshops' },
-      ],
+      label: 'FOCUS AREAS',
+      path: '/focus-areas',
     },
     {
       label: 'Activities',
       items: [
-        { label: 'Events', path: '/events' },
+        { label: 'Projects & Experience', path: '/projects' },
         { label: 'Gallery', path: '/gallery' },
       ],
     },

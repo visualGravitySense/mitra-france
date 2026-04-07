@@ -9,14 +9,15 @@ import About from './pages/About.tsx';
 import FocusAreas from './pages/FocusAreas.tsx';
 // import Projects from './pages/Projects.tsx'; // restore route below when catalogue is public again
 // import Courses from './pages/Courses.tsx'; // restore `<Route path="/courses" element={<Courses />} />` when ready
-import ProgramsWorkshops from './pages/ProgramsWorkshops.tsx';
+// import ProgramsWorkshops from './pages/ProgramsWorkshops.tsx'; // restore `<Route path="/programs-workshops" element={<ProgramsWorkshops />} />` when public again
+import ProjectsExperience from './pages/ProjectsExperience.tsx';
 import Team from './pages/Team.tsx';
 import Partners from './pages/Partners.tsx';
-import Events from './pages/Events.tsx';
+// import Events from './pages/Events.tsx'; // restore `<Route path="/events" element={<Events />} />` when the page is public again
 import Gallery from './pages/Gallery.tsx';
 import Contact from './pages/Contact.tsx';
 import UXPrinciples from './pages/UXPrinciples.tsx';
-import InterculturalEducation from './pages/InterculturalEducation.tsx';
+// import InterculturalEducation from './pages/InterculturalEducation.tsx'; // restore `<Route path="/intercultural-education" element={<InterculturalEducation />} />` when public again
 import MediaArtsEducation from './pages/MediaArtsEducation.tsx';
 import NotFound from './pages/NotFound.tsx';
 
@@ -34,18 +35,20 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/focus-areas" element={<FocusAreas />} />
-          {/* Temporarily hide project catalogue — old URLs redirect */}
-          <Route path="/projects" element={<Navigate to="/programs-workshops" replace />} />
-          <Route path="/project-detail" element={<Navigate to="/programs-workshops" replace />} />
-          <Route path="/courses" element={<Navigate to="/programs-workshops" replace />} />
-          <Route path="/programs-workshops" element={<ProgramsWorkshops />} />
-          <Route path="/team" element={<Navigate to="/about" replace />} />
+          <Route path="/projects" element={<ProjectsExperience />} />
+          <Route path="/project-detail" element={<Navigate to="/projects" replace />} />
+          <Route path="/courses" element={<Navigate to="/focus-areas" replace />} />
+          <Route path="/programs-workshops" element={<Navigate to="/focus-areas" replace />} />
+          <Route path="/team" element={<Team />} />
           <Route path="/partners" element={<Partners />} />
-          <Route path="/events" element={<Events />} />
+          <Route path="/events" element={<Navigate to="/focus-areas" replace />} />
           <Route path="/gallery" element={<Gallery />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/ux-principles" element={<UXPrinciples />} />
-          <Route path="/intercultural-education" element={<InterculturalEducation />} />
+          <Route
+            path="/intercultural-education"
+            element={<Navigate to={{ pathname: '/focus-areas', hash: '#intercultural' }} replace />}
+          />
           <Route path="/media-arts-education" element={<MediaArtsEducation />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

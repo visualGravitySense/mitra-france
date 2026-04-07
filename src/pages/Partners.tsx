@@ -16,7 +16,10 @@ import HandshakeIcon from '@mui/icons-material/Handshake';
 import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import PublicIcon from '@mui/icons-material/Public';
 import { Link as RouterLink } from 'react-router-dom';
-import { getImagePath } from '../utils/imagePath';
+import type { LucideIcon } from 'lucide-react';
+import { Landmark, Library, MapPin, School } from 'lucide-react';
+import { IllustrationCardMedia } from '../components/IllustrationCardMedia.tsx';
+import { topicIllustrations } from '../utils/topicIllustrations';
 
 type CollabCategory = 'all' | 'europe' | 'local' | 'education' | 'culture';
 
@@ -26,7 +29,7 @@ interface CollaborationCard {
   summary: string;
   category: Exclude<CollabCategory, 'all'>;
   meta: string;
-  image: string;
+  illustration: string;
   link: string;
 }
 
@@ -45,6 +48,82 @@ const erasmusPartnerCountries = [
   'Spain',
 ];
 
+const localNicePartners: { title: string; detail?: string }[] = [
+  { title: 'Le 109', detail: 'Pôle de cultures contemporaines' },
+  { title: 'Le HUBLOT' },
+  { title: 'Local Theater & Art Gallery partners' },
+  { title: 'Espace Associations' },
+  { title: 'Community activity for children and parents in Las Planas' },
+];
+
+const institutionalAcademicPartners: { name: string; formerName?: string }[] = [
+  {
+    name: 'Université Côte d’Azur',
+    formerName: 'Formerly Université de Nice Sophia Antipolis',
+  },
+  { name: 'Lycée Pasteur' },
+  { name: 'SCREB' },
+];
+
+const culturalVenuesExhibitions: {
+  name: string;
+  description: string;
+  icon: 'library' | 'landmark';
+}[] = [
+  {
+    name: 'La Médiathèque Louis Nucéra',
+    description:
+      'The largest library in Nice — a flagship public venue that has hosted exhibitions highlighting volunteer work and civic engagement.',
+    icon: 'library',
+  },
+  {
+    name: 'Bibliothèque l’Ariane Léonard de Vinci',
+    description:
+      'Focus on volunteer action in Nice and across Europe, with programming that connects local readers and communities to European solidarity.',
+    icon: 'library',
+  },
+  {
+    name: 'Villa Ephrussi de Rothschild',
+    description: 'A prestigious cultural site on the Côte d’Azur and a landmark setting for heritage, gardens, and the arts.',
+    icon: 'landmark',
+  },
+];
+
+const partnerNetworkCardSx = {
+  height: '100%',
+  p: 2,
+  borderRadius: 1.5,
+  border: '1px solid',
+  borderColor: 'divider',
+  bgcolor: '#fff',
+  transition: 'border-color 0.2s ease, box-shadow 0.2s ease',
+  '&:hover': {
+    borderColor: 'rgba(0, 35, 149, 0.22)',
+    boxShadow: '0 6px 20px rgba(0, 35, 149, 0.08)',
+  },
+} as const;
+
+function NetworkIconTile({ icon: Icon }: { icon: LucideIcon }) {
+  return (
+    <Box
+      sx={{
+        flexShrink: 0,
+        width: 44,
+        height: 44,
+        borderRadius: 1.25,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'rgba(0, 35, 149, 0.07)',
+        color: 'primary.main',
+      }}
+      aria-hidden
+    >
+      <Icon size={22} strokeWidth={1.75} />
+    </Box>
+  );
+}
+
 const collaborations: CollaborationCard[] = [
   {
     id: 'obj-1',
@@ -53,8 +132,8 @@ const collaborations: CollaborationCard[] = [
       'Non-formal education that fosters intercultural understanding and social inclusion — addressing cultural, ethnic, linguistic, and social diversity in learning settings.',
     category: 'education',
     meta: 'Core objective',
-    image: '/photos/571419367_1143811194593552_6930038688628840775_n.jpg',
-    link: '/programs-workshops',
+    illustration: topicIllustrations.interculturalInclusion,
+    link: '/focus-areas',
   },
   {
     id: 'obj-2',
@@ -63,8 +142,8 @@ const collaborations: CollaborationCard[] = [
       'Media literacy, arts education, and creative use of digital tools — including responsible IT practice and AI awareness in non-formal learning.',
     category: 'culture',
     meta: 'Core objective',
-    image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-    link: '/programs-workshops',
+    illustration: topicIllustrations.mediaArts,
+    link: '/focus-areas',
   },
   {
     id: 'obj-3',
@@ -73,7 +152,7 @@ const collaborations: CollaborationCard[] = [
       'Digital inclusion with a focus on youth, people aged 60 and over, and unemployed adults — practical skills and confidence for everyday and civic life.',
     category: 'education',
     meta: 'Core objective',
-    image: '/photos/583489432_1157911303183541_1292926580526900497_n.jpg',
+    illustration: topicIllustrations.digitalInclusion,
     link: '/contact',
   },
   {
@@ -83,7 +162,7 @@ const collaborations: CollaborationCard[] = [
       'Research, teaching, and non-formal education initiatives that connect university communities with civil-society projects in the PACA region.',
     category: 'local',
     meta: 'Nice, France · Local partner',
-    image: '/photos/583943471_1157911509850187_2575083228465038744_n.jpg',
+    illustration: topicIllustrations.organization,
     link: '/contact',
   },
   {
@@ -93,7 +172,7 @@ const collaborations: CollaborationCard[] = [
       'Contemporary culture and creative programmes that support youth, artists, and audiences through workshops and cultural mediation.',
     category: 'local',
     meta: 'Nice, France · Local partner',
-    image: '/photos/583741041_1157902773184394_5619801435922057517_n.jpg',
+    illustration: topicIllustrations.galleryCulture,
     link: '/contact',
   },
   {
@@ -103,7 +182,7 @@ const collaborations: CollaborationCard[] = [
       'Schools and cultural venues in the network: cooperation on media education, heritage, and inclusive activities for learners and educators.',
     category: 'local',
     meta: 'Nice area · Local partners',
-    image: '/photos/572851437_1143811217926883_7725194936764095335_n.jpg',
+    illustration: topicIllustrations.programs,
     link: '/contact',
   },
   {
@@ -113,7 +192,7 @@ const collaborations: CollaborationCard[] = [
       'Public learning space for digital and media literacy, reading, and community-led cultural events open to diverse publics.',
     category: 'local',
     meta: 'Nice, France · Local partner',
-    image: '/photos/572890197_1142845724690099_2859850866106109617_n.jpg',
+    illustration: topicIllustrations.learnMore,
     link: '/contact',
   },
   {
@@ -123,7 +202,7 @@ const collaborations: CollaborationCard[] = [
       'Hub for associations: coordination, visibility, and joint actions that strengthen social inclusion and citizen participation.',
     category: 'local',
     meta: 'Nice, France · Local partner',
-    image: '/photos/583924019_1157903166517688_8756873269993443102_n.jpg',
+    illustration: topicIllustrations.volunteer,
     link: '/contact',
   },
   {
@@ -134,8 +213,8 @@ const collaborations: CollaborationCard[] = [
     )}.`,
     category: 'europe',
     meta: 'Erasmus+ · European partnerships',
-    image: '/photos/584326681_1157904053184266_2071216266526493174_n.jpg',
-    link: '/programs-workshops',
+    illustration: topicIllustrations.countries,
+    link: '/focus-areas',
   },
 ];
 
@@ -193,14 +272,253 @@ export default function Partners() {
               <Chip label={`PIC ${ORG_PIC}`} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
               <Chip label={`OID ${ORG_OID}`} size="small" variant="outlined" sx={{ fontWeight: 600 }} />
             </Stack>
-            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ pt: 1 }}>
-              <Button component={RouterLink} to="/contact" variant="contained" size="large" endIcon={<ArrowForwardIcon />}>
+            <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} sx={{ pt: 1 }} alignItems="center" justifyContent="center">
+              <Button
+                component={RouterLink}
+                to="/contact"
+                variant="contained"
+                size="large"
+                endIcon={<ArrowForwardIcon />}
+                sx={{
+                  fontWeight: 800,
+                  py: 1.35,
+                  px: 3,
+                  borderRadius: 2,
+                  boxShadow: '0 4px 14px rgba(0, 35, 149, 0.28)',
+                  '&:hover': { boxShadow: '0 6px 20px rgba(0, 35, 149, 0.34)' },
+                }}
+              >
                 Propose a partnership
               </Button>
-              <Button component={RouterLink} to="/programs-workshops" variant="outlined" size="large">
-                Programs & workshops
+              <Button component={RouterLink} to="/focus-areas" variant="outlined" size="large" sx={{ fontWeight: 600 }}>
+                Focus areas
               </Button>
             </Stack>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Local partnerships — minimal block aligned with International scope */}
+      <Box component="section" aria-labelledby="local-collab-heading" sx={{ py: { xs: 5, md: 7 } }}>
+        <Container>
+          <Stack direction="row" spacing={1.25} alignItems="center" sx={{ mb: 2 }}>
+            <Box
+              sx={{
+                color: 'primary.main',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}
+              aria-hidden
+            >
+              <MapPin size={26} strokeWidth={1.75} />
+            </Box>
+            <Typography
+              id="local-collab-heading"
+              variant="h2"
+              sx={{ fontSize: { xs: '1.4rem', md: '1.65rem' }, fontWeight: 700 }}
+            >
+              Local collaborations in{" "}
+              <Box component="span" sx={{ whiteSpace: 'nowrap' }}>
+                Nice
+              </Box>
+            </Typography>
+          </Stack>
+          <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 720, lineHeight: 1.75 }}>
+            MITRA FRANCE actively collaborates with local cultural and social institutions to foster community engagement and
+            inclusion.
+          </Typography>
+
+          <Card variant="outlined" sx={{ borderRadius: 2, overflow: 'hidden' }}>
+            <CardContent sx={{ p: { xs: 2, md: 3 } }}>
+              <Grid container spacing={2}>
+                {localNicePartners.map((partner) => (
+                  <Grid key={partner.title} size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Stack
+                      direction="row"
+                      spacing={1.5}
+                      alignItems="flex-start"
+                      sx={{
+                        height: '100%',
+                        p: 1.75,
+                        borderRadius: 1.5,
+                        border: '1px solid',
+                        borderColor: 'divider',
+                        bgcolor: 'background.paper',
+                        transition: 'border-color 0.2s, box-shadow 0.2s',
+                        '&:hover': {
+                          borderColor: 'rgba(0, 35, 149, 0.25)',
+                          boxShadow: '0 4px 16px rgba(0, 35, 149, 0.07)',
+                        },
+                      }}
+                    >
+                      <Box
+                        sx={{
+                          flexShrink: 0,
+                          width: 40,
+                          height: 40,
+                          borderRadius: 1,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          bgcolor: 'rgba(0, 35, 149, 0.06)',
+                          color: 'primary.main',
+                        }}
+                        aria-hidden
+                      >
+                        <MapPin size={20} strokeWidth={1.75} />
+                      </Box>
+                      <Box sx={{ minWidth: 0 }}>
+                        <Stack direction="row" alignItems="center" flexWrap="wrap" gap={0.75} sx={{ mb: partner.detail ? 0.5 : 0 }}>
+                          <Typography variant="subtitle2" fontWeight={700} sx={{ lineHeight: 1.35 }}>
+                            {partner.title}
+                          </Typography>
+                          <Chip label="Nice" size="small" variant="outlined" sx={{ height: 22, fontWeight: 600, fontSize: '0.7rem' }} />
+                        </Stack>
+                        {partner.detail ? (
+                          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.55 }}>
+                            {partner.detail}
+                          </Typography>
+                        ) : null}
+                      </Box>
+                    </Stack>
+                  </Grid>
+                ))}
+              </Grid>
+            </CardContent>
+          </Card>
+
+          <Stack direction="row" justifyContent="center" sx={{ mt: 3 }}>
+            <Button
+              component={RouterLink}
+              to="/contact"
+              variant="contained"
+              color="primary"
+              size="large"
+              endIcon={<ArrowForwardIcon />}
+              sx={{ fontWeight: 800, borderRadius: 2, px: 3, py: 1.15, textTransform: 'none' }}
+            >
+              Propose a partnership
+            </Button>
+          </Stack>
+        </Container>
+      </Box>
+
+      {/* Institutional & cultural network — academic authority & flagship venues */}
+      <Box
+        component="section"
+        aria-labelledby="institutional-cultural-network-heading"
+        sx={{
+          py: { xs: 6, md: 8 },
+          bgcolor: 'rgba(0, 35, 149, 0.03)',
+          borderTop: '1px solid',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+        }}
+      >
+        <Container maxWidth="lg">
+          <Typography
+            id="institutional-cultural-network-heading"
+            variant="h2"
+            sx={{
+              fontSize: { xs: '1.5rem', md: '1.85rem' },
+              fontWeight: 800,
+              letterSpacing: '-0.02em',
+              mb: 1.5,
+            }}
+          >
+            Institutional &amp; cultural network
+          </Typography>
+          <Typography color="text.secondary" sx={{ mb: 4, maxWidth: 800, lineHeight: 1.75, fontSize: { xs: '1rem', md: '1.05rem' } }}>
+            These <strong>universities, schools, libraries, and landmark sites</strong> anchor MITRA FRANCE’s legitimacy in{' '}
+            <strong>Nice</strong>: they signal strong <strong>local academic and institutional support</strong> for our NGO’s
+            educational mission, European cooperation, and community outreach.
+          </Typography>
+
+          <Stack spacing={4}>
+            <Box component="div">
+              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 2 }}>
+                <NetworkIconTile icon={School} />
+                <Typography component="h3" variant="h3" sx={{ fontSize: { xs: '1.15rem', md: '1.3rem' }, fontWeight: 800 }}>
+                  Institutional &amp; academic partners
+                </Typography>
+              </Stack>
+              <Grid container spacing={2}>
+                {institutionalAcademicPartners.map((org) => (
+                  <Grid key={org.name} size={{ xs: 12, sm: 6, md: 4 }}>
+                    <Stack direction="row" spacing={1.75} alignItems="flex-start" sx={partnerNetworkCardSx}>
+                      <NetworkIconTile icon={School} />
+                      <Box sx={{ minWidth: 0 }}>
+                        <Stack direction="row" alignItems="center" flexWrap="wrap" gap={0.75} sx={{ mb: org.formerName ? 0.75 : 0 }}>
+                          <Typography
+                            component="span"
+                            sx={{ fontWeight: 800, fontSize: '1.0625rem', lineHeight: 1.35, color: 'text.primary' }}
+                          >
+                            {org.name}
+                          </Typography>
+                          <Chip label="Institutional" size="small" sx={{ height: 22, fontWeight: 700, fontSize: '0.68rem' }} />
+                        </Stack>
+                        {org.formerName ? (
+                          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.6 }}>
+                            {org.formerName}
+                          </Typography>
+                        ) : null}
+                      </Box>
+                    </Stack>
+                  </Grid>
+                ))}
+              </Grid>
+            </Box>
+
+            <Box component="div">
+              <Stack direction="row" spacing={1.5} alignItems="center" sx={{ mb: 1 }}>
+                <NetworkIconTile icon={Library} />
+                <Typography component="h3" variant="h3" sx={{ fontSize: { xs: '1.15rem', md: '1.3rem' }, fontWeight: 800 }}>
+                  Cultural venues &amp; exhibitions
+                </Typography>
+              </Stack>
+              <Typography variant="body2" color="text.secondary" sx={{ mb: 2.5, maxWidth: 720, lineHeight: 1.7 }}>
+                For our partner <strong>libraries</strong>, programming often centres on{' '}
+                <strong>hosting exhibitions and promoting volunteer engagement</strong> in the local community — and on linking
+                Nice to wider European voluntary and civic networks.
+              </Typography>
+              <Grid container spacing={2}>
+                {culturalVenuesExhibitions.map((venue) => {
+                  const Icon = venue.icon === 'library' ? Library : Landmark;
+                  return (
+                    <Grid key={venue.name} size={{ xs: 12, md: 4 }}>
+                      <Stack direction="row" spacing={1.75} alignItems="flex-start" sx={partnerNetworkCardSx}>
+                        <NetworkIconTile icon={Icon} />
+                        <Box sx={{ minWidth: 0 }}>
+                          <Stack direction="row" alignItems="center" flexWrap="wrap" gap={0.75} sx={{ mb: 1 }}>
+                            <Typography
+                              component="span"
+                              sx={{ fontWeight: 800, fontSize: '1.0625rem', lineHeight: 1.35, color: 'text.primary' }}
+                            >
+                              {venue.name}
+                            </Typography>
+                            <Chip
+                              label={venue.icon === 'library' ? 'Library' : 'Heritage'}
+                              size="small"
+                              variant="outlined"
+                              sx={{ height: 22, fontWeight: 700, fontSize: '0.68rem' }}
+                            />
+                          </Stack>
+                          <Typography variant="body2" color="text.secondary" sx={{ lineHeight: 1.68 }}>
+                            {venue.description}
+                          </Typography>
+                          {venue.icon === 'library' ? (
+                            <Typography variant="caption" color="text.secondary" sx={{ mt: 1.25, display: 'block', lineHeight: 1.5 }}>
+                              Hosting exhibitions and promoting volunteer engagement in the local community.
+                            </Typography>
+                          ) : null}
+                        </Box>
+                      </Stack>
+                    </Grid>
+                  );
+                })}
+              </Grid>
+            </Box>
           </Stack>
         </Container>
       </Box>
@@ -242,17 +560,15 @@ export default function Partners() {
                 sx={{
                   height: '100%',
                   borderRadius: 2,
+                  display: 'flex',
+                  flexDirection: 'column',
+                  overflow: 'hidden',
                   transition: 'box-shadow 0.2s, border-color 0.2s',
                   '&:hover': { boxShadow: 2, borderColor: 'primary.main' },
                 }}
               >
-                <Box
-                  component="img"
-                  src={getImagePath(item.image)}
-                  alt=""
-                  sx={{ width: '100%', height: 160, objectFit: 'cover' }}
-                />
-                <CardContent sx={{ p: 2 }}>
+                <IllustrationCardMedia src={item.illustration} alt="" />
+                <CardContent sx={{ p: 2, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                   <Chip
                     size="small"
                     label={categoryFilterLabels.find((c) => c.value === item.category)?.label ?? item.category}
@@ -269,7 +585,7 @@ export default function Partners() {
                     {item.meta}
                   </Typography>
                   <Button component={RouterLink} to={item.link} size="small" endIcon={<ArrowForwardIcon />}>
-                    {item.link === '/programs-workshops' ? 'Programmes' : 'Contact'}
+                    {item.link === '/focus-areas' ? 'Focus areas' : 'Contact'}
                   </Button>
                 </CardContent>
               </Card>
@@ -302,11 +618,8 @@ export default function Partners() {
           </Stack>
           <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 720, lineHeight: 1.75 }}>
             Within <strong>Erasmus+</strong>, we work with partners in higher education, youth, adult learning, and
-            non-formal settings. Our cooperation spans{' '}
-            <strong>
-              Poland, Lithuania, Latvia, Estonia, Bulgaria, Romania, Turkey, Italy, and Spain
-            </strong>
-            — alongside our French Riviera home base in Nice.
+            non-formal settings — alongside our headquarters in <strong>Nice, France</strong>. Below are the countries where we
+            cooperate through European projects and mobilities.
           </Typography>
 
           <Card variant="outlined" sx={{ borderRadius: 2, overflow: 'hidden' }}>
@@ -322,17 +635,20 @@ export default function Partners() {
                   </Stack>
                 </Grid>
                 <Grid size={{ xs: 12, md: 8 }}>
-                  <Typography variant="subtitle2" color="text.secondary" sx={{ mb: 1.5 }}>
-                    Erasmus+ partner countries (examples in active projects)
+                  <Typography variant="subtitle2" fontWeight={700} sx={{ mb: 0.75 }}>
+                    Partner countries — Erasmus+
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" sx={{ mb: 1.5, lineHeight: 1.6 }}>
+                    Poland, Lithuania, Latvia, Estonia, Bulgaria, Romania, Turkey, Italy, and Spain.
                   </Typography>
                   <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 1 }}>
                     {erasmusPartnerCountries.map((country) => (
-                      <Chip key={country} label={country} variant="outlined" size="small" sx={{ borderRadius: 1 }} />
+                      <Chip key={country} label={country} variant="outlined" size="small" sx={{ borderRadius: 1, fontWeight: 600 }} />
                     ))}
                   </Box>
-                  <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block' }}>
-                    Consortium composition changes with each call; write to us for the list tied to a specific proposal or
-                    mobility.
+                  <Typography variant="caption" color="text.secondary" sx={{ mt: 2, display: 'block', lineHeight: 1.5 }}>
+                    Exact consortium partners depend on each project or mobility; contact us for details tied to a specific
+                    initiative.
                   </Typography>
                 </Grid>
               </Grid>
@@ -358,9 +674,9 @@ export default function Partners() {
               variant="contained"
               size="large"
               endIcon={<ArrowForwardIcon />}
-              sx={{ mt: 1, px: 4, fontWeight: 700, borderRadius: 2 }}
+              sx={{ mt: 1, px: 4, py: 1.15, fontWeight: 800, borderRadius: 2, textTransform: 'none' }}
             >
-              Go to contact
+              Propose a partnership
             </Button>
           </Stack>
         </Container>

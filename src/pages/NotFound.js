@@ -205,8 +205,8 @@ export default function NotFound() {
                                 }, children: "These popular pages might have what you're looking for. Click any link to explore instantly." }), _jsx(Stack, { direction: { xs: 'column', sm: 'row' }, spacing: 2, sx: { justifyContent: 'center', flexWrap: 'wrap' }, children: [
                                     { label: 'About Us', path: '/about', icon: '👥' },
                                     { label: 'Focus Areas', path: '/focus-areas', icon: '🎯' },
-                                    { label: 'Courses', path: '/courses', icon: '📚' },
-                                    { label: 'Projects', path: '/projects', icon: '🚀' },
+                                    { label: 'Programs & workshops', path: '/programs-workshops', icon: '📚' },
+                                    { label: 'Programs & workshops', path: '/programs-workshops', icon: '🚀' },
                                     { label: 'Events', path: '/events', icon: '📅' },
                                     { label: 'Contact', path: '/contact', icon: '✉️' },
                                 ].map((link) => (_jsxs(Button, { component: RouterLink, to: link.path, variant: "contained", size: "medium", sx: {

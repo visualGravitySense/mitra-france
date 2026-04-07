@@ -13,7 +13,8 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import { Link as RouterLink } from 'react-router-dom';
 import ParticleCTAButton from '../components/ParticleCTAButton';
-import { getImagePath } from '../utils/imagePath';
+import { IllustrationCardMedia, IllustrationHeroTile } from '../components/IllustrationCardMedia.tsx';
+import { topicIllustrations } from '../utils/topicIllustrations';
 import { getMitraLogoSrc, mitraLogoThemeFilter } from '../utils/mitraLogo';
 import SchoolIcon from '@mui/icons-material/School';
 import PaletteIcon from '@mui/icons-material/Palette';
@@ -32,7 +33,7 @@ const focusAreas = [
     icon: <SchoolIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
     title: 'Intercultural Education',
     description: 'Inclusive education, cultural diversity, and social integration.',
-    path: '/intercultural-education',
+    path: '/focus-areas#intercultural',
   },
   {
     icon: <PaletteIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
@@ -56,7 +57,7 @@ const focusAreas = [
     icon: <MenuBookIcon sx={{ fontSize: 40, color: 'primary.main' }} />,
     title: 'Adult Education',
     description: 'Lifelong learning for personal and professional growth.',
-    path: '/programs-workshops',
+    path: '/focus-areas',
   },
 ];
 
@@ -82,43 +83,60 @@ const featuredActivities: HomeActivityItem[] = [
     title: 'Media literacy in adult education',
     description: 'Innovative teaching methods for adult learners across Europe.',
     meta: 'Erasmus+ KA2 · 2016–2018',
-    link: '/programs-workshops',
+    link: '/focus-areas',
+    illustration: topicIllustrations.programs,
   },
   {
     kind: 'project',
     title: 'Digital Senior Citizen',
     description: 'Essential digital skills for everyday life for older adults.',
     meta: 'Erasmus+ KA2 · 2018–2020',
-    link: '/programs-workshops',
+    link: '/focus-areas',
+    illustration: topicIllustrations.senior,
   },
   {
     kind: 'project',
     title: 'Cultural Heritage for Youth',
     description: 'Heritage engagement through media, arts, and community.',
     meta: 'Erasmus+ KA2 · 2020–2022',
-    link: '/programs-workshops',
+    link: '/focus-areas',
+    illustration: topicIllustrations.youth,
   },
   {
     kind: 'event',
     title: 'Digital Skills for Seniors',
     description: 'Workshop: smartphones, safe browsing, and useful apps.',
     meta: 'Nice · Feb 15, 2024',
-    link: '/events',
+    link: '/focus-areas',
+    illustration: topicIllustrations.digitalInclusion,
   },
   {
     kind: 'event',
     title: 'Media Literacy Workshop',
     description: 'Critical thinking and reliable sources in the media landscape.',
     meta: 'Nice · Feb 20, 2024',
-    link: '/events',
+    link: '/focus-areas',
+    illustration: topicIllustrations.mediaArts,
   },
   {
     kind: 'event',
     title: 'Creative Writing for Youth',
     description: 'Storytelling and creative expression for young people.',
     meta: 'Nice · Jan 28, 2024',
-    link: '/events',
+    link: '/focus-areas',
+    illustration: topicIllustrations.youth,
   },
+];
+
+/** Set to `true` to show the floating “Erasmus+ & local partners” chip on the hero collage. */
+const SHOW_HERO_ERASMUS_BADGE = false;
+
+/** Hero 2×2 — local mitra collage assets (paths under /public/illustrations). */
+const heroIllustrationCollage: { src: string; translateY: number }[] = [
+  { src: '/illustrations/mitra-image-9.jpg', translateY: 6 },
+  { src: '/illustrations/mitra-image-10.jpg', translateY: -6 },
+  { src: '/illustrations/mitra-image-2.png', translateY: 6 },
+  { src: '/illustrations/mitra-image-5.png', translateY: -6 },
 ];
 
 const partnerNames = [
@@ -250,53 +268,40 @@ export default function Home() {
             <Grid size={{ xs: 12, md: 6 }}>
               <Box sx={{ position: 'relative', display: 'flex', justifyContent: 'center' }}>
                 <Grid container spacing={2} sx={{ maxWidth: 520, position: 'relative', zIndex: 1 }}>
-                  {['/illustrations/mitra-image-5.png', '/illustrations/mitra-image-10.jpg', '/illustrations/mitra-image-6.png', '/illustrations/mitra-image-9.jpg'].map(
-                    (src, index) => (
-                      <Grid key={src} size={{ xs: 6 }}>
-                        <Box
-                          component="img"
-                          src={getImagePath(src)}
-                          alt=""
-                          loading="lazy"
-                          sx={{
-                            width: '100%',
-                            height: { xs: 130, sm: 150, md: 170 },
-                            objectFit: 'cover',
-                            borderRadius: 2,
-                            boxShadow: '0 8px 24px rgba(0, 35, 149, 0.2)',
-                            transform: index % 2 === 0 ? 'translateY(6px)' : 'translateY(-6px)',
-                          }}
-                        />
-                      </Grid>
-                    ),
-                  )}
+                  {heroIllustrationCollage.map(({ src, translateY }) => (
+                    <Grid key={src} size={{ xs: 6 }}>
+                      <IllustrationHeroTile src={src} alt="" translateY={translateY} />
+                    </Grid>
+                  ))}
                 </Grid>
-                <Box
-                  sx={{
-                    position: 'absolute',
-                    bottom: { xs: -8, md: 8 },
-                    right: { xs: 4, md: 16 },
-                    px: 2,
-                    py: 1.5,
-                    borderRadius: 2,
-                    bgcolor: 'background.paper',
-                    boxShadow: 3,
-                    display: 'flex',
-                    alignItems: 'center',
-                    gap: 1.25,
-                    zIndex: 2,
-                  }}
-                >
-                  <GroupIcon color="primary" />
-                  <Box>
-                    <Typography variant="subtitle2" fontWeight={700}>
-                      Erasmus+ & local partners
-                    </Typography>
-                    <Typography variant="caption" color="text.secondary">
-                      Projects, workshops, mobilities
-                    </Typography>
+                {SHOW_HERO_ERASMUS_BADGE ? (
+                  <Box
+                    sx={{
+                      position: 'absolute',
+                      bottom: { xs: -8, md: 8 },
+                      right: { xs: 4, md: 16 },
+                      px: 2,
+                      py: 1.5,
+                      borderRadius: 2,
+                      bgcolor: 'background.paper',
+                      boxShadow: 3,
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 1.25,
+                      zIndex: 2,
+                    }}
+                  >
+                    <GroupIcon color="primary" />
+                    <Box>
+                      <Typography variant="subtitle2" fontWeight={700}>
+                        Erasmus+ & local partners
+                      </Typography>
+                      <Typography variant="caption" color="text.secondary">
+                        Projects, workshops, mobilities
+                      </Typography>
+                    </Box>
                   </Box>
-                </Box>
+                ) : null}
               </Box>
             </Grid>
           </Grid>
@@ -305,32 +310,55 @@ export default function Home() {
 
       {/* Intercultural education & inclusion */}
       <Container sx={{ py: { xs: 6, md: 8 } }}>
-        <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700, mb: 2 }}>
+        <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700, mb: 3 }}>
           Intercultural Education & Inclusion
         </Typography>
-        <Box
-          sx={{
-            maxWidth: 800,
-            borderTop: '3px solid',
-            borderColor: 'error.main',
-            pt: 2,
-          }}
-        >
-          <Stack spacing={2}>
-            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-              MITRA FRANCE fosters intercultural understanding and responsiveness to social, ethnic, linguistic, and
-              cultural diversity through non-formal educational approaches.
-            </Typography>
-            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-              Its mission is to create awareness among individuals about their societal roles and to instill skills
-              enabling positive and constructive action.
-            </Typography>
-            <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
-              The organisation aims to develop innovative educational methods that address diversity and promote
-              inclusive education.
-            </Typography>
-          </Stack>
-        </Box>
+        <Grid container spacing={{ xs: 3, md: 4 }} alignItems="stretch">
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box
+              sx={{
+                maxWidth: 800,
+                borderTop: '3px solid',
+                borderColor: 'error.main',
+                pt: 2,
+                height: '100%',
+              }}
+            >
+              <Stack spacing={2}>
+                <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                  MITRA FRANCE fosters intercultural understanding and responsiveness to social, ethnic, linguistic, and
+                  cultural diversity through non-formal educational approaches.
+                </Typography>
+                <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                  Its mission is to create awareness among individuals about their societal roles and to instill skills
+                  enabling positive and constructive action.
+                </Typography>
+                <Typography color="text.secondary" sx={{ lineHeight: 1.8, fontSize: '1.05rem' }}>
+                  The organisation aims to develop innovative educational methods that address diversity and promote
+                  inclusive education.
+                </Typography>
+              </Stack>
+            </Box>
+          </Grid>
+          <Grid size={{ xs: 12, md: 6 }}>
+            <Box
+              sx={{
+                height: '100%',
+                borderRadius: 2,
+                overflow: 'hidden',
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
+            >
+              <IllustrationCardMedia
+                src="/team/mitra-fr.png"
+                alt="MITRA France participants and facilitators during an outdoor group activity on the French Riviera"
+                height={{ xs: 220, sm: 280 }}
+                edgeToEdge
+              />
+            </Box>
+          </Grid>
+        </Grid>
       </Container>
 
       {/* Focus areas + single stats row */}
@@ -441,8 +469,8 @@ export default function Home() {
           <Typography variant="h2" sx={{ fontSize: { xs: '1.75rem', md: '2rem' }, fontWeight: 700 }}>
             Our activities
           </Typography>
-          <Button component={RouterLink} to="/programs-workshops" size="small" endIcon={<ArrowForwardIcon />}>
-            Programs & workshops
+          <Button component={RouterLink} to="/focus-areas" size="small" endIcon={<ArrowForwardIcon />}>
+            Focus areas
           </Button>
         </Stack>
         <Typography color="text.secondary" sx={{ mb: 2, maxWidth: 640 }}>
@@ -464,8 +492,9 @@ export default function Home() {
             <Grid container spacing={2}>
               {filterActivities(tabIndex).map((item) => (
                 <Grid key={`${item.kind}-${item.title}`} size={{ xs: 12, sm: 6, md: 4 }}>
-                  <Card variant="outlined" sx={{ height: '100%', borderRadius: 2 }}>
-                    <CardContent sx={{ p: 2.5, height: '100%', display: 'flex', flexDirection: 'column' }}>
+                  <Card variant="outlined" sx={{ height: '100%', borderRadius: 2, overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+                    <IllustrationCardMedia src={item.illustration} alt="" />
+                    <CardContent sx={{ p: 2.5, flexGrow: 1, display: 'flex', flexDirection: 'column' }}>
                       <Chip
                         size="small"
                         label={item.kind === 'project' ? 'Project' : 'Event'}
@@ -482,7 +511,7 @@ export default function Home() {
                         {item.meta}
                       </Typography>
                       <Button component={RouterLink} to={item.link} size="small" endIcon={<ArrowForwardIcon />}>
-                        {item.kind === 'project' ? 'See programmes' : 'See events'}
+                        {item.kind === 'project' ? 'See focus areas' : 'See focus areas'}
                       </Button>
                     </CardContent>
                   </Card>

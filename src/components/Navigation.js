@@ -15,7 +15,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import CloseRoundedIcon from '@mui/icons-material/CloseRounded';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown.tsx';
-import { getImagePath } from '../utils/imagePath';
+import { getMitraLogoSrc, mitraLogoThemeFilter } from '../utils/mitraLogo';
 const StyledToolbar = styled(Toolbar)(({ theme }) => {
     const themeWithVars = theme;
     return {
@@ -86,12 +86,7 @@ export default function Navigation() {
     const [open, setOpen] = React.useState(false);
     const [anchorEls, setAnchorEls] = React.useState({});
     const location = useLocation();
-    // Select logo based on theme mode
-    // Dark mode uses light logo (light logo on dark background)
-    // Light mode uses dark logo (dark logo on light background)
-    const logoPath = theme.palette.mode === 'dark'
-        ? getImagePath('/mit-fr-light-1.svg')
-        : getImagePath('/mit-fr-dark-1.svg');
+    const logoSrc = getMitraLogoSrc();
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
@@ -106,7 +101,6 @@ export default function Navigation() {
             label: 'About Us',
             items: [
                 { label: 'About Us', path: '/about' },
-                { label: 'Team', path: '/team' },
                 { label: 'Partners', path: '/partners' },
             ],
         },
@@ -114,14 +108,13 @@ export default function Navigation() {
             label: 'Education',
             items: [
                 { label: 'Focus Areas', path: '/focus-areas' },
-                { label: 'Courses', path: '/courses' },
                 { label: 'Programs & Workshops', path: '/programs-workshops' },
             ],
         },
         {
             label: 'Activities',
             items: [
-                { label: 'Projects', path: '/projects' },
+                { label: 'Projects & Experience', path: '/projects' },
                 { label: 'Events', path: '/events' },
                 { label: 'Gallery', path: '/gallery' },
             ],
@@ -146,13 +139,14 @@ export default function Navigation() {
             bgcolor: 'transparent',
             backgroundImage: 'none',
             mt: 'calc(var(--template-frame-height, 0px) + 28px)',
-        }, children: _jsx(Container, { maxWidth: "lg", children: _jsxs(StyledToolbar, { variant: "dense", disableGutters: true, children: [_jsxs(Box, { sx: { flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }, children: [_jsx(Link, { to: "/", style: { textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }, children: _jsx(Box, { component: "img", src: logoPath, alt: "MITRA FRANCE", sx: {
-                                        height: { xs: 18, md: 23 },
+        }, children: _jsx(Container, { maxWidth: "lg", children: _jsxs(StyledToolbar, { variant: "dense", disableGutters: true, children: [_jsxs(Box, { sx: { flexGrow: 1, display: 'flex', alignItems: 'center', px: 0 }, children: [_jsx(Link, { to: "/", style: { textDecoration: 'none', color: 'inherit', display: 'flex', alignItems: 'center' }, children: _jsx(Box, { component: "img", src: logoSrc, alt: "MITRA FRANCE", sx: {
+                                        height: { xs: 18, md: 22 },
                                         width: 'auto',
-                                        mr: 3,
+                                        mr: 2.5,
                                         transition: 'opacity 0.3s ease',
+                                        ...mitraLogoThemeFilter(theme),
                                         '&:hover': {
-                                            opacity: 0.8,
+                                            opacity: 0.85,
                                         },
                                     } }) }), _jsx(Box, { sx: { display: { xs: 'none', md: 'flex' }, gap: 0.5, alignItems: 'center' }, children: navGroups.map((group) => {
                                     if (group.items) {
@@ -193,9 +187,10 @@ export default function Navigation() {
                                                 justifyContent: 'space-between',
                                                 alignItems: 'center',
                                                 mb: 2,
-                                            }, children: [_jsx(Box, { component: "img", src: getImagePath("/mitra-fr-logo-menu-1.svg"), alt: "MITRA FRANCE", sx: {
+                                            }, children: [_jsx(Box, { component: "img", src: logoSrc, alt: "MITRA FRANCE", sx: {
                                                         height: 18,
                                                         width: 'auto',
+                                                        ...mitraLogoThemeFilter(theme),
                                                     } }), _jsx(IconButton, { onClick: toggleDrawer(false), children: _jsx(CloseRoundedIcon, {}) })] }), allNavItems.map((item) => (_jsx(MenuItem, { component: Link, to: item.path, onClick: toggleDrawer(false), selected: location.pathname === item.path, sx: {
                                                 borderRadius: 1,
                                                 mb: 0.5,
